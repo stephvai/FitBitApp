@@ -1,6 +1,7 @@
-# Compiled Class Files#
+# Compiled Class Files #
+########################
 *.class
-
-# Eclipse Generated Files#
+# Eclipse Generated Files #
+###########################
 .project
 .classpath
