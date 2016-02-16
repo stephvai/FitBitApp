@@ -1,148 +1,200 @@
 import java.io.*;
 
+//TODO add image when is achieved
+
 public class GoalTracker {
 
- /*Instance variables */
+    /*
+    * Instance variables
+    */
+    private float stepsProgress;
+    private float distanceProgress;
+    private float caloriesProgress;
+    private float floorsClimbedProgress;
+    private float activeMinutesProgress;
+    private float sedentaryMinutesProgress;
 
- private int steps;
- private int distance;
- private int caloriesBurned;
- private int floorsClimbed;
- private int activeMinutes;
- private int sedentaryMinutes;
- private Goal[] goalArray;
+    private Goal[] goalArray;
 
+    /*constructor
+    This method will create a Goal array of 6 and load the settings of the user.
+    */
+    
+    public  GoalTracker() {
+        this.goalArray = new Goal[6];
+       
+			try {
+				this.loadProgress();
+			} catch (ClassNotFoundException | IOException e) {
+				e.printStackTrace();
+			}
+	
+        this.updateProgress();
 
- /*constructor
- This method will create a Goal array of 10 and load the progress of the user.
- */
- public void GoalTracker() {
-  this.goalArray = new Goal[10];
-  loadProgress();
- }
-
-
- /***********Getters***********/
-
- public int getSteps() {
-  return this.steps;
- }
-
- public int getDistance() {
-  return this.distance;
- }
-
- public int getcaloriesBurned() {
-  return this.caloriesBurned;
- }
-
- public int getFloorsCLimbed() {
-  return this.gloorsClimbed;
- }
-
- public int getActiveMinutes() {
-  return this.activeMinutes;
- }
-
- public int getsedentaryMinutes() {
-  return this.sedentaryMinutes;
- }
-
- /***************Setters****************************/
-
- public void setSteps(int steps) {
-  this.steps = steps;
- }
-
- public void setDistance(int distance) {
-  this.distance = distance;
- }
-
- public void setcaloriesBurned(int caloriesBurned) {
-  this.caloriesBurned = caloriesBurned;
- }
-
- public void setFloorsCLimbed(int floorsClimbed) {
-  this.floorsClimbed = floorsClimbed;
- }
-
- public void setActiveMinutes(int activeMinutes) {
-  this.activeMinutes = activeMinutes;
- }
-
- public void setsedentaryMinutes(int sedentaryMinutes) {
-  this.sedentaryMinutes = sedentaryMinutes;
- }
+}
 
 
- /****************************methods *********************************/
+/****************************methods 
+ * @throws IOException 
+ * @throws ClassNotFoundException *********************************/
 
- /*this method will load the file and store it's progress*/
- public void loadProgress() {
-  try {
-   // Input stream to read the file
-   FileInputStream saveFile = new FileInputStream("saveFile.sav");
+/*this method will load the file and store it's progress*/
+public void loadProgress() throws IOException, ClassNotFoundException {
 
-   //restores the variables stored in the object
-   ObjectInputStream save = ObjectInputStream(saveFile);
+        // Input stream to read the file
+	
+		FileInputStream	saveFile = new FileInputStream("Pref.ini");
+		
 
-   //cast to read the object
-   this.steps = (int) save.readObject();
-   this.distance = (int) save.readObject();
-   this.caloriesBurned = (int) save.readObject();
-   this.floorsClimbed = (int) save.readObject();
-   this.activeMinutes = (int) save.readObject();
-   this.sedentaryMinutes = (int) save.readObject();
+        //restores the variables stored in the object
+        ObjectInputStream save = new ObjectInputStream(saveFile);
 
-   save.close();
-  }
-  //TODO add exception in case of null file.
- }
+        //cast to read the object
+        this.goalArray = (Goal[]) save.readObject();
+
+        save.close();
+   
+}
 
 
 /////////////////////////////////////////////////////////////////
- /*This method will save a user progress*/
- public void saveProgress() {
+/*This method will save a user progress*/
+public void saveProgress() throws IOException {
 
-  try {
-   // Opens a file to write to called saveObj
-   FileOutputStream saveFile = new FileOutputStream("saveFile.sav");
 
-   //Creates an ObjectOutputStream to put files into.
-   ObjectOutputStream save = new ObjectOutputStream(saveFile);
+            // Opens a file to write to called saveObj
+            FileOutputStream saveFile;
+			try {
+				saveFile = new FileOutputStream("Pref.ini");
+			} catch (FileNotFoundException e) {
+				File newFile = new File("Pref.ini");
+				saveFile = new FileOutputStream(newFile);
+			}
 
-   //saves all the data to the object
-   save.writeObject(this.steps);
-   save.writeObject(this.distance);
-   save.writeObject(this.caloriesBurned);
-   save.writeObject(this.floorsClimbed);
-   save.writeObject(this.activeMinutes);
-   save.writeObject(this.sedentaryMinutes);
+            //Creates an ObjectOutputStream to put files into.
+            ObjectOutputStream save = new ObjectOutputStream(saveFile);
 
-   //close the outputstream
-   save.close();
-  }
-  //TODO add null exception handler
+            //saves all the data to the object
+            save.writeObject(this.goalArray);
 
- }
-///////////////////////////////////////////////////////////////////
-//Verify if the goal was achieved 
-public static boolean isAchieved(int apiData, int goalData ){
-if(apiData >= goalData)
-return true;
-else
-	return false;
+            //close the outputstream
+            save.close();
 
+
+    }
+    ///////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////
+/*type of goals
+ * 0 steps
+ * 1 distance
+ * 2 calorieBurned
+ * 3 floorsClimbed
+ * 4 activeMinutes
+ * 5 sedentaryMinutes
+ */
+public void setGoal(int goal, int type) {
+    Goal goalObj = new Goal();
+    
+    if(type ==0){ //sets the goal for the steps.
+    	goalObj.setSteps(goal);
+    	this.goalArray[0] = goalObj;
+    	return;
+    }
+    if(type==1){
+    	goalObj.setDistance(goal);
+    	this.goalArray[1] = goalObj;
+    	return;
+    }
+    if(type==2){
+    	goalObj.setCalories(goal);
+    	this.goalArray[2] = goalObj;
+    	return;
+    }
+    if(type==3){
+    	goalObj.setFloorsClimbed(goal);
+    	this.goalArray[3] = goalObj;
+    	return;
+    }
+    if(type==4){
+    	goalObj.setActiveMinutes(goal);
+    	this.goalArray[4] = goalObj;
+    	return;
+    }
+    if(type==5){
+    	goalObj.setSedentaryMinutes(goal);
+    	this.goalArray[5] = goalObj;
+    	return;
+    }
+    	
 }
+
+//////////////////////////////////////////////////////////////////////////
+
+
+/*This method will update the progress of your goal by seeing if it over 100% and set it to achieved if it is the case */
+
+public void updateProgress() {
+
+    APIData source = new APIData(); // gather the data
+
+    int APIsteps = source.getSteps();
+    if (this.goalArray[0] !=null) { //steps goal
+        this.stepsProgress =  (float) this.goalArray[0].getTarget() / APIsteps * 100.0f;
+
+        if (this.stepsProgress >= 100)
+            this.goalArray[0].setAchieved();
+    }
+
+    int APIdistance = source.getDistance();
+    if (this.goalArray[1]!=null) { //distance goal
+        this.distanceProgress = (float) this.goalArray[1].getTarget() / APIsteps * 100.0f;
+
+        if (this.distanceProgress >= 100)
+            this.goalArray[1].setAchieved();
+    }
+
+
+    int APIcalories = source.getCalories();
+    if (this.goalArray[2]!=null) { //calories goal
+        this.caloriesProgress = (float) this.goalArray[2].getTarget() / APIcalories * 100.0f;
+
+        if (this.caloriesProgress >= 100)
+            this.goalArray[2].setAchieved();
+    }
+
+    int APIfloors = source.floorsClimbed();
+    if (this.goalArray[3]!=null) { //floors goal
+        this.floorsClimbedProgress = (float) this.goalArray[3].getTarget() / APIfloors * 100.0f;
+
+        if (this.floorsClimbedProgress >= 100)
+            this.goalArray[3].setAchieved();
+    }
+
+
+    int APIactiveMinutes = source.getActiveMinutes();
+    if (this.goalArray[4]!=null){ //activeMinutes goal
+        this.activeMinutesProgress = (float) this.goalArray[4].getTarget() / APIactiveMinutes * 100.0f;
+
+    if (this.activeMinutesProgress >= 100)
+        this.goalArray[4].setAchieved();
+}
+
+int APIsedentaryMinutes = source.getSendentaryMinutes();
+if (this.goalArray[5]!=null) { //sedentary minutes goal
+    this.sedentaryMinutesProgress = (float) this.goalArray[5].getTarget() / APIsedentaryMinutes * 100.0f;
+
+    if (this.sedentaryMinutesProgress >= 100)
+        this.goalArray[5].setAchieved();
+}
+
 
 /////////////////////////////////////////////////////////////////////
 
 
 
 
-
-
-
+}
 
 
 }
