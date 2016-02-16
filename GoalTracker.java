@@ -1,193 +1,186 @@
 import java.io.*;
 
+//TODO add image when is achieved
+//TODO add exception handling
+
 public class GoalTracker {
 
-/*
-***********************************************************
- Store these types in the following array locations 
-	steps; //0
-	distance; //1
-	caloriesBurned; //2
-	floorsClimbed; //3
-	activeMinutes;//4
-	sedentaryMinutes; //5
-*********************************************************
- Instance variables
-*/ 
-private float stepsProgress;
-private float distanceProgress;
-private float caloriesProgress;
-private float floorsClimbedProgress;
-private float activeMinutesProgress;
-private float sedentaryMinutesProgress;
+    /*
+    * Instance variables
+    */
+    private float stepsProgress;
+    private float distanceProgress;
+    private float caloriesProgress;
+    private float floorsClimbedProgress;
+    private float activeMinutesProgress;
+    private float sedentaryMinutesProgress;
 
- private Goal[] goalArray;
+    private Goal[] goalArray;
 
- /*constructor
- This method will create a Goal array of 6 and load the settings of the user.
- */
- public void GoalTracker() {
-  this.goalArray = new Goal[6];
-  try{
-  this.loadProgress();
-  }catch(ioexption) //TODO FIX EXCEPTION HANDLING
-  
-  this.updateProgress();
-  }
- 
- }
+    /*constructor
+    This method will create a Goal array of 6 and load the settings of the user.
+    */
+    
+    public  GoalTracker() {
+        this.goalArray = new Goal[6];
+        this.loadProgress();
+        this.updateProgress();
+
+}
 
 
- /***********Getters***********/
+/****************************methods *********************************/
 
- public Goal getGoalArray(){
-return this.goalArray;	 
- }
+/*this method will load the file and store it's progress*/
+public void loadProgress() {
 
- /***************Setters****************************/
+        // Input stream to read the file
+        FileInputStream saveFile;
+		try {
+			saveFile = new FileInputStream("Pref.ini");
+		} catch (FileNotFoundException e) {
+			throw new Exception(); //TODO FIX Exception handling
+		}
 
+        //restores the variables stored in the object
+        ObjectInputStream save = new ObjectInputStream(saveFile);
 
+        //cast to read the object
+        this.goalArray = (Goal[]) save.readObject();
 
- /****************************methods *********************************/
-
- /*this method will load the file and store it's progress*/
- public void loadProgress() {
-  try {
-   // Input stream to read the file
-   FileInputStream saveFile = new FileInputStream("saveFile.sav");
-
-   //restores the variables stored in the object
-   ObjectInputStream save = ObjectInputStream(saveFile);
-
-   //cast to read the object
-   this.steps = (Goal) save.readObject();
+        save.close();
    
-   save.close();
-  }
-  //TODO add exception in case of null file.
- }
+    //TODO add exception in case of null file.
+}
 
 
 /////////////////////////////////////////////////////////////////
- /*This method will save a user progress*/
- public void saveProgress() {
+/*This method will save a user progress*/
+public void saveProgress() {
 
-  try {
-   // Opens a file to write to called saveObj
-   FileOutputStream saveFile = new FileOutputStream("saveFile.sav");
 
-   //Creates an ObjectOutputStream to put files into.
-   ObjectOutputStream save = new ObjectOutputStream(saveFile);
+            // Opens a file to write to called saveObj
+            FileOutputStream saveFile = new FileOutputStream("Pref.ini");
 
-   //saves all the data to the object
-   save.writeObject(this.goalArray);
+            //Creates an ObjectOutputStream to put files into.
+            ObjectOutputStream save = new ObjectOutputStream(saveFile);
 
-   //close the outputstream
-   save.close();
-  }
-  //TODO add null exception handler
+            //saves all the data to the object
+            save.writeObject(this.goalArray);
 
- }
-///////////////////////////////////////////////////////////////////
-//Verify if the goal was achieved 
-public boolean isAchieved(int apiData, int goalData){
-if(apiData >= goalData)
-this.getGoalArray.setAcheived(true);
-return true;
-else
-	return false;
+            //close the outputstream
+            save.close();
 
-}
+        //TODO add null exception handler
+
+    }
+    ///////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////
-public void setGoal(int goal, String type){
-Goal goalObj = new Goal();
-goalObj.setTarget(goal); //this method sets the target for the Goal object
-this.insertArray(type, goalObj); // this method will store the object in the appropriate depending on their type.
+/*type of goals
+ * 0 steps
+ * 1 distance
+ * 2 calorieBurned
+ * 3 floorsClimbed
+ * 4 activeMinutes
+ * 5 sedentaryMinutes
+ */
+public void setGoal(int goal, int type) {
+    Goal goalObj = new Goal();
+    
+    if(type ==0){ //sets the goal for the steps.
+    	goalObj.setSteps(goal);
+    	this.goalArray[0] = goalObj;
+    }
+    if(type==1){
+    	goalObj.setDistance(goal);
+    	this.goalArray[1] = goalObj;
+    }
+    if(type==2){
+    	goalObj.setCalories(goal);
+    	this.goalArray[2] = goalObj;
+    }
+    if(type==3){
+    	goalObj.setFloorsClimbed(goal);
+    	this.goalArray[3] = goalObj;
+    }
+    if(type==4){
+    	goalObj.setActiveMinutes(goal);
+    	this.goalArray[4] = goalObj;
+    }
+    if(type==5){
+    	goalObj.setSedentaryMinutes(goal);
+    	this.goalArray[5] = goalObj;
+    }
+    	
 }
 
-/////////////////////////////////////////////////////////////////////
-/*Helper method*/
-private insertArray(String type, Goal goal){	
+//////////////////////////////////////////////////////////////////////////
 
-switch(type.toLowerCase()){
 
-case "steps":
-this.goalArray[0] = goal;
-break;
+/*This method will update the progress of your goal by seeing if it over 100% and set it to achieved if it is the case */
 
-case "distance":
-this.goalArray[1]= goal;
-break;
+public void updateProgress() {
 
-case "caloriesburned":
-this.goalArray[2]= goal;
-break;
+    APIData source = new APIData(); // gather the data
 
-case "floorsclimbed":
-this.goalArray[3]= goal;
-break;
+    int APIsteps = source.getSteps();
+    if (this.goalArray[0] !=null) { //steps goal
+        this.stepsProgress =  (float) this.goalArray[0].getTarget() / APIsteps * 100.0f;
 
-case "activeminutes":
-this.goalArray[4]= goal;
-break;
+        if (this.stepsProgress >= 100)
+            this.goalArray[0].setAchieved();
+    }
 
-case "sedentaryminutes":
-this.goalArray[5]=goal;
-break;
+    int APIdistance = source.getDistance();
+    if (this.goalArray[1]!=null) { //distance goal
+        this.distanceProgress = (float) this.goalArray[1].getTarget() / APIsteps * 100.0f;
 
-default:
-System.out.println("Please enter a valid type");
-break;	
+        if (this.distanceProgress >= 100)
+            this.goalArray[1].setAchieved();
+    }
+
+
+    int APIcalories = source.getCalories();
+    if (this.goalArray[2]!=null) { //calories goal
+        this.caloriesProgress = (float) this.goalArray[2].getTarget() / APIcalories * 100.0f;
+
+        if (this.caloriesProgress >= 100)
+            this.goalArray[2].setAchieved();
+    }
+
+    int APIfloors = source.floorsClimbed();
+    if (this.goalArray[3]!=null) { //floors goal
+        this.floorsClimbedProgress = (float) this.goalArray[3].getTarget() / APIfloors * 100.0f;
+
+        if (this.floorsClimbedProgress >= 100)
+            this.goalArray[3].setAchieved();
+    }
+
+
+    int APIactiveMinutes = source.getActiveMinutes();
+    if (this.goalArray[4]!=null){ //activeMinutes goal
+        this.activeMinutesProgress = (float) this.goalArray[4].getTarget() / APIactiveMinutes * 100.0f;
+
+    if (this.activeMinutesProgress >= 100)
+        this.goalArray[4].setAchieved();
 }
-return;
-}
-/////////////////////////////////////////////////////
-
-
-public getGoal(){
-this.goalArray;
-}
-
-
-
-public void updateProgress(){
-	
-APIData source = new APIData(); // gather the data
-
-int APIsteps = source.getSteps();
-if(this.goalArray[0]) //steps goal
-this.stepsProgress = (float)this.getGoalArray[0] / APIsteps *100;
-
-
-int APIdistance = source.getDistance();
-if(this.goalArray[1]) //distance goal
-this.distanceProgress = (float)this.getGoalArray[1] / APIsteps *100;
-
-int APIcalories = source.getCalories();
-if(this.goalArray[2]) //calories goal
-this.caloriesProgress = (float)this.getGoalArray[2] / APIcalories *100;
-
-int APIfloors = source.floorsClimbed();
-if(this.goalArray[3]) //floors goal
-this.floorsClimbedProgress = (float)this.getGoalArray[3] / APIfloors *100;
-
-int APIactiveMinutes = source.getActiveMinutes();
-if(this.goalArray[4]) //activeMinutes goal
-this.activeMinutesProgress = (float)this.getGoalArray[4] / APIactiveMinutes * 100;
 
 int APIsedentaryMinutes = source.getSendentaryMinutes();
-if(this.goalArray[5]) //sedentary minutes goal
-this.sedentaryMinutesProgress = (float) this.getGoalArray[5] / APIsedentaryMinutes * 100;
-	
-	
+if (this.goalArray[5]!=null) { //sedentary minutes goal
+    this.sedentaryMinutesProgress = (float) this.goalArray[5].getTarget() / APIsedentaryMinutes * 100.0f;
+
+    if (this.sedentaryMinutesProgress >= 100)
+        this.goalArray[5].setAchieved();
 }
 
 
+/////////////////////////////////////////////////////////////////////
 
 
 
 
+}
 
 
 }
