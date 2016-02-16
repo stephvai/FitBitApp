@@ -1,3 +1,5 @@
+//TODO add achieved and non achieved image
+
 public class Goal {
 
     private int target;

@@ -54,7 +54,6 @@ public void loadProgress() throws IOException, ClassNotFoundException {
 
         save.close();
    
-    //TODO add exception in case of null file.
 }
 
 
@@ -81,7 +80,6 @@ public void saveProgress() throws IOException {
             //close the outputstream
             save.close();
 
-        //TODO add null exception handler
 
     }
     ///////////////////////////////////////////////////////////////////
@@ -101,26 +99,32 @@ public void setGoal(int goal, int type) {
     if(type ==0){ //sets the goal for the steps.
     	goalObj.setSteps(goal);
     	this.goalArray[0] = goalObj;
+    	return;
     }
     if(type==1){
     	goalObj.setDistance(goal);
     	this.goalArray[1] = goalObj;
+    	return;
     }
     if(type==2){
     	goalObj.setCalories(goal);
     	this.goalArray[2] = goalObj;
+    	return;
     }
     if(type==3){
     	goalObj.setFloorsClimbed(goal);
     	this.goalArray[3] = goalObj;
+    	return;
     }
     if(type==4){
     	goalObj.setActiveMinutes(goal);
     	this.goalArray[4] = goalObj;
+    	return;
     }
     if(type==5){
     	goalObj.setSedentaryMinutes(goal);
     	this.goalArray[5] = goalObj;
+    	return;
     }
     	
 }
