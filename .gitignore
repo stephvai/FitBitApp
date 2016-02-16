@@ -1,0 +1,6 @@
+# Compiled Class Files#
+*.class
+
+# Eclipse Generated Files#
+.project
+.classpath
