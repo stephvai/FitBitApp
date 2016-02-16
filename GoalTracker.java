@@ -1,7 +1,6 @@
 import java.io.*;
 
 //TODO add image when is achieved
-//TODO add exception handling
 
 public class GoalTracker {
 
@@ -23,24 +22,29 @@ public class GoalTracker {
     
     public  GoalTracker() {
         this.goalArray = new Goal[6];
-        this.loadProgress();
+       
+			try {
+				this.loadProgress();
+			} catch (ClassNotFoundException | IOException e) {
+				e.printStackTrace();
+			}
+	
         this.updateProgress();
 
 }
 
 
-/****************************methods *********************************/
+/****************************methods 
+ * @throws IOException 
+ * @throws ClassNotFoundException *********************************/
 
 /*this method will load the file and store it's progress*/
-public void loadProgress() {
+public void loadProgress() throws IOException, ClassNotFoundException {
 
         // Input stream to read the file
-        FileInputStream saveFile;
-		try {
-			saveFile = new FileInputStream("Pref.ini");
-		} catch (FileNotFoundException e) {
-			throw new Exception(); //TODO FIX Exception handling
-		}
+	
+		FileInputStream	saveFile = new FileInputStream("Pref.ini");
+		
 
         //restores the variables stored in the object
         ObjectInputStream save = new ObjectInputStream(saveFile);
@@ -56,11 +60,17 @@ public void loadProgress() {
 
 /////////////////////////////////////////////////////////////////
 /*This method will save a user progress*/
-public void saveProgress() {
+public void saveProgress() throws IOException {
 
 
             // Opens a file to write to called saveObj
-            FileOutputStream saveFile = new FileOutputStream("Pref.ini");
+            FileOutputStream saveFile;
+			try {
+				saveFile = new FileOutputStream("Pref.ini");
+			} catch (FileNotFoundException e) {
+				File newFile = new File("Pref.ini");
+				saveFile = new FileOutputStream(newFile);
+			}
 
             //Creates an ObjectOutputStream to put files into.
             ObjectOutputStream save = new ObjectOutputStream(saveFile);
