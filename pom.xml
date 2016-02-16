@@ -1,24 +1,18 @@
 <project>
-
   <modelVersion> 4.0.0 </modelVersion>
-
   <groupId> ca.uwo.csd.cs2212.team08 </groupId>
-
   <artifactId> team08_app </artifactId>
-
   <packaging> jar </packaging>
-
   <version> 1.0-SNAPSHOT </version>
-  
+  <!-- Repositories -->
   <repositories>
     <repository>
       <id>cs2212</id>
       <name>CS2212 Course Repo</name>
       <url>http://www.csd.uwo.ca/~mlocke2/</url>
     </repository>
-  
   </repositories>
-  
+  <!-- Dependencies -->
   <dependencies>
        <dependency>
         <groupId>org.json</groupId>
@@ -35,6 +29,4 @@
         <version>2.2.2-CS2212</version>
     </dependency>
   </dependencies>
-
 </project>
-
