@@ -1,0 +1,2 @@
+INDEX VERSION 1.127+C:\Users\Jamie\courses\cs2212\clone\team08\.metadata\.plugins\org.eclipse.jdt.core
+2847494998.index
