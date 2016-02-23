@@ -1,6 +1,7 @@
 # Compiled Class Files #
 ########################
 *.class
+target/
 # Eclipse Generated Files #
 ###########################
 .project
