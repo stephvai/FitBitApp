@@ -19,32 +19,34 @@ public class GoalTracker {
     /*constructor
     This method will create a Goal array of 6 and load the settings of the user.
     */
-    
+
     public  GoalTracker() {
         this.goalArray = new Goal[6];
-       
+
 			try {
 				this.loadProgress();
-			} catch (ClassNotFoundException | IOException e) {
+			} catch (ClassNotFoundException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
 				e.printStackTrace();
 			}
-	
+
         this.updateProgress();
 
 }
 
 
-/****************************methods 
- * @throws IOException 
+/****************************methods
+ * @throws IOException
  * @throws ClassNotFoundException *********************************/
 
 /*this method will load the file and store it's progress*/
 public void loadProgress() throws IOException, ClassNotFoundException {
 
         // Input stream to read the file
-	
+
 		FileInputStream	saveFile = new FileInputStream("Pref.ini");
-		
+
 
         //restores the variables stored in the object
         ObjectInputStream save = new ObjectInputStream(saveFile);
@@ -53,7 +55,7 @@ public void loadProgress() throws IOException, ClassNotFoundException {
         this.goalArray = (Goal[]) save.readObject();
 
         save.close();
-   
+
 }
 
 
@@ -95,7 +97,7 @@ public void saveProgress() throws IOException {
  */
 public void setGoal(int goal, int type) {
     Goal goalObj = new Goal();
-    
+
     if(type ==0){ //sets the goal for the steps.
     	goalObj.setSteps(goal);
     	this.goalArray[0] = goalObj;
@@ -126,7 +128,7 @@ public void setGoal(int goal, int type) {
     	this.goalArray[5] = goalObj;
     	return;
     }
-    	
+
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -163,7 +165,7 @@ public void updateProgress() {
             this.goalArray[2].setAchieved();
     }
 
-    int APIfloors = source.floorsClimbed();
+    int APIfloors = source.getFloorsClimbed();
     if (this.goalArray[3]!=null) { //floors goal
         this.floorsClimbedProgress = (float) this.goalArray[3].getTarget() / APIfloors * 100.0f;
 
