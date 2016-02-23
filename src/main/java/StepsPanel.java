@@ -1,4 +1,4 @@
-package team08_app;
+package ca.uwo.csd.cs2212.team08;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -39,6 +39,7 @@ public class StepsPanel extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MainScreen main = new MainScreen();
+				main.setVisible(true);
 				dispose();
 			}
 		});

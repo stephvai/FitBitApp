@@ -1,4 +1,4 @@
-package team08_app;
+package ca.uwo.csd.cs2212.team08;
 
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 
 public class DashBoardPanel extends JPanel {
-	private static final int WIDTH = 300;
-	private static final int HEIGHT = 150;
+	private static final int WIDTH = 3000;
+	private static final int HEIGHT = 1500;
 
 	/**
 	 * creates a new panel for the daily dashboard
