@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JTextPane;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class StepsPanel extends JFrame {
 
@@ -31,7 +33,7 @@ public class StepsPanel extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		JButton btnBack = new JButton("Back");
 		btnBack.setBounds(5, 5, 84, 41);
 		btnBack.addActionListener(new ActionListener() {
@@ -43,7 +45,7 @@ public class StepsPanel extends JFrame {
 		contentPane.setLayout(null);
 		btnBack.setHorizontalAlignment(SwingConstants.LEFT);
 		contentPane.add(btnBack);
-		
+
 		JLabel lblTitle = new JLabel("STEPS");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		lblTitle.setBounds(491, 21, 133, 70);
