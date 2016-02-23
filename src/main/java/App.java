@@ -1,9 +1,11 @@
-package team08_app;
+package ca.uwo.csd.cs2212.team08;
 import javax.swing.SwingUtilities;
 
 public class App {
 
 	public static void main (String args[]){
+		System.out.println("Hello World");
+		/*
 		 SwingUtilities.invokeLater(new Runnable() {
              @Override
              public void run() {
@@ -11,5 +13,5 @@ public class App {
                    window.setVisible(true);
              }
         }); }
+				*/
 	}
-
