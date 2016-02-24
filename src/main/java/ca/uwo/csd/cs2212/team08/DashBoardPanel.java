@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 
 public class DashBoardPanel extends JPanel {
-	private static final int WIDTH = 300;
-	private static final int HEIGHT = 150;
+	private static final int WIDTH = 50;
+	private static final int HEIGHT = 70;
 
 	/**
 	 * creates a new panel for the daily dashboard
@@ -21,6 +21,7 @@ public class DashBoardPanel extends JPanel {
 	{
 		JPanel panel = new JPanel();
 		Rectangle r = new Rectangle(x, y, WIDTH, HEIGHT);
+		panel.setSize(WIDTH, HEIGHT);
 		panel.setBounds(r);
 		
 	}

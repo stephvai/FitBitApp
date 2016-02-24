@@ -7,6 +7,10 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.border.EmptyBorder;
+import java.awt.Panel;
 
 public class MainScreen extends JFrame {
 	
@@ -21,19 +25,34 @@ public class MainScreen extends JFrame {
 	    	 this.setSize(700, 700); //size- we can change this
 	    	 this.setLocationRelativeTo(null); 
 	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	    	 contentPane = new JPanel();
+	    	 contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+	    	 setContentPane(contentPane);
 
 	    	 //created a steps panel that when clicked launches the steps page
-	    	 DashBoardPanel pnlSteps = new DashBoardPanel(75, 200);
+	    	 DashBoardPanel pnlSteps = new DashBoardPanel(75, 500);
+	    	 pnlSteps.setLocation(202, 21);
+	    	 pnlSteps.setSize(111, 123);
 	    	 pnlSteps.setBackground(Color.BLACK);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click here!
 	    			 StepsPanel steps = new StepsPanel();
+	    			 steps.setVisible(true);
 	    			 dispose();
 	    		 }
 	    	 });
+	    	 contentPane.setLayout(null);
 	    	 contentPane.add(pnlSteps);
+	    	 
+	    	 
+	    	 
+	    	 //add a label 
+	 		JLabel lblTitle = new JLabel("Fit Bit");
+			lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 27));
+			lblTitle.setBounds(318, 10, 68, 33);
+			contentPane.add(lblTitle);
 	     }
 }
 
