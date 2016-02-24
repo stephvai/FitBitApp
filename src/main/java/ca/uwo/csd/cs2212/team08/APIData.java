@@ -21,20 +21,19 @@ import java.net.URI;
 import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import com.github.scribejava.core.model.*; //Request Verb
 
-//TODO
+//TODO ADD try / catch and exception handling for JSON parsing
 
 public class APIData {
 
   //Instance variables for user data
-  private int userSteps;
-  private int userDistance;
-  private int userCalories;
-  private int userFloorsClimbed;
-  private int userActiveMinutes;
-  private int userSendentaryMinutes;
+  private int userDailySteps;
+  private int userDailyDistance;
+  private int userDailyCalories;
+  private int userDailyFloorsClimbed;
+  private int userDailyActiveMinutes;
+  private int userDailySendentaryMinutes;
   //Instance variables used when getting data from APIData
   private static String CALL_BACK_URI="http://localhost:8080";
   private static int CALL_BACK_PORT=8080;
@@ -43,7 +42,10 @@ public class APIData {
 	  
   }
   
-  public void refreshData(int day, int month, int year) {
+  /********************************************************
+   * 				Main Refresh Method					  *
+   ********************************************************/
+  public void refreshDashBoardData(int day, int month, int year) {
     //read credentials from a file
     BufferedReader bufferedReader=null;
     // This will reference one line at a time
@@ -232,48 +234,70 @@ public class APIData {
                         "Error closing file\n"+e.getMessage());
             }
         }//end try
-
+        JSONObject obj = new JSONObject(response.getBody());
+        parseFloors(obj);
   }
+  
+  /********************************************************
+   * 	  Helper Methods to parse the JSON files		  *
+   * 	        that are returned by the API 	 		  *
+   ********************************************************/
+  
+  /**
+   * 
+   * @param obj pass in a JSON object containing 
+   */
+  private void parseFloors(JSONObject obj) {
+	  JSONArray floorsArray = obj.getJSONArray("activities-floors");
+	  JSONObject floorsData = floorsArray.getJSONObject(0);
+	  this.userDailyFloorsClimbed = floorsData.getInt("value");
+  }
+
+  /********************************************************
+   * 						Getters						  *
+   ********************************************************/
+  
   /**
    * 
    * @return number of steps the user has walked for the day
    */
   public int getSteps() {
-    return this.userSteps;
+    return this.userDailySteps;
   }
   /**
    * 
    * @return total distance the user has traveled for the day
    */
   public int getDistance() {
-    return this.userDistance;
+    return this.userDailyDistance;
   }
   /**
    * 
    * @return total calories the user has burned for the day
    */
   public int getCalories() {
-    return this.userCalories;
+    return this.userDailyCalories;
   }
   /**
    * 
    * @return total number of floors the user has climbed for the day
    */
   public int getFloorsClimbed() {
-    return this.userFloorsClimbed;
+    return this.userDailyFloorsClimbed;
   }
+  
   /**
    * 
    * @return total number of active minutes the user has acheived for the day
    */
   public int getActiveMinutes() {
-    return this.userActiveMinutes;
+    return this.userDailyActiveMinutes;
   }
   /**
    * 
    * @return total number of sendentary minutes for the day
    */
   public int getSendentaryMinutes() {
-    return this.userSendentaryMinutes;
+    return this.userDailySendentaryMinutes;
   }
 }
