@@ -42,7 +42,7 @@ public class APIData {
   public APIData() {
 	  
   }
-
+  
   public void refreshData(int day, int month, int year) {
     //read credentials from a file
     BufferedReader bufferedReader=null;
@@ -234,27 +234,45 @@ public class APIData {
         }//end try
 
   }
-
+  /**
+   * 
+   * @return number of steps the user has walked for the day
+   */
   public int getSteps() {
     return this.userSteps;
   }
-
+  /**
+   * 
+   * @return total distance the user has traveled for the day
+   */
   public int getDistance() {
     return this.userDistance;
   }
-
+  /**
+   * 
+   * @return total calories the user has burned for the day
+   */
   public int getCalories() {
     return this.userCalories;
   }
-
+  /**
+   * 
+   * @return total number of floors the user has climbed for the day
+   */
   public int getFloorsClimbed() {
     return this.userFloorsClimbed;
   }
-
+  /**
+   * 
+   * @return total number of active minutes the user has acheived for the day
+   */
   public int getActiveMinutes() {
     return this.userActiveMinutes;
   }
-
+  /**
+   * 
+   * @return total number of sendentary minutes for the day
+   */
   public int getSendentaryMinutes() {
     return this.userSendentaryMinutes;
   }
