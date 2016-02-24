@@ -1,3 +1,5 @@
+package ca.uwo.csd.cs2212.team08;
+
 import java.io.*;
 
 //TODO add image when is achieved
