@@ -1,4 +1,4 @@
-package team08_app;
+package ca.uwo.csd.cs2212.team08;
 
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;

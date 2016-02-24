@@ -1,3 +1,4 @@
+package ca.uwo.csd.cs2212.team08;
 //TODO add achieved and non achieved image
 
 public class Goal {

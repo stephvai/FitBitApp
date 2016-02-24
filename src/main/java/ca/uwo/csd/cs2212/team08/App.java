@@ -5,6 +5,8 @@ public class App {
 
 	public static void main (String args[]){
 		System.out.println("Hello World");
+		APIData data = new APIData();
+		data.refreshData(1, 1, 1);
 		/*
 		 SwingUtilities.invokeLater(new Runnable() {
              @Override

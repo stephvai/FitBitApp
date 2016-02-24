@@ -1,4 +1,5 @@
-package team08_app;
+package ca.uwo.csd.cs2212.team08;
+
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
