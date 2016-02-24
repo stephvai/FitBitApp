@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.border.EmptyBorder;
+import java.awt.Panel;
 
 public class MainScreen extends JFrame {
 	
@@ -30,7 +31,8 @@ public class MainScreen extends JFrame {
 
 	    	 //created a steps panel that when clicked launches the steps page
 	    	 DashBoardPanel pnlSteps = new DashBoardPanel(75, 500);
-	    	 pnlSteps.setSize(220, 100);
+	    	 pnlSteps.setLocation(202, 21);
+	    	 pnlSteps.setSize(111, 123);
 	    	 pnlSteps.setBackground(Color.BLACK);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -41,12 +43,15 @@ public class MainScreen extends JFrame {
 	    			 dispose();
 	    		 }
 	    	 });
+	    	 contentPane.setLayout(null);
 	    	 contentPane.add(pnlSteps);
+	    	 
+	    	 
 	    	 
 	    	 //add a label 
 	 		JLabel lblTitle = new JLabel("Fit Bit");
 			lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 27));
-			lblTitle.setBounds(491, 21, 133, 70);
+			lblTitle.setBounds(318, 10, 68, 33);
 			contentPane.add(lblTitle);
 	     }
 }
