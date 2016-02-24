@@ -30,6 +30,7 @@ public class StepsPanel extends JFrame {
 		setTitle("team08-Fitbit");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1252, 740);
+		this.setLocationRelativeTo(null); 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -39,6 +40,7 @@ public class StepsPanel extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MainScreen main = new MainScreen();
+				main.setVisible(true);
 				dispose();
 			}
 		});
