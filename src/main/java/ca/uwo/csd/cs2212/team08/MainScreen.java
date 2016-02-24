@@ -1,4 +1,8 @@
 package ca.uwo.csd.cs2212.team08;
+
+
+
+
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,6 +33,7 @@ public class MainScreen extends JFrame {
 
 	    	 //created a steps panel that when clicked launches the steps page
 	    	 DashBoardPanel pnlSteps = new DashBoardPanel(75, 500);
+	    	 pnlSteps.setSize(220, 100);
 	    	 pnlSteps.setBackground(Color.BLACK);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
