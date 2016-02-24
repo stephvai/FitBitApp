@@ -30,9 +30,7 @@ public class MainScreen extends JFrame {
 	    	 setContentPane(contentPane);
 
 	    	 //created a steps panel that when clicked launches the steps page
-	    	 DashBoardPanel pnlSteps = new DashBoardPanel(75, 500);
-	    	 pnlSteps.setLocation(202, 21);
-	    	 pnlSteps.setSize(111, 123);
+	    	 DashBoardPanel pnlSteps = new DashBoardPanel(202, 21);
 	    	 pnlSteps.setBackground(Color.BLACK);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override

@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 
 public class DashBoardPanel extends JPanel {
-	private static final int WIDTH = 50;
-	private static final int HEIGHT = 70;
+	private static final int WIDTH = 111;
+	private static final int HEIGHT = 123;
 
 	/**
 	 * creates a new panel for the daily dashboard
@@ -21,9 +21,9 @@ public class DashBoardPanel extends JPanel {
 	{
 		JPanel panel = new JPanel();
 		Rectangle r = new Rectangle(x, y, WIDTH, HEIGHT);
-		panel.setSize(WIDTH, HEIGHT);
+		//panel.setSize(WIDTH, HEIGHT);
 		panel.setBounds(r);
-		
+		panel.repaint();
 	}
 	/* code that can be used to track for clicks
 	   panel.addMouseListener(new MouseAdapter() {
