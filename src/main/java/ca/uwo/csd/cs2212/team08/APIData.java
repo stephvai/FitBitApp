@@ -24,27 +24,47 @@ import org.json.JSONObject;
 import com.github.scribejava.core.model.*; //Request Verb
 
 //TODO ADD try / catch and exception handling for JSON parsing
+//TODO Add Steps,Distance,Calories,Active minutes,sedentary minutes to refresh method
+//TODO Handle exceptions to log.txt instead of console from reading/writing files
 
 public class APIData {
 
-  //Instance variables for user data
+  //Instance variables for daily user data to be used on the daily dashboard 
   private int userDailySteps;
   private int userDailyDistance;
   private int userDailyCalories;
   private int userDailyFloorsClimbed;
   private int userDailyActiveMinutes;
   private int userDailySendentaryMinutes;
+  
   //Instance variables used when getting data from APIData
   private static String CALL_BACK_URI="http://localhost:8080";
   private static int CALL_BACK_PORT=8080;
-
+  
+  //values used for checking if responses are valid
+  final int successfulResponse = 1;
+  final int badRequest = -1;
+  final int expiredToken = -2;
+  final int rateLimitExceded = -3;
+  final int otherResponse = -4;
+  
+  /**
+   * Constructor for API data
+   */
   public APIData() {
 	  
   }
   
   /********************************************************
-   * 				Main Refresh Method					  *
+   *        Main Refresh Method for daily dashboard	      *
    ********************************************************/
+  
+  /**
+   * Method that refreshes all data for the daily dashboard from the API and saves it to instance variables
+   * @param day the day we are getting data for
+   * @param month the month we are getting data for
+   * @param year the year we are getting data for
+   */
   public void refreshDashBoardData(int day, int month, int year) {
     //read credentials from a file
     BufferedReader bufferedReader=null;
@@ -113,173 +133,181 @@ public class APIData {
                 .build(FitbitApi20.instance());
 
         //  The access token contains everything you will need to authenticate your requests
-        //  It can expire - at which point you will use the refresh token to refresh it
-        //  See: https://dev.fitbit.com/docs/oauth2/#refreshing-tokens
-        //    I have authenticated and given you the contents of the response to use
         OAuth2AccessToken accessToken = new OAuth2AccessToken(
                 accessTokenItself,
                 tokenType,
                 refreshToken,
                 expiresIn,
                 rawResponse);
-        // Now let's go and ask for a protected resource!
-        System.out.println("Now we're going to access a protected resource...");
-        System.out.println();
-        //Example request:
-        //    This is always the prefix (for my account)
+        
+        //The start of all request urls
         String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
+        //stores the request URL
         String requestUrl;
-        //    The URL from this point is how you ask for different information
+        
+        //First get the floors
+        
+        //Create the response, sign it and the send it
         requestUrl = requestUrlPrefix + "activities/floors/date/2016-01-07/1d/1min/time/19:15/19:30.json";
-        // This actually generates an HTTP request from the URL
-        //    -it has a header, body ect.
         OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
-
-        // This adds the information required by Fitbit to add the authorization information to the HTTP request
-        // You must do this before the request will work
-        // See: https://dev.fitbit.com/docs/oauth2/#making-requests
         service.signRequest(accessToken, request);
-        //  If you are curious
-        System.out.println(request.toString());
-        System.out.println(request.getHeaders());
-        System.out.println(request.getBodyContents());
-
-
-        //  This actually sends the request:
         Response response = request.send();
-
-        //  The HTTP response from fitbit will be in HTTP format, meaning that it has a numeric code indicating
-        //     whether is was successful (200) or not (400's or 500's), each code has a different meaning
-        System.out.println();
+        //check the response  and refresh if needed
         System.out.println("HTTP response code: "+response.getCode());
-        int statusCode = response.getCode();
-
-        switch(statusCode){
-            case 200:
-                System.out.println("Success!");
-                System.out.println("HTTP response body:\n"+response.getBody());
-                break;
-            case 400:
-                System.out.println("Bad Request - may have to talk to Beth");
-                System.out.println("HTTP response body:\n"+response.getBody());
-                break;
-            case 401:
-                System.out.println("Likely Expired Token");
-                System.out.println("HTTP response body:\n"+response.getBody());
-                System.out.println("Try to refresh");
-
-                // This uses the refresh token to get a completely new accessToken object
-                //   See:  https://dev.fitbit.com/docs/oauth2/#refreshing-tokens
-                // This accessToken is now the current one, and the old ones will not work
-                //   again.  You should save the contents of accessToken.
-                accessToken = service.refreshOAuth2AccessToken(accessToken);
-
-                // Now we can try to access the service again
-                // Make sure you create a new OAuthRequest object each time!
-                request = new OAuthRequest(Verb.GET, requestUrl, service);
-                service.signRequest(accessToken, request);
-                response = request.send();
-
-                // Hopefully got a response this time:
-                System.out.println("HTTP response code: "+response.getCode());
-                System.out.println("HTTP response body:\n"+response.getBody());
-                break;
-            case 429:
-                System.out.println("Rate limit exceeded");
-                System.out.println("HTTP response body:\n"+response.getBody());
-                break;
-            default:
-                System.out.println("HTTP response code: "+response.getCode());
-                System.out.println("HTTP response body:\n"+response.getBody());
+        int checkResponse = checkStatus(response.getCode());
+        //if token is expired refresh token and try again
+        if (checkResponse == expiredToken) {
+        	//refresh token then send it again
+        	accessToken = service.refreshOAuth2AccessToken(accessToken);
+        	request = new OAuthRequest(Verb.GET, requestUrl, service);
+            service.signRequest(accessToken, request);
+            response = request.send();
+            checkResponse = checkStatus(response.getCode());
+            System.out.println("HTTP response code after refresh: "+response.getCode());
         }
-
-        BufferedWriter bufferedWriter=null;
-        //  Save the current accessToken information for next time
-
-        // IF YOU DO NOT SAVE THE CURRENTLY ACTIVE TOKEN INFO YOU WILL NOT BE ABLE TO REFRESH
-        //   - contact Beth if this happens and she can reissue you a fresh set
-
-        try {
-            FileWriter fileWriter;
-            fileWriter =
-                    new FileWriter("src/main/resources/Team8Tokens.txt");
-            bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(accessToken.getToken());
-            bufferedWriter.newLine();
-            bufferedWriter.write(accessToken.getTokenType());
-            bufferedWriter.newLine();
-            bufferedWriter.write(accessToken.getRefreshToken());
-            bufferedWriter.newLine();
-            bufferedWriter.write(accessToken.getExpiresIn().toString() );
-            bufferedWriter.newLine();
-            bufferedWriter.write(accessToken.getRawResponse());
-            bufferedWriter.newLine();
-            bufferedWriter.close();
+        //if we get a successful request
+        if (checkResponse == successfulResponse) {
+        	System.out.println("Successful Response");
+            JSONObject obj = new JSONObject(response.getBody());
+            parseFloors(obj);
         }
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open file\n"+ex.getMessage());
+        
+        else {
+        	System.out.println("Error getting fitbit data: " + response.getCode());
         }
-        catch(IOException ex) {
-            System.out.println(
-                    "Error reading/write file\n"+ex.getMessage());
-        }
-        finally{
-            try{
-                if (bufferedWriter!=null)
-                    bufferedWriter.close();
-            }
-            catch(Exception e){
-                System.out.println(
-                        "Error closing file\n"+e.getMessage());
-            }
-        }//end try
-        JSONObject obj = new JSONObject(response.getBody());
-        parseFloors(obj);
+        
+        //Finish Getting the Floors
+        
+        //Finally save the current tokens
+        saveTokes(accessToken);
   }
   
   /********************************************************
-   * 	  Helper Methods to parse the JSON files		  *
-   * 	        that are returned by the API 	 		  *
+   * 	 		  API Request helper methods			  *
+   ********************************************************/
+  
+  private void saveTokes(OAuth2AccessToken accessToken) {
+	  BufferedWriter bufferedWriter=null;
+      //  Save the current accessToken information for next time
+
+      // IF YOU DO NOT SAVE THE CURRENTLY ACTIVE TOKEN INFO YOU WILL NOT BE ABLE TO REFRESH
+      //   - contact Beth if this happens and she can reissue you a fresh set
+
+      try {
+    	  System.out.println("Saving new tokens");
+          FileWriter fileWriter;
+          fileWriter =
+                  new FileWriter("src/main/resources/Team8Tokens.txt");
+          bufferedWriter = new BufferedWriter(fileWriter);
+          bufferedWriter.write(accessToken.getToken());
+          bufferedWriter.newLine();
+          bufferedWriter.write(accessToken.getTokenType());
+          bufferedWriter.newLine();
+          bufferedWriter.write(accessToken.getRefreshToken());
+          bufferedWriter.newLine();
+          bufferedWriter.write(accessToken.getExpiresIn().toString() );
+          bufferedWriter.newLine();
+          bufferedWriter.write(accessToken.getRawResponse());
+          bufferedWriter.newLine();
+          bufferedWriter.close();
+      }
+      catch(FileNotFoundException ex) {
+          System.out.println(
+                  "Unable to open file\n"+ex.getMessage());
+      }
+      catch(IOException ex) {
+          System.out.println(
+                  "Error reading/write file\n"+ex.getMessage());
+      }
+      finally{
+          try{
+              if (bufferedWriter!=null)
+                  bufferedWriter.close();
+          }
+          catch(Exception e){
+              System.out.println(
+                      "Error closing file\n"+e.getMessage());
+          }
+      }//end try
+  }
+  
+  /**
+   * Method that takes a HTTP status code and returns a code for what kind of response occured
+   * @param statusCode the HTTP status code provided in the response
+   * @return a value that represents what kind of response has occured 
+   */
+  private int checkStatus(int statusCode) {
+	  switch(statusCode){
+      case 200:
+          return successfulResponse;
+      case 400:
+          //Bad Request - may have to talk to Beth
+          return badRequest;
+      case 401:
+          //Likely Expired Token
+    	  return expiredToken;
+      case 429:
+          //Rate limit exceeded
+          return rateLimitExceded;
+      default:
+    	  //Some other code was returned
+          return otherResponse;
+	  }
+  }
+  
+  /********************************************************
+   * 				  JSON Parsing Methods		  		  *
    ********************************************************/
   
   /**
-   * 
-   * @param obj pass in a JSON object containing 
+   * Parse a JSON object containing the floors and saves the value to the userDailyFloorsClimbed variable 
+   * @param obj pass in a JSON object returned from the API contain the floors climbed 
    */
   private void parseFloors(JSONObject obj) {
 	  JSONArray floorsArray = obj.getJSONArray("activities-floors");
 	  JSONObject floorsData = floorsArray.getJSONObject(0);
 	  this.userDailyFloorsClimbed = floorsData.getInt("value");
   }
-
+  
+  /**
+   * Parse a JSON object containing the best days and lifetime totals and save the value to the required variables
+   * @param obj pass in a JSON object returned from the API that contains the best days
+   */
+  private void parseBestDaysLifeTimeTotals(JSONObject obj) {
+	  JSONObject bestDays = obj.getJSONObject("best").getJSONObject("total");
+	  JSONObject lifeTime = obj.getJSONObject("lifetime");
+  }
+  
   /********************************************************
    * 						Getters						  *
    ********************************************************/
   
   /**
-   * 
+   * getter that returns the users daily steps for day
    * @return number of steps the user has walked for the day
    */
   public int getSteps() {
     return this.userDailySteps;
   }
+  
   /**
-   * 
+   * getter that returns the users daily distance for the day
    * @return total distance the user has traveled for the day
    */
   public int getDistance() {
     return this.userDailyDistance;
   }
+  
   /**
-   * 
+   * getter that returns the users daily distance for the day
    * @return total calories the user has burned for the day
    */
   public int getCalories() {
     return this.userDailyCalories;
   }
+  
   /**
-   * 
+   * getter that returns the users daily floors climbed for the day
    * @return total number of floors the user has climbed for the day
    */
   public int getFloorsClimbed() {
@@ -287,17 +315,19 @@ public class APIData {
   }
   
   /**
-   * 
+   * getter that returns the number of active minutes for that day
    * @return total number of active minutes the user has acheived for the day
    */
   public int getActiveMinutes() {
     return this.userDailyActiveMinutes;
   }
+  
   /**
-   * 
+   * getter that returns the number of sendentary minutes for that day 
    * @return total number of sendentary minutes for the day
    */
   public int getSendentaryMinutes() {
     return this.userDailySendentaryMinutes;
   }
+  
 }
