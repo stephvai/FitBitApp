@@ -21,40 +21,34 @@ public class MainScreen extends JFrame {
 	     }
 	    
 	     private void initUI () {
-	    	 this.setTitle("team08-Fitbit"); //title
-	    	 this.setSize(700, 700); //size- we can change this
-	    	 this.setLocationRelativeTo(null); 
+	    	 this.setTitle("Team08 Fitbit");
+	    	 this.setSize(1080, 920);
 	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    	 contentPane = new JPanel();
 	    	 contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-	    	 setContentPane(contentPane);
+	    	 this.setContentPane(contentPane);
 	    	 contentPane.setLayout(null);
-
-	    	 //created a steps panel that when clicked launches the steps page
-	    	 DashBoardPanel pnlSteps = new DashBoardPanel(202, 21);
-	    	 pnlSteps.setSize(100, 50);
-	    	 pnlSteps.setBackground(Color.BLACK);
-	    	 //creates a mouse listener to track mouse clicks
+	    	 
+	    	 //create a dash board panel for the steps
+	    	 DashBoardPanel pnlSteps = new DashBoardPanel(150, 150);
+	    	 pnlSteps.setBackground(Color.blue);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 //what to do on button click here!
+	    			 //what to do on button click
 	    			 StepsPanel steps = new StepsPanel();
 	    			 steps.setVisible(true);
 	    			 dispose();
 	    		 }
 	    	 });
-	    	 contentPane.add(pnlSteps);
 	    	 pnlSteps.setLayout(null);
-	    	 contentPane.repaint();
+	    	 contentPane.add(pnlSteps);
 	    	 
-	    	 
-	    	 
-	    	 //add a label 
-	 		JLabel lblTitle = new JLabel("Fit Bit");
-			lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 27));
-			lblTitle.setBounds(318, 10, 68, 33);
-			contentPane.add(lblTitle);
+	    	 //create a label to display the title of the panel
+	    	 JLabel lblTitle = new JLabel("Fit Bit");
+	    	 lblTitle.setBounds(318, 10, 68, 33);
+	    	 contentPane.add(lblTitle);
+
 	     }
 }
 

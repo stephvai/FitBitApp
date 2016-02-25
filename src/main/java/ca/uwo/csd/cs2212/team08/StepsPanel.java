@@ -23,7 +23,7 @@ import java.awt.event.MouseEvent;
 public class StepsPanel extends JFrame {
 
 	private JPanel contentPane;
-	private static final String backImage = "C:/Users/James/courses/team08/src/main/resources/Placeholder.jpg";
+	private static final String backImage = "C:/Users/James/courses/team08/src/main/resources/Placeholder.png";
 
 	/**
 	 * Create the frame.
@@ -36,14 +36,8 @@ public class StepsPanel extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-
-		JLabel imgBack = new JLabel();
-		imgBack.setIcon(new ImageIcon(backImage));
-		imgBack.setSize(50, 50);
-		imgBack.setLocation(100, 100);
-		contentPane.add(imgBack);
 		
-		/*
+		//create a back button to return you to the dashboard
 		JButton btnBack = new JButton("Back");
 		btnBack.setBounds(5, 5, 84, 41);
 		btnBack.addActionListener(new ActionListener() {
@@ -56,12 +50,23 @@ public class StepsPanel extends JFrame {
 		contentPane.setLayout(null);
 		btnBack.setHorizontalAlignment(SwingConstants.LEFT);
 		contentPane.add(btnBack);
-		*/
 
+		//create a title for the current pane
 		JLabel lblTitle = new JLabel("STEPS");
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		lblTitle.setBounds(491, 21, 133, 70);
 		contentPane.add(lblTitle);
+
+/*
+		//ImageIcon BackButton = createImageIcon("Placeholder.jpg", "return to the home page");
+		JLabel imgBack = new JLabel();
+		imgBack.setIcon(new ImageIcon(backImage));
+		imgBack.setSize(50, 50);
+		imgBack.setLocation(100, 100);
+		contentPane.add(imgBack);*/
 		
+		
+		ImageIcon backButton = new ImageIcon(getClass().getResource(backImage));
+		JLabel back = new JLabel(backButton);
+		contentPane.add(back);
 	}
 }

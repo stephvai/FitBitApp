@@ -16,14 +16,13 @@ public class DashBoardPanel extends JPanel {
 	 * creates a new panel for the daily dashboard
 	 * @param x the starting x position
 	 * @param y the starting y position
+	 * @return 
 	 */
 	public DashBoardPanel(int x, int y)
 	{
-		JPanel panel = new JPanel();
+		super();
 		Rectangle r = new Rectangle(x, y, WIDTH, HEIGHT);
-		panel.setSize(WIDTH, HEIGHT);
-		panel.setBounds(r);
-		panel.repaint();
+		this.setBounds(r);
 	}
 	/* code that can be used to track for clicks
 	   panel.addMouseListener(new MouseAdapter() {
