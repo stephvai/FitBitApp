@@ -276,7 +276,39 @@ public class APIData {
   private void parseBestDaysLifeTimeTotals(JSONObject obj) {
 	  JSONObject bestDays = obj.getJSONObject("best").getJSONObject("total");
 	  JSONObject lifeTime = obj.getJSONObject("lifetime");
+	  
+	  //TODO
+	  
   }
+  
+  /**
+   * Parse a JSON object containing the total steps and save the value to the userDailySteps variable
+   * @param obj pass in a JSON object that contains the daily steps
+   */
+  private void parseSteps(JSONObject obj) {
+	  JSONObject stepsData = obj.getJSONObject("activities-tracker-steps");
+	  this.userDailySteps = stepsData.getInt("value");
+  }
+  
+  /**
+   * Parse a JSON object containing the total calories and save the value to the userDailyCalories variable
+   * @param obj pass in a JSON object that contains the daily calories
+   */
+  private void parseCalories(JSONObject obj) {
+	  JSONObject caloriesData = obj.getJSONObject("activities-activityCalories");
+	  this.userDailyCalories = caloriesData.getInt("value");
+	  
+  }
+  
+  /**
+   * Parse a JSON object containing the total daily distance and save the value to the userDailyDistance variable
+   * @param obj pass in a JSON object that contains the daily distanace
+   */
+  private void parseDistance(JSONObject obj) {
+	JSONObject distanceData = obj.getJSONObject("activities-tracker-distance");
+	this.userDailyDistance = distanceData.getInt("value");
+  }
+  
   
   /********************************************************
    * 						Getters						  *
