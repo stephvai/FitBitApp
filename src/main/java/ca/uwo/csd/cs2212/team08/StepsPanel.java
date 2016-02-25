@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
@@ -22,6 +23,7 @@ import java.awt.event.MouseEvent;
 public class StepsPanel extends JFrame {
 
 	private JPanel contentPane;
+	private static final String backImage = "C:/Users/James/courses/team08/src/main/resources/Placeholder.jpg";
 
 	/**
 	 * Create the frame.
@@ -35,6 +37,13 @@ public class StepsPanel extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
+		JLabel imgBack = new JLabel();
+		imgBack.setIcon(new ImageIcon(backImage));
+		imgBack.setSize(50, 50);
+		imgBack.setLocation(100, 100);
+		contentPane.add(imgBack);
+		
+		/*
 		JButton btnBack = new JButton("Back");
 		btnBack.setBounds(5, 5, 84, 41);
 		btnBack.addActionListener(new ActionListener() {
@@ -47,6 +56,7 @@ public class StepsPanel extends JFrame {
 		contentPane.setLayout(null);
 		btnBack.setHorizontalAlignment(SwingConstants.LEFT);
 		contentPane.add(btnBack);
+		*/
 
 		JLabel lblTitle = new JLabel("STEPS");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 27));

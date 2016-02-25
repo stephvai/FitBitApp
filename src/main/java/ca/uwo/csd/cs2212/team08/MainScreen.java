@@ -28,10 +28,13 @@ public class MainScreen extends JFrame {
 	    	 contentPane = new JPanel();
 	    	 contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	    	 setContentPane(contentPane);
+	    	 contentPane.setLayout(null);
 
 	    	 //created a steps panel that when clicked launches the steps page
 	    	 DashBoardPanel pnlSteps = new DashBoardPanel(202, 21);
+	    	 pnlSteps.setSize(100, 50);
 	    	 pnlSteps.setBackground(Color.BLACK);
+	    	 //creates a mouse listener to track mouse clicks
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -41,8 +44,9 @@ public class MainScreen extends JFrame {
 	    			 dispose();
 	    		 }
 	    	 });
-	    	 contentPane.setLayout(null);
 	    	 contentPane.add(pnlSteps);
+	    	 pnlSteps.setLayout(null);
+	    	 contentPane.repaint();
 	    	 
 	    	 
 	    	 

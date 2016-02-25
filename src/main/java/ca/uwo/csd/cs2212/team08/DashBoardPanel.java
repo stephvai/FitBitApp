@@ -21,7 +21,7 @@ public class DashBoardPanel extends JPanel {
 	{
 		JPanel panel = new JPanel();
 		Rectangle r = new Rectangle(x, y, WIDTH, HEIGHT);
-		//panel.setSize(WIDTH, HEIGHT);
+		panel.setSize(WIDTH, HEIGHT);
 		panel.setBounds(r);
 		panel.repaint();
 	}
