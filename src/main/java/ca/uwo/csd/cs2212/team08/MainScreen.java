@@ -48,7 +48,8 @@ public class MainScreen extends JFrame {
 			 //create a label to display the title of the panel
 	    	 /*	-----------------------------------------*/
 			 JLabel lblTitle = new JLabel("Welcome! Here is your daily dashboard: ");
-			 lblTitle.setBounds(484, 6, 68, 33);
+			 lblTitle.setFont(new Font("Noteworthy", Font.PLAIN, 46));
+			 lblTitle.setBounds(159, 0, 732, 72);
 			 contentPane.add(lblTitle);
 			 /*------------------------------------------*/
 
@@ -89,8 +90,9 @@ public class MainScreen extends JFrame {
 	    	 pnlSteps.add(lblSteps);*/
 
 	    	 JLabel lblStepsTtile = new JLabel("Steps");
+	    	 lblStepsTtile.setFont(new Font("Noteworthy", Font.PLAIN, 25));
 	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);
-	    	 lblStepsTtile.setBounds(85, 62, 92, 26);
+	    	 lblStepsTtile.setBounds(86, 50, 92, 36);
 	    	 pnlSteps.add(lblStepsTtile);
 			 //------------------------------------------
 			 //------------------------------------------//
@@ -112,8 +114,9 @@ public class MainScreen extends JFrame {
 	    	 contentPane.add(StairsPanel);
 
 			 JLabel lblStairs = new JLabel("Stairs");
+			 lblStairs.setFont(new Font("Noteworthy", Font.PLAIN, 25));
 			 lblStairs.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblStairs.setBounds(79, 63, 92, 26);
+			 lblStairs.setBounds(79, 51, 92, 38);
 			 StairsPanel.add(lblStairs);
 
 			 // progress panel
@@ -142,8 +145,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(caloriesBurned);
 
 			 JLabel lblCalories = new JLabel("Calories Burned");
+			 lblCalories.setFont(new Font("Noteworthy", Font.PLAIN, 25));
 			 lblCalories.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblCalories.setBounds(66,68,136,26);
+			 lblCalories.setBounds(53,45,165,53);
 			 caloriesBurned.add(lblCalories);
 
 			 JProgressBar caloriesProgress = new JProgressBar();
@@ -169,8 +173,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(distanceTraveled);
 			 
 			 JLabel lblDistance = new JLabel("Distance"); 
+			 lblDistance.setFont(new Font("Noteworthy", Font.PLAIN, 25));
 			 lblDistance.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblDistance.setBounds(66,68,136,26);
+			 lblDistance.setBounds(66,56,136,42);
 			 
 			 distanceTraveled.add(lblDistance);
 			 
@@ -199,8 +204,9 @@ public class MainScreen extends JFrame {
 			 
 			 
 			 JLabel lblActiveMin = new JLabel("Active Minutes");
+			 lblActiveMin.setFont(new Font("Noteworthy", Font.PLAIN, 25));
 			 lblActiveMin.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblActiveMin.setBounds(66, 68, 136, 26);
+			 lblActiveMin.setBounds(54, 53, 170, 47);
 			 activeMinutes.add(lblActiveMin);
 			 
 			 /*---------------------------------------*/
@@ -220,8 +226,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(sedentaryMinutes);
 			 
 			 JLabel lblSedentaryMin = new JLabel("Sedentary Minutes");
+			 lblSedentaryMin.setFont(new Font("Noteworthy", Font.PLAIN, 25));
 			 lblSedentaryMin.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblSedentaryMin.setBounds(66, 68, 136, 26);
+			 lblSedentaryMin.setBounds(25, 52, 215, 50);
 			 sedentaryMinutes.add(lblSedentaryMin );
 			 
 			 /*---------------------------------------*/
@@ -240,8 +247,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(accoladesPanel);
 			 
 			 JLabel lblAccolades = new JLabel("Accolades");
+			 lblAccolades.setFont(new Font("Noteworthy", Font.PLAIN, 25));
 			 lblAccolades.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblAccolades.setBounds(66, 68, 136, 26);
+			 lblAccolades.setBounds(65, 56, 136, 49);
 			 accoladesPanel.add(lblAccolades);
 			 
 			 /*---------------------------------------*/
@@ -260,8 +268,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(heartRatePanel);
 			 
 			 JLabel lblHeart = new JLabel("Heart Rate Zones");
+			 lblHeart.setFont(new Font("Noteworthy", Font.PLAIN, 25));
 			 lblHeart.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblHeart.setBounds(66, 68, 136, 26);
+			 lblHeart.setBounds(38, 50, 195, 53);
 			 heartRatePanel.add(lblHeart);
 			 
 			 /*---------------------------------------*/
@@ -280,8 +289,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(dailyGoals);
 			 
 			 JLabel lblDaily = new JLabel("Daily Goals");
+			 lblDaily.setFont(new Font("Noteworthy", Font.PLAIN, 25));
 			 lblDaily.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblDaily.setBounds(66, 68, 136, 26);
+			 lblDaily.setBounds(64, 62, 136, 41);
 			 dailyGoals.add(lblDaily);
 			 
 			 // Header Panel 

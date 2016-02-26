@@ -54,7 +54,7 @@ public class StepsPanel extends JFrame {
 
 		//create a title for the current pane
 		JLabel lblTitle = new JLabel("STEPS");
-		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 50));
+		lblTitle.setFont(new Font("Noteworthy", Font.BOLD, 50));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(386, 21, 193, 84);
 		contentPane.add(lblTitle);
