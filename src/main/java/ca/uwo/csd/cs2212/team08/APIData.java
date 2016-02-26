@@ -26,6 +26,7 @@ import com.github.scribejava.core.model.*; //Request Verb
 //TODO ADD try / catch and exception handling for JSON parsing
 //TODO Active minutes, sedentary minutes to refresh method
 //TODO Handle exceptions to log.txt instead of console from reading/writing files
+//TODO get best days
 
 /**
  * APIData Class that gets data from the fitbit servers and parses it to integers
@@ -43,6 +44,9 @@ public class APIData {
   private int userDailyLightlyActiveMinutes;
   private int userDailyFairlyActiveMinutes;
   private int userDailyVeryActiveMinutes;
+  private double totalDistance;
+  private int totalFloors;
+  private int totalSteps;
   
   //Instance variables used when getting data from APIData
   private static String CALL_BACK_URI="http://localhost:8080";
@@ -276,7 +280,7 @@ public class APIData {
         response = request.send();
         checkResponse = checkStatus(response.getCode());
         if (checkResponse == successfulResponse) {
-        	System.out.println("Successful Response - Very Active Min");
+        	System.out.println("Successful Response - Very Fairly Min");
         	JSONObject obj = new JSONObject(response.getBody());
         	userDailyFairlyActiveMinutes = (int)parseDailyData(obj, fairlyActiveMinutes);
         }  
@@ -300,6 +304,26 @@ public class APIData {
         	System.out.println("Error getting fitbit lightly active data: " + response.getCode());
         }
         
+        //GETTING AND PARSING BEST DAYS/LIFETIME TOTALS
+        
+        requestUrl = bestDayLifeTimeTotalRequestBuilder();
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        if (checkResponse == successfulResponse) {
+        	System.out.println("Succesfful Response - Total/BestDay");
+        	JSONObject obj = new JSONObject(response.getBody());
+        	double[] values = parseLifeTimeTotal(obj);
+        	totalDistance = values[0];
+        	totalFloors = (int)values[1];
+        	totalSteps = (int)values[2];
+        }
+        
+        else {
+        	System.out.println("Error getting fitbit best/total data");
+        }
+        
         
   }
   
@@ -315,9 +339,12 @@ public class APIData {
    */
   private String dailyRequestBuilder(String activity, String date) {
       String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
-      String requestUrl;
-      requestUrl = requestUrlPrefix + "activities/tracker/" + activity + "/date/" + date + "/1d.json";
-      return requestUrl;
+      return requestUrlPrefix + "activities/tracker/" + activity + "/date/" + date + "/1d.json";
+  }
+  
+  private String bestDayLifeTimeTotalRequestBuilder() {
+	  String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
+	  return requestUrlPrefix + "activities.json";
   }
   
   /**
@@ -393,12 +420,26 @@ public class APIData {
 	  }
   }
   /**
-   * A method that takes an object with JSONdata returned from the API and a value to get and saves that value to the proper variable
-   * @param obj
-   * @param activity
+   * A method that takes an object with JSONdata returned from the API and parses the requested value 
+   * @param obj JSON object that contains the required activite value to parse
+   * @param activity the name of the activite we are looking for
    */
   private double parseDailyData(JSONObject obj, String activity) {
 	  return obj.getJSONArray("activities-tracker-" + activity).getJSONObject(0).getDouble("value");
+  }
+  
+  /**
+   * A method that takes a JSON object that contains the lifetime totals and returns the lifetime distance, floors and steps 
+   * @param obj a JSON object that contains the lifetime totals
+   * @return a Double array of size 3 with [0] being distance [1] being floors and [2] being steps
+   */
+  private double[] parseLifeTimeTotal(JSONObject obj) {
+	  double[] totalValues = new double[3];
+	  JSONObject lifetimeTotal = obj.getJSONObject("lifetime").getJSONObject("total");
+	  totalValues[0] = lifetimeTotal.getDouble(distance);
+	  totalValues[1] = lifetimeTotal.getDouble(floors);
+	  totalValues[2] = lifetimeTotal.getDouble(steps);
+	  return totalValues;
   }
   
   /********************************************************
@@ -411,24 +452,21 @@ public class APIData {
    */
   public int getSteps() {
     return this.userDailySteps;
-  }
-  
+  } 
   /**
    * getter that returns the users daily distance for the day
    * @return total distance the user has traveled for the day
    */
   public double getDistance() {
     return this.userDailyDistance;
-  }
-  
+  } 
   /**
    * getter that returns the users daily distance for the day
    * @return total calories the user has burned for the day
    */
   public int getCalories() {
     return this.userDailyCalories;
-  }
-  
+  }  
   /**
    * getter that returns the users daily floors climbed for the day
    * @return total number of floors the user has climbed for the day
@@ -436,7 +474,6 @@ public class APIData {
   public int getFloorsClimbed() {
     return this.userDailyFloorsClimbed;
   }
-  
   /**
    * getter that returns the number of sendentary minutes for that day 
    * @return total number of sendentary minutes for the day
@@ -444,17 +481,46 @@ public class APIData {
   public int getSendentaryMinutes() {
     return this.userDailySendentaryMinutes;
   }
-  
+  /**
+   * getter that returns the number of very active minutes for the day
+   * @return total number of very active minutes for the day
+   */
   public int getVeryActiveMin() {
 	  return this.userDailyVeryActiveMinutes;
   }
-  
+  /**
+   * getter that returns the number of fairly active minutes for the day
+   * @return total number of fairly active minutes for the day
+   */
   public int getFairlyActiveMin() {
 	  return this.userDailyFairlyActiveMinutes;
   }
-  
+  /**
+   * getter that returns the number of lightly active minutes for the day
+   * @return total number of lightly active minutes for the day
+   */
   public int getLightlyActiveMin() {
 	  return this.userDailyLightlyActiveMinutes;
   }
-  
+  /**
+   * getter that returns the total lifetime distance
+   * @return users total lifetime distance
+   */
+  public double getTotalDistance() {
+	  return this.totalDistance;
+  }
+  /**
+   * getter that returns the total lifetime floors climbed
+   * @return users total lifetime floors climbed
+   */
+  public int getTotalFloors() {
+	  return this.totalFloors;
+  }
+  /**
+   * getter that returns total lifetime steps taken
+   * @return users total lifetime steps taken
+   */
+  public int getTotalSteps() {
+	  return this.totalSteps;
+  }
 }
