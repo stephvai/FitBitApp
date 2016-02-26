@@ -22,9 +22,20 @@ import javax.swing.SwingConstants;
 
 import java.awt.SystemColor;
 
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
+
+
+import java.sql.Date;
+
+
 public class MainScreen extends JFrame {
 	
 	private JPanel contentPane;
+	private int year;
+	private int month;
+	private int day; 
 	//private APIData data;
 	    
 	     public MainScreen() {
@@ -32,10 +43,13 @@ public class MainScreen extends JFrame {
 	     }
 	    
 	     private void initUI () {
-	    	 //Calendar cal = Calendar.getInstance();
-	    	 //cal.get(Calendar.YEAR);
+	    	 Calendar cal = Calendar.getInstance();
+	    	
+	    	 year = cal.get(Calendar.YEAR);
+	    	 month = cal.get(Calendar.MONTH);
+	    	 day = cal.get(Calendar.DAY_OF_MONTH);
 	    	 //data = new APIData();
-	    	 //data.refreshData(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+	    	 //data.refreshData(year, month, day);
 	    	 this.setTitle("Team08 Fitbit");
 	    	 this.setSize(1024, 768);
 	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -60,6 +74,13 @@ public class MainScreen extends JFrame {
 			 headerPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 			 contentPane.add(headerPanel);
 			 
+			 UtilDateModel model = new UtilDateModel();
+			 model.setDate(year, month, day);
+			 model.setSelected(true);
+			 JDatePanelImpl datePanel = new JDatePanelImpl(model);
+			 
+			 
+			 
 			 stepsPanel();
 			 stairsPanel();
 			 caloriesPanel();
@@ -69,6 +90,18 @@ public class MainScreen extends JFrame {
 			 accoladesPanel();
 			 heartRatePanel();
 			 goalsPanel();
+			 
+			 
+			 JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
+			 datePicker.setBounds(385, 69, 265, 29);
+			 contentPane.add(datePicker);
+			 datePicker.setBackground(Color.WHITE);
+			 datePicker.setVisible(true);
+			 
+			 String date = datePicker.getJFormattedTextField().getText();
+			 System.out.println(date);
+			String reverse = new StringBuilder(date).reverse().toString();
+			 System.out.println(reverse);
 	     }
 	     
 	     /**
@@ -369,6 +402,8 @@ public class MainScreen extends JFrame {
 			 lblDaily.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblDaily.setBounds(64, 62, 136, 41);
 			 dailyGoals.add(lblDaily);
+			 
+		
 	     }
 }
 
