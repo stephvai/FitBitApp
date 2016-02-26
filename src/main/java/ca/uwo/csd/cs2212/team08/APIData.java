@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import com.github.scribejava.core.model.*; //Request Verb
 
 //TODO ADD try / catch and exception handling for JSON parsing
-//TODO Add Steps,Distance,Calories,Active minutes, sedentary minutes to refresh method
+//TODO Active minutes, sedentary minutes to refresh method
 //TODO Handle exceptions to log.txt instead of console from reading/writing files
 
 public class APIData {
@@ -170,9 +170,8 @@ public class APIData {
         if (checkResponse == successfulResponse) {
         	System.out.println("Successful Response - calories");
             JSONObject obj = new JSONObject(response.getBody());
-            parseDailyData(obj, calories);
-        }
-        
+            userDailyCalories = (int)parseDailyData(obj, calories);
+        }  
         else {
         	System.out.println("Error getting fitbit calories data: " + response.getCode());
         }
@@ -187,9 +186,8 @@ public class APIData {
         if (checkResponse == successfulResponse) {
         	System.out.println("Successful Response - floors");
         	JSONObject obj = new JSONObject(response.getBody());
-        	parseDailyData(obj, floors);
+        	userDailyFloorsClimbed = (int)parseDailyData(obj, floors);
         }
-        
         else {
         	System.out.println("Error getting fitbit floors data: " + response.getCode());
         }
@@ -204,9 +202,8 @@ public class APIData {
         if (checkResponse == successfulResponse) {
         	System.out.println("Successful Response - steps");
         	JSONObject obj = new JSONObject(response.getBody());
-        	parseDailyData(obj, steps);
-        }
-        
+        	userDailySteps = (int)parseDailyData(obj, steps);
+        }      
         else {
         	System.out.println("Error getting fitbit floors data: " + response.getCode());
         }
@@ -221,9 +218,8 @@ public class APIData {
         if (checkResponse == successfulResponse) {
         	System.out.println("Successful Response - distance");
         	JSONObject obj = new JSONObject(response.getBody());
-        	parseDailyData(obj, distance);
-        }
-        
+        	userDailyDistance = parseDailyData(obj, distance);
+        }  
         else {
         	System.out.println("Error getting fitbit floors data: " + response.getCode());
         }
@@ -232,8 +228,6 @@ public class APIData {
   /********************************************************
    * 	 		  API Request helper methods			  *
    ********************************************************/
-  
-//https://api.fitbit.com/1/user/-/activities/tracker/calories/date/2016-01-08/1d.json
   
   /**
    * 
@@ -316,28 +310,13 @@ public class APIData {
           return otherResponse;
 	  }
   }
-  
-  /********************************************************
-   * 				  JSON Parsing Methods		  		  *
-   ********************************************************/
-  
-  private void parseDailyData(JSONObject obj, String activity) {
-	  double value = obj.getJSONArray("activities-tracker-" + activity).getJSONObject(0).getDouble("value");
-	  if (activity == "floors") {
-		  userDailyFloorsClimbed = (int) value;
-	  }
-	  
-	  else if (activity == "calories") {
-		  userDailyCalories = (int)value;
-	  }
-	  
-	  else if (activity == "steps") {
-		  userDailySteps = (int)value;
-	  }
-	  
-	  else if (activity == "distance") {
-		  userDailyDistance = value;
-	  }
+  /**
+   * A method that takes an object with JSONdata returned from the API and a value to get and saves that value to the proper variable
+   * @param obj
+   * @param activity
+   */
+  private double parseDailyData(JSONObject obj, String activity) {
+	  return obj.getJSONArray("activities-tracker-" + activity).getJSONObject(0).getDouble("value");
   }
   
   /********************************************************
