@@ -36,6 +36,7 @@ public class MainScreen extends JFrame {
 	private int year;
 	private int month;
 	private int day; 
+	private String date;
 	//private APIData data;
 	    
 	     public MainScreen() {
@@ -46,8 +47,19 @@ public class MainScreen extends JFrame {
 	    	 Calendar cal = Calendar.getInstance();
 	    	
 	    	 year = cal.get(Calendar.YEAR);
-	    	 month = cal.get(Calendar.MONTH);
+	    	 month = cal.get(Calendar.MONTH)+1;
 	    	 day = cal.get(Calendar.DAY_OF_MONTH);
+	    	 String monthString;
+	    	 if (month<10)
+	    	 {
+	    		 monthString = "0" + Integer.toString(month);
+	    	 }
+	    	 else
+	    	 {
+	    		monthString = Integer.toString(month); 
+	    	 }
+	    	 date = Integer.toString(cal.get(Calendar.YEAR)) +  "-" + monthString + "-" + Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
+	    	 System.out.println(date);
 	    	 //data = new APIData();
 	    	 //data.refreshData(year, month, day);
 	    	 this.setTitle("Team08 Fitbit");
@@ -75,11 +87,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(headerPanel);
 			 
 			 UtilDateModel model = new UtilDateModel();
-			 model.setDate(year, month, day);
+			 model.setDate(year, month-1, day);
 			 model.setSelected(true);
 			 JDatePanelImpl datePanel = new JDatePanelImpl(model);
-			 
-			 
 			 
 			 stepsPanel();
 			 stairsPanel();
@@ -91,21 +101,20 @@ public class MainScreen extends JFrame {
 			 heartRatePanel();
 			 goalsPanel();
 			 
-			 
 			 JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
 			 datePicker.setBounds(385, 69, 265, 29);
 			 contentPane.add(datePicker);
 			 datePicker.setBackground(Color.WHITE);
 			 datePicker.setVisible(true);
 			 
-			 String date = datePicker.getJFormattedTextField().getText();
+			 /*date = datePicker.getJFormattedTextField().getText();
 			 System.out.println(date);
-			String reverse = new StringBuilder(date).reverse().toString();
-			 System.out.println(reverse);
+			 String reverse = new StringBuilder(date).reverse().toString();
+			 System.out.println(reverse);*/
 	     }
 	     
 	     /**
-	      * creates teh panel to display the steps taken
+	      * creates the panel to display the steps taken
 	      */
 	     private void stepsPanel()
 		 {
