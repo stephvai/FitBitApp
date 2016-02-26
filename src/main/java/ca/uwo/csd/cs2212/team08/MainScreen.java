@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Calendar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,15 +18,21 @@ import javax.swing.SwingConstants;
 public class MainScreen extends JFrame {
 	
 	private JPanel contentPane;
+	private APIData data;
 	    
 	     public MainScreen() {
 	          this.initUI();
 	     }
 	    
 	     private void initUI () {
+	    	 Calendar cal = Calendar.getInstance();
+	    	 cal.get(Calendar.YEAR);
+	    	 data = new APIData();
+	    	 data.refreshData(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 	    	 this.setTitle("Team08 Fitbit");
 	    	 this.setSize(1080, 920);
 	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	    	 this.setLocationRelativeTo(null);
 	    	 contentPane = new JPanel();
 	    	 contentPane.setBorder(new EmptyBorder(5, 0, 5, 0));
 	    	 this.setContentPane(contentPane);
@@ -59,7 +66,7 @@ public class MainScreen extends JFrame {
 	    	 stepsProgress.setBounds(21, 110, 266, 36);
 	    	 pnlSteps.add(stepsProgress);
 	    	 
-	    	 JLabel lblSteps = new JLabel("2304");
+	    	 JLabel lblSteps = new JLabel(Integer.toString(data.getSteps()));
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
 	    	 lblSteps.setBounds(102, 21, 92, 26);
 	    	 pnlSteps.add(lblSteps);
