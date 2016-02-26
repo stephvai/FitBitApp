@@ -24,14 +24,14 @@ import org.json.JSONObject;
 import com.github.scribejava.core.model.*; //Request Verb
 
 //TODO ADD try / catch and exception handling for JSON parsing
-//TODO Add Steps,Distance,Calories,Active minutes,sedentary minutes to refresh method
+//TODO Add Steps,Distance,Calories,Active minutes, sedentary minutes to refresh method
 //TODO Handle exceptions to log.txt instead of console from reading/writing files
 
 public class APIData {
 
   //Instance variables for daily user data to be used on the daily dashboard 
   private int userDailySteps;
-  private int userDailyDistance;
+  private double userDailyDistance;
   private int userDailyCalories;
   private int userDailyFloorsClimbed;
   private int userDailyActiveMinutes;
@@ -47,6 +47,14 @@ public class APIData {
   final int expiredToken = -2;
   final int rateLimitExceded = -3;
   final int otherResponse = -4;
+  
+  //String representation of the date in YYYY-MM-DD format
+  String date = "2016-01-08";
+  //Activities categories
+  final String calories = "calories";
+  final String floors = "floors";
+  final String steps = "steps";
+  final String distance = "distance";
   
   /**
    * Constructor for API data
@@ -99,7 +107,6 @@ public class APIData {
             refreshToken = bufferedReader.readLine();
             expiresIn = Long.parseLong(bufferedReader.readLine());
             rawResponse = bufferedReader.readLine();
-
         }
         catch(FileNotFoundException ex) {
             System.out.println(
@@ -131,7 +138,6 @@ public class APIData {
                 .scope(scope)
                 .grantType("authorization_code")
                 .build(FitbitApi20.instance());
-
         //  The access token contains everything you will need to authenticate your requests
         OAuth2AccessToken accessToken = new OAuth2AccessToken(
                 accessTokenItself,
@@ -140,20 +146,13 @@ public class APIData {
                 expiresIn,
                 rawResponse);
         
-        //The start of all request urls
-        String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
-        //stores the request URL
-        String requestUrl;
+        //GETTING AND PARSING CALORIES DATA + REFRESHING TOKENS
         
-        //First get the floors
-        
-        //Create the response, sign it and the send it
-        requestUrl = requestUrlPrefix + "activities/floors/date/2016-01-07/1d/1min/time/19:15/19:30.json";
+        String requestUrl = dailyRequestBuilder(calories, date);
         OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         Response response = request.send();
         //check the response  and refresh if needed
-        System.out.println("HTTP response code: "+response.getCode());
         int checkResponse = checkStatus(response.getCode());
         //if token is expired refresh token and try again
         if (checkResponse == expiredToken) {
@@ -165,28 +164,91 @@ public class APIData {
             checkResponse = checkStatus(response.getCode());
             System.out.println("HTTP response code after refresh: "+response.getCode());
         }
+        //save the tokens
+        saveTokens(accessToken);  
         //if we get a successful request
         if (checkResponse == successfulResponse) {
-        	System.out.println("Successful Response");
+        	System.out.println("Successful Response - calories");
             JSONObject obj = new JSONObject(response.getBody());
-            parseFloors(obj);
+            parseDailyData(obj, calories);
         }
         
         else {
-        	System.out.println("Error getting fitbit data: " + response.getCode());
+        	System.out.println("Error getting fitbit calories data: " + response.getCode());
         }
         
-        //Finish Getting the Floors
+        //GETTING AND PARSING FLOOR DATA
         
-        //Finally save the current tokens
-        saveTokes(accessToken);
+        requestUrl = dailyRequestBuilder(floors, date);
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        if (checkResponse == successfulResponse) {
+        	System.out.println("Successful Response - floors");
+        	JSONObject obj = new JSONObject(response.getBody());
+        	parseDailyData(obj, floors);
+        }
+        
+        else {
+        	System.out.println("Error getting fitbit floors data: " + response.getCode());
+        }
+        
+        //GETTING AND PARSING STEPS DATA
+        
+        requestUrl = dailyRequestBuilder(steps, date);
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        if (checkResponse == successfulResponse) {
+        	System.out.println("Successful Response - steps");
+        	JSONObject obj = new JSONObject(response.getBody());
+        	parseDailyData(obj, steps);
+        }
+        
+        else {
+        	System.out.println("Error getting fitbit floors data: " + response.getCode());
+        }
+        
+        //GETTING AND PARSING DISTANCE
+        
+        requestUrl = dailyRequestBuilder(distance, date);
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        if (checkResponse == successfulResponse) {
+        	System.out.println("Successful Response - distance");
+        	JSONObject obj = new JSONObject(response.getBody());
+        	parseDailyData(obj, distance);
+        }
+        
+        else {
+        	System.out.println("Error getting fitbit floors data: " + response.getCode());
+        }
   }
   
   /********************************************************
    * 	 		  API Request helper methods			  *
    ********************************************************/
   
-  private void saveTokes(OAuth2AccessToken accessToken) {
+//https://api.fitbit.com/1/user/-/activities/tracker/calories/date/2016-01-08/1d.json
+  
+  /**
+   * 
+   * @param activity the activty you want to get data for
+   * @param date String representation in the form YYYY-MM-DD
+   * @return returns the appropriate API request url given an activity and the date 
+   */
+  private String dailyRequestBuilder(String activity, String date) {
+      String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
+      String requestUrl;
+      requestUrl = requestUrlPrefix + "activities/tracker/" + activity + "/date/" + date + "/1d.json";
+      return requestUrl;
+  }
+  
+  private void saveTokens(OAuth2AccessToken accessToken) {
 	  BufferedWriter bufferedWriter=null;
       //  Save the current accessToken information for next time
 
@@ -259,56 +321,24 @@ public class APIData {
    * 				  JSON Parsing Methods		  		  *
    ********************************************************/
   
-  /**
-   * Parse a JSON object containing the floors and saves the value to the userDailyFloorsClimbed variable 
-   * @param obj pass in a JSON object returned from the API contain the floors climbed 
-   */
-  private void parseFloors(JSONObject obj) {
-	  JSONArray floorsArray = obj.getJSONArray("activities-floors");
-	  JSONObject floorsData = floorsArray.getJSONObject(0);
-	  this.userDailyFloorsClimbed = floorsData.getInt("value");
-  }
-  
-  /**
-   * Parse a JSON object containing the best days and lifetime totals and save the value to the required variables
-   * @param obj pass in a JSON object returned from the API that contains the best days
-   */
-  private void parseBestDaysLifeTimeTotals(JSONObject obj) {
-	  JSONObject bestDays = obj.getJSONObject("best").getJSONObject("total");
-	  JSONObject lifeTime = obj.getJSONObject("lifetime");
+  private void parseDailyData(JSONObject obj, String activity) {
+	  double value = obj.getJSONArray("activities-tracker-" + activity).getJSONObject(0).getDouble("value");
+	  if (activity == "floors") {
+		  userDailyFloorsClimbed = (int) value;
+	  }
 	  
-	  //TODO
+	  else if (activity == "calories") {
+		  userDailyCalories = (int)value;
+	  }
 	  
-  }
-  
-  /**
-   * Parse a JSON object containing the total steps and save the value to the userDailySteps variable
-   * @param obj pass in a JSON object that contains the daily steps
-   */
-  private void parseSteps(JSONObject obj) {
-	  JSONObject stepsData = obj.getJSONObject("activities-tracker-steps");
-	  this.userDailySteps = stepsData.getInt("value");
-  }
-  
-  /**
-   * Parse a JSON object containing the total calories and save the value to the userDailyCalories variable
-   * @param obj pass in a JSON object that contains the daily calories
-   */
-  private void parseCalories(JSONObject obj) {
-	  JSONObject caloriesData = obj.getJSONObject("activities-activityCalories");
-	  this.userDailyCalories = caloriesData.getInt("value");
+	  else if (activity == "steps") {
+		  userDailySteps = (int)value;
+	  }
 	  
+	  else if (activity == "distance") {
+		  userDailyDistance = value;
+	  }
   }
-  
-  /**
-   * Parse a JSON object containing the total daily distance and save the value to the userDailyDistance variable
-   * @param obj pass in a JSON object that contains the daily distanace
-   */
-  private void parseDistance(JSONObject obj) {
-	JSONObject distanceData = obj.getJSONObject("activities-tracker-distance");
-	this.userDailyDistance = distanceData.getInt("value");
-  }
-  
   
   /********************************************************
    * 						Getters						  *
@@ -326,7 +356,7 @@ public class APIData {
    * getter that returns the users daily distance for the day
    * @return total distance the user has traveled for the day
    */
-  public int getDistance() {
+  public double getDistance() {
     return this.userDailyDistance;
   }
   
