@@ -27,6 +27,11 @@ import com.github.scribejava.core.model.*; //Request Verb
 //TODO Active minutes, sedentary minutes to refresh method
 //TODO Handle exceptions to log.txt instead of console from reading/writing files
 
+/**
+ * APIData Class that gets data from the fitbit servers and parses it to integers
+ * @author Ryan
+ *
+ */
 public class APIData {
 
   //Instance variables for daily user data to be used on the daily dashboard 
@@ -34,8 +39,10 @@ public class APIData {
   private double userDailyDistance;
   private int userDailyCalories;
   private int userDailyFloorsClimbed;
-  private int userDailyActiveMinutes;
   private int userDailySendentaryMinutes;
+  private int userDailyLightlyActiveMinutes;
+  private int userDailyFairlyActiveMinutes;
+  private int userDailyVeryActiveMinutes;
   
   //Instance variables used when getting data from APIData
   private static String CALL_BACK_URI="http://localhost:8080";
@@ -50,12 +57,16 @@ public class APIData {
   
   //String representation of the date in YYYY-MM-DD format
   String date = "2016-01-08";
+  
   //Activities categories
   final String calories = "calories";
   final String floors = "floors";
   final String steps = "steps";
   final String distance = "distance";
   final String sendentaryMinutes = "minutesSedentary";
+  final String veryActiveMinutes = "minutesVeryActive";
+  final String lightlyActiveMinutes = "minutesLightlyActive";
+  final String fairlyActiveMinutes = "minutesFairlyActive";
   
   /**
    * Constructor for API data
@@ -206,7 +217,7 @@ public class APIData {
         	userDailySteps = (int)parseDailyData(obj, steps);
         }      
         else {
-        	System.out.println("Error getting fitbit floors data: " + response.getCode());
+        	System.out.println("Error getting fitbit steps data: " + response.getCode());
         }
         
         //GETTING AND PARSING DISTANCE
@@ -222,11 +233,10 @@ public class APIData {
         	userDailyDistance = parseDailyData(obj, distance);
         }  
         else {
-        	System.out.println("Error getting fitbit floors data: " + response.getCode());
+        	System.out.println("Error getting fitbit distance data: " + response.getCode());
         }
         
         //GETTING AND PARSING SEDENTARY MINUTES
-        //minutesSedentary
         
         requestUrl = dailyRequestBuilder(sendentaryMinutes, date);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
@@ -239,8 +249,57 @@ public class APIData {
         	userDailySendentaryMinutes = (int)parseDailyData(obj, sendentaryMinutes);
         }  
         else {
-        	System.out.println("Error getting fitbit floors data: " + response.getCode());
+        	System.out.println("Error getting fitbit sendentary data: " + response.getCode());
         }
+        
+        //GETTING AND PARSING VERY ACTIVE MINUTES
+        
+        requestUrl = dailyRequestBuilder(veryActiveMinutes, date);
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        if (checkResponse == successfulResponse) {
+        	System.out.println("Successful Response - Very Active Min");
+        	JSONObject obj = new JSONObject(response.getBody());
+        	userDailyVeryActiveMinutes = (int)parseDailyData(obj, veryActiveMinutes);
+        }  
+        else {
+        	System.out.println("Error getting fitbit very active data: " + response.getCode());
+        }
+        
+        //GETTING AND PARSING FAIRLY ACTIVE MINUTES
+        
+        requestUrl = dailyRequestBuilder(fairlyActiveMinutes, date);
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        if (checkResponse == successfulResponse) {
+        	System.out.println("Successful Response - Very Active Min");
+        	JSONObject obj = new JSONObject(response.getBody());
+        	userDailyFairlyActiveMinutes = (int)parseDailyData(obj, fairlyActiveMinutes);
+        }  
+        else {
+        	System.out.println("Error getting fitbit fairly active data: " + response.getCode());
+        }
+        
+        //GETTING AND PARSING LIGHTLY ACTIVE MINUTES
+        
+        requestUrl = dailyRequestBuilder(lightlyActiveMinutes, date);
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        if (checkResponse == successfulResponse) {
+        	System.out.println("Successful Response - lightly Active Min");
+        	JSONObject obj = new JSONObject(response.getBody());
+        	userDailyLightlyActiveMinutes = (int)parseDailyData(obj, lightlyActiveMinutes);
+        }  
+        else {
+        	System.out.println("Error getting fitbit lightly active data: " + response.getCode());
+        }
+        
         
   }
   
@@ -379,19 +438,23 @@ public class APIData {
   }
   
   /**
-   * getter that returns the number of active minutes for that day
-   * @return total number of active minutes the user has acheived for the day
-   */
-  public int getActiveMinutes() {
-    return this.userDailyActiveMinutes;
-  }
-  
-  /**
    * getter that returns the number of sendentary minutes for that day 
    * @return total number of sendentary minutes for the day
    */
   public int getSendentaryMinutes() {
     return this.userDailySendentaryMinutes;
+  }
+  
+  public int getVeryActiveMin() {
+	  return this.userDailyVeryActiveMinutes;
+  }
+  
+  public int getFairlyActiveMin() {
+	  return this.userDailyFairlyActiveMinutes;
+  }
+  
+  public int getLightlyActiveMin() {
+	  return this.userDailyLightlyActiveMinutes;
   }
   
 }
