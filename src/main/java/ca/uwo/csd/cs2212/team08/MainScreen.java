@@ -52,8 +52,30 @@ public class MainScreen extends JFrame {
 			 contentPane.add(lblTitle);
 			 /*------------------------------------------*/
 
-
-			 //------------------------------------------
+			 // Header Panel 
+			 JPanel headerPanel = new JPanel();
+			 headerPanel.setBackground(Color.WHITE);
+			 headerPanel.setBounds(0, 0, 1024, 63);
+			 headerPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+			 contentPane.add(headerPanel);
+			 
+			 stepsPanel();
+			 stairsPanel();
+			 caloriesPanel();
+			 distancePanel();
+			 activeMinutesPanel();
+			 sedentaryMinutesPanel();
+			 accoladesPanel();
+			 heartRatePanel();
+			 goalsPanel();
+	     }
+	     
+	     /**
+	      * creates teh panel to display the steps taken
+	      */
+	     private void stepsPanel()
+		 {
+			//------------------------------------------
 			 //create a dash board panel for the steps
 			 //------------------------------------------//
 	    	 DashBoardPanel pnlSteps = new DashBoardPanel(50, 191);
@@ -91,11 +113,15 @@ public class MainScreen extends JFrame {
 	    	 JLabel lblStepsTtile = new JLabel("Steps");
 	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);
 	    	 lblStepsTtile.setBounds(85, 62, 92, 26);
-	    	 pnlSteps.add(lblStepsTtile);
-			 //------------------------------------------
-			 //------------------------------------------//
-
-			 /*-----------------------------------------*/
+	    	 pnlSteps.add(lblStepsTtile);  
+		 }
+	     
+	     /**
+	      * creates the panel to display the the stairs climbed
+	      */
+	     private void stairsPanel()
+	     {
+	    	 /*-----------------------------------------*/
 			 //stairs panel aka floors climbed
 			 /*----------------------------------------*/
 	    	 DashBoardPanel StairsPanel = new DashBoardPanel(413, 191);
@@ -125,10 +151,14 @@ public class MainScreen extends JFrame {
 			 stairsProgress.setForeground(SystemColor.textHighlight);
 			 stairsProgress.setBounds(17, 113, 231, 36);
 			 StairsPanel.add(stairsProgress);
-			 /*-------------------------------------*/
-
-
-			 /*---------------------------------------*/
+	     }
+	     
+	     /**
+	      * creates the panel to display calories panel
+	      */
+	     private void caloriesPanel()
+	     {
+	    	 /*---------------------------------------*/
 			 //calories panel
 			 /*---------------------------------------*/
 			 DashBoardPanel caloriesBurned = new DashBoardPanel(776, 191);
@@ -156,11 +186,13 @@ public class MainScreen extends JFrame {
 			 caloriesProgress.setForeground(SystemColor.textHighlight);
 			 caloriesProgress.setBounds(21, 110, 210, 36);
 			 caloriesBurned.add(caloriesProgress);
-			 
-			 /*---------------------------------------*/
-			 //Distance panel
-			 /*---------------------------------------*/
-			 
+	     }
+	     
+	     /**
+	      * creates the panel to display user distance traveled
+	      */
+	     private void distancePanel()
+	     {	 
 			 DashBoardPanel distanceTraveled = new DashBoardPanel(50, 300);
 			 distanceTraveled.setLayout(null);
 			 distanceTraveled.addMouseListener(new MouseAdapter() {
@@ -186,8 +218,14 @@ public class MainScreen extends JFrame {
 			 distanceProgress.setForeground(SystemColor.textHighlight);
 			 distanceProgress.setBounds(21,110,210,36);
 			 distanceTraveled.add(distanceProgress);
-			 
-			 /*---------------------------------------*/
+	     }
+	     
+	     /**
+	      * creates the panel to display user active minutes
+	      */
+	     private void activeMinutesPanel()
+	     {
+	    	 /*---------------------------------------*/
 			 //Active Minutes panel
 			 /*---------------------------------------*/
 			 
@@ -208,8 +246,14 @@ public class MainScreen extends JFrame {
 			 lblActiveMin.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblActiveMin.setBounds(66, 68, 136, 26);
 			 activeMinutes.add(lblActiveMin);
-			 
-			 /*---------------------------------------*/
+	     }
+	     
+	     /**
+	      * creates the panel to display user sedentary minutes
+	      */
+	     private void sedentaryMinutesPanel()
+	     {
+	    	 /*---------------------------------------*/
 			 //Sedentary Minutes panel
 			 /*---------------------------------------*/
 			 
@@ -229,8 +273,14 @@ public class MainScreen extends JFrame {
 			 lblSedentaryMin.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblSedentaryMin.setBounds(66, 68, 136, 26);
 			 sedentaryMinutes.add(lblSedentaryMin );
-			 
-			 /*---------------------------------------*/
+	     }
+	     
+	     /**
+	      * creates the panel to display user accolades
+	      */
+	     private void accoladesPanel()
+	     {
+	    	 /*---------------------------------------*/
 			 //Accolades panel
 			 /*---------------------------------------*/
 			 DashBoardPanel accoladesPanel = new DashBoardPanel(50, 300);
@@ -249,7 +299,14 @@ public class MainScreen extends JFrame {
 			 lblAccolades.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblAccolades.setBounds(66, 68, 136, 26);
 			 accoladesPanel.add(lblAccolades);
-			 
+	     }
+	     
+	     /**
+	      * creates the panel to display user heart rate
+	      */
+	     private void heartRatePanel()
+	     {
+	    	 
 			 /*---------------------------------------*/
 			 //Heart Rate panel
 			 /*---------------------------------------*/
@@ -269,8 +326,14 @@ public class MainScreen extends JFrame {
 			 lblHeart.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblHeart.setBounds(66, 68, 136, 26);
 			 heartRatePanel.add(lblHeart);
-			 
-			 /*---------------------------------------*/
+	     }
+	     
+	     /***
+	      * creates the panel to display user goals
+	      */
+	     private void goalsPanel()
+	     {
+	    	 /*---------------------------------------*/
 			 //Daily goals panel
 			 /*---------------------------------------*/
 			 DashBoardPanel dailyGoals = new DashBoardPanel(50, 300);
@@ -289,16 +352,6 @@ public class MainScreen extends JFrame {
 			 lblDaily.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblDaily.setBounds(66, 68, 136, 26);
 			 dailyGoals.add(lblDaily);
-			 
-			 // Header Panel 
-			 JPanel headerPanel = new JPanel();
-			 headerPanel.setBackground(Color.WHITE);
-			 headerPanel.setBounds(0, 0, 1024, 63);
-			 headerPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-			 contentPane.add(headerPanel);
-			
-
-
 	     }
 }
 
