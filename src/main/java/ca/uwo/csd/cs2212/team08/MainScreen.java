@@ -14,23 +14,24 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Panel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
+import java.awt.SystemColor;
 
 public class MainScreen extends JFrame {
 	
 	private JPanel contentPane;
-	private APIData data;
+	//private APIData data;
 	    
 	     public MainScreen() {
 	          this.initUI();
 	     }
 	    
 	     private void initUI () {
-	    	 Calendar cal = Calendar.getInstance();
-	    	 cal.get(Calendar.YEAR);
-	    	 data = new APIData();
-	    	 data.refreshData(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+	    	 //Calendar cal = Calendar.getInstance();
+	    	 //cal.get(Calendar.YEAR);
+	    	 //data = new APIData();
+	    	 //data.refreshData(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 	    	 this.setTitle("Team08 Fitbit");
-	    	 this.setSize(1080, 920);
+	    	 this.setSize(1024, 768);
 	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    	 this.setLocationRelativeTo(null);
 	    	 contentPane = new JPanel();
@@ -66,10 +67,10 @@ public class MainScreen extends JFrame {
 	    	 stepsProgress.setBounds(21, 110, 266, 36);
 	    	 pnlSteps.add(stepsProgress);
 	    	 
-	    	 JLabel lblSteps = new JLabel(Integer.toString(data.getSteps()));
+	    	 /*JLabel lblSteps = new JLabel(Integer.toString(data.getSteps()));
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
 	    	 lblSteps.setBounds(102, 21, 92, 26);
-	    	 pnlSteps.add(lblSteps);
+	    	 pnlSteps.add(lblSteps);*/
 	    	 
 	    	 JLabel lblStepsTtile = new JLabel("Steps");
 	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);
@@ -82,6 +83,23 @@ public class MainScreen extends JFrame {
 	    	 JLabel lblTitle = new JLabel("Fit Bit");
 	    	 lblTitle.setBounds(318, 10, 68, 33);
 	    	 contentPane.add(lblTitle);
+	    	 
+	    	 DashBoardPanel StairsPanel = new DashBoardPanel(150, 189);
+	    	 StairsPanel.setLayout(null);
+	    	 StairsPanel.setBounds(413, 191, 308, 167);
+	    	 contentPane.add(StairsPanel);
+	    	 
+	    	 JProgressBar stairsProgress = new JProgressBar();
+	    	 stairsProgress.setValue(20);
+	    	 stairsProgress.setToolTipText("Current progress towards your goal");
+	    	 stairsProgress.setForeground(SystemColor.textHighlight);
+	    	 stairsProgress.setBounds(21, 110, 266, 36);
+	    	 StairsPanel.add(stairsProgress);
+	    	 
+	    	 JLabel lblStairs = new JLabel("Stairs");
+	    	 lblStairs.setHorizontalAlignment(SwingConstants.CENTER);
+	    	 lblStairs.setBounds(102, 63, 92, 26);
+	    	 StairsPanel.add(lblStairs);
 
 	     }
 }

@@ -31,7 +31,7 @@ public class StepsPanel extends JFrame {
 	public StepsPanel() {
 		setTitle("team08-Fitbit");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1252, 740);
+		setSize(1024,768);
 		this.setLocationRelativeTo(null); 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
