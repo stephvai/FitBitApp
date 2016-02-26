@@ -23,15 +23,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import com.github.scribejava.core.model.*; //Request Verb
 
+//Make sure it returns false whenever the application crashes
 //TODO ADD try / catch and exception handling for JSON parsing
-//TODO Active minutes, sedentary minutes to refresh method
 //TODO Handle exceptions to log.txt instead of console from reading/writing files
-//TODO get best days
 
 /**
- * APIData Class that gets data from the fitbit servers and parses it to integers
- * @author Ryan
- *
+ * APIData Class that gets data from the fitbit servers and parses it to variables that can be 
+ * gotten from the main class
  */
 public class APIData {
 
@@ -44,9 +42,14 @@ public class APIData {
   private int userDailyLightlyActiveMinutes;
   private int userDailyFairlyActiveMinutes;
   private int userDailyVeryActiveMinutes;
+  //Instance variables for total values
   private double totalDistance;
   private int totalFloors;
   private int totalSteps;
+  //Instance variables for best values
+  private double bestDistance;
+  private int bestFloors;
+  private int bestSteps;
   
   //Instance variables used when getting data from APIData
   private static String CALL_BACK_URI="http://localhost:8080";
@@ -60,7 +63,7 @@ public class APIData {
   final int otherResponse = -4;
   
   //String representation of the date in YYYY-MM-DD format
-  String date = "2016-01-08";
+  String date = "2016-02-26";
   
   //Activities categories
   final String calories = "calories";
@@ -89,7 +92,7 @@ public class APIData {
    * @param month the month we are getting data for
    * @param year the year we are getting data for
    */
-  public void refreshDashBoardData(int day, int month, int year) {
+  public Boolean refreshDashBoardData(int day, int month, int year) {
     //read credentials from a file
     BufferedReader bufferedReader=null;
     // This will reference one line at a time
@@ -127,12 +130,12 @@ public class APIData {
         catch(FileNotFoundException ex) {
             System.out.println(
                     "Unable to open file\n"+ex.getMessage());
-            System.exit(1);
+            return false;
         }
         catch(IOException ex) {
             System.out.println(
                     "Error reading/write file\n"+ex.getMessage());
-            System.exit(1);
+            return false;
         }
         finally{
             try{
@@ -143,6 +146,7 @@ public class APIData {
             catch(Exception e){
                 System.out.println(
                         "Error closing file\n"+e.getMessage());
+                return false;
             }
         }
         //  Create the Fitbit service - you will ask this to ask for access/refresh pairs
@@ -190,6 +194,7 @@ public class APIData {
         }  
         else {
         	System.out.println("Error getting fitbit calories data: " + response.getCode());
+        	return false;
         }
         
         //GETTING AND PARSING FLOOR DATA
@@ -206,6 +211,7 @@ public class APIData {
         }
         else {
         	System.out.println("Error getting fitbit floors data: " + response.getCode());
+        	return false;
         }
         
         //GETTING AND PARSING STEPS DATA
@@ -222,6 +228,7 @@ public class APIData {
         }      
         else {
         	System.out.println("Error getting fitbit steps data: " + response.getCode());
+        	return false;
         }
         
         //GETTING AND PARSING DISTANCE
@@ -238,6 +245,7 @@ public class APIData {
         }  
         else {
         	System.out.println("Error getting fitbit distance data: " + response.getCode());
+        	return false;
         }
         
         //GETTING AND PARSING SEDENTARY MINUTES
@@ -254,6 +262,7 @@ public class APIData {
         }  
         else {
         	System.out.println("Error getting fitbit sendentary data: " + response.getCode());
+        	return false;
         }
         
         //GETTING AND PARSING VERY ACTIVE MINUTES
@@ -270,6 +279,7 @@ public class APIData {
         }  
         else {
         	System.out.println("Error getting fitbit very active data: " + response.getCode());
+        	return false;
         }
         
         //GETTING AND PARSING FAIRLY ACTIVE MINUTES
@@ -286,6 +296,7 @@ public class APIData {
         }  
         else {
         	System.out.println("Error getting fitbit fairly active data: " + response.getCode());
+        	return false;
         }
         
         //GETTING AND PARSING LIGHTLY ACTIVE MINUTES
@@ -302,6 +313,7 @@ public class APIData {
         }  
         else {
         	System.out.println("Error getting fitbit lightly active data: " + response.getCode());
+        	return false;
         }
         
         //GETTING AND PARSING BEST DAYS/LIFETIME TOTALS
@@ -318,13 +330,18 @@ public class APIData {
         	totalDistance = values[0];
         	totalFloors = (int)values[1];
         	totalSteps = (int)values[2];
+        	values = parseBestDays(obj);
+        	bestDistance = values[0];
+        	bestFloors = (int)values[1];
+        	bestSteps = (int)values[2];
         }
         
         else {
         	System.out.println("Error getting fitbit best/total data");
+        	return false;
         }
-        
-        
+        //Return true if everything went well and the program got all data for the daily dashboard
+        return true;
   }
   
   /********************************************************
@@ -442,6 +459,14 @@ public class APIData {
 	  return totalValues;
   }
   
+  private double[] parseBestDays(JSONObject obj) {
+	  double[] bestValues = new double[3];
+	  JSONObject bestDays = obj.getJSONObject("best").getJSONObject("total");
+	  bestValues[0] = bestDays.getJSONObject(distance).getDouble("value");
+	  bestValues[1] = bestDays.getJSONObject(floors).getDouble("value");
+	  bestValues[2] = bestDays.getJSONObject(steps).getDouble("value");
+	  return bestValues;
+  }
   /********************************************************
    * 						Getters						  *
    ********************************************************/
@@ -522,5 +547,26 @@ public class APIData {
    */
   public int getTotalSteps() {
 	  return this.totalSteps;
+  } 
+  /**
+   * getter that returns the best distance
+   * @return users best recorded distance
+   */
+  public double getBestDistance() {
+	  return this.bestDistance;
+  }
+  /**
+   * getter that returns the best floors climbed
+   * @return users best recorded floors climbed
+   */
+  public int getBestFloors() {
+	  return this.bestFloors;
+  } 
+  /**
+   * getter that returns the best steps
+   * @return users best recorded steps taken
+   */
+  public int getBestSteps() {
+	  return this.bestSteps;
   }
 }
