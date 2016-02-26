@@ -25,7 +25,7 @@ import com.github.scribejava.core.model.*; //Request Verb
 
 //Make sure it returns false whenever the application crashes
 //TODO ADD try / catch and exception handling for JSON parsing
-//TODO Handle exceptions to log.txt instead of console from reading/writing files
+//TODO Remove all writing to console and instead save it to log.txt
 
 /**
  * APIData Class that gets data from the fitbit servers and parses it to variables that can be 
@@ -63,7 +63,7 @@ public class APIData {
   final int otherResponse = -4;
   
   //String representation of the date in YYYY-MM-DD format
-  String date = "2016-02-26";
+  String currentDate = "2016-02-26";
   
   //Activities categories
   final String calories = "calories";
@@ -88,11 +88,10 @@ public class APIData {
   
   /**
    * Method that refreshes all data for the daily dashboard from the API and saves it to instance variables
-   * @param day the day we are getting data for
-   * @param month the month we are getting data for
-   * @param year the year we are getting data for
+   * @param date the date value in "YYYY-MM-DD" format to fetch data for
    */
-  public Boolean refreshDashBoardData(int day, int month, int year) {
+  public Boolean refreshDailyDashBoardData(String date) {
+	currentDate = date;
     //read credentials from a file
     BufferedReader bufferedReader=null;
     // This will reference one line at a time
@@ -168,7 +167,7 @@ public class APIData {
         
         //GETTING AND PARSING CALORIES DATA + REFRESHING TOKENS
         
-        String requestUrl = dailyRequestBuilder(calories, date);
+        String requestUrl = dailyRequestBuilder(calories, currentDate);
         OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         Response response = request.send();
@@ -199,7 +198,7 @@ public class APIData {
         
         //GETTING AND PARSING FLOOR DATA
         
-        requestUrl = dailyRequestBuilder(floors, date);
+        requestUrl = dailyRequestBuilder(floors, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         response = request.send();
@@ -216,7 +215,7 @@ public class APIData {
         
         //GETTING AND PARSING STEPS DATA
         
-        requestUrl = dailyRequestBuilder(steps, date);
+        requestUrl = dailyRequestBuilder(steps, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         response = request.send();
@@ -233,7 +232,7 @@ public class APIData {
         
         //GETTING AND PARSING DISTANCE
         
-        requestUrl = dailyRequestBuilder(distance, date);
+        requestUrl = dailyRequestBuilder(distance, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         response = request.send();
@@ -250,7 +249,7 @@ public class APIData {
         
         //GETTING AND PARSING SEDENTARY MINUTES
         
-        requestUrl = dailyRequestBuilder(sendentaryMinutes, date);
+        requestUrl = dailyRequestBuilder(sendentaryMinutes, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         response = request.send();
@@ -267,7 +266,7 @@ public class APIData {
         
         //GETTING AND PARSING VERY ACTIVE MINUTES
         
-        requestUrl = dailyRequestBuilder(veryActiveMinutes, date);
+        requestUrl = dailyRequestBuilder(veryActiveMinutes, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         response = request.send();
@@ -284,7 +283,7 @@ public class APIData {
         
         //GETTING AND PARSING FAIRLY ACTIVE MINUTES
         
-        requestUrl = dailyRequestBuilder(fairlyActiveMinutes, date);
+        requestUrl = dailyRequestBuilder(fairlyActiveMinutes, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         response = request.send();
@@ -301,7 +300,7 @@ public class APIData {
         
         //GETTING AND PARSING LIGHTLY ACTIVE MINUTES
         
-        requestUrl = dailyRequestBuilder(lightlyActiveMinutes, date);
+        requestUrl = dailyRequestBuilder(lightlyActiveMinutes, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         response = request.send();
