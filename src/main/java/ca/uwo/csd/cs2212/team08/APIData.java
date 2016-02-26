@@ -55,6 +55,7 @@ public class APIData {
   final String floors = "floors";
   final String steps = "steps";
   final String distance = "distance";
+  final String sendentaryMinutes = "minutesSedentary";
   
   /**
    * Constructor for API data
@@ -223,6 +224,24 @@ public class APIData {
         else {
         	System.out.println("Error getting fitbit floors data: " + response.getCode());
         }
+        
+        //GETTING AND PARSING SEDENTARY MINUTES
+        //minutesSedentary
+        
+        requestUrl = dailyRequestBuilder(sendentaryMinutes, date);
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        if (checkResponse == successfulResponse) {
+        	System.out.println("Successful Response - sendentaryMinutes");
+        	JSONObject obj = new JSONObject(response.getBody());
+        	userDailySendentaryMinutes = (int)parseDailyData(obj, sendentaryMinutes);
+        }  
+        else {
+        	System.out.println("Error getting fitbit floors data: " + response.getCode());
+        }
+        
   }
   
   /********************************************************
@@ -242,6 +261,10 @@ public class APIData {
       return requestUrl;
   }
   
+  /**
+   * Method that writes the current token to the token storage file
+   * @param accessToken the currently active token to write out
+   */
   private void saveTokens(OAuth2AccessToken accessToken) {
 	  BufferedWriter bufferedWriter=null;
       //  Save the current accessToken information for next time
