@@ -23,7 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import com.github.scribejava.core.model.*; //Request Verb
 
-//Make sure it returns false whenever the application crashes
+//TODO Make sure it returns false whenever the application crashes
 //TODO ADD try / catch and exception handling for JSON parsing
 //TODO Remove all writing to console and instead save it to log.txt
 
@@ -165,8 +165,7 @@ public class APIData {
                 expiresIn,
                 rawResponse);
         
-        //GETTING AND PARSING CALORIES DATA + REFRESHING TOKENS
-        
+        //GETTING AND PARSING CALORIES DATA + REFRESHING TOKENS 
         String requestUrl = dailyRequestBuilder(calories, currentDate);
         OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
@@ -197,7 +196,6 @@ public class APIData {
         }
         
         //GETTING AND PARSING FLOOR DATA
-        
         requestUrl = dailyRequestBuilder(floors, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
@@ -214,7 +212,6 @@ public class APIData {
         }
         
         //GETTING AND PARSING STEPS DATA
-        
         requestUrl = dailyRequestBuilder(steps, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
@@ -231,7 +228,6 @@ public class APIData {
         }
         
         //GETTING AND PARSING DISTANCE
-        
         requestUrl = dailyRequestBuilder(distance, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
@@ -248,7 +244,6 @@ public class APIData {
         }
         
         //GETTING AND PARSING SEDENTARY MINUTES
-        
         requestUrl = dailyRequestBuilder(sendentaryMinutes, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
@@ -265,7 +260,6 @@ public class APIData {
         }
         
         //GETTING AND PARSING VERY ACTIVE MINUTES
-        
         requestUrl = dailyRequestBuilder(veryActiveMinutes, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
@@ -282,7 +276,6 @@ public class APIData {
         }
         
         //GETTING AND PARSING FAIRLY ACTIVE MINUTES
-        
         requestUrl = dailyRequestBuilder(fairlyActiveMinutes, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
@@ -299,7 +292,6 @@ public class APIData {
         }
         
         //GETTING AND PARSING LIGHTLY ACTIVE MINUTES
-        
         requestUrl = dailyRequestBuilder(lightlyActiveMinutes, currentDate);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
@@ -316,7 +308,6 @@ public class APIData {
         }
         
         //GETTING AND PARSING BEST DAYS/LIFETIME TOTALS
-        
         requestUrl = bestDayLifeTimeTotalRequestBuilder();
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
@@ -348,7 +339,7 @@ public class APIData {
    ********************************************************/
   
   /**
-   * 
+   * method that builds the request url for daily activities
    * @param activity the activty you want to get data for
    * @param date String representation in the form YYYY-MM-DD
    * @return returns the appropriate API request url given an activity and the date 
@@ -358,6 +349,10 @@ public class APIData {
       return requestUrlPrefix + "activities/tracker/" + activity + "/date/" + date + "/1d.json";
   }
   
+  /**
+   * method that builds the request url for the lifetime totals
+   * @return returns the appropriate API request URL 
+   */
   private String bestDayLifeTimeTotalRequestBuilder() {
 	  String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
 	  return requestUrlPrefix + "activities.json";
@@ -458,6 +453,11 @@ public class APIData {
 	  return totalValues;
   }
   
+  /**
+   * A method that takes a JSON object that contains the best days and returns the best distance, floors and steps
+   * @param obj a JSON object that contains best days
+   * @return a Double array of size 3 with [0] being distance [1] being floors and [2] being steps
+   */
   private double[] parseBestDays(JSONObject obj) {
 	  double[] bestValues = new double[3];
 	  JSONObject bestDays = obj.getJSONObject("best").getJSONObject("total");
@@ -466,6 +466,7 @@ public class APIData {
 	  bestValues[2] = bestDays.getJSONObject(steps).getDouble("value");
 	  return bestValues;
   }
+  
   /********************************************************
    * 						Getters						  *
    ********************************************************/
