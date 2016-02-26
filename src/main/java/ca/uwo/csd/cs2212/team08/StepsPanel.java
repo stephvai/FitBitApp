@@ -23,7 +23,7 @@ import java.awt.event.MouseEvent;
 public class StepsPanel extends JFrame {
 
 	private JPanel contentPane;
-	private static final String backImage = "C:/Users/James/courses/team08/src/main/resources/Placeholder.png";
+	private static final String backImage = "src/main/resources/Placeholder.png";
 
 	/**
 	 * Create the frame.
@@ -37,7 +37,7 @@ public class StepsPanel extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		//create a back button to return you to the dashboard
+		//create a back button to return you to the dash board
 		JButton btnBack = new JButton("Back");
 		btnBack.setBounds(5, 5, 84, 41);
 		btnBack.addActionListener(new ActionListener() {
@@ -65,8 +65,9 @@ public class StepsPanel extends JFrame {
 		contentPane.add(imgBack);*/
 		
 		
-		ImageIcon backButton = new ImageIcon(getClass().getResource(backImage));
+		ImageIcon backButton = new ImageIcon(backImage);
 		JLabel back = new JLabel(backButton);
+		back.setBounds(100, 100, 300, 200);
 		contentPane.add(back);
 	}
 }
