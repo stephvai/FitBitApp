@@ -6,14 +6,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Calendar;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Panel;
+
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
+
 import java.awt.SystemColor;
 
 public class MainScreen extends JFrame {
@@ -38,11 +44,21 @@ public class MainScreen extends JFrame {
 	    	 contentPane.setBorder(new EmptyBorder(5, 0, 5, 0));
 	    	 this.setContentPane(contentPane);
 	    	 contentPane.setLayout(null);
-	    	 
-	    	 
-	    	 //create a dash board panel for the steps
-	    	 DashBoardPanel pnlSteps = new DashBoardPanel(150, 189);
-	    	 pnlSteps.setBounds(50, 191, 308, 167);
+
+			 //create a label to display the title of the panel
+	    	 /*	-----------------------------------------*/
+			 JLabel lblTitle = new JLabel("Welcome! Here is your daily dashboard: ");
+			 lblTitle.setBounds(484, 6, 68, 33);
+			 contentPane.add(lblTitle);
+			 /*------------------------------------------*/
+
+
+			 //------------------------------------------
+			 //create a dash board panel for the steps
+			 //------------------------------------------//
+	    	 DashBoardPanel pnlSteps = new DashBoardPanel(50, 191);
+	    	 pnlSteps.setLocation(51, 99);
+	    	 //pnlSteps.setBounds(50, 191, 308, 167);
 	    	 //creates a mouse listener that tracks when it has been clicked
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -57,49 +73,225 @@ public class MainScreen extends JFrame {
 	    	 pnlSteps.setLayout(null);
 	    	 //add panel to the content pane
 	    	 contentPane.add(pnlSteps);
-	    	 
+
 	    	 //create a progress bar for the steps panel
 	    	 JProgressBar stepsProgress = new JProgressBar();
 	    	 //this will be switched with a ratio between the daily goal and the current steps
 	    	 stepsProgress.setValue(20);
 	    	 stepsProgress.setToolTipText("Current progress towards your goal");
 	    	 stepsProgress.setForeground(new Color(51, 153, 255));
-	    	 stepsProgress.setBounds(21, 110, 266, 36);
+	    	 stepsProgress.setBounds(17, 113, 231, 36);
 	    	 pnlSteps.add(stepsProgress);
-	    	 
+
 	    	 /*JLabel lblSteps = new JLabel(Integer.toString(data.getSteps()));
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
 	    	 lblSteps.setBounds(102, 21, 92, 26);
 	    	 pnlSteps.add(lblSteps);*/
-	    	 
+
 	    	 JLabel lblStepsTtile = new JLabel("Steps");
 	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);
-	    	 lblStepsTtile.setBounds(102, 63, 92, 26);
+	    	 lblStepsTtile.setBounds(85, 62, 92, 26);
 	    	 pnlSteps.add(lblStepsTtile);
-	    	 
-	    	 
-	    	 
-	    	 //create a label to display the title of the panel
-	    	 JLabel lblTitle = new JLabel("Fit Bit");
-	    	 lblTitle.setBounds(318, 10, 68, 33);
-	    	 contentPane.add(lblTitle);
-	    	 
-	    	 DashBoardPanel StairsPanel = new DashBoardPanel(150, 189);
+			 //------------------------------------------
+			 //------------------------------------------//
+
+			 /*-----------------------------------------*/
+			 //stairs panel aka floors climbed
+			 /*----------------------------------------*/
+	    	 DashBoardPanel StairsPanel = new DashBoardPanel(413, 191);
+	    	 StairsPanel.setLocation(385, 99);
 	    	 StairsPanel.setLayout(null);
-	    	 StairsPanel.setBounds(413, 191, 308, 167);
+	    	 //StairsPanel.setBounds(413, 191, 308, 167);
+	    	 StairsPanel.addMouseListener(new MouseAdapter() {
+	    		 @Override
+	    		 public void mouseClicked(MouseEvent arg0) {
+	    			 //what to do on button click
+	    			 
+	    		 }
+	    	 });
 	    	 contentPane.add(StairsPanel);
-	    	 
-	    	 JProgressBar stairsProgress = new JProgressBar();
-	    	 stairsProgress.setValue(20);
-	    	 stairsProgress.setToolTipText("Current progress towards your goal");
-	    	 stairsProgress.setForeground(SystemColor.textHighlight);
-	    	 stairsProgress.setBounds(21, 110, 266, 36);
-	    	 StairsPanel.add(stairsProgress);
-	    	 
-	    	 JLabel lblStairs = new JLabel("Stairs");
-	    	 lblStairs.setHorizontalAlignment(SwingConstants.CENTER);
-	    	 lblStairs.setBounds(102, 63, 92, 26);
-	    	 StairsPanel.add(lblStairs);
+
+			 JLabel lblStairs = new JLabel("Stairs");
+			 lblStairs.setHorizontalAlignment(SwingConstants.CENTER);
+			 lblStairs.setBounds(79, 63, 92, 26);
+			 StairsPanel.add(lblStairs);
+
+			 // progress panel
+			 JProgressBar stairsProgress = new JProgressBar();
+			 stairsProgress.setValue(20);
+			 stairsProgress.setToolTipText("Current progress towards your goal");
+			 stairsProgress.setForeground(SystemColor.textHighlight);
+			 stairsProgress.setBounds(17, 113, 231, 36);
+			 StairsPanel.add(stairsProgress);
+			 /*-------------------------------------*/
+
+
+			 /*---------------------------------------*/
+			 //calories panel
+			 /*---------------------------------------*/
+			 DashBoardPanel caloriesBurned = new DashBoardPanel(776, 191);
+			 caloriesBurned.setLocation(709, 99);
+			 caloriesBurned.setLayout(null);
+			 caloriesBurned.addMouseListener(new MouseAdapter() {
+	    		 @Override
+	    		 public void mouseClicked(MouseEvent arg0) {
+	    			 //what to do on button click
+	    			 
+	    		 }
+	    	 });
+			 contentPane.add(caloriesBurned);
+
+			 JLabel lblCalories = new JLabel("Calories Burned");
+			 lblCalories.setHorizontalAlignment(SwingConstants.CENTER);
+			 lblCalories.setBounds(66,68,136,26);
+			 caloriesBurned.add(lblCalories);
+
+			 JProgressBar caloriesProgress = new JProgressBar();
+			 caloriesProgress.setValue(20);
+			 caloriesProgress.setToolTipText("Current progress towards your goal");
+			 caloriesProgress.setForeground(SystemColor.textHighlight);
+			 caloriesProgress.setBounds(21, 110, 210, 36);
+			 caloriesBurned.add(caloriesProgress);
+			 
+			 /*---------------------------------------*/
+			 //Distance panel
+			 /*---------------------------------------*/
+			 
+			 DashBoardPanel distanceTraveled = new DashBoardPanel(50, 300);
+			 distanceTraveled.setLayout(null);
+			 distanceTraveled.addMouseListener(new MouseAdapter() {
+	    		 @Override
+	    		 public void mouseClicked(MouseEvent arg0) {
+	    			 //what to do on button click
+	    			 
+	    		 }
+	    	 });
+			 contentPane.add(distanceTraveled);
+			 
+			 JLabel lblDistance = new JLabel("Distance"); 
+			 lblDistance.setHorizontalAlignment(SwingConstants.CENTER);
+			 lblDistance.setBounds(66,68,136,26);
+			 
+			 distanceTraveled.add(lblDistance);
+			 
+			 JProgressBar distanceProgress = new JProgressBar();
+			 distanceProgress.setValue(20);
+			 distanceProgress.setToolTipText("Current progress towards your goal");
+			 distanceProgress.setForeground(SystemColor.textHighlight);
+			 distanceProgress.setBounds(21,110,210,36);
+			 distanceTraveled.add(distanceProgress);
+			 
+			 /*---------------------------------------*/
+			 //Active Minutes panel
+			 /*---------------------------------------*/
+			 
+			 DashBoardPanel activeMinutes = new DashBoardPanel(50, 300);
+			 activeMinutes.setBounds(385, 300, 265, 155);
+			 activeMinutes.addMouseListener(new MouseAdapter() {
+	    		 @Override
+	    		 public void mouseClicked(MouseEvent arg0) {
+	    			 //what to do on button click
+	    			 
+	    		 }
+	    	 });
+			 activeMinutes.setLayout(null);
+			 contentPane.add(activeMinutes);
+			 
+			 
+			 JLabel lblActiveMin = new JLabel("Active Minutes");
+			 lblActiveMin.setHorizontalAlignment(SwingConstants.CENTER);
+			 lblActiveMin.setBounds(66, 68, 136, 26);
+			 activeMinutes.add(lblActiveMin);
+			 
+			 /*---------------------------------------*/
+			 //Sedentary Minutes panel
+			 /*---------------------------------------*/
+			 
+			 DashBoardPanel sedentaryMinutes = new DashBoardPanel(50, 300);
+			 sedentaryMinutes.setLayout(null);
+			 sedentaryMinutes.setBounds(709, 300, 265, 155);
+			 sedentaryMinutes.addMouseListener(new MouseAdapter() {
+	    		 @Override
+	    		 public void mouseClicked(MouseEvent arg0) {
+	    			 //what to do on button click
+	    			 
+	    		 }
+	    	 });
+			 contentPane.add(sedentaryMinutes);
+			 
+			 JLabel lblSedentaryMin = new JLabel("Sedentary Minutes");
+			 lblSedentaryMin.setHorizontalAlignment(SwingConstants.CENTER);
+			 lblSedentaryMin.setBounds(66, 68, 136, 26);
+			 sedentaryMinutes.add(lblSedentaryMin );
+			 
+			 /*---------------------------------------*/
+			 //Accolades panel
+			 /*---------------------------------------*/
+			 DashBoardPanel accoladesPanel = new DashBoardPanel(50, 300);
+			 accoladesPanel.setLayout(null);
+			 accoladesPanel.setBounds(51, 501, 265, 155);
+			 accoladesPanel.addMouseListener(new MouseAdapter() {
+	    		 @Override
+	    		 public void mouseClicked(MouseEvent arg0) {
+	    			 //what to do on button click
+	    			 
+	    		 }
+	    	 });
+			 contentPane.add(accoladesPanel);
+			 
+			 JLabel lblAccolades = new JLabel("Accolades");
+			 lblAccolades.setHorizontalAlignment(SwingConstants.CENTER);
+			 lblAccolades.setBounds(66, 68, 136, 26);
+			 accoladesPanel.add(lblAccolades);
+			 
+			 /*---------------------------------------*/
+			 //Heart Rate panel
+			 /*---------------------------------------*/
+			 DashBoardPanel heartRatePanel = new DashBoardPanel(50, 300);
+			 heartRatePanel.setLayout(null);
+			 heartRatePanel.setBounds(385, 501, 265, 155);
+			 heartRatePanel.addMouseListener(new MouseAdapter() {
+	    		 @Override
+	    		 public void mouseClicked(MouseEvent arg0) {
+	    			 //what to do on button click
+	    			 
+	    		 }
+	    	 });
+			 contentPane.add(heartRatePanel);
+			 
+			 JLabel lblHeart = new JLabel("Heart Rate Zones");
+			 lblHeart.setHorizontalAlignment(SwingConstants.CENTER);
+			 lblHeart.setBounds(66, 68, 136, 26);
+			 heartRatePanel.add(lblHeart);
+			 
+			 /*---------------------------------------*/
+			 //Daily goals panel
+			 /*---------------------------------------*/
+			 DashBoardPanel dailyGoals = new DashBoardPanel(50, 300);
+			 dailyGoals.setLayout(null);
+			 dailyGoals.setBounds(709, 501, 265, 155);
+			 dailyGoals.addMouseListener(new MouseAdapter() {
+	    		 @Override
+	    		 public void mouseClicked(MouseEvent arg0) {
+	    			 //what to do on button click
+	    			 
+	    		 }
+	    	 });
+			 contentPane.add(dailyGoals);
+			 
+			 JLabel lblDaily = new JLabel("Daily Goals");
+			 lblDaily.setHorizontalAlignment(SwingConstants.CENTER);
+			 lblDaily.setBounds(66, 68, 136, 26);
+			 dailyGoals.add(lblDaily);
+			 
+			 // Header Panel 
+			 JPanel headerPanel = new JPanel();
+			 headerPanel.setBackground(Color.WHITE);
+			 headerPanel.setBounds(0, 0, 1024, 63);
+			 headerPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+			 contentPane.add(headerPanel);
+			
+
 
 	     }
 }
