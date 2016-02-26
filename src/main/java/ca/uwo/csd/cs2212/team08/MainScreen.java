@@ -106,7 +106,9 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 
+	    			 StairsPanel stairs = new StairsPanel();
+	    			 stairs.setVisible(true);
+	    			 dispose();
 	    		 }
 	    	 });
 	    	 contentPane.add(StairsPanel);
@@ -136,7 +138,9 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 
+	    			 CaloriesPanel calories = new CaloriesPanel();
+	    			 calories.setVisible(true);
+	    			 dispose();
 	    		 }
 	    	 });
 			 contentPane.add(caloriesBurned);
@@ -163,7 +167,9 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 
+	    			 DistancePanel distance = new DistancePanel();
+	    			 distance.setVisible(true);
+	    			 dispose();
 	    		 }
 	    	 });
 			 contentPane.add(distanceTraveled);

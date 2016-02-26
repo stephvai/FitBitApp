@@ -65,24 +65,24 @@ public class StepsPanel extends JFrame {
 		imgBack.setIcon(new ImageIcon(backImage));
 		imgBack.setBounds(0, 0, 50, 50);
 		imgBack.addMouseListener(new MouseAdapter() {
-   		 @Override
-   		 public void mouseClicked(MouseEvent arg0) {
-   			 //what to do on button click
-   			 MainScreen main = new MainScreen();
-   			 main.setVisible(true);
-   			 dispose();
-   		 }
-   	 });
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				//what to do on button click
+				MainScreen main = new MainScreen();
+				main.setVisible(true);
+				dispose();
+			}
+		});
 		contentPane.add(imgBack);
-		
-		
+
+
 		//create a tabbed pane to store each panel
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(86, 166, 831, 482);
-		
+
 		JPanel pnlToday4 = new JPanel();
 		tabbedPane.addTab("Today's Progress", pnlToday4);
-		
+
 		//create a panel for the Lifetime progress
 		JPanel pnlLifetime = new JPanel();
 		tabbedPane.addTab("lifetime Progress", pnlLifetime);
