@@ -90,6 +90,7 @@ public class APIData {
   /**
    * Method that refreshes all data for the daily dashboard from the API and saves it to instance variables
    * @param date the date value in "YYYY-MM-DD" format to fetch data for
+   * @return true if refreshing the data was successful, false otherwise.
    */
   public Boolean refreshDailyDashBoardData(String date) {
 	currentDate = date;
