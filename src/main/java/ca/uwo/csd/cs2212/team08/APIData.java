@@ -78,8 +78,8 @@ public class APIData {
   /**
    * Constructor for API data
    */
-  public APIData() {
-	  
+  public APIData(String date) {
+	  refreshDailyDashBoardData(date);
   }
   
   /********************************************************
