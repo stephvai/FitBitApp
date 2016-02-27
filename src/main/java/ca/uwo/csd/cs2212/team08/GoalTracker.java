@@ -68,13 +68,8 @@ public void saveProgress() throws IOException {
 
             // Opens a file to write to called saveObj
             FileOutputStream saveFile;
-			try {
-				saveFile = new FileOutputStream("Pref.ini");
-			} catch (FileNotFoundException e) {
-				File newFile = new File("Pref.ini");
-				saveFile = new FileOutputStream(newFile);
-			}
-
+			saveFile = new FileOutputStream("Pref.ini");
+		
             //Creates an ObjectOutputStream to put files into.
             ObjectOutputStream save = new ObjectOutputStream(saveFile);
 

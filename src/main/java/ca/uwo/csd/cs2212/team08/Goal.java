@@ -1,9 +1,14 @@
 package ca.uwo.csd.cs2212.team08;
+
+import java.io.Serializable;
+
 //TODO add achieved and non achieved image
 
-public class Goal {
+public class Goal implements Serializable {
 
-    private int target;
+	private static final long serialVersionUID = -5343638548252582826L;
+	
+	private int target;
     private boolean achieved;
     private String type;
 

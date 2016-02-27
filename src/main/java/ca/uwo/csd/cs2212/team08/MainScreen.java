@@ -59,6 +59,54 @@ public class MainScreen extends JFrame {
 	    		monthString = Integer.toString(month); 
 	    	 }
 	    	 date = Integer.toString(cal.get(Calendar.YEAR)) +  "-" + monthString + "-" + Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
+	    	 
+	    	 String[] dateArray = date.split("-");
+	    	 String day = dateArray[0];
+	    	 String month = dateArray[1];
+	    	 
+	    	 
+	    	 if(month == "jan"){
+	    	 month = "01";	 
+	    	 }
+	    	 else if(month == "feb"){
+	    		 month = "02";
+	    	 }
+	    	 else if(month == "mar"){
+	    		 month = "03";
+	    	 }
+	    	 else if(month == "apr"){
+	    		 month = "04";
+	    	 }
+	    	 else if(month == "may"){
+	    		 month = "05";
+	    	 }
+	    	 else if(month == "jun"){
+	    		 month = "06";
+	    	 }
+	    	 else if(month == "jul"){
+	    		 month = "07";
+	    	 }
+	    	 else if(month == "aug"){
+	    		 month = "08";
+	    	 }
+	    	 else if(month == "sep"){
+	    		 month = "09";
+	    	 }
+	    	 else if(month == "oct"){
+	    		 month = "10";
+	    	 }
+	    	 else if(month == "nov"){
+	    		 month = "11";
+	    	 }
+	    	 else if(month == "dec"){
+	    		 month = "12";
+	    	 }
+	    	 
+	    	 String year = dateArray[2];
+	    	 
+	    	 date = year +"-"+month+"-"+day;
+	    	 
+	    	 
 	    	 System.out.println(date);
 	    	 //data = new APIData();
 	    	 //data.refreshData(year, month, day);
