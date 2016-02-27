@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -28,6 +29,7 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 
 import java.sql.Date;
+import java.awt.Label;
 
 
 public class MainScreen extends JFrame {
@@ -37,18 +39,22 @@ public class MainScreen extends JFrame {
 	private int month;
 	private int day; 
 	private String date;
+	private JDatePickerImpl datePicker;
+	private static final String placeholder = "src/main/resources/Placeholder.png";
 	//private APIData data;
 	    
 	     public MainScreen() {
 	          this.initUI();
 	     }
 	    
-	     private void initUI () {
+	     private void initUI () 
+	     { 
+	    	 //set the default date to the current date
 	    	 Calendar cal = Calendar.getInstance();
-	    	
 	    	 year = cal.get(Calendar.YEAR);
 	    	 month = cal.get(Calendar.MONTH)+1;
 	    	 day = cal.get(Calendar.DAY_OF_MONTH);
+	    	 //add an extra zero to the month if it is needed
 	    	 String monthString;
 	    	 if (month<10)
 	    	 {
@@ -58,13 +64,110 @@ public class MainScreen extends JFrame {
 	    	 {
 	    		monthString = Integer.toString(month); 
 	    	 }
-	    	 date = Integer.toString(cal.get(Calendar.YEAR)) +  "-" + monthString + "-" + Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
+	    	 //save the date to a string
+	    	 date = Integer.toString(year) +  "-" + monthString + "-" + Integer.toString(day);
 	    	 
+	    	 
+	    	 //data = new APIData();
+	    	 //data.refreshData(date);
+	    	 
+	    	 
+	    	 //create the main window for the daily dash board 
+	    	 this.setTitle("Team08 Fitbit");
+	    	 this.setSize(1024, 768);
+	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	    	 this.setLocationRelativeTo(null);
+	    	 contentPane = new JPanel();
+	    	 contentPane.setBorder(new EmptyBorder(5, 0, 5, 0));
+	    	 this.setContentPane(contentPane);
+	    	 contentPane.setLayout(null);
+	    	 
+	    	 /*------------------------------------------*/
+			 //create a label to display the title of the panel
+	    	 /*	-----------------------------------------*/
+			 JLabel lblTitle = new JLabel("Welcome! Here is your daily dashboard: ");
+			 lblTitle.setFont(new Font("Noteworthy", Font.PLAIN, 46));
+			 lblTitle.setBounds(159, 0, 732, 72);
+			 contentPane.add(lblTitle);
+			 
+			 
+			 /*------------------------------------------*/
+			 // creates a Header Panel 
+			 /*------------------------------------------*/
+			 JPanel headerPanel = new JPanel();
+			 headerPanel.setBackground(Color.WHITE);
+			 headerPanel.setBounds(0, 0, 1024, 63);
+			 headerPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+			 contentPane.add(headerPanel);
+			 
+			 
+			 /*------------------------------------------*/
+			 //create the calendar user can use to pick a date
+			 /*------------------------------------------*/
+			 UtilDateModel model = new UtilDateModel();
+			 //set the calendar date to the one given by java
+			 model.setDate(year, month-1, day);
+			 model.setSelected(true);
+			 JDatePanelImpl datePanel = new JDatePanelImpl(model);
+			 //create a date picker to allow the user to select the date
+			 datePicker = new JDatePickerImpl(datePanel);
+			 datePicker.setToolTipText("");
+			 datePicker.setBounds(385, 69, 225, 27);
+			 contentPane.add(datePicker);
+			 datePicker.setBackground(Color.WHITE);
+			 
+			 /*------------------------------------------*/
+			 //create each panel used for the daily dash board
+			 /*------------------------------------------*/
+			 stepsPanel();
+			 stairsPanel();
+			 caloriesPanel();
+			 distancePanel();
+			 activeMinutesPanel();
+			 sedentaryMinutesPanel();
+			 accoladesPanel();
+			 heartRatePanel();
+			 goalsPanel();
+			 
+
+			 updateDate();
+			 System.out.println(date);
+			 //datePicker.getJFormattedTextField().
+	     
+	     
+			 /*------------------------------------------*/
+			 //create a refresh button to refresh the data
+			 /*------------------------------------------*/
+			 JLabel imgRefresh = new JLabel();
+			 imgRefresh.setIcon(new ImageIcon(placeholder));
+			 imgRefresh.setBounds(613, 69, 37, 27);
+			 imgRefresh.addMouseListener(new MouseAdapter() {
+				 @Override
+				 public void mouseClicked(MouseEvent arg0) {
+					 //what to do on button click
+					 updateDate();
+					 //data.refreshData(date);
+					 repaint();
+				 }
+			 });
+			 contentPane.add(imgRefresh);
+	     }
+	     
+	     /**
+	      * a method that can be used to pull a new date from the JDatePicker
+	      */
+	     private void updateDate()
+	     {
+	    	 //get the new date from the JDatePicker
+	    	 date = datePicker.getJFormattedTextField().getText();
+	    	 //save the date in a array of strings
 	    	 String[] dateArray = date.split("-");
+	    	 //set the day
 	    	 String day = dateArray[0];
+	    	 //set the month
 	    	 String month = dateArray[1];
 	    	 
-	    	 
+	    	 //switch the month from letters to numbers
 	    	 if(month == "jan"){
 	    	 month = "01";	 
 	    	 }
@@ -101,64 +204,10 @@ public class MainScreen extends JFrame {
 	    	 else if(month == "dec"){
 	    		 month = "12";
 	    	 }
-	    	 
+	    	 //set the year
 	    	 String year = dateArray[2];
-	    	 
+	    	 //save the date all in one string
 	    	 date = year +"-"+month+"-"+day;
-	    	 
-	    	 
-	    	 System.out.println(date);
-	    	 //data = new APIData();
-	    	 //data.refreshData(year, month, day);
-	    	 this.setTitle("Team08 Fitbit");
-	    	 this.setSize(1024, 768);
-	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	    	 this.setLocationRelativeTo(null);
-	    	 contentPane = new JPanel();
-	    	 contentPane.setBorder(new EmptyBorder(5, 0, 5, 0));
-	    	 this.setContentPane(contentPane);
-	    	 contentPane.setLayout(null);
-
-			 //create a label to display the title of the panel
-	    	 /*	-----------------------------------------*/
-			 JLabel lblTitle = new JLabel("Welcome! Here is your daily dashboard: ");
-			 lblTitle.setFont(new Font("Noteworthy", Font.PLAIN, 46));
-			 lblTitle.setBounds(159, 0, 732, 72);
-			 contentPane.add(lblTitle);
-			 /*------------------------------------------*/
-
-			 // Header Panel 
-			 JPanel headerPanel = new JPanel();
-			 headerPanel.setBackground(Color.WHITE);
-			 headerPanel.setBounds(0, 0, 1024, 63);
-			 headerPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-			 contentPane.add(headerPanel);
-			 
-			 UtilDateModel model = new UtilDateModel();
-			 model.setDate(year, month-1, day);
-			 model.setSelected(true);
-			 JDatePanelImpl datePanel = new JDatePanelImpl(model);
-			 
-			 stepsPanel();
-			 stairsPanel();
-			 caloriesPanel();
-			 distancePanel();
-			 activeMinutesPanel();
-			 sedentaryMinutesPanel();
-			 accoladesPanel();
-			 heartRatePanel();
-			 goalsPanel();
-			 
-			 JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
-			 datePicker.setBounds(385, 69, 265, 29);
-			 contentPane.add(datePicker);
-			 datePicker.setBackground(Color.WHITE);
-			 datePicker.setVisible(true);
-			 
-			 /*date = datePicker.getJFormattedTextField().getText();
-			 System.out.println(date);
-			 String reverse = new StringBuilder(date).reverse().toString();
-			 System.out.println(reverse);*/
 	     }
 	     
 	     /**
@@ -166,13 +215,9 @@ public class MainScreen extends JFrame {
 	      */
 	     private void stepsPanel()
 		 {
-			//------------------------------------------
-			 //create a dash board panel for the steps
-			 //------------------------------------------//
+			//creates a new steps panel
 	    	 DashBoardPanel pnlSteps = new DashBoardPanel(50, 191);
 	    	 pnlSteps.setLocation(51, 99);
-	    	 //pnlSteps.setBounds(50, 191, 308, 167);
-	    	 //creates a mouse listener that tracks when it has been clicked
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -200,18 +245,16 @@ public class MainScreen extends JFrame {
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
 	    	 lblSteps.setBounds(102, 21, 92, 26);
 	    	 pnlSteps.add(lblSteps);*/
-
-	    	 JLabel lblStepsTtile = new JLabel("Steps");
-	    	 lblStepsTtile.setFont(new Font("Noteworthy", Font.PLAIN, 25));
-	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);
-	    	 lblStepsTtile.setBounds(86, 50, 92, 36);
-	    	 pnlSteps.add(lblStepsTtile);
-			 //------------------------------------------
-			 //------------------------------------------//
-
-			 /*-----------------------------------------*/
-	    	 lblStepsTtile.setBounds(85, 62, 92, 26);
-	    	 pnlSteps.add(lblStepsTtile);  
+	    	 
+	    	 Label lblSteps = new Label("New label");
+	    	 lblSteps.setBounds(84, 10, 104, 33);
+	    	 pnlSteps.add(lblSteps);
+	    	 
+	    	 	    	 JLabel lblStepsTtile = new JLabel("Steps");
+	    	 	    	 lblStepsTtile.setBounds(84, 66, 92, 26);
+	    	 	    	 pnlSteps.add(lblStepsTtile);
+	    	 	    	 lblStepsTtile.setFont(new Font("Noteworthy", Font.PLAIN, 25));
+	    	 	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);
 		 }
 	     
 	     /**
@@ -219,10 +262,6 @@ public class MainScreen extends JFrame {
 	      */
 	     private void stairsPanel()
 	     {
-	    	 /*-----------------------------------------*/
-
-			 //stairs panel aka floors climbed
-			 /*----------------------------------------*/
 	    	 DashBoardPanel StairsPanel = new DashBoardPanel(413, 191);
 	    	 StairsPanel.setLocation(385, 99);
 	    	 StairsPanel.setLayout(null);
@@ -251,6 +290,10 @@ public class MainScreen extends JFrame {
 			 stairsProgress.setForeground(SystemColor.textHighlight);
 			 stairsProgress.setBounds(17, 113, 231, 36);
 			 StairsPanel.add(stairsProgress);
+			 
+			 Label label = new Label("New label");
+			 label.setBounds(79, 12, 104, 33);
+			 StairsPanel.add(label);
 	     }
 	     
 	     /**
@@ -287,6 +330,10 @@ public class MainScreen extends JFrame {
 			 caloriesProgress.setForeground(SystemColor.textHighlight);
 			 caloriesProgress.setBounds(21, 110, 210, 36);
 			 caloriesBurned.add(caloriesProgress);
+			 
+			 Label label = new Label("New label");
+			 label.setBounds(80, 10, 104, 33);
+			 caloriesBurned.add(label);
 	     }
 	     
 	     /**
@@ -320,6 +367,10 @@ public class MainScreen extends JFrame {
 			 distanceProgress.setForeground(SystemColor.textHighlight);
 			 distanceProgress.setBounds(21,110,210,36);
 			 distanceTraveled.add(distanceProgress);
+			 
+			 Label label = new Label("New label");
+			 label.setBounds(82, 10, 104, 33);
+			 distanceTraveled.add(label);
 	     }
 	     
 	     /**
@@ -349,6 +400,10 @@ public class MainScreen extends JFrame {
 			 lblActiveMin.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblActiveMin.setBounds(54, 53, 170, 47);
 			 activeMinutes.add(lblActiveMin);
+			 
+			 Label label = new Label("New label");
+			 label.setBounds(82, 14, 104, 33);
+			 activeMinutes.add(label);
 	     }
 	     
 	     /**
@@ -377,6 +432,10 @@ public class MainScreen extends JFrame {
 			 lblSedentaryMin.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblSedentaryMin.setBounds(25, 52, 215, 50);
 			 sedentaryMinutes.add(lblSedentaryMin );
+			 
+			 Label label = new Label("New label");
+			 label.setBounds(79, 13, 104, 33);
+			 sedentaryMinutes.add(label);
 	     }
 	     
 	     /**
