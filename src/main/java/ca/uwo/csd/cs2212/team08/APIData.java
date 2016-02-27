@@ -77,6 +77,7 @@ public class APIData {
   
   /**
    * Constructor for API data
+   * @param date the date value you want data for in "YYYY-MM-DD" format
    */
   public APIData(String date) {
 	  refreshDailyDashBoardData(date);
