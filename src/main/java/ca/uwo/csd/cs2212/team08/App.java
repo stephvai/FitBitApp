@@ -5,10 +5,8 @@ public class App {
 
 	public static void main (String args[]){
 		System.out.println("Hello World");
-		APIData service = new APIData("2016-02-26");
-		System.out.println("Daily Steps: " + service.getSteps());
-		service.refreshDailyDashBoardData("2016-02-25");
-		System.out.println("Daily Steps: " + service.getSteps());
+		MainScreen window = new MainScreen();
+		window.setVisible(true);
 		/*
 		 SwingUtilities.invokeLater(new Runnable() {
              @Override
