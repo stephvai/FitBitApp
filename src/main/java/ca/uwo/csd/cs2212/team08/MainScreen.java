@@ -57,7 +57,10 @@ public class MainScreen extends JFrame {
 	    	 date = paramDate;
 	    	 //Refresh the API DATA
 	    	 apiData = new APIData();
-	    	 apiData.refreshDailyDashBoardData(date);
+	    	 
+	    	 if (!apiData.refreshDailyDashBoardData(date)); {
+	    		 //DISPLAY DATA FAILED TO LOAD 
+	    	 }
 	    	 
 	    	 /*------------------------------------------*/
 			 //create a label to display the title of the panel
