@@ -35,42 +35,17 @@ import java.awt.Label;
 public class MainScreen extends JFrame {
 	
 	private JPanel contentPane;
-	private int year;
-	private int month;
-	private int day; 
 	private String date;
 	private JDatePickerImpl datePicker;
 	private static final String placeholder = "src/main/resources/Placeholder.png";
 	//private APIData data;
 	    
-	     public MainScreen() {
-	          this.initUI();
+	     public MainScreen(String date) {
+	          this.initUI(date);
 	     }
 	    
-	     private void initUI () 
+	     private void initUI(String date) 
 	     { 
-	    	 //set the default date to the current date
-	    	 Calendar cal = Calendar.getInstance();
-	    	 year = cal.get(Calendar.YEAR);
-	    	 month = cal.get(Calendar.MONTH)+1;
-	    	 day = cal.get(Calendar.DAY_OF_MONTH);
-	    	 //add an extra zero to the month if it is needed
-	    	 String monthString;
-	    	 if (month<10)
-	    	 {
-	    		 monthString = "0" + Integer.toString(month);
-	    	 }
-	    	 else
-	    	 {
-	    		monthString = Integer.toString(month); 
-	    	 }
-	    	 //save the date to a string
-	    	 date = Integer.toString(year) +  "-" + monthString + "-" + Integer.toString(day);
-	    	 
-	    	 
-	    	 //data = new APIData();
-	    	 //data.refreshData(date);
-	    	 
 	    	 
 	    	 //create the main window for the daily dash board 
 	    	 this.setTitle("Team08 Fitbit");
@@ -81,6 +56,7 @@ public class MainScreen extends JFrame {
 	    	 contentPane.setBorder(new EmptyBorder(5, 0, 5, 0));
 	    	 this.setContentPane(contentPane);
 	    	 contentPane.setLayout(null);
+	    	 this.date = date;
 	    	 
 	    	 /*------------------------------------------*/
 			 //create a label to display the title of the panel
@@ -106,12 +82,16 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 			 UtilDateModel model = new UtilDateModel();
 			 //set the calendar date to the one given by java
+			 String[] dateArray = this.date.split("-");
+			 int year = Integer.parseInt(dateArray[0]);
+			 int month = Integer.parseInt(dateArray[1]);
+			 int day = Integer.parseInt(dateArray[2]);
 			 model.setDate(year, month-1, day);
 			 model.setSelected(true);
 			 JDatePanelImpl datePanel = new JDatePanelImpl(model);
 			 //create a date picker to allow the user to select the date
 			 datePicker = new JDatePickerImpl(datePanel);
-			 datePicker.setToolTipText("");
+			 datePicker.setToolTipText("Please select the desired date");
 			 datePicker.setBounds(385, 69, 225, 27);
 			 contentPane.add(datePicker);
 			 datePicker.setBackground(Color.WHITE);
@@ -131,7 +111,6 @@ public class MainScreen extends JFrame {
 			 
 
 			 updateDate();
-			 System.out.println(date);
 			 //datePicker.getJFormattedTextField().
 	     
 	     
@@ -159,55 +138,55 @@ public class MainScreen extends JFrame {
 	     private void updateDate()
 	     {
 	    	 //get the new date from the JDatePicker
-	    	 date = datePicker.getJFormattedTextField().getText();
+	    	 String tempDate = datePicker.getJFormattedTextField().getText();
 	    	 //save the date in a array of strings
-	    	 String[] dateArray = date.split("-");
+	    	 String[] dateArray = tempDate.split("-");
 	    	 //set the day
 	    	 String day = dateArray[0];
 	    	 //set the month
 	    	 String month = dateArray[1];
 	    	 
 	    	 //switch the month from letters to numbers
-	    	 if(month == "jan"){
+	    	 if(month.equals("Jan")){
 	    	 month = "01";	 
 	    	 }
-	    	 else if(month == "feb"){
+	    	 else if(month.equals("Feb")){
 	    		 month = "02";
 	    	 }
-	    	 else if(month == "mar"){
+	    	 else if(month.equals("Mar")){
 	    		 month = "03";
 	    	 }
-	    	 else if(month == "apr"){
+	    	 else if(month.equals("Apr")){
 	    		 month = "04";
 	    	 }
-	    	 else if(month == "may"){
+	    	 else if(month.equals("May")){
 	    		 month = "05";
 	    	 }
-	    	 else if(month == "jun"){
+	    	 else if(month.equals("Jun")){
 	    		 month = "06";
 	    	 }
-	    	 else if(month == "jul"){
+	    	 else if(month.equals("Jul")){
 	    		 month = "07";
 	    	 }
-	    	 else if(month == "aug"){
+	    	 else if(month.equals("Aug")){
 	    		 month = "08";
 	    	 }
-	    	 else if(month == "sep"){
+	    	 else if(month.equals("Sep")){
 	    		 month = "09";
 	    	 }
-	    	 else if(month == "oct"){
+	    	 else if(month.equals("Oct")){
 	    		 month = "10";
 	    	 }
-	    	 else if(month == "nov"){
+	    	 else if(month.equals("Nov")){
 	    		 month = "11";
 	    	 }
-	    	 else if(month == "dec"){
+	    	 else if(month.equals("Dec")){
 	    		 month = "12";
 	    	 }
 	    	 //set the year
 	    	 String year = dateArray[2];
 	    	 //save the date all in one string
-	    	 date = year +"-"+month+"-"+day;
+	    	 this.date = year+"-"+month+"-"+day;
 	     }
 	     
 	     /**
@@ -222,7 +201,7 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 StepsPanel steps = new StepsPanel();
+	    			 StepsPanel steps = new StepsPanel(date);
 	    			 steps.setVisible(true);
 	    			 dispose();
 	    		 }
@@ -245,18 +224,18 @@ public class MainScreen extends JFrame {
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
 	    	 lblSteps.setBounds(102, 21, 92, 26);
 	    	 pnlSteps.add(lblSteps);*/
-	    	 
+
 	    	 Label lblSteps = new Label("New label");
 	    	 lblSteps.setBounds(84, 10, 104, 33);
 	    	 pnlSteps.add(lblSteps);
-	    	 
-	    	 	    	 JLabel lblStepsTtile = new JLabel("Steps");
-	    	 	    	 lblStepsTtile.setBounds(84, 66, 92, 26);
-	    	 	    	 pnlSteps.add(lblStepsTtile);
-	    	 	    	 lblStepsTtile.setFont(new Font("Noteworthy", Font.PLAIN, 25));
-	    	 	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);
+
+	    	 JLabel lblStepsTtile = new JLabel("Steps");
+	    	 lblStepsTtile.setBounds(84, 66, 92, 26);
+	    	 pnlSteps.add(lblStepsTtile);
+	    	 lblStepsTtile.setFont(new Font("Noteworthy", Font.PLAIN, 25));
+	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);
 		 }
-	     
+
 	     /**
 	      * creates the panel to display the the stairs climbed
 	      */
@@ -270,7 +249,7 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 StairsPanel stairs = new StairsPanel();
+	    			 StairsPanel stairs = new StairsPanel(date);
 	    			 stairs.setVisible(true);
 	    			 dispose();
 	    		 }
@@ -311,7 +290,7 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 CaloriesPanel calories = new CaloriesPanel();
+	    			 CaloriesPanel calories = new CaloriesPanel(date);
 	    			 calories.setVisible(true);
 	    			 dispose();
 	    		 }
@@ -347,7 +326,7 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 DistancePanel distance = new DistancePanel();
+	    			 DistancePanel distance = new DistancePanel(date);
 	    			 distance.setVisible(true);
 	    			 dispose();
 	    		 }

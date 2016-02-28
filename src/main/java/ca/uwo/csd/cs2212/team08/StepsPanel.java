@@ -24,12 +24,14 @@ import javax.swing.JTabbedPane;
 public class StepsPanel extends JFrame {
 
 	private JPanel contentPane;
+	private String date;
 	private static final String backImage = "src/main/resources/Placeholder.png";
 
 	/**
 	 * Create the frame.
 	 */
-	public StepsPanel() {
+	public StepsPanel(String date) {
+		this.date = date;
 		setTitle("team08-Fitbit");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024,768);
@@ -68,8 +70,7 @@ public class StepsPanel extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				//what to do on button click
-				MainScreen main = new MainScreen();
-				main.setVisible(true);
+				home();
 				dispose();
 			}
 		});
@@ -102,5 +103,15 @@ public class StepsPanel extends JFrame {
 		JLabel back = new JLabel(backButton);
 		back.setBounds(100, 100, 300, 200);
 		contentPane.add(back);*/
+
+	}
+
+	/**
+	 * returns the user to their daily dash board
+	 */
+	public void home()
+	{
+		MainScreen main = new MainScreen(this.date);
+		main.setVisible(true);
 	}
 }

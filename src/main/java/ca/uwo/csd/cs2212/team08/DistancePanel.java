@@ -17,12 +17,13 @@ import javax.swing.border.EmptyBorder;
 public class DistancePanel extends JFrame {
 
 	private JPanel contentPane;
+	private String date;
 	private static final String backImage = "src/main/resources/Placeholder.png";
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -33,12 +34,13 @@ public class DistancePanel extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public DistancePanel() {
+	public DistancePanel(String date) {
+		this.date = date;
 		setTitle("team08-Fitbit");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024,768);
@@ -56,7 +58,7 @@ public class DistancePanel extends JFrame {
 		lblTitle.setBounds(386, 21, 193, 84);
 		contentPane.add(lblTitle);
 
-		//create a back button to return to the daily dashboard
+		//create a back button to return to the daily dash board
 		JLabel imgBack = new JLabel();
 		imgBack.setIcon(new ImageIcon(backImage));
 		imgBack.setBounds(0, 0, 50, 50);
@@ -64,8 +66,7 @@ public class DistancePanel extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				//what to do on button click
-				MainScreen main = new MainScreen();
-				main.setVisible(true);
+				home();
 				dispose();
 			}
 		});
@@ -92,6 +93,15 @@ public class DistancePanel extends JFrame {
 		tabbedPane.addTab("Today's Progress", pnlToday5);
 
 		contentPane.add(tabbedPane);
+	}
+	
+	/**
+	 * returns the user to their daily dash board
+	 */
+	public void home()
+	{
+		MainScreen main = new MainScreen(this.date);
+		main.setVisible(true);
 	}
 
 }

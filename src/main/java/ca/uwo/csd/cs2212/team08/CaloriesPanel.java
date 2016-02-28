@@ -17,12 +17,13 @@ import javax.swing.border.EmptyBorder;
 public class CaloriesPanel extends JFrame {
 
 	private JPanel contentPane;
+	private String date;
 	private static final String backImage = "src/main/resources/Placeholder.png";
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -34,11 +35,12 @@ public class CaloriesPanel extends JFrame {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the frame.
 	 */
-	public CaloriesPanel() {
+	public CaloriesPanel(String date) {
+		this.date = date;
 		setTitle("team08-Fitbit");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024,768);
@@ -63,8 +65,7 @@ public class CaloriesPanel extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				//what to do on button click
-				MainScreen main = new MainScreen();
-				main.setVisible(true);
+				home();
 				dispose();
 			}
 		});
@@ -92,5 +93,13 @@ public class CaloriesPanel extends JFrame {
 
 		contentPane.add(tabbedPane);
 	}
-
+	
+	/**
+	 * returns the user to their daily dash board
+	 */
+	public void home()
+	{
+		MainScreen main = new MainScreen(this.date);
+		main.setVisible(true);
+	}
 }
