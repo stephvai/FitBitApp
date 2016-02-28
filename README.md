@@ -50,7 +50,7 @@ development on your feature branch.  Then, when you are finished with your
 feature, push your changes, and open a pull request to merge your changes back
 into the `dev` branch.
 
-##To Run the Program
+## To Run the Program
 To run the program in normal and testing mode:
 
 ```
@@ -64,7 +64,7 @@ java -jar team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar test
 
 ```
 
-##To Compile
+## To Compile
 To compile the program:
 
 ```
