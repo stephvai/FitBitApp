@@ -33,20 +33,18 @@ import java.awt.Label;
 
 
 public class MainScreen extends JFrame {
-	
 	private JPanel contentPane;
 	private String date;
 	private JDatePickerImpl datePicker;
 	private static final String placeholder = "src/main/resources/Placeholder.png";
-	//private APIData data;
+	private APIData apiData;
 	    
 	     public MainScreen(String date) {
 	          this.initUI(date);
 	     }
 	    
-	     private void initUI(String date) 
+	     private void initUI(String paramDate) 
 	     { 
-	    	 
 	    	 //create the main window for the daily dash board 
 	    	 this.setTitle("Team08 Fitbit");
 	    	 this.setSize(1024, 768);
@@ -56,7 +54,10 @@ public class MainScreen extends JFrame {
 	    	 contentPane.setBorder(new EmptyBorder(5, 0, 5, 0));
 	    	 this.setContentPane(contentPane);
 	    	 contentPane.setLayout(null);
-	    	 this.date = date;
+	    	 date = paramDate;
+	    	 //Refresh the API DATA
+	    	 apiData = new APIData();
+	    	 apiData.refreshDailyDashBoardData(date);
 	    	 
 	    	 /*------------------------------------------*/
 			 //create a label to display the title of the panel
@@ -125,7 +126,8 @@ public class MainScreen extends JFrame {
 				 public void mouseClicked(MouseEvent arg0) {
 					 //what to do on button click
 					 updateDate();
-					 //data.refreshData(date);
+					 apiData.refreshDailyDashBoardData(date);
+					 initUI(date);
 					 repaint();
 				 }
 			 });
@@ -219,13 +221,9 @@ public class MainScreen extends JFrame {
 	    	 stepsProgress.setForeground(new Color(51, 153, 255));
 	    	 stepsProgress.setBounds(17, 113, 231, 36);
 	    	 pnlSteps.add(stepsProgress);
-
-	    	 /*JLabel lblSteps = new JLabel(Integer.toString(data.getSteps()));
-	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
-	    	 lblSteps.setBounds(102, 21, 92, 26);
-	    	 pnlSteps.add(lblSteps);*/
-
-	    	 Label lblSteps = new Label("New label");
+	    	 
+	    	 JLabel lblSteps = new JLabel(Integer.toString(apiData.getSteps()));
+	    	 System.out.println(apiData.getSteps());
 	    	 lblSteps.setBounds(84, 10, 104, 33);
 	    	 pnlSteps.add(lblSteps);
 
@@ -270,7 +268,7 @@ public class MainScreen extends JFrame {
 			 stairsProgress.setBounds(17, 113, 231, 36);
 			 StairsPanel.add(stairsProgress);
 			 
-			 Label label = new Label("New label");
+			 JLabel label = new JLabel(Integer.toString(apiData.getSteps()));
 			 label.setBounds(79, 12, 104, 33);
 			 StairsPanel.add(label);
 	     }
@@ -310,7 +308,7 @@ public class MainScreen extends JFrame {
 			 caloriesProgress.setBounds(21, 110, 210, 36);
 			 caloriesBurned.add(caloriesProgress);
 			 
-			 Label label = new Label("New label");
+			 JLabel label = new JLabel(Integer.toString(apiData.getCalories()));
 			 label.setBounds(80, 10, 104, 33);
 			 caloriesBurned.add(label);
 	     }
@@ -347,7 +345,7 @@ public class MainScreen extends JFrame {
 			 distanceProgress.setBounds(21,110,210,36);
 			 distanceTraveled.add(distanceProgress);
 			 
-			 Label label = new Label("New label");
+			 JLabel label = new JLabel(Double.toString(apiData.getDistance()));
 			 label.setBounds(82, 10, 104, 33);
 			 distanceTraveled.add(label);
 	     }
@@ -380,7 +378,7 @@ public class MainScreen extends JFrame {
 			 lblActiveMin.setBounds(54, 53, 170, 47);
 			 activeMinutes.add(lblActiveMin);
 			 
-			 Label label = new Label("New label");
+			 JLabel label = new JLabel(Integer.toString(apiData.getLightlyActiveMin() + apiData.getFairlyActiveMin() + apiData.getVeryActiveMin()));
 			 label.setBounds(82, 14, 104, 33);
 			 activeMinutes.add(label);
 	     }
@@ -412,7 +410,7 @@ public class MainScreen extends JFrame {
 			 lblSedentaryMin.setBounds(25, 52, 215, 50);
 			 sedentaryMinutes.add(lblSedentaryMin );
 			 
-			 Label label = new Label("New label");
+			 JLabel label = new JLabel(Integer.toString(apiData.getSendentaryMinutes()));
 			 label.setBounds(79, 13, 104, 33);
 			 sedentaryMinutes.add(label);
 	     }
