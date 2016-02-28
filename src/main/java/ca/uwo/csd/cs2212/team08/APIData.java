@@ -24,7 +24,6 @@ import org.json.JSONObject;
 import com.github.scribejava.core.model.*; //Request Verb
 
 //TODO Make sure it returns false whenever the application crashes
-//TODO ADD try / catch and exception handling for JSON parsing
 //TODO Remove all writing to console and instead save it to log.txt
 
 /**
@@ -68,10 +67,8 @@ public class APIData {
   
   /**
    * Constructor for API data
-   * @param date the date value you want data for in "YYYY-MM-DD" format
    */
-  public APIData(String date) {
-	  refreshDailyDashBoardData(date);
+  public APIData() {
   }
   
   /********************************************************
@@ -120,13 +117,9 @@ public class APIData {
             rawResponse = bufferedReader.readLine();
         }
         catch(FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open file\n"+ex.getMessage());
             return false;
         }
         catch(IOException ex) {
-            System.out.println(
-                    "Error reading/write file\n"+ex.getMessage());
             return false;
         }
         finally{
@@ -159,6 +152,7 @@ public class APIData {
                 rawResponse);
         
         //GETTING AND PARSING ACTIVITY SUMMARY 
+        
         String requestUrl = activitySummaryRequestBuilder(requestUrlPrefix);
         OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
@@ -174,6 +168,7 @@ public class APIData {
             checkResponse = checkStatus(response.getCode());
             System.out.println("HTTP response code after refresh: "+response.getCode());
         }
+        saveTokens(accessToken);
         
         if (checkResponse == successfulResponse) {
         	System.out.println("Succesful Response - Summary");
@@ -187,11 +182,25 @@ public class APIData {
         }
         
         //GETTING AND PARSING BEST DAYS/LIFETIME TOTALS
+        
         requestUrl = bestDayLifeTimeTotalRequestBuilder(requestUrlPrefix);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         response = request.send();
         checkResponse = checkStatus(response.getCode());
+        
+        if (checkResponse == expiredToken) {
+        	//refresh token then send it again
+        	System.out.println("refreshing");
+        	accessToken = service.refreshOAuth2AccessToken(accessToken);
+        	request = new OAuthRequest(Verb.GET, requestUrl, service);
+            service.signRequest(accessToken, request);
+            response = request.send();
+            checkResponse = checkStatus(response.getCode());
+            System.out.println("HTTP response code after refresh: "+response.getCode());
+        }
+        saveTokens(accessToken);
+        
         if (checkResponse == successfulResponse) {
         	System.out.println("Succesfful Response - Total/BestDay");
         	JSONObject obj = new JSONObject(response.getBody());
@@ -211,13 +220,19 @@ public class APIData {
    * 	 		  API Request helper methods			  *
    ********************************************************/
   
+  /**
+   * A method that given a request URL prefix it generates the activity summary API URL
+   * @param requestURLPrefix prefix for the users API request URLS
+   * @return returns the complete request URL for the activity summary API call
+   */
   private String activitySummaryRequestBuilder(String requestURLPrefix) {
 	  return requestURLPrefix + "activities/date/" + currentDate + ".json";
   }
   
   /**
-   * method that builds the request url for the lifetime totals
-   * @return returns the appropriate API request URL 
+   * A method that given a request URL prefix it generates the bestdays/lifetimetotal API URL
+   * @param requestUrlPrefix prefix for the users API request URLS
+   * @return returns the complete request URL for the best days and life time total API call
    */
   private String bestDayLifeTimeTotalRequestBuilder(String requestUrlPrefix) {
 	  return requestUrlPrefix + "activities.json";
@@ -230,10 +245,6 @@ public class APIData {
   private void saveTokens(OAuth2AccessToken accessToken) {
 	  BufferedWriter bufferedWriter=null;
       //  Save the current accessToken information for next time
-
-      // IF YOU DO NOT SAVE THE CURRENTLY ACTIVE TOKEN INFO YOU WILL NOT BE ABLE TO REFRESH
-      //   - contact Beth if this happens and she can reissue you a fresh set
-
       try {
     	  System.out.println("Saving new tokens");
           FileWriter fileWriter;
@@ -296,6 +307,10 @@ public class APIData {
 	  }
   }
   
+  /**
+   * A method that parses the fitbits activties summary and gets all the activity data ans saves it to variables
+   * @param obj a JSON Object representing the FitBit activities summary
+   */
   private void parseSummary(JSONObject obj) {
 	  JSONObject summary = obj.getJSONObject("summary");
 	  userDailyCalories = summary.getInt("caloriesOut");
@@ -312,7 +327,6 @@ public class APIData {
   /**
    * A method that takes a JSON object that contains the lifetime totals and returns the lifetime distance, floors and steps 
    * @param obj a JSON object that contains the lifetime totals
-   * @return a Double array of size 3 with [0] being distance [1] being floors and [2] being steps
    */
   private void parseLifeTimeTotal(JSONObject obj) {
 	  JSONObject lifetimeTotal = obj.getJSONObject("lifetime").getJSONObject("total");
@@ -324,7 +338,6 @@ public class APIData {
   /**
    * A method that takes a JSON object that contains the best days and returns the best distance, floors and steps
    * @param obj a JSON object that contains best days
-   * @return a Double array of size 3 with [0] being distance [1] being floors and [2] being steps
    */
   private void parseBestDays(JSONObject obj) {
 	  JSONObject bestDays = obj.getJSONObject("best").getJSONObject("total");
