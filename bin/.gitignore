@@ -1,0 +1,14 @@
+# Compiled Class Files #
+########################
+*.class
+target/*
+# Eclipse Generated Files #
+###########################
+.project
+.classpath
+.settings/
+# OSX Generated Files#
+#####################
+.DS_Store
+.DS_Store?
+/target/
