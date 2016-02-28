@@ -64,16 +64,7 @@ public class APIData {
   
   //String representation of the date in YYYY-MM-DD format
   String currentDate = "2016-02-26";
-  
-  //Activities categories
-  final String calories = "calories";
-  final String floors = "floors";
-  final String steps = "steps";
-  final String distance = "distance";
-  final String sendentaryMinutes = "minutesSedentary";
-  final String veryActiveMinutes = "minutesVeryActive";
-  final String lightlyActiveMinutes = "minutesLightlyActive";
-  final String fairlyActiveMinutes = "minutesFairlyActive";
+  String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
   
   /**
    * Constructor for API data
@@ -167,16 +158,15 @@ public class APIData {
                 expiresIn,
                 rawResponse);
         
-        //GETTING AND PARSING CALORIES DATA + REFRESHING TOKENS 
-        String requestUrl = dailyRequestBuilder(calories, currentDate);
+        //GETTING AND PARSING ACTIVITY SUMMARY 
+        String requestUrl = activitySummaryRequestBuilder(requestUrlPrefix);
         OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         Response response = request.send();
-        //check the response  and refresh if needed
         int checkResponse = checkStatus(response.getCode());
-        //if token is expired refresh token and try again
         if (checkResponse == expiredToken) {
         	//refresh token then send it again
+        	System.out.println("refreshing");
         	accessToken = service.refreshOAuth2AccessToken(accessToken);
         	request = new OAuthRequest(Verb.GET, requestUrl, service);
             service.signRequest(accessToken, request);
@@ -184,133 +174,20 @@ public class APIData {
             checkResponse = checkStatus(response.getCode());
             System.out.println("HTTP response code after refresh: "+response.getCode());
         }
-        //save the tokens
-        saveTokens(accessToken);  
-        //if we get a successful request
+        
         if (checkResponse == successfulResponse) {
-        	System.out.println("Successful Response - calories");
-            JSONObject obj = new JSONObject(response.getBody());
-            userDailyCalories = (int)parseDailyData(obj, calories);
-        }  
-        else {
-        	System.out.println("Error getting fitbit calories data: " + response.getCode());
-        	return false;
+        	System.out.println("Succesful Response - Summary");
+        	JSONObject obj = new JSONObject(response.getBody());
+        	parseSummary(obj);
         }
         
-        //GETTING AND PARSING FLOOR DATA
-        requestUrl = dailyRequestBuilder(floors, currentDate);
-        request = new OAuthRequest(Verb.GET, requestUrl, service);
-        service.signRequest(accessToken, request);
-        response = request.send();
-        checkResponse = checkStatus(response.getCode());
-        if (checkResponse == successfulResponse) {
-        	System.out.println("Successful Response - floors");
-        	JSONObject obj = new JSONObject(response.getBody());
-        	userDailyFloorsClimbed = (int)parseDailyData(obj, floors);
-        }
         else {
-        	System.out.println("Error getting fitbit floors data: " + response.getCode());
-        	return false;
-        }
-        
-        //GETTING AND PARSING STEPS DATA
-        requestUrl = dailyRequestBuilder(steps, currentDate);
-        request = new OAuthRequest(Verb.GET, requestUrl, service);
-        service.signRequest(accessToken, request);
-        response = request.send();
-        checkResponse = checkStatus(response.getCode());
-        if (checkResponse == successfulResponse) {
-        	System.out.println("Successful Response - steps");
-        	JSONObject obj = new JSONObject(response.getBody());
-        	userDailySteps = (int)parseDailyData(obj, steps);
-        }      
-        else {
-        	System.out.println("Error getting fitbit steps data: " + response.getCode());
-        	return false;
-        }
-        
-        //GETTING AND PARSING DISTANCE
-        requestUrl = dailyRequestBuilder(distance, currentDate);
-        request = new OAuthRequest(Verb.GET, requestUrl, service);
-        service.signRequest(accessToken, request);
-        response = request.send();
-        checkResponse = checkStatus(response.getCode());
-        if (checkResponse == successfulResponse) {
-        	System.out.println("Successful Response - distance");
-        	JSONObject obj = new JSONObject(response.getBody());
-        	userDailyDistance = parseDailyData(obj, distance);
-        }  
-        else {
-        	System.out.println("Error getting fitbit distance data: " + response.getCode());
-        	return false;
-        }
-        
-        //GETTING AND PARSING SEDENTARY MINUTES
-        requestUrl = dailyRequestBuilder(sendentaryMinutes, currentDate);
-        request = new OAuthRequest(Verb.GET, requestUrl, service);
-        service.signRequest(accessToken, request);
-        response = request.send();
-        checkResponse = checkStatus(response.getCode());
-        if (checkResponse == successfulResponse) {
-        	System.out.println("Successful Response - sendentaryMinutes");
-        	JSONObject obj = new JSONObject(response.getBody());
-        	userDailySendentaryMinutes = (int)parseDailyData(obj, sendentaryMinutes);
-        }  
-        else {
-        	System.out.println("Error getting fitbit sendentary data: " + response.getCode());
-        	return false;
-        }
-        
-        //GETTING AND PARSING VERY ACTIVE MINUTES
-        requestUrl = dailyRequestBuilder(veryActiveMinutes, currentDate);
-        request = new OAuthRequest(Verb.GET, requestUrl, service);
-        service.signRequest(accessToken, request);
-        response = request.send();
-        checkResponse = checkStatus(response.getCode());
-        if (checkResponse == successfulResponse) {
-        	System.out.println("Successful Response - Very Active Min");
-        	JSONObject obj = new JSONObject(response.getBody());
-        	userDailyVeryActiveMinutes = (int)parseDailyData(obj, veryActiveMinutes);
-        }  
-        else {
-        	System.out.println("Error getting fitbit very active data: " + response.getCode());
-        	return false;
-        }
-        
-        //GETTING AND PARSING FAIRLY ACTIVE MINUTES
-        requestUrl = dailyRequestBuilder(fairlyActiveMinutes, currentDate);
-        request = new OAuthRequest(Verb.GET, requestUrl, service);
-        service.signRequest(accessToken, request);
-        response = request.send();
-        checkResponse = checkStatus(response.getCode());
-        if (checkResponse == successfulResponse) {
-        	System.out.println("Successful Response - Very Fairly Min");
-        	JSONObject obj = new JSONObject(response.getBody());
-        	userDailyFairlyActiveMinutes = (int)parseDailyData(obj, fairlyActiveMinutes);
-        }  
-        else {
-        	System.out.println("Error getting fitbit fairly active data: " + response.getCode());
-        	return false;
-        }
-        
-        //GETTING AND PARSING LIGHTLY ACTIVE MINUTES
-        requestUrl = dailyRequestBuilder(lightlyActiveMinutes, currentDate);
-        request = new OAuthRequest(Verb.GET, requestUrl, service);
-        service.signRequest(accessToken, request);
-        response = request.send();
-        checkResponse = checkStatus(response.getCode());
-        if (checkResponse == successfulResponse) {
-        	System.out.println("Successful Response - lightly Active Min");
-        	JSONObject obj = new JSONObject(response.getBody());
-        	userDailyLightlyActiveMinutes = (int)parseDailyData(obj, lightlyActiveMinutes);
-        }  
-        else {
-        	System.out.println("Error getting fitbit lightly active data: " + response.getCode());
+        	System.out.println("Error getting fitbit summary data");
         	return false;
         }
         
         //GETTING AND PARSING BEST DAYS/LIFETIME TOTALS
-        requestUrl = bestDayLifeTimeTotalRequestBuilder();
+        requestUrl = bestDayLifeTimeTotalRequestBuilder(requestUrlPrefix);
         request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
         response = request.send();
@@ -318,14 +195,8 @@ public class APIData {
         if (checkResponse == successfulResponse) {
         	System.out.println("Succesfful Response - Total/BestDay");
         	JSONObject obj = new JSONObject(response.getBody());
-        	double[] values = parseLifeTimeTotal(obj);
-        	totalDistance = values[0];
-        	totalFloors = (int)values[1];
-        	totalSteps = (int)values[2];
-        	values = parseBestDays(obj);
-        	bestDistance = values[0];
-        	bestFloors = (int)values[1];
-        	bestSteps = (int)values[2];
+        	parseLifeTimeTotal(obj);
+        	parseBestDays(obj);
         }
         
         else {
@@ -340,23 +211,15 @@ public class APIData {
    * 	 		  API Request helper methods			  *
    ********************************************************/
   
-  /**
-   * method that builds the request url for daily activities
-   * @param activity the activty you want to get data for
-   * @param date String representation in the form YYYY-MM-DD
-   * @return returns the appropriate API request url given an activity and the date 
-   */
-  private String dailyRequestBuilder(String activity, String date) {
-      String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
-      return requestUrlPrefix + "activities/tracker/" + activity + "/date/" + date + "/1d.json";
+  private String activitySummaryRequestBuilder(String requestURLPrefix) {
+	  return requestURLPrefix + "activities/date/" + currentDate + ".json";
   }
   
   /**
    * method that builds the request url for the lifetime totals
    * @return returns the appropriate API request URL 
    */
-  private String bestDayLifeTimeTotalRequestBuilder() {
-	  String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
+  private String bestDayLifeTimeTotalRequestBuilder(String requestUrlPrefix) {
 	  return requestUrlPrefix + "activities.json";
   }
   
@@ -432,13 +295,18 @@ public class APIData {
           return otherResponse;
 	  }
   }
-  /**
-   * A method that takes an object with JSONdata returned from the API and parses the requested value 
-   * @param obj JSON object that contains the required activite value to parse
-   * @param activity the name of the activite we are looking for
-   */
-  private double parseDailyData(JSONObject obj, String activity) {
-	  return obj.getJSONArray("activities-tracker-" + activity).getJSONObject(0).getDouble("value");
+  
+  private void parseSummary(JSONObject obj) {
+	  JSONObject summary = obj.getJSONObject("summary");
+	  userDailyCalories = summary.getInt("caloriesOut");
+	  userDailyDistance= summary.getJSONArray("distances").getJSONObject(0).getDouble("distance");
+	  userDailyFloorsClimbed = summary.getInt("floors");
+	  userDailySteps = summary.getInt("steps");
+	  userDailySendentaryMinutes = summary.getInt("sedentaryMinutes");
+	  userDailyLightlyActiveMinutes = summary.getInt("lightlyActiveMinutes");
+	  userDailyFairlyActiveMinutes = summary.getInt("fairlyActiveMinutes");
+	  userDailyVeryActiveMinutes = summary.getInt("veryActiveMinutes");
+	  
   }
   
   /**
@@ -446,13 +314,11 @@ public class APIData {
    * @param obj a JSON object that contains the lifetime totals
    * @return a Double array of size 3 with [0] being distance [1] being floors and [2] being steps
    */
-  private double[] parseLifeTimeTotal(JSONObject obj) {
-	  double[] totalValues = new double[3];
+  private void parseLifeTimeTotal(JSONObject obj) {
 	  JSONObject lifetimeTotal = obj.getJSONObject("lifetime").getJSONObject("total");
-	  totalValues[0] = lifetimeTotal.getDouble(distance);
-	  totalValues[1] = lifetimeTotal.getDouble(floors);
-	  totalValues[2] = lifetimeTotal.getDouble(steps);
-	  return totalValues;
+	  totalDistance = lifetimeTotal.getDouble("distance");
+	  totalFloors = lifetimeTotal.getInt("floors");
+	  totalSteps = lifetimeTotal.getInt("steps");
   }
   
   /**
@@ -460,13 +326,11 @@ public class APIData {
    * @param obj a JSON object that contains best days
    * @return a Double array of size 3 with [0] being distance [1] being floors and [2] being steps
    */
-  private double[] parseBestDays(JSONObject obj) {
-	  double[] bestValues = new double[3];
+  private void parseBestDays(JSONObject obj) {
 	  JSONObject bestDays = obj.getJSONObject("best").getJSONObject("total");
-	  bestValues[0] = bestDays.getJSONObject(distance).getDouble("value");
-	  bestValues[1] = bestDays.getJSONObject(floors).getDouble("value");
-	  bestValues[2] = bestDays.getJSONObject(steps).getDouble("value");
-	  return bestValues;
+	  bestDistance = bestDays.getJSONObject("distance").getDouble("value");
+	  bestFloors = bestDays.getJSONObject("floors").getInt("value");
+	  bestSteps = bestDays.getJSONObject("steps").getInt("value");
   }
   
   /********************************************************
