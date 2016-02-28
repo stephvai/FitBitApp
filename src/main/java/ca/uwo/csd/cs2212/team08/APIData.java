@@ -129,8 +129,6 @@ public class APIData {
                     bufferedReader.close();
             }
             catch(Exception e){
-                System.out.println(
-                        "Error closing file\n"+e.getMessage());
                 return false;
             }
         }
@@ -160,24 +158,22 @@ public class APIData {
         int checkResponse = checkStatus(response.getCode());
         if (checkResponse == expiredToken) {
         	//refresh token then send it again
-        	System.out.println("refreshing");
         	accessToken = service.refreshOAuth2AccessToken(accessToken);
         	request = new OAuthRequest(Verb.GET, requestUrl, service);
             service.signRequest(accessToken, request);
             response = request.send();
             checkResponse = checkStatus(response.getCode());
-            System.out.println("HTTP response code after refresh: "+response.getCode());
         }
-        saveTokens(accessToken);
+        if(!saveTokens(accessToken)) {
+        	return false;
+        }
         
         if (checkResponse == successfulResponse) {
-        	System.out.println("Succesful Response - Summary");
         	JSONObject obj = new JSONObject(response.getBody());
         	parseSummary(obj);
         }
         
         else {
-        	System.out.println("Error getting fitbit summary data");
         	return false;
         }
         
@@ -191,25 +187,23 @@ public class APIData {
         
         if (checkResponse == expiredToken) {
         	//refresh token then send it again
-        	System.out.println("refreshing");
         	accessToken = service.refreshOAuth2AccessToken(accessToken);
         	request = new OAuthRequest(Verb.GET, requestUrl, service);
             service.signRequest(accessToken, request);
             response = request.send();
             checkResponse = checkStatus(response.getCode());
-            System.out.println("HTTP response code after refresh: "+response.getCode());
         }
-        saveTokens(accessToken);
+        if(!saveTokens(accessToken)) {
+        	return false;
+        }
         
         if (checkResponse == successfulResponse) {
-        	System.out.println("Succesfful Response - Total/BestDay");
         	JSONObject obj = new JSONObject(response.getBody());
         	parseLifeTimeTotal(obj);
         	parseBestDays(obj);
         }
         
         else {
-        	System.out.println("Error getting fitbit best/total data");
         	return false;
         }
         //Return true if everything went well and the program got all data for the daily dashboard
@@ -242,11 +236,10 @@ public class APIData {
    * Method that writes the current token to the token storage file
    * @param accessToken the currently active token to write out
    */
-  private void saveTokens(OAuth2AccessToken accessToken) {
+  private Boolean saveTokens(OAuth2AccessToken accessToken) {
 	  BufferedWriter bufferedWriter=null;
       //  Save the current accessToken information for next time
       try {
-    	  System.out.println("Saving new tokens");
           FileWriter fileWriter;
           fileWriter =
                   new FileWriter("src/main/resources/Team8Tokens.txt");
@@ -264,12 +257,10 @@ public class APIData {
           bufferedWriter.close();
       }
       catch(FileNotFoundException ex) {
-          System.out.println(
-                  "Unable to open file\n"+ex.getMessage());
+    	  return false;
       }
       catch(IOException ex) {
-          System.out.println(
-                  "Error reading/write file\n"+ex.getMessage());
+    	  return false;
       }
       finally{
           try{
@@ -277,10 +268,10 @@ public class APIData {
                   bufferedWriter.close();
           }
           catch(Exception e){
-              System.out.println(
-                      "Error closing file\n"+e.getMessage());
+              return false;
           }
       }//end try
+      return true;
   }
   
   /**
