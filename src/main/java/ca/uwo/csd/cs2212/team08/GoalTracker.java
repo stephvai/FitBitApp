@@ -22,18 +22,12 @@ public class GoalTracker {
     This method will create a Goal array of 6 and load the settings of the user.
     */
 
-    public  GoalTracker() {
+    public  GoalTracker() throws ClassNotFoundException, IOException {
         this.goalArray = new Goal[6];
 
-			try {
+		
 				this.loadProgress();
-			} catch (ClassNotFoundException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-				e.printStackTrace();
-			}
-
-        this.updateProgress();
+				this.updateProgress();
 
 }
 
@@ -68,13 +62,8 @@ public void saveProgress() throws IOException {
 
             // Opens a file to write to called saveObj
             FileOutputStream saveFile;
-			try {
-				saveFile = new FileOutputStream("Pref.ini");
-			} catch (FileNotFoundException e) {
-				File newFile = new File("Pref.ini");
-				saveFile = new FileOutputStream(newFile);
-			}
-
+			saveFile = new FileOutputStream("Pref.ini");
+		
             //Creates an ObjectOutputStream to put files into.
             ObjectOutputStream save = new ObjectOutputStream(saveFile);
 
@@ -97,35 +86,35 @@ public void saveProgress() throws IOException {
  * 4 activeMinutes
  * 5 sedentaryMinutes
  */
-public void setGoal(int goal, int type) {
+public void setGoal(int goal, Goals type) {
     Goal goalObj = new Goal();
 
-    if(type ==0){ //sets the goal for the steps.
+    if(type == Goals.steps){ //sets the goal for the steps.
     	goalObj.setSteps(goal);
     	this.goalArray[0] = goalObj;
     	return;
     }
-    if(type==1){
+    if(type==Goals.distance){
     	goalObj.setDistance(goal);
     	this.goalArray[1] = goalObj;
     	return;
     }
-    if(type==2){
+    if(type==Goals.calorieBurned){
     	goalObj.setCalories(goal);
     	this.goalArray[2] = goalObj;
     	return;
     }
-    if(type==3){
+    if(type==Goals.floorsClimbed){
     	goalObj.setFloorsClimbed(goal);
     	this.goalArray[3] = goalObj;
     	return;
     }
-    if(type==4){
+    if(type==Goals.activeMinutes){
     	goalObj.setActiveMinutes(goal);
     	this.goalArray[4] = goalObj;
     	return;
     }
-    if(type==5){
+    if(type==Goals.sedentaryMinutes){
     	goalObj.setSedentaryMinutes(goal);
     	this.goalArray[5] = goalObj;
     	return;
