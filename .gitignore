@@ -9,7 +9,7 @@ target/*
 .settings/
 # Intellij Generated Files #
 ############################
-.idea/*
+.idea/
 # OSX Generated Files#
 #####################
 .DS_Store
