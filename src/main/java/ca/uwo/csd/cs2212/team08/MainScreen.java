@@ -280,7 +280,7 @@ public class MainScreen extends JFrame {
 	    	 });
 	    	 contentPane.add(StairsPanel);
 
-			 JLabel lblStairs = new JLabel("Stairs");
+			 JLabel lblStairs = new JLabel("Floors Climbed:");
 			 lblStairs.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblStairs.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblStairs.setBounds(0, 51, 265, 38);
@@ -294,7 +294,7 @@ public class MainScreen extends JFrame {
 			 stairsProgress.setBounds(17, 113, 231, 36);
 			 StairsPanel.add(stairsProgress);
 			 
-			 JLabel label = new JLabel(Integer.toString(apiData.getSteps()));
+			 JLabel label = new JLabel(Integer.toString(apiData.getFloorsClimbed()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 12, 265, 33);
