@@ -23,6 +23,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Color;
 
+/**
+ * StepsPanel.java creates the panel that the user will see when the user clicks 
+ * the Steps "button" which is just really a panel with an action Listener method
+ */
 public class StepsPanel extends JFrame {
 
 	private JPanel contentPane;
@@ -30,7 +34,9 @@ public class StepsPanel extends JFrame {
 	private static final String backImage = "src/main/resources/images/arrowLeft4.png";
 	private APIData apiData;
 
-	//Color Scheme
+	/**
+	 * 	Color Scheme
+	 */
 	private Color bgColor = Color.darkGray;
 	private Color pannelColor = new Color(168,219,168);
 	private Color borderColor = new Color(121,189,154);

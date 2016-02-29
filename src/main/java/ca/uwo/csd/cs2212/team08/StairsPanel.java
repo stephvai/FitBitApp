@@ -16,6 +16,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * StairsPanel.java 
+ *
+ */
 public class StairsPanel extends JFrame {
 
 	private JPanel contentPane;
