@@ -20,10 +20,6 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTabbedPane;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.Color;
 
 public class StepsPanel extends JFrame {
@@ -104,7 +100,7 @@ public class StepsPanel extends JFrame {
 		contentPane.add(pnlTodaysSteps);
 		pnlTodaysSteps.setLayout(null);
 
-		JLabel lblDailySteps = new JLabel("Today you took "+ apiData.getSteps()+" steps");
+		JLabel lblDailySteps = new JLabel("<html> Today you took "+ apiData.getSteps()+" steps. </html>");
 		lblDailySteps.setBounds(21, 21, 198, 182);
 		pnlTodaysSteps.add(lblDailySteps);
 
@@ -113,7 +109,7 @@ public class StepsPanel extends JFrame {
 		contentPane.add(pnlLifetimeTotal);
 		pnlLifetimeTotal.setLayout(null);
 		
-		JLabel lblLifetimeTotal = new JLabel("In your lifetime you have taken "+ apiData.getTotalSteps()+"steps.");
+		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have taken "+ apiData.getTotalSteps()+" steps. </html>");
 		lblLifetimeTotal.setBounds(21, 21, 198, 182);
 		pnlLifetimeTotal.add(lblLifetimeTotal);
 		
@@ -122,7 +118,7 @@ public class StepsPanel extends JFrame {
 		contentPane.add(pnlBestDay);
 		pnlBestDay.setLayout(null);
 		
-		JLabel lblBestDay = new JLabel("On your best day you took "+ apiData.getBestSteps()+" steps.");
+		JLabel lblBestDay = new JLabel("<html> On your best day you took "+ apiData.getBestSteps()+" steps. </html>");
 		lblBestDay.setBounds(21, 21, 198, 182);
 		pnlBestDay.add(lblBestDay);
 	}

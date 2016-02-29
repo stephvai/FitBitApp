@@ -19,6 +19,9 @@ public class DashBoardPanel extends JPanel {
 	//the height and width of all the panels
 	private static final int WIDTH = 265;
 	private static final int HEIGHT = 155;
+	//Color scheme
+	private Color pannelColor = new Color(168,219,168);
+	private Color borderColor = new Color(121,189,154);
 	
 	//a rectangle variable to store the dimensions of the panel
 	private Rectangle r;
@@ -36,8 +39,8 @@ public class DashBoardPanel extends JPanel {
 		r = new Rectangle(x, y, WIDTH, HEIGHT);
 		this.setBounds(r);
 		//set the background color of the panel
-   	 	this.setBackground(Color.WHITE);
-   	 	this.setBorder(BorderFactory.createLineBorder(Color.black));
+   	 	this.setBackground(pannelColor);
+   	 	this.setBorder(BorderFactory.createLineBorder(borderColor));
 	}
 	
 	
