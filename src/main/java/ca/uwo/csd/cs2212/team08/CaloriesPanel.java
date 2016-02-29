@@ -40,6 +40,7 @@ public class CaloriesPanel extends JFrame {
 	 * Create the frame.
 	 */
 	public CaloriesPanel(String date) {
+		setResizable(false);
 		this.date = date;
 		setTitle("team08-Fitbit");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

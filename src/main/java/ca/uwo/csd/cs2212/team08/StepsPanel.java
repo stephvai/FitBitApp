@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -29,10 +30,19 @@ public class StepsPanel extends JFrame {
 	private static final String backImage = "src/main/resources/images/arrowLeft4.png";
 	private APIData apiData;
 
+	//Color Scheme
+	private Color bgColor = Color.darkGray;
+	private Color pannelColor = new Color(168,219,168);
+	private Color borderColor = new Color(121,189,154);
+	private Color titleColor = new Color(11,72,107);
+	private Color white = Color.white;
+
+
 	/**
 	 * Create the frame.
 	 */
 	public StepsPanel(String date) {
+		setResizable(false);
 		this.date = date;
 		setTitle("team08-Fitbit");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +52,7 @@ public class StepsPanel extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		contentPane.setBackground(bgColor);
 		
 		//create a new instance of the api data
 		apiData = new APIData();
@@ -50,10 +61,11 @@ public class StepsPanel extends JFrame {
 
 		//create a title for the current pane
 		JLabel lblTitle = new JLabel("STEPS");
-		lblTitle.setFont(new Font("Noteworthy", Font.BOLD, 50));
+		lblTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 50));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(386, 21, 193, 84);
 		contentPane.add(lblTitle);
+		lblTitle.setForeground(white);
 
 
 		//ImageIcon BackButton = createImageIcon(backImage, "return to the home page");
@@ -99,8 +111,12 @@ public class StepsPanel extends JFrame {
 		pnlTodaysSteps.setBounds(80, 138, 240, 224);
 		contentPane.add(pnlTodaysSteps);
 		pnlTodaysSteps.setLayout(null);
+		pnlTodaysSteps.setBackground(pannelColor);
+		pnlTodaysSteps.setBorder(BorderFactory.createLineBorder(borderColor));
 
 		JLabel lblDailySteps = new JLabel("<html> Today you took "+ apiData.getSteps()+" steps. </html>");
+		lblDailySteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblDailySteps.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDailySteps.setBounds(21, 21, 198, 182);
 		pnlTodaysSteps.add(lblDailySteps);
 
@@ -108,8 +124,12 @@ public class StepsPanel extends JFrame {
 		pnlLifetimeTotal.setBounds(373, 138, 240, 224);
 		contentPane.add(pnlLifetimeTotal);
 		pnlLifetimeTotal.setLayout(null);
+		pnlLifetimeTotal.setBackground(pannelColor);
+		pnlLifetimeTotal.setBorder(BorderFactory.createLineBorder(borderColor));
 		
 		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have taken "+ apiData.getTotalSteps()+" steps. </html>");
+		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLifetimeTotal.setBounds(21, 21, 198, 182);
 		pnlLifetimeTotal.add(lblLifetimeTotal);
 		
@@ -117,8 +137,12 @@ public class StepsPanel extends JFrame {
 		pnlBestDay.setBounds(677, 138, 240, 224);
 		contentPane.add(pnlBestDay);
 		pnlBestDay.setLayout(null);
+		pnlBestDay.setBackground(pannelColor);
+		pnlBestDay.setBorder(BorderFactory.createLineBorder(borderColor));
 		
 		JLabel lblBestDay = new JLabel("<html> On your best day you took "+ apiData.getBestSteps()+" steps. </html>");
+		lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblBestDay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBestDay.setBounds(21, 21, 198, 182);
 		pnlBestDay.add(lblBestDay);
 	}

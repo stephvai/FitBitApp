@@ -40,6 +40,7 @@ public class StairsPanel extends JFrame {
 	 * Create the frame.
 	 */
 	public StairsPanel(String date) {
+		setResizable(false);
 		this.date = date;
 		setTitle("team08-Fitbit");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
