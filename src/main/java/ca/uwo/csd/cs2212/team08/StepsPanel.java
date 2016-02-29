@@ -47,7 +47,7 @@ public class StepsPanel extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public StepsPanel(String date) {
+	public StepsPanel(String date, APIData paramAPIData) {
 		setResizable(false);
 		this.date = date;
 		setTitle("team08-Fitbit");
@@ -61,9 +61,7 @@ public class StepsPanel extends JFrame {
 		contentPane.setBackground(bgColor);
 		
 		//create a new instance of the api data
-		apiData = new APIData();
-		apiData.refreshDailyDashBoardData(date);
-		
+		apiData = paramAPIData;		
 
 		//create a title for the current pane
 		JLabel lblTitle = new JLabel("STEPS");
@@ -158,7 +156,7 @@ public class StepsPanel extends JFrame {
 	 */
 	public void home()
 	{
-		MainScreen main = new MainScreen(this.date);
+		MainScreen main = new MainScreen(this.date, apiData);
 		main.setVisible(true);
 	}
 }

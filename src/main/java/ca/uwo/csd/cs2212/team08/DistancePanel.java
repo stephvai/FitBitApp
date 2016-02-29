@@ -33,7 +33,7 @@ public class DistancePanel extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DistancePanel(String date) {
+	public DistancePanel(String date, APIData paramAPIData) {
 		setResizable(false);
 		this.date = date;
 		setTitle("team08-Fitbit");
@@ -47,9 +47,7 @@ public class DistancePanel extends JFrame {
 		contentPane.setBackground(bgColor);
 		
 		//create a new instance of the api data
-		apiData = new APIData();
-		apiData.refreshDailyDashBoardData(date);
-		
+		apiData = paramAPIData;		
 
 		//create a title for the current pane
 		JLabel lblTitle = new JLabel("DISTANCE");
@@ -144,7 +142,7 @@ public class DistancePanel extends JFrame {
 	 */
 	public void home()
 	{
-		MainScreen main = new MainScreen(this.date);
+		MainScreen main = new MainScreen(this.date, apiData);
 		main.setVisible(true);
 	}
 

@@ -1,12 +1,12 @@
 package ca.uwo.csd.cs2212.team08;
 import java.util.Calendar;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 public class App {
 
 	public static void main (String args[]){
-		System.out.println("Hello World");
 		//set the default date to the current date
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
@@ -24,8 +24,24 @@ public class App {
 		}
 		//save the date to a string
 		String date = Integer.toString(year) +  "-" + monthString + "-" + Integer.toString(day);
+
+		APIData apiData;
+		//if the user passes in test mode as a parameter
+		if (args[0].toLowerCase().equals("test")) {
+			apiData = new APIDataTest();
+		}
+		//otherwise use the regular mode
+		else {
+			apiData = new APIData();
+			if (!apiData.refreshDailyDashBoardData(date)) {
+				//DISPLAY ERROR CONNECTING TO FITBIT SERVERS
+				//JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
+			}
+		}
+		
+		//pass in api data to mainscreen
 		System.out.println(date);
-		MainScreen window = new MainScreen(date);
+		MainScreen window = new MainScreen(date, apiData);
 		window.setVisible(true);
 
 		/*
