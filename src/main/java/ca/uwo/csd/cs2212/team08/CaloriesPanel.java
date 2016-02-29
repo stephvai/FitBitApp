@@ -18,7 +18,7 @@ public class CaloriesPanel extends JFrame {
 
 	private JPanel contentPane;
 	private String date;
-	private static final String backImage = "src/main/resources/Placeholder.png";
+	private static final String backImage = "src/main/resources/images/arrowLeft4.png";
 
 	/**
 	 * Launch the application.
@@ -60,7 +60,7 @@ public class CaloriesPanel extends JFrame {
 		//ImageIcon BackButton = createImageIcon(backImage, "return to the home page");
 		JLabel imgBack = new JLabel();
 		imgBack.setIcon(new ImageIcon(backImage));
-		imgBack.setBounds(0, 0, 50, 50);
+		imgBack.setBounds(0, 0, 48, 48);
 		imgBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

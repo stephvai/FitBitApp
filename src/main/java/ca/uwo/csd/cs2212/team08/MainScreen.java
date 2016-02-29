@@ -37,6 +37,7 @@ public class MainScreen extends JFrame {
 	private String date;
 	private JDatePickerImpl datePicker;
 	private static final String placeholder = "src/main/resources/Placeholder.png";
+	private static final String picRefresh = "src/main/resources/images/refresh.png";
 	private APIData apiData;
 	    
 	     public MainScreen(String date) {
@@ -114,20 +115,26 @@ public class MainScreen extends JFrame {
 			 goalsPanel();
 			 
 
-			 updateDate();
+			 //updateDate();
 			 //datePicker.getJFormattedTextField().
 	     
-	     
+			//the label to set the last updated time
+			 Calendar cal = Calendar.getInstance();
+			 final JLabel lblDataUpdate = new JLabel(cal.getTime().toString());
+			 lblDataUpdate.setBounds(385, 660, 265, 37);
+			 contentPane.add(lblDataUpdate);
+			 
 			 /*------------------------------------------*/
 			 //create a refresh button to refresh the data
 			 /*------------------------------------------*/
 			 JLabel imgRefresh = new JLabel();
-			 imgRefresh.setIcon(new ImageIcon(placeholder));
-			 imgRefresh.setBounds(613, 69, 37, 27);
+			 imgRefresh.setIcon(new ImageIcon(picRefresh));
+			 imgRefresh.setBounds(613, 63, 36, 36);
 			 imgRefresh.addMouseListener(new MouseAdapter() {
 				 @Override
 				 public void mouseClicked(MouseEvent arg0) {
 					 //what to do on button click
+					 lblDataUpdate.setText("refreshing...");
 					 updateDate();
 					 apiData.refreshDailyDashBoardData(date);
 					 initUI(date);
@@ -135,6 +142,7 @@ public class MainScreen extends JFrame {
 				 }
 			 });
 			 contentPane.add(imgRefresh);
+			 
 	     }
 	     
 	     /**
