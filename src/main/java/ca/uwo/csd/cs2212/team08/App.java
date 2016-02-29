@@ -27,8 +27,9 @@ public class App {
 
 		APIData apiData;
 		//if the user passes in test mode as a parameter
-		if (args[0].toLowerCase().equals("test")) {
+		if (args.length >= 1 && args[0].toLowerCase().equals("test")) {
 			apiData = new APIDataTest();
+			apiData.refreshDailyDashBoardData(date);
 		}
 		//otherwise use the regular mode
 		else {

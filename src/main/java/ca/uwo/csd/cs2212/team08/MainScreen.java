@@ -67,14 +67,8 @@ public class MainScreen extends JFrame {
 	    	 this.setContentPane(contentPane);
 	    	 contentPane.setLayout(null);
 	    	 contentPane.setBackground(bgColor);
-	    	 
-	    	 
 	    	 date = paramDate;
 	    	 apiData = paramAPIData;
-	    	 //Refresh the API DATA
-	    	 apiData = new APIData();
-	    	 
-	    	 
 	    	 
 	    	 /*------------------------------------------*/
 			 //create a label to display the title of the panel
@@ -152,10 +146,9 @@ public class MainScreen extends JFrame {
 					 //lblDataUpdate.repaint();
 					 updateDate();
 					 if (!apiData.refreshDailyDashBoardData(date)) {
-			    		 //DISPLAY ERROR CONNECTING TO FITBIT SERVERS
 			    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
 			    	 }
-					 //initUI(date);
+					 initUI(date, apiData);
 					 contentPane.repaint();
 				 }
 			 });
