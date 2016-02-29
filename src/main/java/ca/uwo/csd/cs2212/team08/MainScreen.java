@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 
@@ -72,8 +73,9 @@ public class MainScreen extends JFrame {
 	    	 //Refresh the API DATA
 	    	 apiData = new APIData();
 	    	 
-	    	 if (!apiData.refreshDailyDashBoardData(date)); {
+	    	 if (!apiData.refreshDailyDashBoardData(date)) {
 	    		 //DISPLAY ERROR CONNECTING TO FITBIT SERVERS
+	    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
 	    	 }
 	    	 
 	    	 /*------------------------------------------*/
@@ -149,8 +151,8 @@ public class MainScreen extends JFrame {
 				 public void mouseClicked(MouseEvent arg0) {
 					 //what to do on button click
 					 lblDataUpdate.setText("refreshing...");
+					 //lblDataUpdate.repaint();
 					 updateDate();
-					 apiData.refreshDailyDashBoardData(date);
 					 initUI(date);
 					 repaint();
 				 }
@@ -166,6 +168,10 @@ public class MainScreen extends JFrame {
 	     {
 	    	 //get the new date from the JDatePicker
 	    	 String tempDate = datePicker.getJFormattedTextField().getText();
+	    	 if(tempDate.equals("") || tempDate.equals(null))
+	    	 {
+	    		 return;
+	    	 }
 	    	 //save the date in a array of strings
 	    	 String[] dateArray = tempDate.split("-");
 	    	 //set the day
@@ -254,7 +260,7 @@ public class MainScreen extends JFrame {
 	    	 pnlSteps.add(lblSteps);
 
 	    	 JLabel lblStepsTtile = new JLabel("Steps");
-	    	 lblStepsTtile.setBounds(0, 66, 265, 26);
+	    	 lblStepsTtile.setBounds(0, 53, 265, 26);
 	    	 pnlSteps.add(lblStepsTtile);
 	    	 lblStepsTtile.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);

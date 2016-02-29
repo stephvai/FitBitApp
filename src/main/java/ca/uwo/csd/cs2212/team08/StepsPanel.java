@@ -130,7 +130,7 @@ public class StepsPanel extends JFrame {
 		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have taken "+ apiData.getTotalSteps()+" steps. </html>");
 		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLifetimeTotal.setBounds(21, 21, 198, 182);
+		lblLifetimeTotal.setBounds(21, 31, 198, 182);
 		pnlLifetimeTotal.add(lblLifetimeTotal);
 		
 		JPanel pnlBestDay = new JPanel();
@@ -141,8 +141,8 @@ public class StepsPanel extends JFrame {
 		pnlBestDay.setBorder(BorderFactory.createLineBorder(borderColor));
 		
 		JLabel lblBestDay = new JLabel("<html> On your best day you took "+ apiData.getBestSteps()+" steps. </html>");
-		lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblBestDay.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblBestDay.setBounds(21, 21, 198, 182);
 		pnlBestDay.add(lblBestDay);
 	}
