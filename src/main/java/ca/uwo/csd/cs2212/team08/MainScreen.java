@@ -49,12 +49,12 @@ public class MainScreen extends JFrame {
 	private Color white = Color.white;
 	
 	
-	     public MainScreen(String date) {
+	     public MainScreen(String date, APIData paramAPIData) {
 	     	
-	          this.initUI(date);
+	          this.initUI(date, paramAPIData);
 	     }
 	    
-	     private void initUI(String paramDate) 
+	     private void initUI(String paramDate, APIData paramAPIData) 
 	     { 
 	    	 //create the main window for the daily dash board 
 	    	 this.setTitle("Team08 Fitbit");
@@ -70,13 +70,11 @@ public class MainScreen extends JFrame {
 	    	 
 	    	 
 	    	 date = paramDate;
+	    	 apiData = paramAPIData;
 	    	 //Refresh the API DATA
 	    	 apiData = new APIData();
 	    	 
-	    	 if (!apiData.refreshDailyDashBoardData(date)) {
-	    		 //DISPLAY ERROR CONNECTING TO FITBIT SERVERS
-	    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
-	    	 }
+	    	 
 	    	 
 	    	 /*------------------------------------------*/
 			 //create a label to display the title of the panel
@@ -153,8 +151,12 @@ public class MainScreen extends JFrame {
 					 lblDataUpdate.setText("refreshing...");
 					 //lblDataUpdate.repaint();
 					 updateDate();
-					 initUI(date);
-					 repaint();
+					 if (!apiData.refreshDailyDashBoardData(date)) {
+			    		 //DISPLAY ERROR CONNECTING TO FITBIT SERVERS
+			    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
+			    	 }
+					 //initUI(date);
+					 contentPane.repaint();
 				 }
 			 });
 			 contentPane.add(imgRefresh);
@@ -234,7 +236,7 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 StepsPanel steps = new StepsPanel(date);
+	    			 StepsPanel steps = new StepsPanel(date, apiData);
 	    			 steps.setVisible(true);
 	    			 dispose();
 	    		 }
@@ -279,7 +281,7 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 StairsPanel stairs = new StairsPanel(date);
+	    			 StairsPanel stairs = new StairsPanel(date, apiData);
 	    			 stairs.setVisible(true);
 	    			 dispose();
 	    		 }
@@ -322,7 +324,7 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 CaloriesPanel calories = new CaloriesPanel(date);
+	    			 CaloriesPanel calories = new CaloriesPanel(date, apiData);
 	    			 calories.setVisible(true);
 	    			 dispose();
 	    		 }
@@ -360,7 +362,7 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 DistancePanel distance = new DistancePanel(date);
+	    			 DistancePanel distance = new DistancePanel(date, apiData);
 	    			 distance.setVisible(true);
 	    			 dispose();
 	    		 }
