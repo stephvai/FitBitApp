@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 
@@ -33,36 +34,48 @@ import java.awt.Label;
 
 
 public class MainScreen extends JFrame {
-	
 	private JPanel contentPane;
 	private String date;
 	private JDatePickerImpl datePicker;
 	private static final String placeholder = "src/main/resources/Placeholder.png";
-	//private APIData data;
-	    
-	     public MainScreen(String date) {
-	          this.initUI(date);
+	private static final String picRefresh = "src/main/resources/images/refresh.png";
+	private APIData apiData;
+	
+	//Color Scheme
+	private Color bgColor = Color.darkGray;
+	private Color pannelColor = new Color(168,219,168);
+	private Color borderColor = new Color(121,189,154);
+	private Color titleColor = new Color(11,72,107);
+	private Color white = Color.white;
+	
+	
+	     public MainScreen(String date, APIData paramAPIData) {
+	     	
+	          this.initUI(date, paramAPIData);
 	     }
 	    
-	     private void initUI(String date) 
+	     private void initUI(String paramDate, APIData paramAPIData) 
 	     { 
-	    	 
 	    	 //create the main window for the daily dash board 
 	    	 this.setTitle("Team08 Fitbit");
 	    	 this.setSize(1024, 768);
 	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    	 this.setLocationRelativeTo(null);
+	    	 this.setResizable(false);
 	    	 contentPane = new JPanel();
 	    	 contentPane.setBorder(new EmptyBorder(5, 0, 5, 0));
 	    	 this.setContentPane(contentPane);
 	    	 contentPane.setLayout(null);
-	    	 this.date = date;
+	    	 contentPane.setBackground(bgColor);
+	    	 date = paramDate;
+	    	 apiData = paramAPIData;
 	    	 
 	    	 /*------------------------------------------*/
 			 //create a label to display the title of the panel
 	    	 /*	-----------------------------------------*/
 			 JLabel lblTitle = new JLabel("Welcome! Here is your daily dashboard: ");
-			 lblTitle.setFont(new Font("Noteworthy", Font.PLAIN, 46));
+			 lblTitle.setFont(new Font("Trebuchet MS", Font.PLAIN, 35));
+			 contentPane.setForeground(titleColor);
 			 lblTitle.setBounds(159, 0, 732, 72);
 			 contentPane.add(lblTitle);
 			 
@@ -71,7 +84,7 @@ public class MainScreen extends JFrame {
 			 // creates a Header Panel 
 			 /*------------------------------------------*/
 			 JPanel headerPanel = new JPanel();
-			 headerPanel.setBackground(Color.WHITE);
+			 headerPanel.setBackground(white);
 			 headerPanel.setBounds(0, 0, 1024, 63);
 			 headerPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 			 contentPane.add(headerPanel);
@@ -109,29 +122,40 @@ public class MainScreen extends JFrame {
 			 heartRatePanel();
 			 goalsPanel();
 			 
+			/*-------------------------------------*/
+			//the label to set the last updated time
+			 /*------------------------------------*/
+			 Calendar cal = Calendar.getInstance();
+			 final JLabel lblDataUpdate = new JLabel("Last updated: " + cal.getTime().toString());
+			 lblDataUpdate.setHorizontalAlignment(SwingConstants.CENTER);
+			 lblDataUpdate.setForeground(white);
+			 lblDataUpdate.setBounds(51, 660, 923, 37);
+			 contentPane.add(lblDataUpdate);
 
-			 updateDate();
-			 //datePicker.getJFormattedTextField().
-	     
-	     
 			 /*------------------------------------------*/
 			 //create a refresh button to refresh the data
 			 /*------------------------------------------*/
 			 JLabel imgRefresh = new JLabel();
-			 imgRefresh.setIcon(new ImageIcon(placeholder));
-			 imgRefresh.setBounds(613, 69, 37, 27);
+			 imgRefresh.setIcon(new ImageIcon(picRefresh));
+			 imgRefresh.setBounds(613, 63, 36, 36);
 			 imgRefresh.addMouseListener(new MouseAdapter() {
 				 @Override
 				 public void mouseClicked(MouseEvent arg0) {
 					 //what to do on button click
+					 lblDataUpdate.setText("refreshing...");
+					 //lblDataUpdate.repaint();
 					 updateDate();
-					 //data.refreshData(date);
-					 repaint();
+					 if (!apiData.refreshDailyDashBoardData(date)) {
+			    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
+			    	 }
+					 initUI(date, apiData);
+					 contentPane.repaint();
 				 }
 			 });
 			 contentPane.add(imgRefresh);
+
 	     }
-	     
+
 	     /**
 	      * a method that can be used to pull a new date from the JDatePicker
 	      */
@@ -139,6 +163,10 @@ public class MainScreen extends JFrame {
 	     {
 	    	 //get the new date from the JDatePicker
 	    	 String tempDate = datePicker.getJFormattedTextField().getText();
+	    	 if(tempDate.equals("") || tempDate.equals(null))
+	    	 {
+	    		 return;
+	    	 }
 	    	 //save the date in a array of strings
 	    	 String[] dateArray = tempDate.split("-");
 	    	 //set the day
@@ -201,7 +229,7 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 StepsPanel steps = new StepsPanel(date);
+	    			 StepsPanel steps = new StepsPanel(date, apiData);
 	    			 steps.setVisible(true);
 	    			 dispose();
 	    		 }
@@ -219,20 +247,17 @@ public class MainScreen extends JFrame {
 	    	 stepsProgress.setForeground(new Color(51, 153, 255));
 	    	 stepsProgress.setBounds(17, 113, 231, 36);
 	    	 pnlSteps.add(stepsProgress);
-
-	    	 /*JLabel lblSteps = new JLabel(Integer.toString(data.getSteps()));
+	    	 
+	    	 JLabel lblSteps = new JLabel(Integer.toString(apiData.getSteps()));
+	    	 lblSteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
-	    	 lblSteps.setBounds(102, 21, 92, 26);
-	    	 pnlSteps.add(lblSteps);*/
-
-	    	 Label lblSteps = new Label("New label");
-	    	 lblSteps.setBounds(84, 10, 104, 33);
+	    	 lblSteps.setBounds(0, 10, 265, 33);
 	    	 pnlSteps.add(lblSteps);
 
 	    	 JLabel lblStepsTtile = new JLabel("Steps");
-	    	 lblStepsTtile.setBounds(84, 66, 92, 26);
+	    	 lblStepsTtile.setBounds(0, 53, 265, 26);
 	    	 pnlSteps.add(lblStepsTtile);
-	    	 lblStepsTtile.setFont(new Font("Noteworthy", Font.PLAIN, 25));
+	    	 lblStepsTtile.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);
 		 }
 
@@ -249,17 +274,17 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 StairsPanel stairs = new StairsPanel(date);
+	    			 StairsPanel stairs = new StairsPanel(date, apiData);
 	    			 stairs.setVisible(true);
 	    			 dispose();
 	    		 }
 	    	 });
 	    	 contentPane.add(StairsPanel);
 
-			 JLabel lblStairs = new JLabel("Stairs");
-			 lblStairs.setFont(new Font("Noteworthy", Font.PLAIN, 25));
+			 JLabel lblStairs = new JLabel("Floors Climbed:");
+			 lblStairs.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblStairs.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblStairs.setBounds(79, 51, 92, 38);
+			 lblStairs.setBounds(0, 51, 265, 38);
 			 StairsPanel.add(lblStairs);
 
 			 // progress panel
@@ -270,8 +295,10 @@ public class MainScreen extends JFrame {
 			 stairsProgress.setBounds(17, 113, 231, 36);
 			 StairsPanel.add(stairsProgress);
 			 
-			 Label label = new Label("New label");
-			 label.setBounds(79, 12, 104, 33);
+			 JLabel label = new JLabel(Integer.toString(apiData.getFloorsClimbed()));
+			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+			 label.setHorizontalAlignment(SwingConstants.CENTER);
+			 label.setBounds(0, 12, 265, 33);
 			 StairsPanel.add(label);
 	     }
 	     
@@ -290,7 +317,7 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 CaloriesPanel calories = new CaloriesPanel(date);
+	    			 CaloriesPanel calories = new CaloriesPanel(date, apiData);
 	    			 calories.setVisible(true);
 	    			 dispose();
 	    		 }
@@ -298,9 +325,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(caloriesBurned);
 
 			 JLabel lblCalories = new JLabel("Calories Burned");
-			 lblCalories.setFont(new Font("Noteworthy", Font.PLAIN, 25));
+			 lblCalories.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblCalories.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblCalories.setBounds(53,45,165,53);
+			 lblCalories.setBounds(0,45,265,53);
 			 caloriesBurned.add(lblCalories);
 
 			 JProgressBar caloriesProgress = new JProgressBar();
@@ -310,8 +337,10 @@ public class MainScreen extends JFrame {
 			 caloriesProgress.setBounds(21, 110, 210, 36);
 			 caloriesBurned.add(caloriesProgress);
 			 
-			 Label label = new Label("New label");
-			 label.setBounds(80, 10, 104, 33);
+			 JLabel label = new JLabel(Integer.toString(apiData.getCalories()));
+			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+			 label.setHorizontalAlignment(SwingConstants.CENTER);
+			 label.setBounds(0, 10, 265, 33);
 			 caloriesBurned.add(label);
 	     }
 	     
@@ -326,7 +355,7 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 DistancePanel distance = new DistancePanel(date);
+	    			 DistancePanel distance = new DistancePanel(date, apiData);
 	    			 distance.setVisible(true);
 	    			 dispose();
 	    		 }
@@ -334,9 +363,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(distanceTraveled);
 			 
 			 JLabel lblDistance = new JLabel("Distance"); 
-			 lblDistance.setFont(new Font("Noteworthy", Font.PLAIN, 25));
+			 lblDistance.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblDistance.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblDistance.setBounds(66,56,136,42);
+			 lblDistance.setBounds(0,56,265,42);
 			 
 			 distanceTraveled.add(lblDistance);
 			 
@@ -347,8 +376,10 @@ public class MainScreen extends JFrame {
 			 distanceProgress.setBounds(21,110,210,36);
 			 distanceTraveled.add(distanceProgress);
 			 
-			 Label label = new Label("New label");
-			 label.setBounds(82, 10, 104, 33);
+			 JLabel label = new JLabel(Double.toString(apiData.getDistance()));
+			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+			 label.setHorizontalAlignment(SwingConstants.CENTER);
+			 label.setBounds(0, 10, 265, 33);
 			 distanceTraveled.add(label);
 	     }
 	     
@@ -375,13 +406,15 @@ public class MainScreen extends JFrame {
 			 
 			 
 			 JLabel lblActiveMin = new JLabel("Active Minutes");
-			 lblActiveMin.setFont(new Font("Noteworthy", Font.PLAIN, 25));
+			 lblActiveMin.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblActiveMin.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblActiveMin.setBounds(54, 53, 170, 47);
+			 lblActiveMin.setBounds(0, 53, 265, 47);
 			 activeMinutes.add(lblActiveMin);
 			 
-			 Label label = new Label("New label");
-			 label.setBounds(82, 14, 104, 33);
+			 JLabel label = new JLabel(Integer.toString(apiData.getLightlyActiveMin() + apiData.getFairlyActiveMin() + apiData.getVeryActiveMin()));
+			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+			 label.setHorizontalAlignment(SwingConstants.CENTER);
+			 label.setBounds(0, 14, 265, 33);
 			 activeMinutes.add(label);
 	     }
 	     
@@ -389,11 +422,7 @@ public class MainScreen extends JFrame {
 	      * creates the panel to display user sedentary minutes
 	      */
 	     private void sedentaryMinutesPanel()
-	     {
-	    	 /*---------------------------------------*/
-			 //Sedentary Minutes panel
-			 /*---------------------------------------*/
-			 
+	     {	 
 			 DashBoardPanel sedentaryMinutes = new DashBoardPanel(50, 300);
 			 sedentaryMinutes.setLayout(null);
 			 sedentaryMinutes.setBounds(709, 300, 265, 155);
@@ -407,13 +436,15 @@ public class MainScreen extends JFrame {
 			 contentPane.add(sedentaryMinutes);
 			 
 			 JLabel lblSedentaryMin = new JLabel("Sedentary Minutes");
-			 lblSedentaryMin.setFont(new Font("Noteworthy", Font.PLAIN, 25));
+			 lblSedentaryMin.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblSedentaryMin.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblSedentaryMin.setBounds(25, 52, 215, 50);
+			 lblSedentaryMin.setBounds(0, 52, 265, 50);
 			 sedentaryMinutes.add(lblSedentaryMin );
 			 
-			 Label label = new Label("New label");
-			 label.setBounds(79, 13, 104, 33);
+			 JLabel label = new JLabel(Integer.toString(apiData.getSendentaryMinutes()));
+			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+			 label.setHorizontalAlignment(SwingConstants.CENTER);
+			 label.setBounds(0, 13, 265, 33);
 			 sedentaryMinutes.add(label);
 	     }
 	     
@@ -422,9 +453,6 @@ public class MainScreen extends JFrame {
 	      */
 	     private void accoladesPanel()
 	     {
-	    	 /*---------------------------------------*/
-			 //Accolades panel
-			 /*---------------------------------------*/
 			 DashBoardPanel accoladesPanel = new DashBoardPanel(50, 300);
 			 accoladesPanel.setLayout(null);
 			 accoladesPanel.setBounds(51, 501, 265, 155);
@@ -438,9 +466,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(accoladesPanel);
 			 
 			 JLabel lblAccolades = new JLabel("Accolades");
-			 lblAccolades.setFont(new Font("Noteworthy", Font.PLAIN, 25));
+			 lblAccolades.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblAccolades.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblAccolades.setBounds(65, 56, 136, 49);
+			 lblAccolades.setBounds(0, 56, 265, 49);
 			 accoladesPanel.add(lblAccolades);
 	     }
 	     
@@ -449,10 +477,6 @@ public class MainScreen extends JFrame {
 	      */
 	     private void heartRatePanel()
 	     {
-	    	 
-			 /*---------------------------------------*/
-			 //Heart Rate panel
-			 /*---------------------------------------*/
 			 DashBoardPanel heartRatePanel = new DashBoardPanel(50, 300);
 			 heartRatePanel.setLayout(null);
 			 heartRatePanel.setBounds(385, 501, 265, 155);
@@ -466,9 +490,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(heartRatePanel);
 			 
 			 JLabel lblHeart = new JLabel("Heart Rate Zones");
-			 lblHeart.setFont(new Font("Noteworthy", Font.PLAIN, 25));
+			 lblHeart.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblHeart.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblHeart.setBounds(38, 50, 195, 53);
+			 lblHeart.setBounds(0, 50, 265, 53);
 			 heartRatePanel.add(lblHeart);
 	     }
 	     
@@ -477,9 +501,6 @@ public class MainScreen extends JFrame {
 	      */
 	     private void goalsPanel()
 	     {
-	    	 /*---------------------------------------*/
-			 //Daily goals panel
-			 /*---------------------------------------*/
 			 DashBoardPanel dailyGoals = new DashBoardPanel(50, 300);
 			 dailyGoals.setLayout(null);
 			 dailyGoals.setBounds(709, 501, 265, 155);
@@ -493,9 +514,9 @@ public class MainScreen extends JFrame {
 			 contentPane.add(dailyGoals);
 			 
 			 JLabel lblDaily = new JLabel("Daily Goals");
-			 lblDaily.setFont(new Font("Noteworthy", Font.PLAIN, 25));
+			 lblDaily.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblDaily.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblDaily.setBounds(64, 62, 136, 41);
+			 lblDaily.setBounds(0, 62, 265, 41);
 			 dailyGoals.add(lblDaily);
 			 
 		
