@@ -13,8 +13,13 @@ public class GoalTracker {
     private float distanceProgress;
     private float caloriesProgress;
     private float floorsClimbedProgress;
-    private float activeMinutesProgress;
+    /*
+    private float lightlyActiveMinutes;
+    private float fairlyActiveMinutes;
+    private float veryActiveMinutes;
+    */
     private float sedentaryMinutesProgress;
+
 
     private Goal[] goalArray;
 
@@ -23,7 +28,7 @@ public class GoalTracker {
     */
 
     public  GoalTracker() throws ClassNotFoundException, IOException {
-        this.goalArray = new Goal[6];
+        this.goalArray = new Goal[5];
 
 		
 				this.loadProgress();
@@ -94,32 +99,45 @@ public void setGoal(int goal, Goals type) {
     	this.goalArray[0] = goalObj;
     	return;
     }
-    if(type==Goals.distance){
+    else if(type==Goals.distance){
     	goalObj.setDistance(goal);
     	this.goalArray[1] = goalObj;
     	return;
     }
-    if(type==Goals.calorieBurned){
+    else if(type==Goals.calorieBurned){
     	goalObj.setCalories(goal);
     	this.goalArray[2] = goalObj;
     	return;
     }
-    if(type==Goals.floorsClimbed){
+    else if(type==Goals.floorsClimbed){
     	goalObj.setFloorsClimbed(goal);
     	this.goalArray[3] = goalObj;
     	return;
     }
-    if(type==Goals.activeMinutes){
-    	goalObj.setActiveMinutes(goal);
-    	this.goalArray[4] = goalObj;
-    	return;
+
+    else if(type==Goals.sedentaryMinutes){
+        goalObj.setSedentaryMinutes(goal);
+        this.goalArray[4] = goalObj;
+        return;
     }
-    if(type==Goals.sedentaryMinutes){
-    	goalObj.setSedentaryMinutes(goal);
-    	this.goalArray[5] = goalObj;
-    	return;
+    /*
+    else if(type==Goals.activeMinutes) {
+        goalObj.setActiveMinutes(goal);
+        this.goalArray[5] = goalObj;
+        return;
     }
 
+    else if(type==Goals.activeMinutes) {
+        goalObj.setActiveMinutes(goal);
+        this.goalArray[6] = goalObj;
+        return;
+    }
+    else if(type==Goals.activeMinutes) {
+        goalObj.setActiveMinutes(goal);
+        this.goalArray[7] = goalObj;
+        return;
+    }
+*/
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -131,7 +149,7 @@ public void updateProgress() {
 
     APIData source = new APIData(); // gather the data
 
-    int APIsteps = source.getSteps();
+    float APIsteps = source.getSteps();
     if (this.goalArray[0] !=null) { //steps goal
         this.stepsProgress =  (float) this.goalArray[0].getTarget() / APIsteps * 100.0f;
 
@@ -139,32 +157,32 @@ public void updateProgress() {
             this.goalArray[0].setAchieved();
     }
 
-    int APIdistance = source.getDistance();
+    float APIdistance = source.getDistance();
     if (this.goalArray[1]!=null) { //distance goal
-        this.distanceProgress = (float) this.goalArray[1].getTarget() / APIsteps * 100.0f;
+        this.distanceProgress = this.goalArray[1].getTarget() / APIsteps * 100.0f;
 
         if (this.distanceProgress >= 100)
             this.goalArray[1].setAchieved();
     }
 
 
-    int APIcalories = source.getCalories();
+    float APIcalories = source.getCalories();
     if (this.goalArray[2]!=null) { //calories goal
-        this.caloriesProgress = (float) this.goalArray[2].getTarget() / APIcalories * 100.0f;
+        this.caloriesProgress = this.goalArray[2].getTarget() / APIcalories * 100.0f;
 
         if (this.caloriesProgress >= 100)
             this.goalArray[2].setAchieved();
     }
 
-    int APIfloors = source.getFloorsClimbed();
+    float APIfloors = source.getFloorsClimbed();
     if (this.goalArray[3]!=null) { //floors goal
-        this.floorsClimbedProgress = (float) this.goalArray[3].getTarget() / APIfloors * 100.0f;
+        this.floorsClimbedProgress = this.goalArray[3].getTarget() / APIfloors * 100.0f;
 
         if (this.floorsClimbedProgress >= 100)
             this.goalArray[3].setAchieved();
     }
 
-
+/*
     int APIactiveMinutes = source.getActiveMinutes();
     if (this.goalArray[4]!=null){ //activeMinutes goal
         this.activeMinutesProgress = (float) this.goalArray[4].getTarget() / APIactiveMinutes * 100.0f;
@@ -172,13 +190,13 @@ public void updateProgress() {
     if (this.activeMinutesProgress >= 100)
         this.goalArray[4].setAchieved();
 }
-
-int APIsedentaryMinutes = source.getSendentaryMinutes();
-if (this.goalArray[5]!=null) { //sedentary minutes goal
-    this.sedentaryMinutesProgress = (float) this.goalArray[5].getTarget() / APIsedentaryMinutes * 100.0f;
+*/
+float APIsedentaryMinutes = source.getSendentaryMinutes();
+if (this.goalArray[4]!=null) { //sedentary minutes goal
+    this.sedentaryMinutesProgress = this.goalArray[4].getTarget() / APIsedentaryMinutes * 100.0f;
 
     if (this.sedentaryMinutesProgress >= 100)
-        this.goalArray[5].setAchieved();
+        this.goalArray[4].setAchieved();
 }
 
 
