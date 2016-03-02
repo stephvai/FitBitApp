@@ -17,16 +17,20 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 /**
- * StairsPanel.java 
+ * creates a JFrame that displays the users floors climbed information
  *
  */
 public class StairsPanel extends JFrame {
 
+	//a content pane to store all the components
 	private JPanel contentPane;
+	//a string to store the current date the user wants
 	private String date;
+	//constants to store the picture locations
 	private static final String backImage = "src/main/resources/images/arrowLeft4.png";
+	//use to get the API data
 	private APIData apiData;
-
+	
 	//Color Scheme
 	private Color bgColor = Color.darkGray;
 	private Color pannelColor = new Color(168,219,168);
@@ -35,9 +39,15 @@ public class StairsPanel extends JFrame {
 	private Color white = Color.white;
 
 	/**
-	 * Create the frame.
+	 * create a stairs panel to show user information on their floors climbed
+	 * @param date this is the date selected by the user 
+	 * @param paramAPIData an instance of the APIData that passes in the fitbit information
 	 */
 	public StairsPanel(String date, APIData paramAPIData) {
+		
+		/*-----------------------------------------*/
+		//create the main window for the stairs panel
+		/*-----------------------------------------*/
 		setResizable(false);
 		this.date = date;
 		setTitle("team08-Fitbit");
@@ -53,7 +63,9 @@ public class StairsPanel extends JFrame {
 		//create a new instance of the api data
 		apiData = paramAPIData;		
 
+		/*	-----------------------------------------*/
 		//create a title for the current pane
+		/*	-----------------------------------------*/
 		JLabel lblTitle = new JLabel("FLOORS CLIMBED");
 		lblTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 50));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -61,8 +73,9 @@ public class StairsPanel extends JFrame {
 		contentPane.add(lblTitle);
 		lblTitle.setForeground(white);
 
-
-		//ImageIcon BackButton = createImageIcon(backImage, "return to the home page");
+		/*	-----------------------------------------*/
+		//create a back button to return to dash board
+		/*	-----------------------------------------*/
 		JLabel imgBack = new JLabel();
 		imgBack.setIcon(new ImageIcon(backImage));
 		imgBack.setBounds(0, 0, 48, 48);
@@ -77,7 +90,9 @@ public class StairsPanel extends JFrame {
 		contentPane.add(imgBack);
 
 
-		//create a tabbed pane to store each panel
+		/*	-----------------------------------------*/
+		//create a tabbed pane to store the graphs
+		/*	-----------------------------------------*/
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(80, 409, 837, 239);
 
@@ -98,9 +113,9 @@ public class StairsPanel extends JFrame {
 
 		contentPane.add(tabbedPane);
 
-		/*************************************/
-		//create the panels to display steps information
-		/*************************************/
+		/*--------------------------------------------*/
+		//create a panel to display floors climbed information for today
+		/*--------------------------------------------*/
 		JPanel pnlTodaysValue = new JPanel();
 		pnlTodaysValue.setBounds(80, 138, 240, 224);
 		contentPane.add(pnlTodaysValue);
@@ -108,12 +123,18 @@ public class StairsPanel extends JFrame {
 		pnlTodaysValue.setBackground(pannelColor);
 		pnlTodaysValue.setBorder(BorderFactory.createLineBorder(borderColor));
 
+		/*--------------------------------------------*/
+		//add a label to display the floors climbed today
+		/*--------------------------------------------*/
 		JLabel lblDailyValue = new JLabel("<html> Today you climbed "+ apiData.getFloorsClimbed() +" floors. </html>");
 		lblDailyValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblDailyValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDailyValue.setBounds(21, 21, 198, 182);
 		pnlTodaysValue.add(lblDailyValue);
 
+		/*--------------------------------------------*/
+		//create a panel to display floors climbed information for their lifetime totals
+		/*--------------------------------------------*/
 		JPanel pnlLifetimeTotal = new JPanel();
 		pnlLifetimeTotal.setBounds(373, 138, 240, 224);
 		contentPane.add(pnlLifetimeTotal);
@@ -121,12 +142,18 @@ public class StairsPanel extends JFrame {
 		pnlLifetimeTotal.setBackground(pannelColor);
 		pnlLifetimeTotal.setBorder(BorderFactory.createLineBorder(borderColor));
 		
+		/*--------------------------------------------*/
+		//add a label to display the floors climbed in the users lifetime total
+		/*--------------------------------------------*/
 		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have climbed "+ apiData.getTotalFloors()+" floors. </html>");
 		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLifetimeTotal.setBounds(21, 31, 198, 182);
 		pnlLifetimeTotal.add(lblLifetimeTotal);
 		
+		/*--------------------------------------------*/
+		//create a panel to display floors climbed information for today
+		/*--------------------------------------------*/
 		JPanel pnlBestDay = new JPanel();
 		pnlBestDay.setBounds(677, 138, 240, 224);
 		contentPane.add(pnlBestDay);
@@ -134,6 +161,9 @@ public class StairsPanel extends JFrame {
 		pnlBestDay.setBackground(pannelColor);
 		pnlBestDay.setBorder(BorderFactory.createLineBorder(borderColor));
 		
+		/*--------------------------------------------*/
+		//add a label to display the floors climbed on the users best day
+		/*--------------------------------------------*/
 		JLabel lblBestDay = new JLabel("<html> On your best day you climbed "+ apiData.getBestFloors()+" floors. </html>");
 		lblBestDay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));

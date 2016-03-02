@@ -4,7 +4,6 @@ import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.apis.service.FitbitOAuth20ServiceImpl;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.*;
-import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.github.scribejava.core.oauth.OAuthService;
 import java.awt.Desktop;

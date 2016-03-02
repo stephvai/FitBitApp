@@ -36,23 +36,12 @@ public class App {
 			apiData = new APIData();
 			if (!apiData.refreshDailyDashBoardData(date)) {
 				//DISPLAY ERROR CONNECTING TO FITBIT SERVERS
-				//JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
+				JOptionPane.showMessageDialog(null, "An error has occured connecting to fitbit servers, please try again later.");
 			}
 		}
 		
 		//pass in api data to mainscreen
-		System.out.println(date);
 		MainScreen window = new MainScreen(date, apiData);
 		window.setVisible(true);
-
-		/*
-		 SwingUtilities.invokeLater(new Runnable() {
-             @Override
-             public void run() {
-                   MainScreen window = new MainScreen();
-                   window.setVisible(true);
-             }
-        }); }
-		 */
 	}
 }
