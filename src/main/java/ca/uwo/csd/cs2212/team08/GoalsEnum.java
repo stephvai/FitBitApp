@@ -1,11 +1,10 @@
 package ca.uwo.csd.cs2212.team08;
 
-public enum Goals {
+public enum GoalsEnum {
 	steps,
 	distance,
 	calorieBurned,
 	floorsClimbed,
-	activeMinutes,
 	sedentaryMinutes
 	
 }
