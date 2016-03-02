@@ -83,7 +83,7 @@ public void saveProgress() throws IOException {
     ///////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////
-/*type of goals
+/*type of GoalsEnum
  * 0 steps
  * 1 distance
  * 2 calorieBurned
@@ -91,48 +91,50 @@ public void saveProgress() throws IOException {
  * 4 activeMinutes
  * 5 sedentaryMinutes
  */
-public void setGoal(int goal, Goals type) {
+
+
+public void setGoal(int goal, GoalsEnum type) {
     Goal goalObj = new Goal();
 
-    if(type == Goals.steps){ //sets the goal for the steps.
+    if(type == GoalsEnum.steps){ //sets the goal for the steps.
     	goalObj.setSteps(goal);
     	this.goalArray[0] = goalObj;
     	return;
     }
-    else if(type==Goals.distance){
+    else if(type==GoalsEnum.distance){
     	goalObj.setDistance(goal);
     	this.goalArray[1] = goalObj;
     	return;
     }
-    else if(type==Goals.calorieBurned){
+    else if(type==GoalsEnum.calorieBurned){
     	goalObj.setCalories(goal);
     	this.goalArray[2] = goalObj;
     	return;
     }
-    else if(type==Goals.floorsClimbed){
+    else if(type==GoalsEnum.floorsClimbed){
     	goalObj.setFloorsClimbed(goal);
     	this.goalArray[3] = goalObj;
     	return;
     }
 
-    else if(type==Goals.sedentaryMinutes){
+    else if(type==GoalsEnum.sedentaryMinutes){
         goalObj.setSedentaryMinutes(goal);
         this.goalArray[4] = goalObj;
         return;
     }
     /*
-    else if(type==Goals.activeMinutes) {
+    else if(type==GoalsEnum.activeMinutes) {
         goalObj.setActiveMinutes(goal);
         this.goalArray[5] = goalObj;
         return;
     }
 
-    else if(type==Goals.activeMinutes) {
+    else if(type==GoalsEnum.activeMinutes) {
         goalObj.setActiveMinutes(goal);
         this.goalArray[6] = goalObj;
         return;
     }
-    else if(type==Goals.activeMinutes) {
+    else if(type==GoalsEnum.activeMinutes) {
         goalObj.setActiveMinutes(goal);
         this.goalArray[7] = goalObj;
         return;
@@ -157,7 +159,7 @@ public void updateProgress() {
             this.goalArray[0].setAchieved();
     }
 
-    float APIdistance = source.getDistance();
+    float APIdistance = (float) source.getDistance();
     if (this.goalArray[1]!=null) { //distance goal
         this.distanceProgress = this.goalArray[1].getTarget() / APIsteps * 100.0f;
 
