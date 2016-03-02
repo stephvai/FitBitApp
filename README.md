@@ -61,7 +61,5 @@ java -jar team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 ## To run the program in test mode:
 ```
-
 java -jar team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar test
-
 ```
