@@ -1,6 +1,6 @@
-# Welcome to CS 2212 - Winter 2016
+#CS 2212 team08 - Winter 2016
 
-To get started, you will need to run these commands in your terminal.
+If you do not have git configured to get started, you will need to run these commands in your terminal to clone the repo.
 
 ## Configure Git for the first time
 
@@ -8,7 +8,6 @@ To get started, you will need to run these commands in your terminal.
 git config --global user.name "Your Name"
 git config --global user.email "youremail@uwo.ca"
 ```
-
 
 ## Generate an SSH key and add it to your account
 
@@ -44,31 +43,26 @@ Clone your repository onto your local system:
 git clone ssh://git@repo.gaul.csd.uwo.ca:7999/cs2212_w2016/team08.git
 ```
 
-*Remember*: do *not* develop on the `master` or `dev` branches.  Instead, in
-JIRA, create a feature branch off of `dev` to do your work.  Do your
-development on your feature branch.  Then, when you are finished with your
-feature, push your changes, and open a pull request to merge your changes back
-into the `dev` branch.
-
 ## To Run the Program
-To run the program in normal and testing mode:
-
-```
-#Normally:
-
-java -jar team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar
-
-#Test mode example:
-
-java -jar team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar test
-
-```
-
+First compile and package the program with maven
 ## To Compile
 To compile the program:
 
 ```
-mvn compile 
-mvn package 
+mvn compile
+mvn package
+
+```
+The application has two different modes. Test mode which does not require an internet connection and regular mode which gets data off the fitbit servers.
+
+#To Run the program in regular mode:
+```
+java -jar team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
+
+#To run the program in test mode:
+```
+
+java -jar team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar test
 
 ```
