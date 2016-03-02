@@ -1,4 +1,4 @@
-# CS 2212 team08 - Winter 2016
+# CS 2212 Team08 - Winter 2016
 
 If you do not have git configured you will need to run these commands in your terminal to configure git and clone the repo.
 
@@ -51,16 +51,15 @@ To compile the program:
 ```
 mvn compile
 mvn package
-
 ```
 The application has two different modes. Test mode which does not require an internet connection and regular mode which gets data off the fitbit servers.
 
-# To Run the program in regular mode:
+## To Run the program in regular mode:
 ```
 java -jar team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
-# To run the program in test mode:
+## To run the program in test mode:
 ```
 
 java -jar team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar test
