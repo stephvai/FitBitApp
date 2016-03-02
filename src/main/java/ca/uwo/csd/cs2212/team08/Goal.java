@@ -8,7 +8,7 @@ public class Goal implements Serializable {
 
 	private static final long serialVersionUID = -5343638548252582826L;
 	
-	private int target;
+	private float target;
     private boolean achieved;
     private String type;
 
@@ -18,7 +18,7 @@ public class Goal implements Serializable {
     }
 
     /*Getters and Setters */
-    public int getTarget() {
+    public float getTarget() {
         return target;
     }
 
@@ -53,12 +53,13 @@ public class Goal implements Serializable {
     	this.type= "floorsclimbed";
     	this.target = target;
     }
-    
+    /*
     public void setActiveMinutes(int target){
-    	this.type= "activeminutes";
-    	this.target = target;
+        this.type= "activeminutes";
+        this.target = target;
     }
-    
+    */
+
     public void setSedentaryMinutes(int target){
     	this.type= "sedentaryminutes";
     	this.target = target;
