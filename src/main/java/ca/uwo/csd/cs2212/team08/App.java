@@ -1,8 +1,7 @@
 package ca.uwo.csd.cs2212.team08;
-import java.util.Calendar;
 
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+import java.util.Calendar;
 
 public class App {
 

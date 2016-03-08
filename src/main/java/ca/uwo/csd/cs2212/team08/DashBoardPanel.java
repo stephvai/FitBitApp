@@ -1,13 +1,7 @@
 package ca.uwo.csd.cs2212.team08;
 
-import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * a dash board object that can be used to create the main panels on the daily dashboard

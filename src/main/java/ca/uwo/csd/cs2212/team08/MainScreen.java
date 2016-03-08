@@ -1,37 +1,16 @@
 
 package ca.uwo.csd.cs2212.team08;
 
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.Calendar;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Panel;
-
-import javax.swing.JProgressBar;
-import javax.swing.SwingConstants;
-
-import java.awt.SystemColor;
-
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
-
-import java.sql.Date;
-import java.awt.Label;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Calendar;
 
 /**
  * a main screen class to act as the daily dash board for users, this is the first screen to launch

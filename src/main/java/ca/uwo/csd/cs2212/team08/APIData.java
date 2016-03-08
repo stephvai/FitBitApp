@@ -3,24 +3,13 @@ package ca.uwo.csd.cs2212.team08;
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.apis.service.FitbitOAuth20ServiceImpl;
 import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.model.*;
-import com.github.scribejava.core.oauth.OAuth20Service;
-import com.github.scribejava.core.oauth.OAuthService;
-import java.awt.Desktop;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import org.json.JSONArray;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
+import com.github.scribejava.core.model.Verb;
 import org.json.JSONObject;
-import com.github.scribejava.core.model.*; //Request Verb
+
+import java.io.*;
 
 //TODO Make sure it returns false whenever the application crashes
 //TODO Remove all writing to console and instead save it to log.txt
