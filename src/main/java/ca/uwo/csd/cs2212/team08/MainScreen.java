@@ -31,6 +31,8 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.Label;
 
 /**
@@ -181,6 +183,8 @@ public class MainScreen extends JFrame {
 	     {
 	    	 //get the new date from the JDatePicker
 	    	 String tempDate = datePicker.getJFormattedTextField().getText();
+	    	 //datePicker.getJFormattedTextField().get
+	    	 
 	    	 if(tempDate.equals("") || tempDate.equals(null))
 	    	 {
 	    		 return;
@@ -233,6 +237,34 @@ public class MainScreen extends JFrame {
 	    	 String year = dateArray[2];
 	    	 //save the date all in one string
 	    	 this.date = year+"-"+month+"-"+day;
+	    	 try {
+	    		 java.util.Date chosenDate = new SimpleDateFormat("yyy-MM-dd").parse(date);
+	    		 Calendar cal = Calendar.getInstance();
+	    		 if(cal.getTime().compareTo(chosenDate)<0)
+	    		 {
+	    			 cal = Calendar.getInstance();
+	    			 int yearTemp = cal.get(Calendar.YEAR);
+	    			 int monthTemp = cal.get(Calendar.MONTH)+1;
+	    			 int dayTemp = cal.get(Calendar.DAY_OF_MONTH);
+	    			 //add an extra zero to the month if it is needed
+	    			 String monthString;
+	    			 if (monthTemp<10)
+	    			 {
+	    					monthString = "0" + Integer.toString(monthTemp);
+	    				}
+	    				else
+	    				{
+	    					monthString = Integer.toString(monthTemp); 
+	    				}
+	    				//save the date to a string
+	    				this.date = Integer.toString(yearTemp) +  "-" + monthString + "-" + Integer.toString(dayTemp);
+	    				JOptionPane.showMessageDialog(contentPane, "That is not a valid date");
+	    		 }
+	    	 } catch (ParseException e) {
+	    		 // TODO Auto-generated catch block
+	    		 JOptionPane.showMessageDialog(contentPane, "Invalid date format.");
+			}
+	    	 
 	     }
 	     
 	     /**
