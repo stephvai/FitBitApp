@@ -3,24 +3,13 @@ package ca.uwo.csd.cs2212.team08;
 import com.github.scribejava.apis.FitbitApi20;
 import com.github.scribejava.apis.service.FitbitOAuth20ServiceImpl;
 import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.model.*;
-import com.github.scribejava.core.oauth.OAuth20Service;
-import com.github.scribejava.core.oauth.OAuthService;
-import java.awt.Desktop;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import org.json.JSONArray;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
+import com.github.scribejava.core.model.Verb;
 import org.json.JSONObject;
-import com.github.scribejava.core.model.*; //Request Verb
+
+import java.io.*;
 
 //TODO Make sure it returns false whenever the application crashes
 //TODO Remove all writing to console and instead save it to log.txt
@@ -32,22 +21,22 @@ import com.github.scribejava.core.model.*; //Request Verb
 public class APIData {
 
   //Instance variables for daily user data to be used on the daily dashboard 
-  private int userDailySteps;
-  private double userDailyDistance;
-  private int userDailyCalories;
-  private int userDailyFloorsClimbed;
-  private int userDailySendentaryMinutes;
-  private int userDailyLightlyActiveMinutes;
-  private int userDailyFairlyActiveMinutes;
-  private int userDailyVeryActiveMinutes;
+  private float userDailySteps;
+  private float userDailyDistance;
+  private float userDailyCalories;
+  private float userDailyFloorsClimbed;
+  private float userDailySendentaryMinutes;
+  private float userDailyLightlyActiveMinutes;
+  private float userDailyFairlyActiveMinutes;
+  private float userDailyVeryActiveMinutes;
   //Instance variables for total values
-  private double totalDistance;
-  private int totalFloors;
-  private int totalSteps;
+  private float totalDistance;
+  private float totalFloors;
+  private float totalSteps;
   //Instance variables for best values
-  private double bestDistance;
-  private int bestFloors;
-  private int bestSteps;
+  private float bestDistance;
+  private float bestFloors;
+  private float bestSteps;
   
   //Instance variables used when getting data from APIData
   private static String CALL_BACK_URI="http://localhost:8080";
@@ -304,7 +293,7 @@ public class APIData {
   private void parseSummary(JSONObject obj) {
 	  JSONObject summary = obj.getJSONObject("summary");
 	  userDailyCalories = summary.getInt("caloriesOut");
-	  userDailyDistance= summary.getJSONArray("distances").getJSONObject(0).getDouble("distance");
+	  userDailyDistance= (float)summary.getJSONArray("distances").getJSONObject(0).getDouble("distance");
 	  userDailyFloorsClimbed = summary.getInt("floors");
 	  userDailySteps = summary.getInt("steps");
 	  userDailySendentaryMinutes = summary.getInt("sedentaryMinutes");
@@ -320,7 +309,7 @@ public class APIData {
    */
   private void parseLifeTimeTotal(JSONObject obj) {
 	  JSONObject lifetimeTotal = obj.getJSONObject("lifetime").getJSONObject("total");
-	  totalDistance = lifetimeTotal.getDouble("distance");
+	  totalDistance = (float)lifetimeTotal.getDouble("distance");
 	  totalFloors = lifetimeTotal.getInt("floors");
 	  totalSteps = lifetimeTotal.getInt("steps");
   }
@@ -331,7 +320,7 @@ public class APIData {
    */
   private void parseBestDays(JSONObject obj) {
 	  JSONObject bestDays = obj.getJSONObject("best").getJSONObject("total");
-	  bestDistance = bestDays.getJSONObject("distance").getDouble("value");
+	  bestDistance = (float)bestDays.getJSONObject("distance").getDouble("value");
 	  bestFloors = bestDays.getJSONObject("floors").getInt("value");
 	  bestSteps = bestDays.getJSONObject("steps").getInt("value");
   }
@@ -344,98 +333,98 @@ public class APIData {
    * getter that returns the users daily steps for day
    * @return number of steps the user has walked for the day
    */
-  public int getSteps() {
+  public float getSteps() {
     return this.userDailySteps;
   } 
   /**
    * getter that returns the users daily distance for the day
    * @return total distance the user has traveled for the day
    */
-  public double getDistance() {
+  public float getDistance() {
     return this.userDailyDistance;
   } 
   /**
    * getter that returns the users daily distance for the day
    * @return total calories the user has burned for the day
    */
-  public int getCalories() {
+  public float getCalories() {
     return this.userDailyCalories;
   }  
   /**
    * getter that returns the users daily floors climbed for the day
    * @return total number of floors the user has climbed for the day
    */
-  public int getFloorsClimbed() {
+  public float getFloorsClimbed() {
     return this.userDailyFloorsClimbed;
   }
   /**
    * getter that returns the number of sendentary minutes for that day 
    * @return total number of sendentary minutes for the day
    */
-  public int getSendentaryMinutes() {
+  public float getSendentaryMinutes() {
     return this.userDailySendentaryMinutes;
   }
   /**
    * getter that returns the number of very active minutes for the day
    * @return total number of very active minutes for the day
    */
-  public int getVeryActiveMin() {
+  public float getVeryActiveMin() {
 	  return this.userDailyVeryActiveMinutes;
   }
   /**
    * getter that returns the number of fairly active minutes for the day
    * @return total number of fairly active minutes for the day
    */
-  public int getFairlyActiveMin() {
+  public float getFairlyActiveMin() {
 	  return this.userDailyFairlyActiveMinutes;
   }
   /**
    * getter that returns the number of lightly active minutes for the day
    * @return total number of lightly active minutes for the day
    */
-  public int getLightlyActiveMin() {
+  public float getLightlyActiveMin() {
 	  return this.userDailyLightlyActiveMinutes;
   }
   /**
    * getter that returns the total lifetime distance
    * @return users total lifetime distance
    */
-  public double getTotalDistance() {
+  public float getTotalDistance() {
 	  return this.totalDistance;
   }
   /**
    * getter that returns the total lifetime floors climbed
    * @return users total lifetime floors climbed
    */
-  public int getTotalFloors() {
+  public float getTotalFloors() {
 	  return this.totalFloors;
   }
   /**
    * getter that returns total lifetime steps taken
    * @return users total lifetime steps taken
    */
-  public int getTotalSteps() {
+  public float getTotalSteps() {
 	  return this.totalSteps;
   } 
   /**
    * getter that returns the best distance
    * @return users best recorded distance
    */
-  public double getBestDistance() {
+  public float getBestDistance() {
 	  return this.bestDistance;
   }
   /**
    * getter that returns the best floors climbed
    * @return users best recorded floors climbed
    */
-  public int getBestFloors() {
+  public float getBestFloors() {
 	  return this.bestFloors;
   } 
   /**
    * getter that returns the best steps
    * @return users best recorded steps taken
    */
-  public int getBestSteps() {
+  public float getBestSteps() {
 	  return this.bestSteps;
   }
 }

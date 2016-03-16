@@ -1,30 +1,6 @@
 
 package ca.uwo.csd.cs2212.team08;
 
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.Calendar;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Panel;
-
-import javax.swing.JProgressBar;
-import javax.swing.SwingConstants;
-
-import java.awt.SystemColor;
-
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -34,6 +10,12 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.awt.Label;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Calendar;
 
 /**
  * a main screen class to act as the daily dash board for users, this is the first screen to launch
@@ -303,7 +285,7 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 	    	 //create a label to display the steps
 	    	 /*------------------------------------------*/
-	    	 JLabel lblSteps = new JLabel(Integer.toString(apiData.getSteps()));
+	    	 JLabel lblSteps = new JLabel(Float.toString(apiData.getSteps()));
 	    	 lblSteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
 	    	 lblSteps.setBounds(0, 10, 265, 33);
@@ -360,7 +342,7 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the floors climbed
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Integer.toString(apiData.getFloorsClimbed()));
+			 JLabel label = new JLabel(Float.toString(apiData.getFloorsClimbed()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 12, 265, 33);
@@ -411,7 +393,7 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the Calories burned
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Integer.toString(apiData.getCalories()));
+			 JLabel label = new JLabel(Float.toString(apiData.getCalories()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 10, 265, 33);
@@ -500,7 +482,7 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the Active minutes
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Integer.toString(apiData.getLightlyActiveMin() + apiData.getFairlyActiveMin() + apiData.getVeryActiveMin()));
+			 JLabel label = new JLabel(Float.toString(apiData.getLightlyActiveMin() + apiData.getFairlyActiveMin() + apiData.getVeryActiveMin()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 14, 265, 33);
@@ -539,7 +521,7 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the sedentary minutes
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Integer.toString(apiData.getSendentaryMinutes()));
+			 JLabel label = new JLabel(Float.toString(apiData.getSendentaryMinutes()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 13, 265, 33);

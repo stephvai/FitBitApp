@@ -1,27 +1,10 @@
 package ca.uwo.csd.cs2212.team08;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Button;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JInternalFrame;
-import javax.swing.JTextPane;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JTabbedPane;
-import java.awt.Color;
 
 /**
  * StepsPanel.java creates the panel that the user will see when the user clicks 
