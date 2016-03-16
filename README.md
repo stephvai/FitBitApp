@@ -56,10 +56,10 @@ The application has two different modes. Test mode which does not require an int
 
 ## To Run the program in regular mode:
 ```
-java -jar target team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar
+java -jar target/team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ## To run the program in test mode:
 ```
-java -jar target team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar test
+java -jar target/team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar test
 ```
