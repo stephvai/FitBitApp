@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class Achievement implements Serializable {
 
+    private static final long serialVersionUID = -8064307587743333279L;
     private String type;
     private boolean achieved;
     private float objective;
