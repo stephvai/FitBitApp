@@ -5,6 +5,7 @@ import java.io.Serializable;
 //TODO add images for the accolades
 
 public class Achievement implements Serializable {
+
     private String type;
     private boolean achieved;
     private float objective;
@@ -14,7 +15,9 @@ public class Achievement implements Serializable {
     }//Constructor.
     /*Getters*/
     public boolean getAchieved(){return this. achieved;}
+
     public String getType(){return this.type;}
+
     public float getObjective(){return this.objective;}
 
 
