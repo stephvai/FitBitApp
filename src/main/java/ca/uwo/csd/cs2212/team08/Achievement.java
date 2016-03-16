@@ -13,6 +13,7 @@ public class Achievement implements Serializable {
     public Achievement(){
         this.achieved = false;
     }//Constructor.
+
     /*Getters*/
     public boolean getAchieved(){return this. achieved;}
 
@@ -20,7 +21,14 @@ public class Achievement implements Serializable {
 
     public float getObjective(){return this.objective;}
 
-
-
-
+    /*Setters*/
+    public void setType(String s){
+        this.type = s;
+    }
+    public void setAchieved(){
+        this.achieved = true;
+    }
+    public void setObjective(float obj){
+        this.objective = obj;
+    }
 }
