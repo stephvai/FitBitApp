@@ -271,7 +271,7 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 	    	 //create a label to display the steps
 	    	 /*------------------------------------------*/
-	    	 JLabel lblSteps = new JLabel(Integer.toString(apiData.getSteps()));
+	    	 JLabel lblSteps = new JLabel(Float.toString(apiData.getSteps()));
 	    	 lblSteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
 	    	 lblSteps.setBounds(0, 10, 265, 33);
@@ -328,7 +328,7 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the floors climbed
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Integer.toString(apiData.getFloorsClimbed()));
+			 JLabel label = new JLabel(Float.toString(apiData.getFloorsClimbed()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 12, 265, 33);
@@ -379,7 +379,7 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the Calories burned
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Integer.toString(apiData.getCalories()));
+			 JLabel label = new JLabel(Float.toString(apiData.getCalories()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 10, 265, 33);
@@ -468,7 +468,7 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the Active minutes
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Integer.toString(apiData.getLightlyActiveMin() + apiData.getFairlyActiveMin() + apiData.getVeryActiveMin()));
+			 JLabel label = new JLabel(Float.toString(apiData.getLightlyActiveMin() + apiData.getFairlyActiveMin() + apiData.getVeryActiveMin()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 14, 265, 33);
@@ -507,7 +507,7 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the sedentary minutes
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Integer.toString(apiData.getSendentaryMinutes()));
+			 JLabel label = new JLabel(Float.toString(apiData.getSendentaryMinutes()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 13, 265, 33);

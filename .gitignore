@@ -10,6 +10,7 @@ target/*
 # Intellij Generated Files #
 ############################
 .idea/
+team08_app.iml
 # OSX Generated Files#
 #####################
 .DS_Store

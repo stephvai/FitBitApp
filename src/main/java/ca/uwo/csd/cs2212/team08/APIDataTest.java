@@ -78,98 +78,98 @@ public class APIDataTest extends APIData {
      * getter that returns the users daily steps for day
      * @return number of steps the user has walked for the day
      */
-    public int getSteps() {
+    public float getSteps() {
         return this.userDailySteps;
     }
     /**
      * getter that returns the users daily distance for the day
      * @return total distance the user has traveled for the day
      */
-    public double getDistance() {
-        return this.userDailyDistance;
+    public float getDistance() {
+        return (float)this.userDailyDistance;
     }
     /**
      * getter that returns the users daily distance for the day
      * @return total calories the user has burned for the day
      */
-    public int getCalories() {
+    public float getCalories() {
         return this.userDailyCalories;
     }
     /**
      * getter that returns the users daily floors climbed for the day
      * @return total number of floors the user has climbed for the day
      */
-    public int getFloorsClimbed() {
+    public float getFloorsClimbed() {
         return this.userDailyFloorsClimbed;
     }
     /**
      * getter that returns the number of sendentary minutes for that day
      * @return total number of sendentary minutes for the day
      */
-    public int getSendentaryMinutes() {
+    public float getSendentaryMinutes() {
         return this.userDailySendentaryMinutes;
     }
     /**
      * getter that returns the number of very active minutes for the day
      * @return total number of very active minutes for the day
      */
-    public int getVeryActiveMin() {
+    public float getVeryActiveMin() {
         return this.userDailyVeryActiveMinutes;
     }
     /**
      * getter that returns the number of fairly active minutes for the day
      * @return total number of fairly active minutes for the day
      */
-    public int getFairlyActiveMin() {
+    public float getFairlyActiveMin() {
         return this.userDailyFairlyActiveMinutes;
     }
     /**
      * getter that returns the number of lightly active minutes for the day
      * @return total number of lightly active minutes for the day
      */
-    public int getLightlyActiveMin() {
+    public float getLightlyActiveMin() {
         return this.userDailyLightlyActiveMinutes;
     }
     /**
      * getter that returns the total lifetime distance
      * @return users total lifetime distance
      */
-    public double getTotalDistance() {
-        return this.totalDistance;
+    public float getTotalDistance() {
+        return (float)this.totalDistance;
     }
     /**
      * getter that returns the total lifetime floors climbed
      * @return users total lifetime floors climbed
      */
-    public int getTotalFloors() {
+    public float getTotalFloors() {
         return this.totalFloors;
     }
     /**
      * getter that returns total lifetime steps taken
      * @return users total lifetime steps taken
      */
-    public int getTotalSteps() {
+    public float getTotalSteps() {
         return this.totalSteps;
     }
     /**
      * getter that returns the best distance
      * @return users best recorded distance
      */
-    public double getBestDistance() {
-        return this.bestDistance;
+    public float getBestDistance() {
+        return (float)this.bestDistance;
     }
     /**
      * getter that returns the best floors climbed
      * @return users best recorded floors climbed
      */
-    public int getBestFloors() {
+    public float getBestFloors() {
         return this.bestFloors;
     }
     /**
      * getter that returns the best steps
      * @return users best recorded steps taken
      */
-    public int getBestSteps() {
+    public float getBestSteps() {
         return this.bestSteps;
     }
 }
