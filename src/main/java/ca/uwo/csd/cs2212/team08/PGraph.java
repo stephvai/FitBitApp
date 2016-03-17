@@ -10,10 +10,10 @@ import org.jfree.data.general.DefaultPieDataset;
 import javax.swing.*;
 import java.awt.*;
 
-public class Graph extends JPanel {
+public class PGraph extends JPanel {
 
 
-    public Graph(){
+    public PGraph(){
         APIData data = new APIData();
 
         float fairlyActiveMin = data.getFairlyActiveMin();
