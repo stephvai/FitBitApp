@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
+import javax.swing.JButton;
 
 public class Minutes extends JFrame {
 
@@ -40,6 +41,8 @@ public class Minutes extends JFrame {
 		this.setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);
+		this.date = date;
+		this.apiData = paramAPIData;
 		
 		/*---------------------------------------------------*
 		 * make the panel where all information will be shown
@@ -66,16 +69,21 @@ public class Minutes extends JFrame {
 		JLabel backArrow = new JLabel();
 		backArrow.setIcon(new ImageIcon(backImage));
 		backArrow.setBounds(0, 0, 48, 48);
-		backArrow.setVisible(true);
+		//backArrow.setVisible(true);
+		contentPane.add(backArrow);
 		backArrow.addMouseListener(new MouseAdapter() {
+			//private String date;
+
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				//what to do on button click
 				home();
+				//MainScreen main = new MainScreen(this.date, apiData);
+				//main.setVisible(true);
 				dispose();
 			}
 		});
-		contentPane.add(backArrow);
+		
 		/*------------------------------------------*
 		 * Panel where active minutes will be shown
 		 *------------------------------------------*/
@@ -131,8 +139,6 @@ public class Minutes extends JFrame {
 		pnlSedentMinutes.add(sedentMinutesValue);
 		sedentMinutesValue.setFont(new Font("Trebouchet MS", Font.PLAIN, 25));
 		sedentMinutesValue.setHorizontalAlignment(SwingConstants.CENTER);
-		
-
 	}
 	/**
 	 * returns the user to their daily dash board
