@@ -71,7 +71,7 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 			 //create a label to display the title of the panel
 	    	 /*	-----------------------------------------*/
-			 JLabel lblTitle = new JLabel("Welcome! Here is your daily dashboard: ");
+			 JLabel lblTitle = new JLabel("     Welcome! Here is your daily dashboard: ");
 			 lblTitle.setFont(new Font("Trebuchet MS", Font.PLAIN, 35));
 			 contentPane.setForeground(titleColor);
 			 lblTitle.setBounds(159, 0, 732, 72);
