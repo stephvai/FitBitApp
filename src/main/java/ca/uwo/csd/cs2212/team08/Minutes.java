@@ -31,11 +31,6 @@ public class Minutes extends JFrame {
 	 * Create the frame.
 	 */
 	public Minutes(String date, APIData paramAPIData) {
-
-		/**
-		 * create the frame where active and sedentary minutes will be shown
-		 */
-
 		/*-------------------------------------------*
 		 * Default size and settings for all windows
 		 *-------------------------------------------*/

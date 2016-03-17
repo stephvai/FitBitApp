@@ -233,6 +233,7 @@ public class MainScreen extends JFrame {
 	    	 });
 	    	 //set the layout to absolute
 	    	 pnlSteps.setLayout(null);
+	    	 pnlSteps.setToolTipText("click here to see more information!");
 	    	 //add panel to the content pane
 	    	 contentPane.add(pnlSteps);
 
@@ -273,6 +274,7 @@ public class MainScreen extends JFrame {
 	     {
 	    	 DashBoardPanel StairsPanel = new DashBoardPanel(413, 191);
 	    	 StairsPanel.setLocation(385, 99);
+	    	 StairsPanel.setToolTipText("click here to see more information!");
 	    	 StairsPanel.setLayout(null);
 	    	 StairsPanel.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -324,6 +326,7 @@ public class MainScreen extends JFrame {
 			 /*---------------------------------------*/
 			 DashBoardPanel caloriesBurned = new DashBoardPanel(776, 191);
 			 caloriesBurned.setLocation(709, 99);
+			 caloriesBurned.setToolTipText("click here to see more information!");
 			 caloriesBurned.setLayout(null);
 			 caloriesBurned.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -375,6 +378,7 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 			 DashBoardPanel distanceTraveled = new DashBoardPanel(50, 300);
 			 distanceTraveled.setLayout(null);
+			 distanceTraveled.setToolTipText("click here to see more information!");
 			 distanceTraveled.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -425,6 +429,7 @@ public class MainScreen extends JFrame {
 			 /*---------------------------------------*/
 			 DashBoardPanel activeMinutes = new DashBoardPanel(50, 300);
 			 activeMinutes.setBounds(385, 300, 265, 155);
+			 activeMinutes.setToolTipText("click here to see more information!");
 			 activeMinutes.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -467,12 +472,13 @@ public class MainScreen extends JFrame {
 			 DashBoardPanel sedentaryMinutes = new DashBoardPanel(50, 300);
 			 sedentaryMinutes.setLayout(null);
 			 sedentaryMinutes.setBounds(709, 300, 265, 155);
+			 sedentaryMinutes.setToolTipText("click here to see more information!");
 			 sedentaryMinutes.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 Minutes activeMinutes = new Minutes(date, apiData);
-	    			 activeMinutes.setVisible(true);
+	    			 Minutes sedentMinutes = new Minutes(date, apiData);
+	    			 sedentMinutes.setVisible(true);
 	    			 dispose();
 	    		 }
 	    	 });
@@ -508,6 +514,7 @@ public class MainScreen extends JFrame {
 			 DashBoardPanel accoladesPanel = new DashBoardPanel(50, 300);
 			 accoladesPanel.setLayout(null);
 			 accoladesPanel.setBounds(51, 501, 265, 155);
+			 accoladesPanel.setToolTipText("click here to see more information!");
 			 accoladesPanel.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -538,6 +545,7 @@ public class MainScreen extends JFrame {
 			 DashBoardPanel heartRatePanel = new DashBoardPanel(50, 300);
 			 heartRatePanel.setLayout(null);
 			 heartRatePanel.setBounds(385, 501, 265, 155);
+			 heartRatePanel.setToolTipText("click here to see more information!");
 			 heartRatePanel.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -568,6 +576,7 @@ public class MainScreen extends JFrame {
 			 DashBoardPanel dailyGoals = new DashBoardPanel(50, 300);
 			 dailyGoals.setLayout(null);
 			 dailyGoals.setBounds(709, 501, 265, 155);
+			 dailyGoals.setToolTipText("click here to see more information!");
 			 dailyGoals.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
