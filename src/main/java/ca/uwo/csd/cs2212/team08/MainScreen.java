@@ -429,7 +429,9 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 
+	    			 Minutes activeMinutes = new Minutes(date, apiData);
+	    			 activeMinutes.setVisible(true);
+	    			 dispose();
 	    		 }
 	    	 });
 			 activeMinutes.setLayout(null);
@@ -469,7 +471,9 @@ public class MainScreen extends JFrame {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 
+	    			 Minutes activeMinutes = new Minutes(date, apiData);
+	    			 activeMinutes.setVisible(true);
+	    			 dispose();
 	    		 }
 	    	 });
 			 contentPane.add(sedentaryMinutes);
