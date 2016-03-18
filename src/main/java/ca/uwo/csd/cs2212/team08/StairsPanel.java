@@ -53,9 +53,9 @@ public class StairsPanel extends JFrame {
 		//create a new instance of the api data
 		apiData = paramAPIData;		
 
-		/*	-----------------------------------------*/
-		//create a title for the current pane
-		/*	-----------------------------------------*/
+		/*-----------------------------------------*/
+		// create a title for the current pane
+		/*-----------------------------------------*/
 		JLabel lblTitle = new JLabel("FLOORS CLIMBED");
 		lblTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 50));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -63,9 +63,9 @@ public class StairsPanel extends JFrame {
 		contentPane.add(lblTitle);
 		lblTitle.setForeground(white);
 
-		/*	-----------------------------------------*/
+		/*-----------------------------------------*/
 		//create a back button to return to dash board
-		/*	-----------------------------------------*/
+		/*-----------------------------------------*/
 		JLabel imgBack = new JLabel();
 		imgBack.setIcon(new ImageIcon(backImage));
 		imgBack.setBounds(0, 0, 48, 48);
@@ -80,9 +80,9 @@ public class StairsPanel extends JFrame {
 		contentPane.add(imgBack);
 
 
-		/*	-----------------------------------------*/
-		//create a tabbed pane to store the graphs
-		/*	-----------------------------------------*/
+		/*-----------------------------------------*/
+		// create a tabbed pane to store the graphs
+		/*-----------------------------------------*/
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(80, 409, 837, 239);
 
@@ -104,7 +104,7 @@ public class StairsPanel extends JFrame {
 		contentPane.add(tabbedPane);
 
 		/*--------------------------------------------*/
-		//create a panel to display floors climbed information for today
+		// create a panel to display floors climbed information for today
 		/*--------------------------------------------*/
 		JPanel pnlTodaysValue = new JPanel();
 		pnlTodaysValue.setBounds(80, 138, 240, 224);
@@ -114,7 +114,7 @@ public class StairsPanel extends JFrame {
 		pnlTodaysValue.setBorder(BorderFactory.createLineBorder(borderColor));
 
 		/*--------------------------------------------*/
-		//add a label to display the floors climbed today
+		// add a label to display the floors climbed today
 		/*--------------------------------------------*/
 		JLabel lblDailyValue = new JLabel("<html> Today you climbed "+ apiData.getFloorsClimbed() +" floors. </html>");
 		lblDailyValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
@@ -123,7 +123,7 @@ public class StairsPanel extends JFrame {
 		pnlTodaysValue.add(lblDailyValue);
 
 		/*--------------------------------------------*/
-		//create a panel to display floors climbed information for their lifetime totals
+		// create a panel to display floors climbed information for their lifetime totals
 		/*--------------------------------------------*/
 		JPanel pnlLifetimeTotal = new JPanel();
 		pnlLifetimeTotal.setBounds(373, 138, 240, 224);
@@ -133,7 +133,7 @@ public class StairsPanel extends JFrame {
 		pnlLifetimeTotal.setBorder(BorderFactory.createLineBorder(borderColor));
 		
 		/*--------------------------------------------*/
-		//add a label to display the floors climbed in the users lifetime total
+		// add a label to display the floors climbed in the users lifetime total
 		/*--------------------------------------------*/
 		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have climbed "+ apiData.getTotalFloors()+" floors. </html>");
 		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
@@ -142,7 +142,7 @@ public class StairsPanel extends JFrame {
 		pnlLifetimeTotal.add(lblLifetimeTotal);
 		
 		/*--------------------------------------------*/
-		//create a panel to display floors climbed information for today
+		// create a panel to display floors climbed information for today
 		/*--------------------------------------------*/
 		JPanel pnlBestDay = new JPanel();
 		pnlBestDay.setBounds(677, 138, 240, 224);
@@ -152,7 +152,7 @@ public class StairsPanel extends JFrame {
 		pnlBestDay.setBorder(BorderFactory.createLineBorder(borderColor));
 		
 		/*--------------------------------------------*/
-		//add a label to display the floors climbed on the users best day
+		// add a label to display the floors climbed on the users best day
 		/*--------------------------------------------*/
 		JLabel lblBestDay = new JLabel("<html> On your best day you climbed "+ apiData.getBestFloors()+" floors. </html>");
 		lblBestDay.setHorizontalAlignment(SwingConstants.CENTER);
