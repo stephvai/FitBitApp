@@ -537,7 +537,9 @@ public class MainScreen extends JFrame {
 			 heartRatePanel.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 //what to do on button click
+	    			 HeartRateZones panel = new HeartRateZones(date,apiData);
+	    			 panel.setVisible(true);
+	    			 dispose();
 	    			 
 	    		 }
 	    	 });
