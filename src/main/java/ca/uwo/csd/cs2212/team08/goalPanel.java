@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class goalPanel extends JFrame {
 
@@ -29,6 +30,7 @@ public class goalPanel extends JFrame {
 	private static final String backImage = "src/main/resources/images/arrowLeft4.png";
 	private APIData apiData;
 	private String date;
+	private JTextField textField;
 
 
 	/**
@@ -111,19 +113,20 @@ public class goalPanel extends JFrame {
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// figure out how to edit goals here
+				//make a new editpage.java?
+				//
 			}
 		});
 		editButton.setBounds(82, 147, 117, 29);
 		stepGoalPanel.add(editButton);
 		
-		/*-------------------------------------------------------------*
-		 * information shown for step goals 
-		 *-------------------------------------------------------------*/
-		JLabel lblStepValue = new JLabel("500"); //get it from api or goal tracker class
-		lblStepValue.setBounds(103, 84, 68, 29);
-		stepGoalPanel.add(lblStepValue);
-		lblStepValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblStepValue.setHorizontalAlignment(SwingConstants.CENTER);
+		/*-------------------------------------------------*
+		 * where the users' set goals will appear for steps
+		 *-------------------------------------------------*/
+		textField = new JTextField();
+		textField.setBounds(76, 85, 134, 28);
+		stepGoalPanel.add(textField);
+		textField.setColumns(10);
 		
 		/*-------------------------------------------*
 		 * the panel where distance goals will be displayed
