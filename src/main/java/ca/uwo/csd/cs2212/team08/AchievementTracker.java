@@ -13,10 +13,10 @@ public class AchievementTracker {
 	 * This method will create an Achievement array of 20 and load the progress of the users. 
 	 */
 	public AchievementTracker() throws ClassNotFoundException, IOException {
-		        this.achievementArray = new Goal[19];
+		        this.achievementArray = new Achievement[20];
 
-			//		this.loadProgress();
-			//		this.updateProgress();
+				this.loadProgress();
+		        this.updateProgress();
 
 	}
 	
@@ -58,11 +58,13 @@ public class AchievementTracker {
 
 		}
 
-	public updateProgress() {
+	public void updateProgress() {
+		APIData source = new APIData();
+		float APIsteps = source.getSteps();
 		
 	}
 	
-	public isAchieved() {
+	public void isAchieved() {
 		
 	}
 }

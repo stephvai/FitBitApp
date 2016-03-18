@@ -32,4 +32,24 @@ public class Achievement implements Serializable {
     public void setObjective(float obj){
         this.objective = obj;
     }
+
+    public void setCalories(float target){
+        this.type = "calories";
+        this.objective = target;
+    }
+
+    public void setSteps(float target){
+        this.type = "steps";
+        this.objective = target;
+    }
+
+    public void setFloorsClimbed(float target){
+        this.type = "floorsclimbed";
+        this.objective = target;
+    }
+
+    public void setDistance(float target){
+        this.type = "distance";
+        this.objective = target;
+    }
 }
