@@ -78,8 +78,6 @@ public class Minutes extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				//what to do on button click
 				home();
-				//MainScreen main = new MainScreen(this.date, apiData);
-				//main.setVisible(true);
 				dispose();
 			}
 		});
@@ -104,13 +102,31 @@ public class Minutes extends JFrame {
 		activeTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		/*-------------------------------------------------------------*
-		 * information shown for active minutes minus the API currently
+		 * information shown for lightly active minutes
 		 *-------------------------------------------------------------*/
-		JLabel activeMinutesValue = new JLabel("<html> Today you were active for: "+ "        500        " +" minutes. </html>");
-		activeMinutesValue.setBounds(24, 152, 300, 183);
+		JLabel activeMinutesValue = new JLabel("<html> Today you were lightly active for: "+ apiData.getLightlyActiveMin() +" minutes. </html>");
+		activeMinutesValue.setBounds(24, 88, 300, 142);
 		pnlActiveMinutes.add(activeMinutesValue);
 		activeMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		activeMinutesValue.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		/*-------------------------------------------------------------*
+		 * information shown for fairly active minutes
+		 *-------------------------------------------------------------*/
+		JLabel fairlyActiveMinutesValue = new JLabel("<html> Today you were fairly active for: "+ apiData.getFairlyActiveMin()+ " minutes. </html>");
+		fairlyActiveMinutesValue.setBounds(24, 213, 300, 123);
+		pnlActiveMinutes.add(fairlyActiveMinutesValue);
+		fairlyActiveMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		fairlyActiveMinutesValue.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		/*-------------------------------------------------------------*
+		 * information shown for very active minutes, maybe we could add it all up?
+		 *-------------------------------------------------------------*/
+		JLabel veryActiveMinutesValue = new JLabel("<html> Today you were very active for: "+ apiData.getVeryActiveMin()+ " minutes. </html>");
+		veryActiveMinutesValue.setBounds(24,332, 300, 123);
+		pnlActiveMinutes.add(veryActiveMinutesValue);
+		veryActiveMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		veryActiveMinutesValue.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		/*--------------------------------------------*
 		 * panel where sedentary minutes will be shown
@@ -134,7 +150,7 @@ public class Minutes extends JFrame {
 		/*----------------------------------------------------------*
 		 * information for sedentary minutes minus the API currently
 		 *----------------------------------------------------------*/
-		JLabel sedentMinutesValue = new JLabel("<html> Today you were not active for: " + "500 \n"+ " minutes. </html>");
+		JLabel sedentMinutesValue = new JLabel("<html> Today you were not active for: " + apiData.getSendentaryMinutes() +" minutes. </html>");
 		sedentMinutesValue.setBounds(22,151, 321,182);
 		pnlSedentMinutes.add(sedentMinutesValue);
 		sedentMinutesValue.setFont(new Font("Trebouchet MS", Font.PLAIN, 25));
