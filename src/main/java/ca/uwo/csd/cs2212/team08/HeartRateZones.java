@@ -48,7 +48,7 @@ public class HeartRateZones extends JFrame {
 	 */
 	public HeartRateZones(final String date, APIData paramAPIData) {
 
-		/*-----------------------------------------*/
+		/*-----------------------23------------------*/
 		// create the main window for the heart rate zones panel
 		/*-----------------------------------------*/
 		setResizable(false);
