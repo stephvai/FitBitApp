@@ -580,7 +580,9 @@ public class MainScreen extends JFrame {
 			 dailyGoals.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 //what to do on button click
+	    			 goalPanel goals = new goalPanel(date,apiData);
+	    			 goals.setVisible(true);
+	    			 dispose();
 	    			 
 	    		 }
 	    	 });
