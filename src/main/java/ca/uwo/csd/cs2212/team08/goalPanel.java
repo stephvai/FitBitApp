@@ -1,0 +1,200 @@
+package ca.uwo.csd.cs2212.team08;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+public class goalPanel extends JFrame {
+
+	private JPanel contentPane;
+	private Color bgColor = Color.darkGray;
+	private Color pannelColor = new Color(168, 219, 168);
+	private Color borderColor = new Color(121, 189, 154);
+	private Color titleColor = new Color(11, 72, 107);
+	private Color white = Color.white;
+	private static final String backImage = "src/main/resources/images/arrowLeft4.png";
+	private APIData apiData;
+	private String date;
+
+
+	/**
+	 * Create the frame.
+	 */
+	public goalPanel(String date, APIData apiData) {
+		
+
+		/*-----------------------------------------*/
+		//create the main window for the daily goals panel
+		/*	-----------------------------------------*/
+		setResizable(false);
+		this.date = date;
+		setTitle("team08-Fitbit");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(1024,768);
+		this.setLocationRelativeTo(null); 
+		
+		/*---------------------------------------------------*
+		 * make the panel where all information will be shown
+		 *---------------------------------------------------*/
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.setBackground(bgColor);
+		
+		/*---------------------------------------------------*
+		 * Title of the entire page
+		 *---------------------------------------------------*/
+		JLabel titleGoals = new JLabel("   Here are your daily goals: ");
+		titleGoals.setFont(new Font("Trebuchet MS", Font.BOLD, 50));
+		titleGoals.setHorizontalAlignment(SwingConstants.CENTER);
+		titleGoals.setBounds(80, 21, 837, 84);
+		contentPane.add(titleGoals);
+		titleGoals.setForeground(white);
+		
+		/*-----------------------------------------*/
+		//create a back button to return to dash board
+		/*----------------------------------------*/
+		JLabel backArrow = new JLabel();
+		backArrow.setIcon(new ImageIcon(backImage));
+		backArrow.setBounds(0, 0, 48, 48);
+		//backArrow.setVisible(true);
+		contentPane.add(backArrow);
+		backArrow.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				//what to do on button click
+				home();
+				dispose();
+			}
+		});
+		
+		/*-------------------------------------------*
+		 * the panel where step goals will be displayed
+		 *-------------------------------------------*/
+		JPanel stepGoalPanel = new JPanel();
+		stepGoalPanel.setLocation(38, 172);
+		stepGoalPanel.setSize(285, 201);
+		contentPane.setBounds(50,50,400, 500);
+		contentPane.add(stepGoalPanel);
+		stepGoalPanel.setLayout(null);
+		stepGoalPanel.setBackground(pannelColor);
+		stepGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
+		
+		/*------------------------------------------*
+		 * Title of the step goal panel
+		 *------------------------------------------*/
+		JLabel lblStepsGoal = new JLabel("<html> Steps </html>");
+		lblStepsGoal.setBounds(66, 6, 150, 56);
+		stepGoalPanel.add(lblStepsGoal);
+		lblStepsGoal.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		lblStepsGoal.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		/*-------------------------------------------*
+		 * the panel where distance goals will be displayed
+		 *-------------------------------------------*/
+		JPanel distanceGoalPanel = new JPanel();
+		distanceGoalPanel.setLayout(null);
+		distanceGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
+		distanceGoalPanel.setBackground(new Color(168, 219, 168));
+		distanceGoalPanel.setBounds(368, 172, 285, 201);
+		contentPane.add(distanceGoalPanel);
+		
+		/*------------------------------------------*
+		 * Title of the distance goal panel
+		 *------------------------------------------*/
+		JLabel distanceGoalLbl = new JLabel("<html> Distance </html>");
+		distanceGoalLbl.setBounds(68, 6, 150, 56);
+		distanceGoalPanel.add(distanceGoalLbl);
+		distanceGoalLbl.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		distanceGoalLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		
+		/*-------------------------------------------*
+		 * the panel where calories goals will be displayed
+		 *-------------------------------------------*/
+		JPanel caloriesGoalPanel = new JPanel();
+		caloriesGoalPanel.setLayout(null);
+		caloriesGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
+		caloriesGoalPanel.setBackground(new Color(168, 219, 168));
+		caloriesGoalPanel.setBounds(703, 172, 285, 201);
+		contentPane.add(caloriesGoalPanel);
+		
+		/*------------------------------------------*
+		 * Title of the calories goal panel
+		 *------------------------------------------*/
+		JLabel lblCaloriesGoalPanel = new JLabel("<html> Calories </html>");
+		lblCaloriesGoalPanel.setBounds(68,6, 150,56);
+		caloriesGoalPanel.add(lblCaloriesGoalPanel);
+		lblCaloriesGoalPanel.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		lblCaloriesGoalPanel.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		
+		
+		/*-------------------------------------------*
+		 * the panel where floor goals will be displayed
+		 *-------------------------------------------*/
+		JPanel floorsGoalPanel = new JPanel();
+		floorsGoalPanel.setLayout(null);
+		floorsGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
+		floorsGoalPanel.setBackground(new Color(168, 219, 168));
+		floorsGoalPanel.setBounds(38, 466, 285, 201);
+		contentPane.add(floorsGoalPanel);
+		
+		JLabel label = new JLabel("<html> Floors </html>");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		label.setBounds(65, 22, 150, 56);
+		floorsGoalPanel.add(label);
+		
+		/*------------------------------------------------------*
+		 * the panel where active minute goals will be displayed
+		 *------------------------------------------------------*/
+		JPanel activeGoalPanel = new JPanel();
+		activeGoalPanel.setLayout(null);
+		activeGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
+		activeGoalPanel.setBackground(new Color(168, 219, 168));
+		activeGoalPanel.setBounds(368, 466, 285, 201);
+		contentPane.add(activeGoalPanel);
+		
+		JLabel label_1 = new JLabel("<html> Active Minutes </html>");
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		label_1.setBounds(58, 22, 183, 56);
+		activeGoalPanel.add(label_1);
+		
+		/*-------------------------------------------*
+		 * the panel where sedent minute goals will be displayed
+		 *-------------------------------------------*/
+		JPanel sedentGoalPanel= new JPanel();
+		sedentGoalPanel.setLayout(null);
+		sedentGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
+		sedentGoalPanel.setBackground(new Color(168, 219, 168));
+		sedentGoalPanel.setBounds(703, 466, 285, 201);
+		contentPane.add(sedentGoalPanel);
+		
+		JLabel label_2 = new JLabel("<html> Sedentary Minutes </html>");
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_2.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		label_2.setBounds(42, 25, 217, 56);
+		sedentGoalPanel.add(label_2);
+	
+	}
+
+	public void home()
+	{
+		MainScreen main = new MainScreen(this.date, apiData);
+		main.setVisible(true);
+	}
+}

@@ -44,6 +44,9 @@ public class DistancePanel extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024,768);
 		this.setLocationRelativeTo(null); 
+		/*---------------------------------------------------*
+		 * make the panel where all information will be shown
+		 *---------------------------------------------------*/
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

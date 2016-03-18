@@ -54,7 +54,7 @@ public class Minutes extends JFrame {
 		contentPane.setBackground(bgColor);
 		
 		/*-----------------------------------------------------*
-		 * Title of the "window" which will be called Minutes
+		 * Title of the "panel" which will be called Minutes
 		 *-----------------------------------------------------*/
 		JLabel titleMinutes = new JLabel("Minutes");
 		titleMinutes.setFont(new Font("Trebuchet MS", Font.BOLD, 50));
