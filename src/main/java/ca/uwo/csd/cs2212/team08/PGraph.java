@@ -13,8 +13,7 @@ import java.awt.*;
 public class PGraph extends JPanel {
 
 
-    public PGraph(){
-        APIData data = new APIData();
+    public PGraph(APIData data){
 
         float fairlyActiveMin = data.getFairlyActiveMin();
         float lightlyActiveMin = data.getLightlyActiveMin();
