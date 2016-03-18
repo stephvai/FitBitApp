@@ -36,6 +36,7 @@ public class accoladesPanel extends JFrame {
 	private JTextField textField;
 	private JDatePickerImpl datePicker;
 	private static final String picRefresh = "src/main/resources/images/refresh.png";
+	private static final String imgTest = "src/main/resouces/images/fitbit.png";
 
 	public accoladesPanel(final String date, APIData paramAPIData) {
 
@@ -68,6 +69,18 @@ public class accoladesPanel extends JFrame {
 		titleGoals.setBounds(78, 6, 837, 84);
 		contentPane.add(titleGoals);
 		titleGoals.setForeground(white);
+		
+		/*-----------------------*
+		 * test image criteria 
+		 *----------------------*/
+	/*	int x = 3; 
+		if(x==3){
+			JLabel img = new JLabel();
+			img.setIcon(new ImageIcon(imgTest));
+			img.setBounds(30,50, 300,500);
+			contentPane.add(img);
+		}
+	 */
 
 		/*------------------------------------------*/
 		// create the calendar user can use to pick a date
@@ -128,6 +141,21 @@ public class accoladesPanel extends JFrame {
 		backArrow.setBounds(0, 0, 48, 48);
 		// backArrow.setVisible(true);
 		contentPane.add(backArrow);
+		
+		JLabel lblUhOhYou = new JLabel("Uh Oh! You haven't reached any of your goals yet! :( ");
+		lblUhOhYou.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUhOhYou.setForeground(Color.WHITE);
+		lblUhOhYou.setFont(new Font("Trebuchet MS", Font.BOLD, 38));
+		lblUhOhYou.setBounds(33, 313, 967, 84);
+		contentPane.add(lblUhOhYou);
+		
+		JLabel lblGoDoSomething = new JLabel("Go do something! Your accolades will appear here when you acheive your goals :)");
+		lblGoDoSomething.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGoDoSomething.setForeground(Color.WHITE);
+		lblGoDoSomething.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		lblGoDoSomething.setBounds(21, 356, 967, 84);
+		contentPane.add(lblGoDoSomething);
+		
 		backArrow.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -136,7 +164,7 @@ public class accoladesPanel extends JFrame {
 				dispose();
 			}
 		});
-
+		
 	}
 
 	public void home() {

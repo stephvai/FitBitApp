@@ -518,8 +518,9 @@ public class MainScreen extends JFrame {
 			 accoladesPanel.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 //what to do on button click
-	    			 
+	    			 accoladesPanel panel = new accoladesPanel(date, apiData);
+	    			 panel.setVisible(true);
+	    			 dispose();
 	    		 }
 	    	 });
 			 contentPane.add(accoladesPanel);
