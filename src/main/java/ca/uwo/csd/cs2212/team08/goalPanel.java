@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.time.Clock;
 
 public class goalPanel extends JFrame {
 
@@ -31,7 +32,7 @@ public class goalPanel extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public goalPanel(String date, APIData paramAPIData) {
+	public goalPanel(final String date, final APIData paramAPIData) {
 
 		try {
 			goalTracker = new GoalTracker();
@@ -101,11 +102,20 @@ public class goalPanel extends JFrame {
 		/*------------------------------------------*
 		 * Title of the step goal panel
 		 *------------------------------------------*/
-		JLabel lblStepsGoal = new JLabel("<html> Steps </html>");
+		final JLabel lblStepsGoal = new JLabel("<html> Steps </html>");
 		lblStepsGoal.setBounds(66, 6, 150, 56);
 		stepGoalPanel.add(lblStepsGoal);
 		lblStepsGoal.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
-		lblStepsGoal.setHorizontalAlignment(SwingConstants.CENTER);	
+		lblStepsGoal.setHorizontalAlignment(SwingConstants.CENTER);
+
+			/*--------------------------------------------*
+		 * where the data for steps goal would be displayed
+		 *--------------------------------------------*/
+		final JLabel label = new JLabel(goalTracker.getGoal(GoalsEnum.steps).getTarget());
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		label.setBounds(105, 90, 68, 29);
+		stepGoalPanel.add(label);
 		/*------------------------------------------*
 		 * Edit Button
 		 *------------------------------------------*/
@@ -115,6 +125,10 @@ public class goalPanel extends JFrame {
 
 				String target = JOptionPane.showInputDialog(contentPane, "How many steps would you like to take?", null);
 				goalTracker.setGoal(target, GoalsEnum.steps );
+				label.setText(target);
+
+
+
 
 
 			}
@@ -122,14 +136,7 @@ public class goalPanel extends JFrame {
 		editButton.setBounds(82, 147, 117, 29);
 		stepGoalPanel.add(editButton);
 		
-		/*--------------------------------------------*
-		 * where the data for steps goal would be displayed
-		 *--------------------------------------------*/
-		JLabel label = new JLabel(goalTracker.getGoal(GoalsEnum.steps).getTarget());
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		label.setBounds(105, 90, 68, 29);
-		stepGoalPanel.add(label);
+
 		
 		/*-------------------------------------------*
 		 * the panel where distance goals will be displayed

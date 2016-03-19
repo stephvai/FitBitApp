@@ -16,12 +16,7 @@ public class GoalTracker implements Serializable {
     private float distanceProgress;
     private float caloriesProgress;
     private float floorsClimbedProgress;
-    /*
-    private float lightlyActiveMinutes;
-    private float fairlyActiveMinutes;
-    private float veryActiveMinutes;
-    */
-    private float sedentaryMinutesProgress;
+    private float veryActiveMinutesProgress;
 
 
     private Goal[] goalArray;
@@ -41,7 +36,7 @@ public class GoalTracker implements Serializable {
         goalArray[1].setCalories("0");
         goalArray[2].setDistance("0");
         goalArray[3].setFloorsClimbed("0");
-        goalArray[4].setSedentaryMinutes("0");
+        goalArray[4].setVeryActiveMinutes("0");
 
         this.loadProgress();
 
@@ -125,43 +120,21 @@ public class GoalTracker implements Serializable {
 
         if (type == GoalsEnum.steps) { //sets the goal for the steps.
             goalObj.setSteps(goal);
-            this.goalArray[0] = goalObj;
+            this.goalArray[0].setSteps(goal);
 
         } else if (type == GoalsEnum.distance) {
-            goalObj.setDistance(goal);
-            this.goalArray[1] = goalObj;
+            this.goalArray[1].setDistance(goal);
 
         } else if (type == GoalsEnum.calorieBurned) {
-            goalObj.setCalories(goal);
-            this.goalArray[2] = goalObj;
+            this.goalArray[2].setCalories(goal);
 
         } else if (type == GoalsEnum.floorsClimbed) {
-            goalObj.setFloorsClimbed(goal);
-            this.goalArray[3] = goalObj;
+            this.goalArray[3].setFloorsClimbed(goal);
 
-        } else if (type == GoalsEnum.sedentaryMinutes) {
-            goalObj.setSedentaryMinutes(goal);
-            this.goalArray[4] = goalObj;
+        } else if (type == GoalsEnum.veryActiveMinutes) {
+            this.goalArray[4].setVeryActiveMinutes(goal);
 
         }
-    /*
-    else if(type==GoalsEnum.activeMinutes) {
-        goalObj.setActiveMinutes(goal);
-        this.goalArray[5] = goalObj;
-        return;
-    }
-
-    else if(type==GoalsEnum.activeMinutes) {
-        goalObj.setActiveMinutes(goal);
-        this.goalArray[6] = goalObj;
-        return;
-    }
-    else if(type==GoalsEnum.activeMinutes) {
-        goalObj.setActiveMinutes(goal);
-        this.goalArray[7] = goalObj;
-        return;
-    }
-*/
     }
 
 //////////////////////////////////////////////////////////////////////////
@@ -181,7 +154,7 @@ public class GoalTracker implements Serializable {
                 this.goalArray[0].setAchieved();
         }
 
-        float APIdistance = (float) source.getDistance();
+        float APIdistance =  source.getDistance();
         if (this.goalArray[1] != null) { //distance goal
             this.distanceProgress = Float.parseFloat(this.goalArray[1].getTarget()) / APIsteps * 100.0f;
 
@@ -206,20 +179,11 @@ public class GoalTracker implements Serializable {
                 this.goalArray[3].setAchieved();
         }
 
-/*
-    int APIactiveMinutes = source.getActiveMinutes();
-    if (this.goalArray[4]!=null){ //activeMinutes goal
-        this.activeMinutesProgress = (float) this.goalArray[4].getTarget() / APIactiveMinutes * 100.0f;
-
-    if (this.activeMinutesProgress >= 100)
-        this.goalArray[4].setAchieved();
-}
-*/
-        float APIsedentaryMinutes = source.getSendentaryMinutes();
+        float APIVeryActiveMinutes = source.getVeryActiveMin();
         if (this.goalArray[4] != null) { //sedentary minutes goal
-            this.sedentaryMinutesProgress = Float.parseFloat(this.goalArray[4].getTarget()) / APIsedentaryMinutes * 100.0f;
+            this.veryActiveMinutesProgress = Float.parseFloat(this.goalArray[4].getTarget()) / APIVeryActiveMinutes * 100.0f;
 
-            if (this.sedentaryMinutesProgress >= 100)
+            if (this.veryActiveMinutesProgress >= 100)
                 this.goalArray[4].setAchieved();
         }
 
@@ -228,18 +192,18 @@ public class GoalTracker implements Serializable {
 
     }
 
-    public Goal getGoal(GoalsEnum type) {
+    public String getGoal(GoalsEnum type) {
 
         if (type == GoalsEnum.steps) { //sets the goal for the steps.
-            return this.goalArray[0];
+            return this.goalArray[0].getTarget();
         } else if (type == GoalsEnum.distance) {
-            return this.goalArray[1];
+            return this.goalArray[1].getTarget();
         } else if (type == GoalsEnum.calorieBurned) {
-            return this.goalArray[2];
+            return this.goalArray[2].getTarget();
         } else if (type == GoalsEnum.floorsClimbed) {
-            return this.goalArray[3];
-        } else if (type == GoalsEnum.sedentaryMinutes) {
-            return this.goalArray[4];
+            return this.goalArray[3].getTarget();
+        } else if (type == GoalsEnum.veryActiveMinutes) {
+            return this.goalArray[4].getTarget();
         }
 
         return null;
@@ -251,27 +215,6 @@ public class GoalTracker implements Serializable {
      * @return
      */
 
-    private int  aNum(GoalsEnum goal){
-        switch(goal) {
-            case steps:
-                return 0;
-
-            case distance:
-                return 1;
-
-            case calorieBurned:
-                return 2;
-
-            case floorsClimbed:
-                return 3;
-
-            case sedentaryMinutes:
-                return 4;
-
-        }
-        return -1;
-        // return -1 if something goes wrong
-    }
 
 
 

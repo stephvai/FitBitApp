@@ -53,17 +53,12 @@ public class Goal implements Serializable {
     	this.type= "floorsclimbed";
     	this.target = target;
     }
-    /*
-    public void setActiveMinutes(int target){
+
+    public void setVeryActiveMinutes(String target){
         this.type= "activeminutes";
         this.target = target;
     }
-    */
 
-    public void setSedentaryMinutes(String target){
-    	this.type= "sedentaryminutes";
-    	this.target = target;
-    }
     
     public void setDistance(String target){
     	this.type= "distance";
