@@ -7,6 +7,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class AchievementTracker {
+	private float stepsProgress;
+	private float distanceProgress;
+	private float caloriesProgress;
+	private float floorsProgress;
+
 
 	private Achievement[] achievementArray;
 	/* Constructor
@@ -115,13 +120,37 @@ public class AchievementTracker {
 		}
 
 	public void updateProgress() {
-		APIData source = new APIData();
+		
+		APIData source = new APIData();//Gather the API data.
+
 		float APIsteps = source.getSteps();
-		
-		
-	}
-	
-	public void isAchieved() {
-		
+		for(int i=0;i<5;i++){
+			this.stepsProgress = (float) this.achievementArray[i].getObjective()/APIsteps*1000.0f;
+			if (this.stepsProgress >= 100)
+				this.achievementArray[i].setAchieved();
+		}
+
+		float APIfloors = source.getFloorsClimbed();
+		for(int i=5;i<10;i++){
+			this.floorsProgress = (float) this.achievementArray[i].getObjective()/APIfloors*1000.0f;
+			if (this.floorsProgress >= 100)
+				this.achievementArray[i].setAchieved();
+		}
+
+
+		float APIdistance = source.getDistance();
+		for(int i=10;i<15;i++){
+			this.distanceProgress = (float) this.achievementArray[i].getObjective()/APIdistance*1000.0f;
+			if (this.distanceProgress >= 100)
+				this.achievementArray[i].setAchieved();
+		}
+
+
+		float APIcalories = source.getCalories();
+		for(int i=15;i<22;i++){
+			this.caloriesProgress = (float) this.achievementArray[i].getObjective()/APIcalories*1000.0f;
+			if (this.caloriesProgress >= 100)
+				this.achievementArray[i].setAchieved();
+		}
 	}
 }
