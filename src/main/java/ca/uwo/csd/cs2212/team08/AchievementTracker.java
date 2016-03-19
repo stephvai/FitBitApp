@@ -10,37 +10,50 @@ public class AchievementTracker {
 
 	private Achievement[] achievementArray;
 	/* Constructor
-	 * This method will create an Achievement array of 20 and load the progress of the users. 
+	 * This method will create an Achievement array of 22 and load the progress of the users. 
 	 */
 	public AchievementTracker() throws ClassNotFoundException, IOException {
-		this.achievementArray = new Achievement[20];
+		this.achievementArray = new Achievement[22];
 
 		float startingSteps = 10000;
 		float startingFloors = 100;
-		float startingDistance = 10000;
-
+		float startingDistance = 10;
+		float startingCalories = 2000;
+		
+		//Did user reach 10,000, 12,500, 15,000, 17,500, 20,000 steps in one day?
 		for(int i=0;i<5;i++){
 			Achievement achievement = new Achievement();
 			achievement.setSteps(startingSteps);
 			this.achievementArray[i]=achievement;
 			startingSteps+=2500;
 		}
+		
+		//Did user reach 100, 200, 300, 400, 500 floors in one day?
 		for(int i=5;i<10;i++){
 			Achievement achievement = new Achievement();
 			achievement.setFloorsClimbed(startingFloors);
 			this.achievementArray[i]=achievement;
 			startingFloors+=100;
 		}
+		
+		//Did user reach 10, 20, 30, 40, 50 miles in one day?
 		for(int i=10;i<15;i++){
 			Achievement achievement = new Achievement();
 			achievement.setDistance(startingDistance);
 			this.achievementArray[i]=achievement;
-			startingDistance+=10000;
+			startingDistance+=10;
+		}
+		
+		//Did user burn 2000, 2250, 2500, 2750, 3000, 3250, 3500 calories in one day?
+		for(int i=15;i<22;i++){
+			Achievement achievement = new Achievement();
+			achievement.setCalories(startingCalories);
+			this.achievementArray[i]=achievement;
+			startingCalories+=250;
 		}
 		
 		this.loadProgress();
 		this.updateProgress();
-
 	}
 /*
 	public void setAchievement(float target, AchievementsEnum type) {
@@ -68,7 +81,6 @@ public class AchievementTracker {
 		}
 	}
 	*/
-	
 	/****************************methods
 	 * @throws IOException
 	 * @throws ClassNotFoundException *********************************/
@@ -87,15 +99,11 @@ public class AchievementTracker {
 
         //close the outputstream
         save.close();
-
-
 }
 	//this method will load the Achieve.ini file and store the user's progress
 	public void loadProgress() throws IOException, ClassNotFoundException {
-
 		// Input stream to read the file
 		FileInputStream	saveAchieve = new FileInputStream("Achieve.ini");
-
 
 		//restores the variables stored in the object
 		ObjectInputStream save = new ObjectInputStream(saveAchieve);
@@ -104,12 +112,12 @@ public class AchievementTracker {
 		this.achievementArray = (Achievement[]) save.readObject();
 
 		save.close();
-
 		}
 
 	public void updateProgress() {
 		APIData source = new APIData();
 		float APIsteps = source.getSteps();
+		
 		
 	}
 	
