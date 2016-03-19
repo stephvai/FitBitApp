@@ -33,6 +33,10 @@ public class GoalTracker implements Serializable {
     public GoalTracker() throws ClassNotFoundException {
         this.goalArray = new Goal[5];
 
+        for(int i = 0; i< 5; i++){
+            goalArray[i]= new Goal();
+        }
+
         goalArray[0].setSteps("0");
         goalArray[1].setCalories("0");
         goalArray[2].setDistance("0");
