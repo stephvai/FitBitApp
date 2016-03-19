@@ -8,7 +8,7 @@ public class Goal implements Serializable {
 
 	private static final long serialVersionUID = -5343638548252582826L;
 	
-	private float target;
+	private String target;
     private boolean achieved;
     private String type;
 
@@ -18,7 +18,7 @@ public class Goal implements Serializable {
     }
 
     /*Getters and Setters */
-    public float getTarget() {
+    public String getTarget() {
         return target;
     }
 
@@ -39,17 +39,17 @@ public class Goal implements Serializable {
     These setters will set the goal and the type 
     ***************************************************************/
     
-    public void setCalories(int target){
+    public void setCalories(String target){
     	this.type= "calories";
     	this.target = target;
     }
     
-    public void setSteps(int target){
+    public void setSteps(String target){
     	this.type= "steps";
     	this.target = target;
     }
     
-    public void setFloorsClimbed(int target){
+    public void setFloorsClimbed(String target){
     	this.type= "floorsclimbed";
     	this.target = target;
     }
@@ -60,12 +60,12 @@ public class Goal implements Serializable {
     }
     */
 
-    public void setSedentaryMinutes(int target){
+    public void setSedentaryMinutes(String target){
     	this.type= "sedentaryminutes";
     	this.target = target;
     }
     
-    public void setDistance(int target){
+    public void setDistance(String target){
     	this.type= "distance";
     	this.target = target;
     }

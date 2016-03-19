@@ -96,8 +96,9 @@ public class GoalTracker {
  */
 
 
-    public void setGoal(int goal, GoalsEnum type) {
+    public void setGoal(String goal, GoalsEnum type) {
         Goal goalObj = new Goal();
+        
 
         if (type == GoalsEnum.steps) { //sets the goal for the steps.
             goalObj.setSteps(goal);
@@ -151,7 +152,7 @@ public class GoalTracker {
 
         float APIsteps = source.getSteps();
         if (this.goalArray[0] != null) { //steps goal
-            this.stepsProgress = (float) this.goalArray[0].getTarget() / APIsteps * 100.0f;
+            this.stepsProgress = Float.parseFloat( this.goalArray[0].getTarget()) / APIsteps * 100.0f;
 
             if (this.stepsProgress >= 100)
                 this.goalArray[0].setAchieved();
@@ -159,7 +160,7 @@ public class GoalTracker {
 
         float APIdistance = (float) source.getDistance();
         if (this.goalArray[1] != null) { //distance goal
-            this.distanceProgress = this.goalArray[1].getTarget() / APIsteps * 100.0f;
+            this.distanceProgress = Float.parseFloat(this.goalArray[1].getTarget()) / APIsteps * 100.0f;
 
             if (this.distanceProgress >= 100)
                 this.goalArray[1].setAchieved();
@@ -168,7 +169,7 @@ public class GoalTracker {
 
         float APIcalories = source.getCalories();
         if (this.goalArray[2] != null) { //calories goal
-            this.caloriesProgress = this.goalArray[2].getTarget() / APIcalories * 100.0f;
+            this.caloriesProgress = Float.parseFloat(this.goalArray[2].getTarget()) / APIcalories * 100.0f;
 
             if (this.caloriesProgress >= 100)
                 this.goalArray[2].setAchieved();
@@ -176,7 +177,7 @@ public class GoalTracker {
 
         float APIfloors = source.getFloorsClimbed();
         if (this.goalArray[3] != null) { //floors goal
-            this.floorsClimbedProgress = this.goalArray[3].getTarget() / APIfloors * 100.0f;
+            this.floorsClimbedProgress = Float.parseFloat(this.goalArray[3].getTarget()) / APIfloors * 100.0f;
 
             if (this.floorsClimbedProgress >= 100)
                 this.goalArray[3].setAchieved();
@@ -193,7 +194,7 @@ public class GoalTracker {
 */
         float APIsedentaryMinutes = source.getSendentaryMinutes();
         if (this.goalArray[4] != null) { //sedentary minutes goal
-            this.sedentaryMinutesProgress = this.goalArray[4].getTarget() / APIsedentaryMinutes * 100.0f;
+            this.sedentaryMinutesProgress = Float.parseFloat(this.goalArray[4].getTarget()) / APIsedentaryMinutes * 100.0f;
 
             if (this.sedentaryMinutesProgress >= 100)
                 this.goalArray[4].setAchieved();

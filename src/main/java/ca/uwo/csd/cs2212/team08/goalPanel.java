@@ -116,7 +116,7 @@ public class goalPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				String target = JOptionPane.showInputDialog(contentPane, "How many steps would you like to take?", null);
-				goalTracker.setGoal(Integer.parseInt(target), GoalsEnum.steps );
+				goalTracker.setGoal(target, GoalsEnum.steps );
 
 
 			}
@@ -127,7 +127,7 @@ public class goalPanel extends JFrame {
 		/*--------------------------------------------*
 		 * where the data for steps goal would be displayed
 		 *--------------------------------------------*/
-		JLabel label = new JLabel("500");
+		JLabel label = new JLabel(goalTracker.getGoal(GoalsEnum.steps).getTarget());
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		label.setBounds(105, 90, 68, 29);
@@ -160,7 +160,7 @@ public class goalPanel extends JFrame {
 		editTheDistance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String target = JOptionPane.showInputDialog(contentPane, "How much distance would you like to cover?", null);
-				goalTracker.setGoal(Integer.parseInt(target), GoalsEnum.distance );
+				goalTracker.setGoal(target, GoalsEnum.distance );
 			}
 		});
 		distanceGoalPanel.add(editTheDistance);
@@ -203,7 +203,7 @@ public class goalPanel extends JFrame {
 		editTheCalories.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String target = JOptionPane.showInputDialog(contentPane, "How many calories would you like to burn?", null);
-				goalTracker.setGoal(Integer.parseInt(target), GoalsEnum.calorieBurned );
+				goalTracker.setGoal(target, GoalsEnum.calorieBurned );
 			}
 		});
 		caloriesGoalPanel.add(editTheCalories);
@@ -244,7 +244,7 @@ public class goalPanel extends JFrame {
 		editTheFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String target = JOptionPane.showInputDialog(contentPane, "How many floors would you like to climb?", null);
-				goalTracker.setGoal(Integer.parseInt(target), GoalsEnum.floorsClimbed );
+				goalTracker.setGoal(target, GoalsEnum.floorsClimbed );
 			}
 		});
 		floorsGoalPanel.add(editTheFloor);
