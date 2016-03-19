@@ -40,9 +40,10 @@ public class MainScreen extends JFrame implements Serializable {
 	private JDatePickerImpl datePicker;
 	//constants to store the picture locations
 	private static final String picRefresh = "src/main/resources/images/refresh.png";
+	private static final String picEdit = "src/main/resources/images/EditMode.png";
 	//use to get the API information
 	private APIData apiData;
-	//create a linked list for each dashboard panel
+	//create a linked list for each dash board panel
 	private LinkedList<DashBoardPanel> dashboardPanels;
 	private DashBoardPanel pnlSteps;
 	private DashBoardPanel pnlStairs;
@@ -179,13 +180,32 @@ public class MainScreen extends JFrame implements Serializable {
 			 heartRatePanel();
 			 goalsPanel();
 			 
+			 /*------------------------------------------*/
+			 //create a panel to customize the dash board
+			 /*------------------------------------------*/
+			 
+			 headerPanel.setLayout(null);
+			 JLabel imgEdit = new JLabel();
+			 imgEdit.setIcon(new ImageIcon(picEdit));
+			 imgEdit.setBounds(966, 5, 48, 48);
+			 /*imgEdit.addMouseListener(new MouseAdapter() {
+				 @Override
+				 public void mouseClicked(MouseEvent arg0) {
+					 //what to do on button click
+					 //home();
+					 //dispose();
+				 }
+			 });*/
+			 headerPanel.add(imgEdit);
+			 //contentPane.add(imgEdit);
+
 			 //put steps last
 			 dashboardPanels = new LinkedList<DashBoardPanel>();
-			 deSerialize();
+			 //deSerialize();
 			 if(this.dashboardPanels.isEmpty())
 			 {
-				 dashboardPanels.add(pnlSteps);
 				 dashboardPanels.add(pnlStairs);
+				 dashboardPanels.add(pnlSteps);
 				 dashboardPanels.add(pnlCalories);
 				 dashboardPanels.add(pnlDistance);
 				 dashboardPanels.add(pnlActiveMin);
@@ -194,12 +214,26 @@ public class MainScreen extends JFrame implements Serializable {
 				 dashboardPanels.add(pnlHeartRate);
 				 dashboardPanels.add(pnlGoals);
 			 }
-			 int x =50;
-			 int y =191;
+			 int x =65;
+			 int y =100;
 			 Iterator<DashBoardPanel> iter = dashboardPanels.iterator();
 			 while(iter.hasNext())
 			 {
 				 iter.next().setLocation(x, y);
+				 //DashBoardPanel temp = iter.next();
+				 //temp.setLocation(x, y);
+				 //System.out.println(temp.getName());
+				 //System.out.println(dashboardPanels.toString());
+				 x = x + 308;
+				 if(x >= 974)
+				 {
+					 y = y + 200;
+					 x = 65;
+				 }
+				 if(y >= 656)
+				 {
+					 y = 100;
+				 }
 			 }
 			
 	     }
@@ -302,7 +336,7 @@ public class MainScreen extends JFrame implements Serializable {
 		 {
 			//creates a new steps panel
 	    	 pnlSteps = new DashBoardPanel(50, 191);
-	    	 //pnlSteps.setLocation(51, 99);
+	    	 pnlSteps.setLocation(51, 99);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -334,7 +368,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 JLabel lblSteps = new JLabel(Float.toString(apiData.getSteps()));
 	    	 lblSteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
-	    	 lblSteps.setBounds(0, 10, 265, 33);
+	    	 lblSteps.setBounds(0, 21, 265, 33);
 	    	 pnlSteps.add(lblSteps);
 
 	    	 /*------------------------------------------*/
