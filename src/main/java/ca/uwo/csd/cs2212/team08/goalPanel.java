@@ -111,7 +111,7 @@ public class goalPanel extends JFrame {
 			/*--------------------------------------------*
 		 * where the data for steps goal would be displayed
 		 *--------------------------------------------*/
-		final JLabel label = new JLabel(goalTracker.getGoal(GoalsEnum.steps).getTarget());
+		final JLabel label = new JLabel(goalTracker.getGoal(GoalsEnum.steps));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		label.setBounds(105, 90, 68, 29);
