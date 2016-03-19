@@ -39,6 +39,7 @@ public class GoalTracker implements Serializable {
         goalArray[4].setVeryActiveMinutes("0");
 
         this.loadProgress();
+        updateProgress();
 
     }
 
@@ -164,7 +165,7 @@ public class GoalTracker implements Serializable {
         APIData source = new APIData(); // gather the data
 
         float APIsteps = source.getSteps();
-        if (this.goalArray[0] != null) { //steps goal
+        if (this.goalArray[0].getTarget() != "0" ) { //steps goal
             this.stepsProgress = Float.parseFloat( this.goalArray[0].getTarget()) / APIsteps * 100.0f;
 
             if (this.stepsProgress >= 100)
@@ -172,7 +173,7 @@ public class GoalTracker implements Serializable {
         }
 
         float APIdistance =  source.getDistance();
-        if (this.goalArray[1] != null) { //distance goal
+        if (this.goalArray[1].getTarget() != "0") { //distance goal
             this.distanceProgress = Float.parseFloat(this.goalArray[1].getTarget()) / APIsteps * 100.0f;
 
             if (this.distanceProgress >= 100)
@@ -181,7 +182,7 @@ public class GoalTracker implements Serializable {
 
 
         float APIcalories = source.getCalories();
-        if (this.goalArray[2] != null) { //calories goal
+        if (this.goalArray[2].getTarget() != "0") { //calories goal
             this.caloriesProgress = Float.parseFloat(this.goalArray[2].getTarget()) / APIcalories * 100.0f;
 
             if (this.caloriesProgress >= 100)
@@ -189,7 +190,7 @@ public class GoalTracker implements Serializable {
         }
 
         float APIfloors = source.getFloorsClimbed();
-        if (this.goalArray[3] != null) { //floors goal
+        if (this.goalArray[3].getTarget() != "0") { //floors goal
             this.floorsClimbedProgress = Float.parseFloat(this.goalArray[3].getTarget()) / APIfloors * 100.0f;
 
             if (this.floorsClimbedProgress >= 100)
@@ -197,7 +198,7 @@ public class GoalTracker implements Serializable {
         }
 
         float APIVeryActiveMinutes = source.getVeryActiveMin();
-        if (this.goalArray[4] != null) { //sedentary minutes goal
+        if (this.goalArray[4].getTarget() != "0") { //sedentary minutes goal
             this.veryActiveMinutesProgress = Float.parseFloat(this.goalArray[4].getTarget()) / APIVeryActiveMinutes * 100.0f;
 
             if (this.veryActiveMinutesProgress >= 100)
@@ -234,6 +235,27 @@ public class GoalTracker implements Serializable {
 
         return null;
     }
+
+    public float getStepsProgress() {
+        return stepsProgress;
+    }
+
+    public float getDistanceProgress() {
+        return distanceProgress;
+    }
+
+    public float getCaloriesProgress() {
+        return caloriesProgress;
+    }
+
+    public float getFloorsClimbedProgress() {
+        return floorsClimbedProgress;
+    }
+
+    public float getVeryActiveMinutesProgress() {
+        return veryActiveMinutesProgress;
+    }
+
 
     /**
      * Helper method to get the array number
