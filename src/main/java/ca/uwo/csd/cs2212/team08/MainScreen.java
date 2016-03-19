@@ -66,8 +66,6 @@ public class MainScreen extends JFrame {
 	    	 /*	-----------------------------------------*/
 	    	 //create the main window for the daily dash board 
 	    	 /*	-----------------------------------------*/
-	    	 goalTracker = new GoalTracker();
-			 goalTracker.loadProgress();
 
 			 this.setTitle("Team08 Fitbit");
 	    	 this.setSize(1024, 768);
@@ -121,6 +119,21 @@ public class MainScreen extends JFrame {
 			 contentPane.add(datePicker);
 			 datePicker.setBackground(Color.WHITE);
 			 
+
+			 
+			/*-------------------------------------*/
+			//the label to set the last updated time
+			 /*------------------------------------*/
+			 Calendar cal = Calendar.getInstance();
+			 final JLabel lblDataUpdate = new JLabel("Last updated: " + cal.getTime().toString());
+			 lblDataUpdate.setHorizontalAlignment(SwingConstants.CENTER);
+			 lblDataUpdate.setForeground(white);
+			 lblDataUpdate.setBounds(51, 660, 923, 37);
+			 contentPane.add(lblDataUpdate);
+
+			 goalTracker = new GoalTracker(apiData);
+			 goalTracker.updateProgress();
+
 			 /*------------------------------------------*/
 			 //create each panel used for the daily dash board
 			 /*------------------------------------------*/
@@ -133,16 +146,6 @@ public class MainScreen extends JFrame {
 			 accoladesPanel();
 			 heartRatePanel();
 			 goalsPanel();
-			 
-			/*-------------------------------------*/
-			//the label to set the last updated time
-			 /*------------------------------------*/
-			 Calendar cal = Calendar.getInstance();
-			 final JLabel lblDataUpdate = new JLabel("Last updated: " + cal.getTime().toString());
-			 lblDataUpdate.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblDataUpdate.setForeground(white);
-			 lblDataUpdate.setBounds(51, 660, 923, 37);
-			 contentPane.add(lblDataUpdate);
 
 			 /*------------------------------------------*/
 			 //create a refresh button to refresh the data
@@ -168,6 +171,9 @@ public class MainScreen extends JFrame {
 					 contentPane.repaint();
 				 }
 			 });
+
+
+
 			 contentPane.add(imgRefresh);
 
 	     }
@@ -262,8 +268,10 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 	    	 JProgressBar stepsProgress = new JProgressBar();
 	    	 //this will be switched with a ratio between the daily goal and the current steps
-	    	// stepsProgress.setValue(Integer.parseInt(stepsGoal.getGoal(GoalsEnum.steps)));
-	    	 
+	    	 stepsProgress.setValue((int)goalTracker.getStepsProgress());
+			 System.out.println(goalTracker.getStepsProgress());
+			 System.out.println((int)goalTracker.getStepsProgress());
+
 	    	 stepsProgress.setToolTipText("Current progress towards your goal");
 	    	 stepsProgress.setForeground(new Color(51, 153, 255));
 	    	 stepsProgress.setBounds(17, 113, 231, 36);
@@ -322,12 +330,10 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the floors climbed title
 	    	 /*------------------------------------------*/
-			 GoalTracker floorsGoal = new GoalTracker();
-	    	 floorsGoal.setGoal("0", GoalsEnum.calorieBurned);
-	    	 floorsGoal.updateProgress();
+
 	    	 
 			 JProgressBar stairsProgress = new JProgressBar();
-			 stairsProgress.setValue(Integer.parseInt(floorsGoal.getGoal(GoalsEnum.floorsClimbed)));
+
 			 stairsProgress.setToolTipText("Current progress towards your goal");
 			 stairsProgress.setForeground(SystemColor.textHighlight);
 			 stairsProgress.setBounds(17, 113, 231, 36);

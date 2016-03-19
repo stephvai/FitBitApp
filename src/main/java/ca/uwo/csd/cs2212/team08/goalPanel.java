@@ -25,7 +25,6 @@ public class goalPanel extends JFrame {
 	private Color titleColor = new Color(11, 72, 107);
 	private Color white = Color.white;
 	private static final String backImage = "src/main/resources/images/arrowLeft4.png";
-	private APIData apiData;
 	private String date;
 
 	private GoalTracker goalTracker;
@@ -35,9 +34,9 @@ public class goalPanel extends JFrame {
 	 * Create the frame.
 	 */
 	public goalPanel(final String date, final APIData paramAPIData) {
-
+		System.out.println("Best Steps:" + paramAPIData.getBestSteps());
 		try {
-			goalTracker = new GoalTracker();
+			goalTracker = new GoalTracker(paramAPIData);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -47,7 +46,6 @@ public class goalPanel extends JFrame {
 		/*	-----------------------------------------*/
 		setResizable(false);
 		this.date = date;
-		this.apiData= paramAPIData;
 		setTitle("team08-Fitbit");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024,768);
