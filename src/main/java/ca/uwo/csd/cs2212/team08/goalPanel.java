@@ -9,10 +9,12 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.time.Clock;
+import java.util.Calendar;
 
 public class goalPanel extends JFrame {
 
@@ -108,10 +110,10 @@ public class goalPanel extends JFrame {
 		lblStepsGoal.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
 		lblStepsGoal.setHorizontalAlignment(SwingConstants.CENTER);
 
-			/*--------------------------------------------*
+		/*--------------------------------------------*
 		 * where the data for steps goal would be displayed
 		 *--------------------------------------------*/
-		final JLabel label = new JLabel(goalTracker.getGoal(GoalsEnum.steps).getTarget());
+		final JLabel label = new JLabel(goalTracker.getGoal(GoalsEnum.steps));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		label.setBounds(105, 90, 68, 29);
@@ -126,11 +128,6 @@ public class goalPanel extends JFrame {
 				String target = JOptionPane.showInputDialog(contentPane, "How many steps would you like to take?", null);
 				goalTracker.setGoal(target, GoalsEnum.steps );
 				label.setText(target);
-
-
-
-
-
 			}
 		});
 		editButton.setBounds(82, 147, 117, 29);
@@ -151,11 +148,20 @@ public class goalPanel extends JFrame {
 		/*------------------------------------------*
 		 * Title of the distance goal panel
 		 *------------------------------------------*/
-		JLabel distanceGoalLbl = new JLabel("<html> Distance </html>");
+		final JLabel distanceGoalLbl = new JLabel("<html> Distance </html>");
 		distanceGoalLbl.setBounds(68, 6, 150, 56);
 		distanceGoalPanel.add(distanceGoalLbl);
 		distanceGoalLbl.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
 		distanceGoalLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		/*-------------------------------------------------------------*
+		 * information shown for distance goals 
+		 *-------------------------------------------------------------*/
+		final JLabel lblDistanceValue = new JLabel(goalTracker.getGoal(GoalsEnum.distance));
+		lblDistanceValue.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDistanceValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblDistanceValue.setBounds(110, 87, 68, 29);
+		distanceGoalPanel.add(lblDistanceValue);
 		
 		/*------------------------------------------*
 		 * Edit Button
@@ -164,27 +170,19 @@ public class goalPanel extends JFrame {
 		editTheDistance.setBounds(88, 146, 117, 29);
 		editTheDistance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String target = JOptionPane.showInputDialog(contentPane, "How much distance would you like to cover?", null);
+				String target = JOptionPane.showInputDialog(contentPane, "What distance would you like to travel today?", null);
 				goalTracker.setGoal(target, GoalsEnum.distance );
+				lblDistanceValue.setText(target);
+
 			}
 		});
 		distanceGoalPanel.add(editTheDistance);
-		
-
-		/*-------------------------------------------------------------*
-		 * information shown for distance goals 
-		 *-------------------------------------------------------------*/
-		JLabel lblDistanceValue = new JLabel("500");
-		lblDistanceValue.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDistanceValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblDistanceValue.setBounds(110, 87, 68, 29);
-		distanceGoalPanel.add(lblDistanceValue);
 		
 		
 		/*-------------------------------------------*
 		 * the panel where calories goals will be displayed
 		 *-------------------------------------------*/
-		JPanel caloriesGoalPanel = new JPanel();
+		final JPanel caloriesGoalPanel = new JPanel();
 		caloriesGoalPanel.setLayout(null);
 		caloriesGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
 		caloriesGoalPanel.setBackground(new Color(168, 219, 168));
@@ -194,11 +192,20 @@ public class goalPanel extends JFrame {
 		/*------------------------------------------*
 		 * Title of the calories goal panel
 		 *------------------------------------------*/
-		JLabel lblCaloriesGoalPanel = new JLabel("<html> Calories </html>");
+		final JLabel lblCaloriesGoalPanel = new JLabel("<html> Calories </html>");
 		lblCaloriesGoalPanel.setBounds(68,6, 150,56);
 		caloriesGoalPanel.add(lblCaloriesGoalPanel);
 		lblCaloriesGoalPanel.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
 		lblCaloriesGoalPanel.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		/*-------------------------------------------------------------*
+		 * information shown for calories goals 
+		 *-------------------------------------------------------------*/
+		final JLabel lblCalorieValue = new JLabel(goalTracker.getGoal(GoalsEnum.calorieBurned));
+		lblCalorieValue.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCalorieValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblCalorieValue.setBounds(108, 88, 68, 29);
+		caloriesGoalPanel.add(lblCalorieValue);
 		
 		/*------------------------------------------*
 		 * Edit Button
@@ -207,20 +214,15 @@ public class goalPanel extends JFrame {
 		editTheCalories.setBounds(89, 149, 117, 29);
 		editTheCalories.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String target = JOptionPane.showInputDialog(contentPane, "How many calories would you like to burn?", null);
+				String target = JOptionPane.showInputDialog(contentPane, "How many calories would you like to burn today?", null);
 				goalTracker.setGoal(target, GoalsEnum.calorieBurned );
+				lblCalorieValue.setText(target);
+
 			}
 		});
 		caloriesGoalPanel.add(editTheCalories);
 		
-		/*-------------------------------------------------------------*
-		 * information shown for calories goals 
-		 *-------------------------------------------------------------*/
-		JLabel lblCalorieValue = new JLabel("500");
-		lblCalorieValue.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCalorieValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblCalorieValue.setBounds(108, 88, 68, 29);
-		caloriesGoalPanel.add(lblCalorieValue);
+
 				
 		/*-------------------------------------------*
 		 * the panel where floor goals will be displayed
@@ -229,17 +231,26 @@ public class goalPanel extends JFrame {
 		floorsGoalPanel.setLayout(null);
 		floorsGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
 		floorsGoalPanel.setBackground(new Color(168, 219, 168));
-		floorsGoalPanel.setBounds(38, 466, 285, 201);
+		floorsGoalPanel.setBounds(183, 466, 285, 201);
 		contentPane.add(floorsGoalPanel);
 		
 		/*------------------------------------------*
 		 * Title of the floor goal panel
 		 *------------------------------------------*/
-		JLabel lblFloorGoal = new JLabel("<html> Floors </html>");
+		final JLabel lblFloorGoal = new JLabel("<html> Floors </html>");
 		lblFloorGoal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFloorGoal.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
 		lblFloorGoal.setBounds(65, 22, 150, 56);
 		floorsGoalPanel.add(lblFloorGoal);
+		
+		/*-------------------------------------------------------------*
+		 * information shown for Floor goals 
+		 *-------------------------------------------------------------*/
+		final JLabel lblFloorValue = new JLabel(goalTracker.getGoal(GoalsEnum.floorsClimbed));
+		lblFloorValue.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFloorValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblFloorValue.setBounds(106, 97, 68, 29);
+		floorsGoalPanel.add(lblFloorValue);
 		
 		/*------------------------------------------*
 		 * Edit Button
@@ -248,20 +259,14 @@ public class goalPanel extends JFrame {
 		editTheFloor.setBounds(85, 149, 117, 29);
 		editTheFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String target = JOptionPane.showInputDialog(contentPane, "How many floors would you like to climb?", null);
+				String target = JOptionPane.showInputDialog(contentPane, "How many floors would you like to climb today?", null);
 				goalTracker.setGoal(target, GoalsEnum.floorsClimbed );
+				lblFloorValue.setText(target);
+
 			}
 		});
 		floorsGoalPanel.add(editTheFloor);
 		
-		/*-------------------------------------------------------------*
-		 * information shown for Floor goals 
-		 *-------------------------------------------------------------*/
-		JLabel lblFloorValue = new JLabel("500");
-		lblFloorValue.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFloorValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblFloorValue.setBounds(106, 97, 68, 29);
-		floorsGoalPanel.add(lblFloorValue);
 		
 		/*------------------------------------------------------*
 		 * the panel where active minute goals will be displayed
@@ -270,17 +275,26 @@ public class goalPanel extends JFrame {
 		activeGoalPanel.setLayout(null);
 		activeGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
 		activeGoalPanel.setBackground(new Color(168, 219, 168));
-		activeGoalPanel.setBounds(368, 466, 285, 201);
+		activeGoalPanel.setBounds(529, 466, 285, 201);
 		contentPane.add(activeGoalPanel);
 		
 		/*------------------------------------------*
 		 * Title of the active minutes goal panel
 		 *------------------------------------------*/
-		JLabel lblActiveMinutesGoalPanel = new JLabel("<html> Active Minutes </html>");
+		final JLabel lblActiveMinutesGoalPanel = new JLabel("<html> Active Minutes </html>");
 		lblActiveMinutesGoalPanel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblActiveMinutesGoalPanel.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
-		lblActiveMinutesGoalPanel.setBounds(58, 22, 183, 56);
+		lblActiveMinutesGoalPanel.setBounds(58, 23, 183, 56);
 		activeGoalPanel.add(lblActiveMinutesGoalPanel);
+		
+		/*-------------------------------------------------------------*
+		 * information shown for Active Minutes goals 
+		 *-------------------------------------------------------------*/
+		final JLabel lblActiveGoals = new JLabel(goalTracker.getGoal(GoalsEnum.veryActiveMinutes));
+		lblActiveGoals.setHorizontalAlignment(SwingConstants.CENTER);
+		lblActiveGoals.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblActiveGoals.setBounds(108, 97, 68, 29);
+		activeGoalPanel.add(lblActiveGoals);
 		
 		/*------------------------------------------*
 		 * Edit Button
@@ -290,59 +304,23 @@ public class goalPanel extends JFrame {
 		editTheActive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// figure out how to edit goals here
-			}
-		});
-		activeGoalPanel.add(editTheActive);
-		
-		/*-------------------------------------------------------------*
-		 * information shown for Active Minutes goals 
-		 *-------------------------------------------------------------*/
-		JLabel lblActiveGoals = new JLabel("500");
-		lblActiveGoals.setHorizontalAlignment(SwingConstants.CENTER);
-		lblActiveGoals.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblActiveGoals.setBounds(108, 97, 68, 29);
-		activeGoalPanel.add(lblActiveGoals);
-		
-		/*-------------------------------------------*
-		 * the panel where sedentary minute goals will be displayed
-		 *-------------------------------------------*/
-		JPanel sedentGoalPanel= new JPanel();
-		sedentGoalPanel.setLayout(null);
-		sedentGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
-		sedentGoalPanel.setBackground(new Color(168, 219, 168));
-		sedentGoalPanel.setBounds(703, 466, 285, 201);
-		contentPane.add(sedentGoalPanel);
-		
-		/*------------------------------------------*
-		 * Title of the sedentary minutes goal panel
-		 *------------------------------------------*/
-		JLabel lblSedentaryMinutesGoalPanel = new JLabel("<html> Sedentary Minutes </html>");
-		lblSedentaryMinutesGoalPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSedentaryMinutesGoalPanel.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
-		lblSedentaryMinutesGoalPanel.setBounds(42, 25, 217, 56);
-		sedentGoalPanel.add(lblSedentaryMinutesGoalPanel);
-		
-		/*------------------------------------------*
-		 * Edit Button
-		 *------------------------------------------*/
-		JButton editTheSedentary = new JButton("Edit Goals");
-		editTheSedentary.setBounds(95, 150, 117, 29);
-		editTheSedentary.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+				String target = JOptionPane.showInputDialog(contentPane, "What is your active minutes goal today?", null);
+				goalTracker.setGoal(target, GoalsEnum.veryActiveMinutes );
+				lblActiveGoals.setText(target);
 
 			}
 		});
-		sedentGoalPanel.add(editTheSedentary);
-		
-		/*-------------------------------------------------------------*
-		 * information shown for Sedentary Minutes goals 
-		 *-------------------------------------------------------------*/
-		JLabel lblSedentaryValue = new JLabel("500");
-		lblSedentaryValue.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSedentaryValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblSedentaryValue.setBounds(118, 98, 68, 29);
-		sedentGoalPanel.add(lblSedentaryValue);
+		activeGoalPanel.add(editTheActive);
 	
+		/*-------------------------------------*/
+		//the label to set the last updated time
+		 /*------------------------------------*/
+		 Calendar cal = Calendar.getInstance();
+		 final JLabel lblDataUpdate = new JLabel("Last updated: " + cal.getTime().toString());
+		 lblDataUpdate.setHorizontalAlignment(SwingConstants.CENTER);
+		 lblDataUpdate.setForeground(white);
+		 lblDataUpdate.setBounds(51, 660, 923, 37);
+		 contentPane.add(lblDataUpdate);
 	}
 
 	public void home()

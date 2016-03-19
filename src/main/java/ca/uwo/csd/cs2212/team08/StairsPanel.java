@@ -2,9 +2,11 @@ package ca.uwo.csd.cs2212.team08;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Calendar;
 
 /**
  * creates a JFrame that displays the users floors climbed information
@@ -159,6 +161,16 @@ public class StairsPanel extends JFrame {
 		lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblBestDay.setBounds(21, 21, 198, 182);
 		pnlBestDay.add(lblBestDay);
+		
+		/*-------------------------------------*/
+		//the label to set the last updated time
+		 /*------------------------------------*/
+		 Calendar cal = Calendar.getInstance();
+		 final JLabel lblDataUpdate = new JLabel("Last updated: " + cal.getTime().toString());
+		 lblDataUpdate.setHorizontalAlignment(SwingConstants.CENTER);
+		 lblDataUpdate.setForeground(white);
+		 lblDataUpdate.setBounds(51, 660, 923, 37);
+		 contentPane.add(lblDataUpdate);
 	}
 	
 	/**
