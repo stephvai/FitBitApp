@@ -30,7 +30,6 @@ public class goalPanel extends JFrame {
 	private static final String backImage = "src/main/resources/images/arrowLeft4.png";
 	private APIData apiData;
 	private String date;
-	private JTextField textField;
 
 
 	/**
@@ -120,13 +119,14 @@ public class goalPanel extends JFrame {
 		editButton.setBounds(82, 147, 117, 29);
 		stepGoalPanel.add(editButton);
 		
-		/*-------------------------------------------------*
-		 * where the users' set goals will appear for steps
-		 *-------------------------------------------------*/
-		textField = new JTextField();
-		textField.setBounds(76, 85, 134, 28);
-		stepGoalPanel.add(textField);
-		textField.setColumns(10);
+		/*--------------------------------------------*
+		 * where the data for steps goal would be displayed
+		 *--------------------------------------------*/
+		JLabel label = new JLabel("500");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		label.setBounds(105, 90, 68, 29);
+		stepGoalPanel.add(label);
 		
 		/*-------------------------------------------*
 		 * the panel where distance goals will be displayed
