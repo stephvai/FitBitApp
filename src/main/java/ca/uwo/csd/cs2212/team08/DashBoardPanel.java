@@ -1,6 +1,7 @@
 package ca.uwo.csd.cs2212.team08;
 
 import javax.swing.*;
+import java.io.Serializable;
 import java.awt.*;
 
 /**
