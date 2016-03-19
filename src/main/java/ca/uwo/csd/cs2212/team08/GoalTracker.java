@@ -116,17 +116,17 @@ public class GoalTracker implements Serializable {
 
     public void setGoal(String goal, GoalsEnum type) {
         Goal goalObj = new Goal();
-        
+
 
         if (type == GoalsEnum.steps) { //sets the goal for the steps.
             goalObj.setSteps(goal);
             this.goalArray[0].setSteps(goal);
 
         } else if (type == GoalsEnum.distance) {
-            this.goalArray[1].setDistance(goal);
+            this.goalArray[1].setCalories(goal);
 
         } else if (type == GoalsEnum.calorieBurned) {
-            this.goalArray[2].setCalories(goal);
+            this.goalArray[2].setDistance(goal);
 
         } else if (type == GoalsEnum.floorsClimbed) {
             this.goalArray[3].setFloorsClimbed(goal);
@@ -137,7 +137,24 @@ public class GoalTracker implements Serializable {
         }
     }
 
+    /**
+     * steps
+     * distance
+     * caloriesBurned
+     * floorsCLimbed
+     * veryActiveMinutes
+     */
+
 //////////////////////////////////////////////////////////////////////////
+
+
+    /**
+     * steps
+     * distance
+     * caloriesBurned
+     * floorsCLimbed
+     * veryActiveMinutes
+     */
 
 
 /*This method will update the progress of your goal by seeing if it over 100% and set it to achieved if it is the case */
@@ -192,6 +209,15 @@ public class GoalTracker implements Serializable {
 
     }
 
+
+
+    /**
+     * steps
+     * distance
+     * caloriesBurned
+     * floorsCLimbed
+     * veryActiveMinutes
+     */
     public String getGoal(GoalsEnum type) {
 
         if (type == GoalsEnum.steps) { //sets the goal for the steps.
