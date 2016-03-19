@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.awt.Label;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -48,14 +49,20 @@ public class MainScreen extends JFrame {
 		 */
 	     public MainScreen(String date, APIData paramAPIData) {
 	     	
-	          this.initUI(date, paramAPIData);
+	          try {
+				this.initUI(date, paramAPIData);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	     }
 	    /**
 	     * A method to build the User Interface
 	     * @param paramDate this is the date selected by the user 
 	     * @param paramAPIData an instance of the APIData that passes in the fitbit information
+	     * @throws ClassNotFoundException 
 	     */
-	     private void initUI(String paramDate, APIData paramAPIData) 
+	     private void initUI(String paramDate, APIData paramAPIData) throws ClassNotFoundException 
 	     { 
 	    	 /*	-----------------------------------------*/
 	    	 //create the main window for the daily dash board 
@@ -76,7 +83,7 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 			 //create a label to display the title of the panel
 	    	 /*	-----------------------------------------*/
-			 JLabel lblTitle = new JLabel("Welcome! Here is your daily dashboard: ");
+			 JLabel lblTitle = new JLabel("     Welcome! Here is your daily dashboard: ");
 			 lblTitle.setFont(new Font("Trebuchet MS", Font.PLAIN, 35));
 			 contentPane.setForeground(titleColor);
 			 lblTitle.setBounds(159, 0, 732, 72);
@@ -150,7 +157,12 @@ public class MainScreen extends JFrame {
 					 if (!apiData.refreshDailyDashBoardData(date)) {
 			    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
 			    	 }
-					 initUI(date, apiData);
+					 try {
+						initUI(date, apiData);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					 contentPane.repaint();
 				 }
 			 });
@@ -252,7 +264,7 @@ public class MainScreen extends JFrame {
 	     /**
 	      * creates the panel to display the steps taken
 	      */
-	     private void stepsPanel()
+	     private void stepsPanel() throws ClassNotFoundException
 		 {
 			//creates a new steps panel
 	    	 DashBoardPanel pnlSteps = new DashBoardPanel(50, 191);
@@ -266,8 +278,14 @@ public class MainScreen extends JFrame {
 	    			 dispose();
 	    		 }
 	    	 });
+	    	 GoalTracker stepsGoal = new GoalTracker();
+	    	 stepsGoal.setGoal("0", GoalsEnum.steps);
+	    	 stepsGoal.updateProgress();
+	    	 
+	    
 	    	 //set the layout to absolute
 	    	 pnlSteps.setLayout(null);
+	    	 pnlSteps.setToolTipText("click here to see more information!");
 	    	 //add panel to the content pane
 	    	 contentPane.add(pnlSteps);
 
@@ -276,10 +294,12 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 	    	 JProgressBar stepsProgress = new JProgressBar();
 	    	 //this will be switched with a ratio between the daily goal and the current steps
-	    	 stepsProgress.setValue(20);
+	    	 stepsProgress.setValue(Integer.parseInt(stepsGoal.getGoal(GoalsEnum.steps)));
+	    	 
 	    	 stepsProgress.setToolTipText("Current progress towards your goal");
 	    	 stepsProgress.setForeground(new Color(51, 153, 255));
 	    	 stepsProgress.setBounds(17, 113, 231, 36);
+	    	 stepsProgress.repaint();
 	    	 pnlSteps.add(stepsProgress);
 	    	 
 	    	 /*------------------------------------------*/
@@ -303,11 +323,13 @@ public class MainScreen extends JFrame {
 
 	     /**
 	      * creates the panel to display the the stairs climbed
+	     * @throws ClassNotFoundException 
 	      */
-	     private void stairsPanel()
+	     private void stairsPanel() throws ClassNotFoundException
 	     {
 	    	 DashBoardPanel StairsPanel = new DashBoardPanel(413, 191);
 	    	 StairsPanel.setLocation(385, 99);
+	    	 StairsPanel.setToolTipText("click here to see more information!");
 	    	 StairsPanel.setLayout(null);
 	    	 StairsPanel.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -332,8 +354,12 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the floors climbed title
 	    	 /*------------------------------------------*/
+			 GoalTracker floorsGoal = new GoalTracker();
+	    	 floorsGoal.setGoal("0", GoalsEnum.calorieBurned);
+	    	 floorsGoal.updateProgress();
+	    	 
 			 JProgressBar stairsProgress = new JProgressBar();
-			 stairsProgress.setValue(20);
+			 stairsProgress.setValue(Integer.parseInt(floorsGoal.getGoal(GoalsEnum.floorsClimbed)));
 			 stairsProgress.setToolTipText("Current progress towards your goal");
 			 stairsProgress.setForeground(SystemColor.textHighlight);
 			 stairsProgress.setBounds(17, 113, 231, 36);
@@ -351,14 +377,21 @@ public class MainScreen extends JFrame {
 	     
 	     /**
 	      * creates the panel to display calories panel
+	     * @throws ClassNotFoundException 
 	      */
-	     private void caloriesPanel()
+	     private void caloriesPanel() throws ClassNotFoundException
 	     {
 	    	 /*---------------------------------------*/
 			 //calories panel
 			 /*---------------------------------------*/
+	    	 
+	    	 GoalTracker caloriesGoal = new GoalTracker();
+	    	 caloriesGoal.setGoal("0", GoalsEnum.calorieBurned);
+	    	 caloriesGoal.updateProgress();
+	    	 
 			 DashBoardPanel caloriesBurned = new DashBoardPanel(776, 191);
 			 caloriesBurned.setLocation(709, 99);
+			 caloriesBurned.setToolTipText("click here to see more information!");
 			 caloriesBurned.setLayout(null);
 			 caloriesBurned.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -384,7 +417,7 @@ public class MainScreen extends JFrame {
 	    	 //create a label to create a new progress bar
 	    	 /*------------------------------------------*/
 			 JProgressBar caloriesProgress = new JProgressBar();
-			 caloriesProgress.setValue(20);
+			 caloriesProgress.setValue(Integer.parseInt(caloriesGoal.getGoal(GoalsEnum.calorieBurned)));
 			 caloriesProgress.setToolTipText("Current progress towards your goal");
 			 caloriesProgress.setForeground(SystemColor.textHighlight);
 			 caloriesProgress.setBounds(21, 110, 210, 36);
@@ -402,14 +435,16 @@ public class MainScreen extends JFrame {
 	     
 	     /**
 	      * creates the panel to display user distance traveled
+	     * @throws ClassNotFoundException 
 	      */
-	     private void distancePanel()
+	     private void distancePanel() throws ClassNotFoundException
 	     {	 
 	    	 /*------------------------------------------*/
 	    	 //create a Distance traveled panel
 	    	 /*------------------------------------------*/
 			 DashBoardPanel distanceTraveled = new DashBoardPanel(50, 300);
 			 distanceTraveled.setLayout(null);
+			 distanceTraveled.setToolTipText("click here to see more information!");
 			 distanceTraveled.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -433,8 +468,13 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the Distance progress bar
 	    	 /*------------------------------------------*/
+			 
+			 GoalTracker distanceGoal = new GoalTracker();
+	    	 distanceGoal.setGoal("0", GoalsEnum.calorieBurned);
+	    	 distanceGoal.updateProgress();
+	    	 
 			 JProgressBar distanceProgress = new JProgressBar();
-			 distanceProgress.setValue(20);
+			 distanceProgress.setValue(Integer.parseInt(distanceGoal.getGoal(GoalsEnum.distance)));
 			 distanceProgress.setToolTipText("Current progress towards your goal");
 			 distanceProgress.setForeground(SystemColor.textHighlight);
 			 distanceProgress.setBounds(21,110,210,36);
@@ -452,19 +492,23 @@ public class MainScreen extends JFrame {
 	     
 	     /**
 	      * creates the panel to display user active minutes
+	     * @throws ClassNotFoundException 
 	      */
-	     private void activeMinutesPanel()
+	     private void activeMinutesPanel() throws ClassNotFoundException
 	     {
 	    	 /*---------------------------------------*/
 			 //Active Minutes panel
 			 /*---------------------------------------*/
 			 DashBoardPanel activeMinutes = new DashBoardPanel(50, 300);
 			 activeMinutes.setBounds(385, 300, 265, 155);
+			 activeMinutes.setToolTipText("click here to see more information!");
 			 activeMinutes.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 
+	    			 Minutes activeMinutes = new Minutes(date, apiData);
+	    			 activeMinutes.setVisible(true);
+	    			 dispose();
 	    		 }
 	    	 });
 			 activeMinutes.setLayout(null);
@@ -487,6 +531,20 @@ public class MainScreen extends JFrame {
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 14, 265, 33);
 			 activeMinutes.add(label);
+			 
+			 /*------------------------------------------*/
+	    	 //create a label to create a new progress bar
+	    	 /*------------------------------------------*/
+			 GoalTracker activeMinutesGoal = new GoalTracker();
+	    	 activeMinutesGoal.setGoal("0", GoalsEnum.calorieBurned);
+	    	 activeMinutesGoal.updateProgress();
+			 
+			 JProgressBar activeMinutesProgress = new JProgressBar();
+			 activeMinutesProgress.setValue(Integer.parseInt(activeMinutesGoal.getGoal(GoalsEnum.veryActiveMinutes)));
+			 activeMinutesProgress.setToolTipText("Current progress towards your goal");
+			 activeMinutesProgress.setForeground(SystemColor.textHighlight);
+			 activeMinutesProgress.setBounds(21, 110, 210, 36);
+			 activeMinutes.add(activeMinutesProgress);
 	     }
 	     
 	     /**
@@ -500,11 +558,14 @@ public class MainScreen extends JFrame {
 			 DashBoardPanel sedentaryMinutes = new DashBoardPanel(50, 300);
 			 sedentaryMinutes.setLayout(null);
 			 sedentaryMinutes.setBounds(709, 300, 265, 155);
+			 sedentaryMinutes.setToolTipText("click here to see more information!");
 			 sedentaryMinutes.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 
+	    			 Minutes sedentMinutes = new Minutes(date, apiData);
+	    			 sedentMinutes.setVisible(true);
+	    			 dispose();
 	    		 }
 	    	 });
 			 contentPane.add(sedentaryMinutes);
@@ -539,11 +600,13 @@ public class MainScreen extends JFrame {
 			 DashBoardPanel accoladesPanel = new DashBoardPanel(50, 300);
 			 accoladesPanel.setLayout(null);
 			 accoladesPanel.setBounds(51, 501, 265, 155);
+			 accoladesPanel.setToolTipText("click here to see more information!");
 			 accoladesPanel.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 //what to do on button click
-	    			 
+	    			 accoladesPanel panel = new accoladesPanel(date, apiData);
+	    			 panel.setVisible(true);
+	    			 dispose();
 	    		 }
 	    	 });
 			 contentPane.add(accoladesPanel);
@@ -569,10 +632,13 @@ public class MainScreen extends JFrame {
 			 DashBoardPanel heartRatePanel = new DashBoardPanel(50, 300);
 			 heartRatePanel.setLayout(null);
 			 heartRatePanel.setBounds(385, 501, 265, 155);
+			 heartRatePanel.setToolTipText("click here to see more information!");
 			 heartRatePanel.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 //what to do on button click
+	    			 HeartRateZones panel = new HeartRateZones(date,apiData);
+	    			 panel.setVisible(true);
+	    			 dispose();
 	    			 
 	    		 }
 	    	 });
@@ -599,10 +665,13 @@ public class MainScreen extends JFrame {
 			 DashBoardPanel dailyGoals = new DashBoardPanel(50, 300);
 			 dailyGoals.setLayout(null);
 			 dailyGoals.setBounds(709, 501, 265, 155);
+			 dailyGoals.setToolTipText("click here to see more information!");
 			 dailyGoals.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 //what to do on button click
+	    			 goalPanel goals = new goalPanel(date,apiData);
+	    			 goals.setVisible(true);
+	    			 dispose();
 	    			 
 	    		 }
 	    	 });
