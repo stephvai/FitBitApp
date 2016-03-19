@@ -157,7 +157,7 @@ public class MainScreen extends JFrame implements Serializable {
 					 //what to do on button click
 					 lblDataUpdate.setText("refreshing...");
 					 updateDate();
-					 if (!apiData.refreshDailyDashBoardData(date)) {
+					 if (!apiData.refreshDailyDashBoardData(date) || !apiData.refreshHeartRateZones(date)) {
 			    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
 			    	 }
 					 initUI(date, apiData);
