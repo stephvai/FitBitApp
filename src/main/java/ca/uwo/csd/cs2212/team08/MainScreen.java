@@ -7,6 +7,7 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -43,14 +44,20 @@ public class MainScreen extends JFrame {
 		 */
 	     public MainScreen(String date, APIData paramAPIData) {
 	     	
-	          this.initUI(date, paramAPIData);
+	          try {
+				this.initUI(date, paramAPIData);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	     }
 	    /**
 	     * A method to build the User Interface
 	     * @param paramDate this is the date selected by the user 
 	     * @param paramAPIData an instance of the APIData that passes in the fitbit information
+	     * @throws ClassNotFoundException 
 	     */
-	     private void initUI(String paramDate, APIData paramAPIData) 
+	     private void initUI(String paramDate, APIData paramAPIData) throws ClassNotFoundException 
 	     { 
 	    	 /*	-----------------------------------------*/
 	    	 //create the main window for the daily dash board 
@@ -145,7 +152,12 @@ public class MainScreen extends JFrame {
 					 if (!apiData.refreshDailyDashBoardData(date)) {
 			    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
 			    	 }
-					 initUI(date, apiData);
+					 try {
+						initUI(date, apiData);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					 contentPane.repaint();
 				 }
 			 });
@@ -217,7 +229,7 @@ public class MainScreen extends JFrame {
 	     /**
 	      * creates the panel to display the steps taken
 	      */
-	     private void stepsPanel()
+	     private void stepsPanel() throws ClassNotFoundException
 		 {
 			//creates a new steps panel
 	    	 DashBoardPanel pnlSteps = new DashBoardPanel(50, 191);
@@ -231,6 +243,11 @@ public class MainScreen extends JFrame {
 	    			 dispose();
 	    		 }
 	    	 });
+	    	 GoalTracker stepsGoal = new GoalTracker();
+	    	 stepsGoal.setGoal("0", GoalsEnum.steps);
+	    	 stepsGoal.updateProgress();
+	    	 
+	    
 	    	 //set the layout to absolute
 	    	 pnlSteps.setLayout(null);
 	    	 pnlSteps.setToolTipText("click here to see more information!");
@@ -242,10 +259,12 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 	    	 JProgressBar stepsProgress = new JProgressBar();
 	    	 //this will be switched with a ratio between the daily goal and the current steps
-	    	 stepsProgress.setValue(20);
+	    	 stepsProgress.setValue(Integer.parseInt(stepsGoal.getGoal(GoalsEnum.steps)));
+	    	 
 	    	 stepsProgress.setToolTipText("Current progress towards your goal");
 	    	 stepsProgress.setForeground(new Color(51, 153, 255));
 	    	 stepsProgress.setBounds(17, 113, 231, 36);
+	    	 stepsProgress.repaint();
 	    	 pnlSteps.add(stepsProgress);
 	    	 
 	    	 /*------------------------------------------*/
@@ -269,8 +288,9 @@ public class MainScreen extends JFrame {
 
 	     /**
 	      * creates the panel to display the the stairs climbed
+	     * @throws ClassNotFoundException 
 	      */
-	     private void stairsPanel()
+	     private void stairsPanel() throws ClassNotFoundException
 	     {
 	    	 DashBoardPanel StairsPanel = new DashBoardPanel(413, 191);
 	    	 StairsPanel.setLocation(385, 99);
@@ -299,8 +319,12 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the floors climbed title
 	    	 /*------------------------------------------*/
+			 GoalTracker floorsGoal = new GoalTracker();
+	    	 floorsGoal.setGoal("0", GoalsEnum.calorieBurned);
+	    	 floorsGoal.updateProgress();
+	    	 
 			 JProgressBar stairsProgress = new JProgressBar();
-			 stairsProgress.setValue(20);
+			 stairsProgress.setValue(Integer.parseInt(floorsGoal.getGoal(GoalsEnum.floorsClimbed)));
 			 stairsProgress.setToolTipText("Current progress towards your goal");
 			 stairsProgress.setForeground(SystemColor.textHighlight);
 			 stairsProgress.setBounds(17, 113, 231, 36);
@@ -318,12 +342,18 @@ public class MainScreen extends JFrame {
 	     
 	     /**
 	      * creates the panel to display calories panel
+	     * @throws ClassNotFoundException 
 	      */
-	     private void caloriesPanel()
+	     private void caloriesPanel() throws ClassNotFoundException
 	     {
 	    	 /*---------------------------------------*/
 			 //calories panel
 			 /*---------------------------------------*/
+	    	 
+	    	 GoalTracker caloriesGoal = new GoalTracker();
+	    	 caloriesGoal.setGoal("0", GoalsEnum.calorieBurned);
+	    	 caloriesGoal.updateProgress();
+	    	 
 			 DashBoardPanel caloriesBurned = new DashBoardPanel(776, 191);
 			 caloriesBurned.setLocation(709, 99);
 			 caloriesBurned.setToolTipText("click here to see more information!");
@@ -352,7 +382,7 @@ public class MainScreen extends JFrame {
 	    	 //create a label to create a new progress bar
 	    	 /*------------------------------------------*/
 			 JProgressBar caloriesProgress = new JProgressBar();
-			 caloriesProgress.setValue(20);
+			 caloriesProgress.setValue(Integer.parseInt(caloriesGoal.getGoal(GoalsEnum.calorieBurned)));
 			 caloriesProgress.setToolTipText("Current progress towards your goal");
 			 caloriesProgress.setForeground(SystemColor.textHighlight);
 			 caloriesProgress.setBounds(21, 110, 210, 36);
@@ -370,8 +400,9 @@ public class MainScreen extends JFrame {
 	     
 	     /**
 	      * creates the panel to display user distance traveled
+	     * @throws ClassNotFoundException 
 	      */
-	     private void distancePanel()
+	     private void distancePanel() throws ClassNotFoundException
 	     {	 
 	    	 /*------------------------------------------*/
 	    	 //create a Distance traveled panel
@@ -402,8 +433,13 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 	    	 //create a label to display the Distance progress bar
 	    	 /*------------------------------------------*/
+			 
+			 GoalTracker distanceGoal = new GoalTracker();
+	    	 distanceGoal.setGoal("0", GoalsEnum.calorieBurned);
+	    	 distanceGoal.updateProgress();
+	    	 
 			 JProgressBar distanceProgress = new JProgressBar();
-			 distanceProgress.setValue(20);
+			 distanceProgress.setValue(Integer.parseInt(distanceGoal.getGoal(GoalsEnum.distance)));
 			 distanceProgress.setToolTipText("Current progress towards your goal");
 			 distanceProgress.setForeground(SystemColor.textHighlight);
 			 distanceProgress.setBounds(21,110,210,36);
@@ -421,8 +457,9 @@ public class MainScreen extends JFrame {
 	     
 	     /**
 	      * creates the panel to display user active minutes
+	     * @throws ClassNotFoundException 
 	      */
-	     private void activeMinutesPanel()
+	     private void activeMinutesPanel() throws ClassNotFoundException
 	     {
 	    	 /*---------------------------------------*/
 			 //Active Minutes panel
@@ -459,6 +496,20 @@ public class MainScreen extends JFrame {
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 14, 265, 33);
 			 activeMinutes.add(label);
+			 
+			 /*------------------------------------------*/
+	    	 //create a label to create a new progress bar
+	    	 /*------------------------------------------*/
+			 GoalTracker activeMinutesGoal = new GoalTracker();
+	    	 activeMinutesGoal.setGoal("0", GoalsEnum.calorieBurned);
+	    	 activeMinutesGoal.updateProgress();
+			 
+			 JProgressBar activeMinutesProgress = new JProgressBar();
+			 activeMinutesProgress.setValue(Integer.parseInt(activeMinutesGoal.getGoal(GoalsEnum.veryActiveMinutes)));
+			 activeMinutesProgress.setToolTipText("Current progress towards your goal");
+			 activeMinutesProgress.setForeground(SystemColor.textHighlight);
+			 activeMinutesProgress.setBounds(21, 110, 210, 36);
+			 activeMinutes.add(activeMinutesProgress);
 	     }
 	     
 	     /**
