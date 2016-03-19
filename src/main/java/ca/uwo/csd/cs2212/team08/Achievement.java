@@ -16,9 +16,10 @@ public class Achievement implements Serializable {
     }//Constructor.
 
     /*Getters*/
-    public boolean getAchieved(){return this. achieved;}
 
-    public String getType(){return this.type;}
+    public boolean getAchieved(){return this. achieved;}//Return true if the achievement is achieved.
+
+    public String getType(){return this.type;}//Return the type of the achievement.
 
     public float getObjective(){return this.objective;}
 
@@ -29,9 +30,11 @@ public class Achievement implements Serializable {
     public void setAchieved(){
         this.achieved = true;
     }
+    /*
     public void setObjective(float obj){
         this.objective = obj;
     }
+    */
 
     public void setCalories(float target){
         this.type = "calories";
