@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Goal implements Serializable {
 
-	private static final long serialVersionUID = -5343638548252582826L;
+	private static final long serialVersionUID = 1L;
 	
 	private String target;
     private boolean achieved;

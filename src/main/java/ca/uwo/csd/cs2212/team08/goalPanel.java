@@ -37,8 +37,6 @@ public class goalPanel extends JFrame {
 			goalTracker = new GoalTracker();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 		/*-----------------------------------------*/

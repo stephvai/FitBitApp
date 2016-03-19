@@ -4,7 +4,10 @@ import java.io.*;
 
 //TODO add image when is achieved
 
-public class GoalTracker {
+public class GoalTracker implements Serializable {
+
+
+    private static final long serialVersionUID = 1L;
 
     /*
     * Instance variables
@@ -27,12 +30,16 @@ public class GoalTracker {
     This method will create a Goal array of 6 and load the settings of the user.
     */
 
-    public GoalTracker() throws ClassNotFoundException, IOException {
+    public GoalTracker() throws ClassNotFoundException {
         this.goalArray = new Goal[5];
 
+        goalArray[0].setSteps("0");
+        goalArray[1].setCalories("0");
+        goalArray[2].setDistance("0");
+        goalArray[3].setFloorsClimbed("0");
+        goalArray[4].setSedentaryMinutes("0");
 
         this.loadProgress();
-        this.updateProgress();
 
     }
 
@@ -45,20 +52,32 @@ public class GoalTracker {
      *********************************/
 
 /*this method will load the file and store it's progress*/
-    public void loadProgress() throws IOException, ClassNotFoundException {
+    public void loadProgress(){
 
         // Input stream to read the file
+        try {
+            FileInputStream saveFile = new FileInputStream("Pref.ini");
 
-        FileInputStream saveFile = new FileInputStream("Pref.ini");
+
+            //restores the variables stored in the object
+            ObjectInputStream save = null;
+
+                save = new ObjectInputStream(saveFile);
 
 
-        //restores the variables stored in the object
-        ObjectInputStream save = new ObjectInputStream(saveFile);
+            //cast to read the object
 
-        //cast to read the object
-        this.goalArray = (Goal[]) save.readObject();
+                this.goalArray = (Goal[]) save.readObject();
 
-        save.close();
+            save.close();
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return;
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
 
     }
 
@@ -221,5 +240,35 @@ public class GoalTracker {
 
         return null;
     }
+
+    /**
+     * Helper method to get the array number
+     * @param goal
+     * @return
+     */
+
+    private int  aNum(GoalsEnum goal){
+        switch(goal) {
+            case steps:
+                return 0;
+
+            case distance:
+                return 1;
+
+            case calorieBurned:
+                return 2;
+
+            case floorsClimbed:
+                return 3;
+
+            case sedentaryMinutes:
+                return 4;
+
+        }
+        return -1;
+        // return -1 if something goes wrong
+    }
+
+
 
 }
