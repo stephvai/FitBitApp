@@ -123,26 +123,51 @@ public class GoalTracker implements Serializable {
             goalObj.setSteps(goal);
             this.goalArray[0].setSteps(goal);
             updateProgress();
+            try {
+                saveProgress();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
 
         } else if (type == GoalsEnum.distance) {
             this.goalArray[1].setCalories(goal);
             updateProgress();
+            try {
+                saveProgress();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
 
         } else if (type == GoalsEnum.calorieBurned) {
             this.goalArray[2].setDistance(goal);
             updateProgress();
+            try {
+                saveProgress();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
 
         } else if (type == GoalsEnum.floorsClimbed) {
             this.goalArray[3].setFloorsClimbed(goal);
             updateProgress();
+            try {
+                saveProgress();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
 
         } else if (type == GoalsEnum.veryActiveMinutes) {
             this.goalArray[4].setVeryActiveMinutes(goal);
             updateProgress();
+            try {
+                saveProgress();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
 
         }

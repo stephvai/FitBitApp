@@ -29,6 +29,8 @@ public class MainScreen extends JFrame {
 	private static final String picRefresh = "src/main/resources/images/refresh.png";
 	//use to get the API information
 	private APIData apiData;
+
+	private GoalTracker goalTracker;
 	
 	//Color Scheme 
 	private Color bgColor = Color.darkGray;
@@ -43,7 +45,7 @@ public class MainScreen extends JFrame {
 		 * @param paramAPIData an instance of the APIData that passes in the fitbit information
 		 */
 	     public MainScreen(String date, APIData paramAPIData) {
-	     	
+
 	          try {
 				this.initUI(date, paramAPIData);
 			} catch (ClassNotFoundException e) {
@@ -62,7 +64,10 @@ public class MainScreen extends JFrame {
 	    	 /*	-----------------------------------------*/
 	    	 //create the main window for the daily dash board 
 	    	 /*	-----------------------------------------*/
-	    	 this.setTitle("Team08 Fitbit");
+	    	 goalTracker = new GoalTracker();
+			 goalTracker.loadProgress();
+
+			 this.setTitle("Team08 Fitbit");
 	    	 this.setSize(1024, 768);
 	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    	 this.setLocationRelativeTo(null);
@@ -243,9 +248,7 @@ public class MainScreen extends JFrame {
 	    			 dispose();
 	    		 }
 	    	 });
-	    	 GoalTracker stepsGoal = new GoalTracker();
-	    	 stepsGoal.setGoal("0", GoalsEnum.steps);
-	    	 stepsGoal.updateProgress();
+
 	    	 
 	    
 	    	 //set the layout to absolute
