@@ -127,7 +127,7 @@ public class AchievementTracker {
 		/*Check the steps progress of the achievements.*/
 		float APIsteps = source.getSteps();
 		for(int i=0;i<5;i++){
-			this.stepsProgress = (float) this.achievementArray[i].getObjective()/APIsteps*1000.0f;
+			this.stepsProgress = APIsteps/(float) this.achievementArray[i].getObjective()/APIsteps*1000.0f;
 			if (this.stepsProgress >= 100)
 				this.achievementArray[i].setAchieved();
 		}
@@ -135,7 +135,7 @@ public class AchievementTracker {
 		/*Check the floors progress of the achievements.*/
 		float APIfloors = source.getFloorsClimbed();
 		for(int i=5;i<10;i++){
-			this.floorsProgress = (float) this.achievementArray[i].getObjective()/APIfloors*1000.0f;
+			this.floorsProgress = APIfloors/(float) this.achievementArray[i].getObjective()/APIfloors*1000.0f;
 			if (this.floorsProgress >= 100)
 				this.achievementArray[i].setAchieved();
 		}
@@ -143,7 +143,7 @@ public class AchievementTracker {
 		/*Check the distance progress of the achievements.*/
 		float APIdistance = source.getDistance();
 		for(int i=10;i<15;i++){
-			this.distanceProgress = (float) this.achievementArray[i].getObjective()/APIdistance*1000.0f;
+			this.distanceProgress = APIdistance/(float) this.achievementArray[i].getObjective()/APIdistance*1000.0f;
 			if (this.distanceProgress >= 100)
 				this.achievementArray[i].setAchieved();
 		}
@@ -151,7 +151,7 @@ public class AchievementTracker {
 		/*Check the calories progress of the achievements.*/
 		float APIcalories = source.getCalories();
 		for(int i=15;i<22;i++){
-			this.caloriesProgress = (float) this.achievementArray[i].getObjective()/APIcalories*1000.0f;
+			this.caloriesProgress = (float) APIcalories/this.achievementArray[i].getObjective()/APIcalories*1000.0f;
 			if (this.caloriesProgress >= 100)
 				this.achievementArray[i].setAchieved();
 		}
