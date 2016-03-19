@@ -7,17 +7,11 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
+import java.io.IOException;
 
 public class goalPanel extends JFrame {
 
@@ -31,12 +25,21 @@ public class goalPanel extends JFrame {
 	private APIData apiData;
 	private String date;
 
+	private GoalTracker goalTracker;
+
 
 	/**
 	 * Create the frame.
 	 */
 	public goalPanel(String date, APIData paramAPIData) {
-		
+
+		try {
+			goalTracker = new GoalTracker();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		/*-----------------------------------------*/
 		//create the main window for the daily goals panel
@@ -111,9 +114,11 @@ public class goalPanel extends JFrame {
 		JButton editButton = new JButton("Edit Goals");
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// figure out how to edit goals here
-				//make a new editpage.java?
-				//
+
+				String target = JOptionPane.showInputDialog(contentPane, "How many steps would you like to take?", null);
+				goalTracker.setGoal(Integer.parseInt(target), GoalsEnum.steps );
+
+
 			}
 		});
 		editButton.setBounds(82, 147, 117, 29);
@@ -154,7 +159,8 @@ public class goalPanel extends JFrame {
 		editTheDistance.setBounds(88, 146, 117, 29);
 		editTheDistance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// figure out how to edit goals here
+				String target = JOptionPane.showInputDialog(contentPane, "How much distance would you like to cover?", null);
+				goalTracker.setGoal(Integer.parseInt(target), GoalsEnum.distance );
 			}
 		});
 		distanceGoalPanel.add(editTheDistance);
@@ -196,7 +202,8 @@ public class goalPanel extends JFrame {
 		editTheCalories.setBounds(89, 149, 117, 29);
 		editTheCalories.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// figure out how to edit goals here
+				String target = JOptionPane.showInputDialog(contentPane, "How many calories would you like to burn?", null);
+				goalTracker.setGoal(Integer.parseInt(target), GoalsEnum.calorieBurned );
 			}
 		});
 		caloriesGoalPanel.add(editTheCalories);
@@ -236,7 +243,8 @@ public class goalPanel extends JFrame {
 		editTheFloor.setBounds(85, 149, 117, 29);
 		editTheFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// figure out how to edit goals here
+				String target = JOptionPane.showInputDialog(contentPane, "How many floors would you like to climb?", null);
+				goalTracker.setGoal(Integer.parseInt(target), GoalsEnum.floorsClimbed );
 			}
 		});
 		floorsGoalPanel.add(editTheFloor);
@@ -316,7 +324,7 @@ public class goalPanel extends JFrame {
 		editTheSedentary.setBounds(95, 150, 117, 29);
 		editTheSedentary.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// figure out how to edit goals here
+
 			}
 		});
 		sedentGoalPanel.add(editTheSedentary);
