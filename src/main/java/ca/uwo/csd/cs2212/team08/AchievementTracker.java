@@ -14,14 +14,35 @@ public class AchievementTracker {
 	 */
 	public AchievementTracker() throws ClassNotFoundException, IOException {
 		this.achievementArray = new Achievement[20];
-		this.setAchievement(10000,AchievementsEnum.steps);
 
+		float startingSteps = 10000;
+		float startingFloors = 100;
+		float startingDistance = 10000;
 
+		for(int i=0;i<5;i++){
+			Achievement achievement = new Achievement();
+			achievement.setSteps(startingSteps);
+			this.achievementArray[i]=achievement;
+			startingSteps+=2500;
+		}
+		for(int i=5;i<10;i++){
+			Achievement achievement = new Achievement();
+			achievement.setFloorsClimbed(startingFloors);
+			this.achievementArray[i]=achievement;
+			startingFloors+=100;
+		}
+		for(int i=10;i<15;i++){
+			Achievement achievement = new Achievement();
+			achievement.setDistance(startingDistance);
+			this.achievementArray[i]=achievement;
+			startingDistance+=10000;
+		}
+		
 		this.loadProgress();
 		this.updateProgress();
 
 	}
-
+/*
 	public void setAchievement(float target, AchievementsEnum type) {
 		Achievement achievementObj = new Achievement();
 
@@ -46,6 +67,7 @@ public class AchievementTracker {
 			return;
 		}
 	}
+	*/
 	
 	/****************************methods
 	 * @throws IOException
