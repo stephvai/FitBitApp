@@ -13,14 +13,16 @@ public class AchievementTracker {
 	 * This method will create an Achievement array of 20 and load the progress of the users. 
 	 */
 	public AchievementTracker() throws ClassNotFoundException, IOException {
-		        this.achievementArray = new Achievement[20];
+		this.achievementArray = new Achievement[20];
+		this.setAchievement(10000,AchievementsEnum.steps);
 
-				this.loadProgress();
-		        this.updateProgress();
+
+		this.loadProgress();
+		this.updateProgress();
 
 	}
 
-	public void setAchievement(int target, AchievementsEnum type) {
+	public void setAchievement(float target, AchievementsEnum type) {
 		Achievement achievementObj = new Achievement();
 
 		if(type == AchievementsEnum.steps){ //sets the goal for the steps.
