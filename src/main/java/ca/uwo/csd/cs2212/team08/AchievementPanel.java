@@ -7,7 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * creates a JFrame that displays the users floors climbed information
+ * creates a JFrame that displays the users achievements information
  *
  */
 public class AchievementPanel extends JFrame {
@@ -29,14 +29,14 @@ public class AchievementPanel extends JFrame {
     private Color white = Color.white;
 
     /**
-     * create a stairs panel to show user information on their floors climbed
+     * create a achievement panel to show user information on their floors climbed
      * @param date this is the date selected by the user
      * @param paramAPIData an instance of the APIData that passes in the fitbit information
      */
     public AchievementPanel(String date, APIData paramAPIData) {
 
 		/*-----------------------------------------*/
-        //create the main window for the stairs panel
+        //create the main window for the achievement panel
 		/*-----------------------------------------*/
         setResizable(false);
         this.date = date;
@@ -54,9 +54,9 @@ public class AchievementPanel extends JFrame {
         apiData = paramAPIData;
 
 		/*	-----------------------------------------*/
-        //create a title for the current pane
+        //create a title for the current panel
 		/*	-----------------------------------------*/
-        JLabel lblTitle = new JLabel("FLOORS CLIMBED");
+        JLabel lblTitle = new JLabel("ACHIEVEMENTS");
         lblTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 50));
         lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
         lblTitle.setBounds(80, 21, 837, 84);
@@ -80,85 +80,7 @@ public class AchievementPanel extends JFrame {
         contentPane.add(imgBack);
 
 
-		/*	-----------------------------------------*/
-        //create a tabbed pane to store the graphs
-		/*	-----------------------------------------*/
-        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        tabbedPane.setBounds(80, 409, 837, 239);
 
-        //create a panel for the Lifetime progress
-        JPanel pnlLifetime = new JPanel();
-        tabbedPane.addTab("lifetime Progress", pnlLifetime);
-
-        JPanel pnlToday4 = new JPanel();
-        tabbedPane.addTab("Today's Progress", pnlToday4);
-
-
-        //create a panel for the Lifetime progress
-        JPanel pnlToday3 = new JPanel();
-        tabbedPane.addTab("Today's Progress", pnlToday3);
-
-        JPanel pnlToday5 = new JPanel();
-        tabbedPane.addTab("Today's Progress", pnlToday5);
-
-        contentPane.add(tabbedPane);
-
-		/*--------------------------------------------*/
-        //create a panel to display floors climbed information for today
-		/*--------------------------------------------*/
-        JPanel pnlTodaysValue = new JPanel();
-        pnlTodaysValue.setBounds(80, 138, 240, 224);
-        contentPane.add(pnlTodaysValue);
-        pnlTodaysValue.setLayout(null);
-        pnlTodaysValue.setBackground(pannelColor);
-        pnlTodaysValue.setBorder(BorderFactory.createLineBorder(borderColor));
-
-		/*--------------------------------------------*/
-        //add a label to display the floors climbed today
-		/*--------------------------------------------*/
-        JLabel lblDailyValue = new JLabel("<html> Today you climbed "+ apiData.getFloorsClimbed() +" floors. </html>");
-        lblDailyValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-        lblDailyValue.setHorizontalAlignment(SwingConstants.CENTER);
-        lblDailyValue.setBounds(21, 21, 198, 182);
-        pnlTodaysValue.add(lblDailyValue);
-
-		/*--------------------------------------------*/
-        //create a panel to display floors climbed information for their lifetime totals
-		/*--------------------------------------------*/
-        JPanel pnlLifetimeTotal = new JPanel();
-        pnlLifetimeTotal.setBounds(373, 138, 240, 224);
-        contentPane.add(pnlLifetimeTotal);
-        pnlLifetimeTotal.setLayout(null);
-        pnlLifetimeTotal.setBackground(pannelColor);
-        pnlLifetimeTotal.setBorder(BorderFactory.createLineBorder(borderColor));
-
-		/*--------------------------------------------*/
-        //add a label to display the floors climbed in the users lifetime total
-		/*--------------------------------------------*/
-        JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have climbed "+ apiData.getTotalFloors()+" floors. </html>");
-        lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-        lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
-        lblLifetimeTotal.setBounds(21, 31, 198, 182);
-        pnlLifetimeTotal.add(lblLifetimeTotal);
-
-		/*--------------------------------------------*/
-        //create a panel to display floors climbed information for today
-		/*--------------------------------------------*/
-        JPanel pnlBestDay = new JPanel();
-        pnlBestDay.setBounds(677, 138, 240, 224);
-        contentPane.add(pnlBestDay);
-        pnlBestDay.setLayout(null);
-        pnlBestDay.setBackground(pannelColor);
-        pnlBestDay.setBorder(BorderFactory.createLineBorder(borderColor));
-
-		/*--------------------------------------------*/
-        //add a label to display the floors climbed on the users best day
-		/*--------------------------------------------*/
-        JLabel lblBestDay = new JLabel("<html> On your best day you climbed "+ apiData.getBestFloors()+" floors. </html>");
-        lblBestDay.setHorizontalAlignment(SwingConstants.CENTER);
-        lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-        lblBestDay.setBounds(21, 21, 198, 182);
-        pnlBestDay.add(lblBestDay);
     }
 
     /**
