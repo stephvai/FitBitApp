@@ -20,6 +20,7 @@ import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 public class AchievementPanel extends JFrame {
@@ -96,6 +97,18 @@ public class AchievementPanel extends JFrame {
 
 	public AchievementPanel(final String date, APIData paramAPIData) {
 
+		/*----------------------------------------------------*
+		 * create achievementTracker object
+		 * will use this down in the code to check if user
+		 * has reached their goal
+		 * if yes, the program will give them a different picture
+		 * than the one that's shown to them by default
+		 *---------------------------------------------------*/
+		
+		Achievement track = new Achievement();
+		//System.out.println(track.getAchieved());
+		
+		
 		/*----------------------------------------------------*
 		 * Create MainWindow
 		 *----------------------------------------------------*/
