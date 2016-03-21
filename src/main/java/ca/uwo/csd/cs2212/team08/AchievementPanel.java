@@ -113,6 +113,8 @@ public class AchievementPanel extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+
 		this.tracker.updateProgress();
 		//System.out.println(track.getAchieved());
 		

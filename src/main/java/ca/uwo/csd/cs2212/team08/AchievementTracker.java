@@ -25,7 +25,7 @@ public class AchievementTracker {
 		float startingDistance = 10;
 		float startingCalories = 2000;
 		
-		//Did user reach 10,000, 12,500, 15,000, 17,500, 20,000 steps in one day?
+
 		for(int i=0;i<5;i++){
 			Achievement achievement = new Achievement();
 			achievement.setSteps(startingSteps);
@@ -33,7 +33,7 @@ public class AchievementTracker {
 			startingSteps+=2500;
 		}
 		
-		//Did user reach 100, 200, 300, 400, 500 floors in one day?
+
 		for(int i=5;i<10;i++){
 			Achievement achievement = new Achievement();
 			achievement.setFloorsClimbed(startingFloors);
@@ -41,7 +41,7 @@ public class AchievementTracker {
 			startingFloors+=100;
 		}
 		
-		//Did user reach 10, 20, 30, 40, 50 miles in one day?
+
 		for(int i=10;i<15;i++){
 			Achievement achievement = new Achievement();
 			achievement.setDistance(startingDistance);
@@ -49,7 +49,7 @@ public class AchievementTracker {
 			startingDistance+=10;
 		}
 		
-		//Did user burn 2000, 2250, 2500, 2750, 3000, 3250, 3500 calories in one day?
+
 		for(int i=15;i<22;i++){
 			Achievement achievement = new Achievement();
 			achievement.setCalories(startingCalories);
@@ -111,14 +111,14 @@ public class AchievementTracker {
 		FileInputStream	saveAchieve = null;
 		try {
 			saveAchieve = new FileInputStream("Achieve.ini");
-			
+
 			ObjectInputStream save = new ObjectInputStream(saveAchieve);
 
 			//cast to read the object
 			this.achievementArray = (Achievement[]) save.readObject();
 
 			save.close();
-		} catch (FileNotFoundException e) {
+		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
