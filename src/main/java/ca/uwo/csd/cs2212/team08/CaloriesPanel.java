@@ -102,7 +102,7 @@ public class CaloriesPanel extends JFrame {
 		//create a panel to display calories information for today
 		/*--------------------------------------------*/
 		JPanel pnlTodaysValue = new JPanel();
-		pnlTodaysValue.setBounds(80, 138, 240, 224);
+		pnlTodaysValue.setBounds(80, 138, 837, 224);
 		contentPane.add(pnlTodaysValue);
 		pnlTodaysValue.setLayout(null);
 		pnlTodaysValue.setBackground(pannelColor);
@@ -114,36 +114,8 @@ public class CaloriesPanel extends JFrame {
 		JLabel lblDailyValue = new JLabel("<html> Today you burned <strong>"+ apiData.getCalories() +"</strong> calories. </html>");
 		lblDailyValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblDailyValue.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDailyValue.setBounds(21, 21, 198, 182);
+		lblDailyValue.setBounds(21, 21, 792, 182);
 		pnlTodaysValue.add(lblDailyValue);
-
-		/*--------------------------------------------*/
-		//create a panel to display calories information for the lifetime total
-		/*--------------------------------------------*/
-		JPanel pnlLifetimeTotal = new JPanel();
-		pnlLifetimeTotal.setBounds(373, 138, 240, 224);
-		contentPane.add(pnlLifetimeTotal);
-		pnlLifetimeTotal.setLayout(null);
-		pnlLifetimeTotal.setBackground(pannelColor);
-		pnlLifetimeTotal.setBorder(BorderFactory.createLineBorder(borderColor));
-		
-		/*
-		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have burned "+ apiData.+" calories. </html>");
-		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLifetimeTotal.setBounds(21, 31, 198, 182);
-		pnlLifetimeTotal.add(lblLifetimeTotal);
-		*/
-		
-		/*--------------------------------------------*/
-		//create a panel to display calories information for the users best day
-		/*--------------------------------------------*/
-		JPanel pnlBestDay = new JPanel();
-		pnlBestDay.setBounds(677, 138, 240, 224);
-		contentPane.add(pnlBestDay);
-		pnlBestDay.setLayout(null);
-		pnlBestDay.setBackground(pannelColor);
-		pnlBestDay.setBorder(BorderFactory.createLineBorder(borderColor));
 		
 		/*
 		JLabel lblBestDay = new JLabel("<html> On your best day you traveled "+ apiData.getBestDistance()+"km. </html>");
