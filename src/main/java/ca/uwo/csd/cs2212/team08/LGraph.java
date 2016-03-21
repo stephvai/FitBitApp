@@ -81,7 +81,7 @@ public class LGraph extends JPanel {
      * @param list
      * @return
      */
-    private TimeSeries createDataset(LinkedList list) {
+    private TimeSeries createDataset(LinkedList<TimeSeriesNode> list) {
         TimeSeries series = new TimeSeries("Per Minute Data", Minute.class);
         int hours;
         int minutes;
@@ -90,14 +90,15 @@ public class LGraph extends JPanel {
 
 
         for(int i=0; i < list.size(); i ++){
-            hours = list.get(i).getHour();
-            minutes = list.get(i).getMinutes();
-            value = list.get(i).getData();
+            hours = Integer.parseInt(list.get(i).getHour());
+            minutes = Integer.parseInt(list.get(i).getMinute());
+            value = Integer.parseInt(list.get(i).getValue());
+            year = Integer.parseInt(list.get(i).getYear());
             day =  month = year = 1;
             /**
              * TODO add proper minutes, dates...
              */
-            series.add(new Minute( minutes, hours, day, month, 2016), value);
+            series.add(new Minute( minutes, hours, day, month, year), value);
 
         }
         return series;

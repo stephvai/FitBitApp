@@ -81,10 +81,19 @@ public class StepsPanel extends JFrame {
 		contentPane.add(imgBack);
 
 
+
+		LGraph lineGraph = new LGraph("Steps Taken", "steps",apiData.getStepsTimeSeries());
+
+		lineGraph.setBounds(80, 409, 837, 239);
+
+		contentPane.add(lineGraph);
+
+
+
 		/*	-----------------------------------------*/
 		//create a tabbed pane to store the graphs
 		/*	-----------------------------------------*/
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	/*	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(80, 409, 837, 239);
 
 		//create a panel for the Lifetime progress
@@ -102,7 +111,7 @@ public class StepsPanel extends JFrame {
 		JPanel pnlToday5 = new JPanel();
 		tabbedPane.addTab("Today's Progress", pnlToday5);
 
-		contentPane.add(tabbedPane);
+		contentPane.add(tabbedPane);*/
 
 		/*--------------------------------------------*/
 		//create a panel to display steps information for today

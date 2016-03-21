@@ -7,10 +7,14 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.net.URL;
+import java.sql.Date;
+import java.text.ParseException;
+import java.util.LinkedList;
 
 //TODO Make sure it returns false whenever the application crashes
 //TODO Remove all writing to console and instead save it to log.txt
@@ -38,6 +42,17 @@ public class APIData {
   private float bestDistance;
   private float bestFloors;
   private float bestSteps;
+  //Instance variables for heart rate zones
+  private float restingHeartRate;
+  private HRZone outOfRange;
+  private HRZone fatBurn;
+  private HRZone cardio;
+  private HRZone peak;
+  //Time Series Data
+  LinkedList<TimeSeriesNode> hrTimeSeries;
+  LinkedList<TimeSeriesNode> stepsTimeSeries;
+  LinkedList<TimeSeriesNode> caloriesTimeSeries;
+  LinkedList<TimeSeriesNode> distanceTimeSeries;
   
   //Instance variables used when getting data from APIData
   private static String CALL_BACK_URI="http://localhost:8080";
@@ -54,137 +69,90 @@ public class APIData {
   String currentDate = "2016-02-26";
   String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
   
-  //API service credentials
-  String apiKey = null;
-  String apiSecret = null;
-  String clientID = null;
-  //holder for access token elements
-  String accessTokenItself =  null;
-  String tokenType = null;
-  String refreshToken = null;
-  Long expiresIn = null;
-  String rawResponse = null;
-  //Fitbit Service
-  FitbitOAuth20ServiceImpl service;
-  //Access Token
-  OAuth2AccessToken accessToken;
-    
   /**
    * Constructor for API data
    */
   public APIData() {
-	  	BufferedReader bufferedReader=null;
-	  	String line = null;
-	    //Need to save service credentials for Fitbit
-	    String apiKey = null;
-	    String apiSecret = null;
-	    String clientID = null;
-	    //holder for all the elements we will need to make an access token ( information about an authenticated session )
-	    String accessTokenItself =  null;
-	    String tokenType = null;
-	    String refreshToken = null;
-	    Long expiresIn = null;
-	    String rawResponse = null;
-	    //This is the only scope you have access to currently
-	    String scope = "activity%20heartrate";
-	        try {
-	            // File with service credentials.
-	            FileReader fileReader =
-	                    new FileReader("src/main/resources/Team8Credentials.txt");
-	            bufferedReader = new BufferedReader(fileReader);
-	            clientID= bufferedReader.readLine();
-	            apiKey= bufferedReader.readLine();
-	            apiSecret = bufferedReader.readLine();
-	            bufferedReader.close();
-	            fileReader = new FileReader("src/main/resources/Team8Tokens.txt");
-	            bufferedReader = new BufferedReader(fileReader);
-
-	            accessTokenItself = bufferedReader.readLine();
-	            tokenType = bufferedReader.readLine();
-	            refreshToken = bufferedReader.readLine();
-	            expiresIn = Long.parseLong(bufferedReader.readLine());
-	            rawResponse = bufferedReader.readLine();
-	        }
-	        catch(FileNotFoundException ex) {
-	           ex.printStackTrace();
-	        }
-	        catch(IOException ex) {
-	        	ex.printStackTrace();
-
-	        }
-	        finally{
-	            try{
-	                if (bufferedReader!=null)
-	                    // Always close files.
-	                    bufferedReader.close();
-	            }
-	            catch(Exception e){
-	            	e.printStackTrace();
-
-	            }
-	        }
-	        
-	        //The Fitbit service
-	        service = (FitbitOAuth20ServiceImpl) new ServiceBuilder()
-	                .apiKey(clientID)       //fitbit uses the clientID here
-	                .apiSecret(apiSecret)
-	                .callback("http://localhost:8080")
-	                .scope(scope)
-	                .grantType("authorization_code")
-	                .build(FitbitApi20.instance());
-	        
-	        //The access token contains everything you will need to authenticate your requests
-	        accessToken = new OAuth2AccessToken(
-	                accessTokenItself,
-	                tokenType,
-	                refreshToken,
-	                expiresIn,
-	                rawResponse);
   }
   
   /********************************************************
-   *        Main Refresh Methods for daily dashboard	      *
+   *        Main Refresh Method for daily dashboard	      *
    ********************************************************/
-  public Boolean refreshHeartRateZones(String date) {
-	  currentDate = date;
-	  String requestUrl = requestUrlPrefix + "activities/heart/" + currentDate + "/today/1d.json";
-	  OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
-	  service.signRequest(accessToken, request);
-	  Response response = request.send();
-	  int checkResponse = checkStatus(response.getCode());
-      if (checkResponse == expiredToken) {
-      	//refresh token then send it again
-      	accessToken = service.refreshOAuth2AccessToken(accessToken);
-      	request = new OAuthRequest(Verb.GET, requestUrl, service);
-        service.signRequest(accessToken, request);
-        response = request.send();
-        checkResponse = checkStatus(response.getCode());
-      }
-      //if saving the tokens fails then return false as their was an error
-      if(!saveTokens(accessToken)) {
-      	return false;
-      }
-      if (checkResponse == successfulResponse) {
-      	JSONObject obj = new JSONObject(response.getBody());
-      	//call parse method
-      }
-      
-      else {
-    	  return false;
-      }
-	  
-	  
-	  return true;
-
-  }
+  
   /**
    * Method that refreshes all data for the daily dashboard from the API and saves it to instance variables
    * @param date the date value in "YYYY-MM-DD" format to fetch data for
    * @return true if refreshing the data was successful, false otherwise.
    */
   public Boolean refreshDailyDashBoardData(String date) {
-	  	currentDate = date;
-       
+	currentDate = date;
+    //read credentials from a file
+    BufferedReader bufferedReader=null;
+    // This will reference one line at a time
+    String line = null;
+    //Need to save service credentials for Fitbit
+    String apiKey = null;
+    String apiSecret = null;
+    String clientID = null;
+    //holder for all the elements we will need to make an access token ( information about an authenticated session )
+    String accessTokenItself =  null;
+    String tokenType = null;
+    String refreshToken = null;
+    Long expiresIn = null;
+    String rawResponse = null;
+    //This is the only scope you have access to currently
+        String scope = "activity%20heartrate";
+        try {
+            // File with service credentials.
+            FileReader fileReader =
+                    new FileReader("src/main/resources/Team8Credentials.txt");
+            bufferedReader = new BufferedReader(fileReader);
+            clientID= bufferedReader.readLine();
+            apiKey= bufferedReader.readLine();
+            apiSecret = bufferedReader.readLine();
+            bufferedReader.close();
+            fileReader = new FileReader("src/main/resources/Team8Tokens.txt");
+            bufferedReader = new BufferedReader(fileReader);
+
+            accessTokenItself = bufferedReader.readLine();
+            tokenType = bufferedReader.readLine();
+            refreshToken = bufferedReader.readLine();
+            expiresIn = Long.parseLong(bufferedReader.readLine());
+            rawResponse = bufferedReader.readLine();
+        }
+        catch(FileNotFoundException ex) {
+            return false;
+        }
+        catch(IOException ex) {
+            return false;
+        }
+        finally{
+            try{
+                if (bufferedReader!=null)
+                    // Always close files.
+                    bufferedReader.close();
+            }
+            catch(Exception e){
+                return false;
+            }
+        }
+        //  Create the Fitbit service - you will ask this to ask for access/refresh pairs
+        //     and to add authorization information to the requests to the API
+        FitbitOAuth20ServiceImpl service = (FitbitOAuth20ServiceImpl) new ServiceBuilder()
+                .apiKey(clientID)       //fitbit uses the clientID here
+                .apiSecret(apiSecret)
+                .callback("http://localhost:8080")
+                .scope(scope)
+                .grantType("authorization_code")
+                .build(FitbitApi20.instance());
+        //  The access token contains everything you will need to authenticate your requests
+        OAuth2AccessToken accessToken = new OAuth2AccessToken(
+                accessTokenItself,
+                tokenType,
+                refreshToken,
+                expiresIn,
+                rawResponse);
+        
         //GETTING AND PARSING ACTIVITY SUMMARY 
         
         String requestUrl = activitySummaryRequestBuilder(requestUrlPrefix);
@@ -242,6 +210,121 @@ public class APIData {
         else {
         	return false;
         }
+        
+        //GETTING AND PARSING HEART RATE ZONES
+        requestUrl = heartRateZoneRequestBuilder(requestUrlPrefix);
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        
+        if (checkResponse == expiredToken) {
+        	//refresh token then send it again
+        	accessToken = service.refreshOAuth2AccessToken(accessToken);
+        	request = new OAuthRequest(Verb.GET, requestUrl, service);
+            service.signRequest(accessToken, request);
+            response = request.send();
+            checkResponse = checkStatus(response.getCode());
+        }
+        if(!saveTokens(accessToken)) {
+        	return false;
+        }
+        
+        if (checkResponse == successfulResponse) {
+        	JSONObject obj = new JSONObject(response.getBody());
+        	//parseHeartRateZones(obj);
+        	
+        }
+        
+        else {
+        	return false;
+        }
+        
+        //GETTING AND PARSING STEPS TIME SERIES
+        requestUrl = stepsTimeSeriesRequestBuilder(requestUrlPrefix);
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        
+        if (checkResponse == expiredToken) {
+        	//refresh token then send it again
+        	accessToken = service.refreshOAuth2AccessToken(accessToken);
+        	request = new OAuthRequest(Verb.GET, requestUrl, service);
+            service.signRequest(accessToken, request);
+            response = request.send();
+            checkResponse = checkStatus(response.getCode());
+        }
+        if(!saveTokens(accessToken)) {
+        	return false;
+        }
+        
+        if (checkResponse == successfulResponse) {
+        	JSONObject obj = new JSONObject(response.getBody());
+        	parseStepsTimeSeries(obj);
+        	
+        }  
+        else {
+        	return false;
+        }
+        
+        //GETTING AND PARSING CALORIES TIME SERIES
+        requestUrl = caloriesTimeSeriesRequestBuilder(requestUrlPrefix);
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        
+        if (checkResponse == expiredToken) {
+        	//refresh token then send it again
+        	accessToken = service.refreshOAuth2AccessToken(accessToken);
+        	request = new OAuthRequest(Verb.GET, requestUrl, service);
+            service.signRequest(accessToken, request);
+            response = request.send();
+            checkResponse = checkStatus(response.getCode());
+        }
+        if(!saveTokens(accessToken)) {
+        	return false;
+        }
+        
+        if (checkResponse == successfulResponse) {
+        	JSONObject obj = new JSONObject(response.getBody());
+        	parseCaloriesTimeSeries(obj);
+        	
+        }  
+        else {
+        	return false;
+        }
+        
+        //GETTING AND PARSING TIME SERIES DATA FOR DISTANCE
+        
+        requestUrl = distanceTimeSeriesRequestBuilder(requestUrlPrefix);
+        request = new OAuthRequest(Verb.GET, requestUrl, service);
+        service.signRequest(accessToken, request);
+        response = request.send();
+        checkResponse = checkStatus(response.getCode());
+        
+        if (checkResponse == expiredToken) {
+        	//refresh token then send it again
+        	accessToken = service.refreshOAuth2AccessToken(accessToken);
+        	request = new OAuthRequest(Verb.GET, requestUrl, service);
+            service.signRequest(accessToken, request);
+            response = request.send();
+            checkResponse = checkStatus(response.getCode());
+        }
+        if(!saveTokens(accessToken)) {
+        	return false;
+        }
+        
+        if (checkResponse == successfulResponse) {
+        	JSONObject obj = new JSONObject(response.getBody());
+        	parseDistanceTimeSeries(obj);
+        	
+        }  
+        else {
+        	return false;
+        }
+        
         //Return true if everything went well and the program got all data for the daily dashboard
         return true;
   }
@@ -266,6 +349,23 @@ public class APIData {
    */
   private String bestDayLifeTimeTotalRequestBuilder(String requestUrlPrefix) {
 	  return requestUrlPrefix + "activities.json";
+  }
+  
+  private String heartRateZoneRequestBuilder(String requestUrlPrefix) {
+	  //https://api.fitbit.com/1/user/-/activities/heart/date/[date]/1d/[detail-level].json
+	  return "https://api.fitbit.com/1/user/3WGW2P/activities/heart/date/" + currentDate + "/1d/1min.json";
+  }
+  
+  private String stepsTimeSeriesRequestBuilder(String requestUrlPrefix) {
+	  return "https://api.fitbit.com/1/user/3WGW2P/activities/steps/date/"+ currentDate +"/1d/1min.json";
+  }
+  
+  private String caloriesTimeSeriesRequestBuilder(String requestUrlPrefix) {
+	  return "https://api.fitbit.com/1/user/-/activities/calories/date/" + currentDate + "/1d/1min.json";
+  }
+  
+  private String distanceTimeSeriesRequestBuilder(String requestUrlPrefix) {
+	  return "https://api.fitbit.com/1/user/-/activities/distance/date/" + currentDate + "/1d/1min.json";
   }
   
   /**
@@ -341,7 +441,7 @@ public class APIData {
   private void parseSummary(JSONObject obj) {
 	  JSONObject summary = obj.getJSONObject("summary");
 	  userDailyCalories = summary.getInt("caloriesOut");
-	  userDailyDistance= (float)summary.getJSONArray("distances").getJSONObject(2).getDouble("distance");
+	  userDailyDistance= (float)summary.getJSONArray("distances").getJSONObject(0).getDouble("distance");
 	  userDailyFloorsClimbed = summary.getInt("floors");
 	  userDailySteps = summary.getInt("steps");
 	  userDailySendentaryMinutes = summary.getInt("sedentaryMinutes");
@@ -373,15 +473,150 @@ public class APIData {
 	  bestSteps = bestDays.getJSONObject("steps").getInt("value");
   }
   
-  private void parseHeartRateZoens(JSONObject obj) {
-	  JSONObject heartRateZones = obj.getJSONObject("activities-heart");
+  private void parseHeartRateZones(JSONObject obj) {
+	  JSONObject value = obj.getJSONArray("activities-heart").getJSONObject(0).getJSONObject("value");
+	  restingHeartRate = value.getInt("restingHeartRate");
+	  JSONArray heartRateZones = value.getJSONArray("heartRateZones");
+	  outOfRange = new HRZone(heartRateZones.getJSONObject(0));
+	  fatBurn = new HRZone(heartRateZones.getJSONObject(1));
+	  cardio = new HRZone(heartRateZones.getJSONObject(2));
+	  peak = new HRZone(heartRateZones.getJSONObject(3));
+	  
+	  hrTimeSeries = new LinkedList<TimeSeriesNode>();
+	  
+	  JSONArray dataset = obj.getJSONObject("activities-heart-intraday").getJSONArray("dataset");
+	  for (int i = 0; i < dataset.length(); i++) {
+		  JSONObject datapoint = dataset.getJSONObject(i);
+		  String time = datapoint.getString("time");
+		  String datasetValue = Integer.toString(datapoint.getInt("value"));
+		  String[] timeArray = time.split(":");
+		  String hour = timeArray[0];
+		  String min = timeArray[1];
+		  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+		  hrTimeSeries.add(node);
+	 }
+	  
+  }
+  
+  private void parseStepsTimeSeries(JSONObject obj) {
+	  
+	  stepsTimeSeries = new LinkedList<TimeSeriesNode>();
+	  
+	  JSONArray dataset = obj.getJSONObject("activities-steps-intraday").getJSONArray("dataset");
+	  for (int i = 0; i < dataset.length(); i++) {
+		  JSONObject datapoint = dataset.getJSONObject(i);
+		  String time = datapoint.getString("time");
+		  String datasetValue = Integer.toString(datapoint.getInt("value"));
+		  String[] timeArray = time.split(":");
+		  String hour = timeArray[0];
+		  String min = timeArray[1];
+		  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+		  stepsTimeSeries.add(node);
+	 }
+	  
+  }
+  
+  private void parseCaloriesTimeSeries(JSONObject obj) {
+	  caloriesTimeSeries = new LinkedList<TimeSeriesNode>();
+	  
+	  JSONArray dataset = obj.getJSONObject("activities-calories-intraday").getJSONArray("dataset");
+	  for (int i = 0; i < dataset.length(); i++) {
+		  JSONObject datapoint = dataset.getJSONObject(i);
+		  String time = datapoint.getString("time");
+		  String datasetValue = Integer.toString(datapoint.getInt("value"));
+		  String[] timeArray = time.split(":");
+		  String hour = timeArray[0];
+		  String min = timeArray[1];
+		  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+		  caloriesTimeSeries.add(node);
+	 }
+  }
+  
+  private void parseDistanceTimeSeries(JSONObject obj) {
+	  distanceTimeSeries = new LinkedList<TimeSeriesNode>();
+	  
+	  JSONArray dataset = obj.getJSONObject("activities-distance-intraday").getJSONArray("dataset");
+	  for (int i = 0; i < dataset.length(); i++) {
+		  JSONObject datapoint = dataset.getJSONObject(i);
+		  String time = datapoint.getString("time");
+		  String datasetValue = Integer.toString(datapoint.getInt("value"));
+		  String[] timeArray = time.split(":");
+		  String hour = timeArray[0];
+		  String min = timeArray[1];
+		  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+		  distanceTimeSeries.add(node);
+	 }
   }
   
   /********************************************************
    * 						Getters						  *
    ********************************************************/
   
+  
   /**
+   * @return the distanceTimeSeries
+   */
+  public LinkedList<TimeSeriesNode> getDistanceTimeSeries() {
+  	return distanceTimeSeries;
+  }
+  
+  /**
+   * @return the hrTimeSeries
+   */
+  public LinkedList<TimeSeriesNode> getCaloriesTimeSeries() {
+  	return caloriesTimeSeries;
+  }
+ /**
+ * @return the stepsTimeSeries
+ */
+public LinkedList<TimeSeriesNode> getStepsTimeSeries() {
+	return stepsTimeSeries;
+}
+
+	
+  /**
+ * @return the hrTimeSeries
+ */
+public LinkedList<TimeSeriesNode> getHrTimeSeries() {
+	return hrTimeSeries;
+}
+
+  /**
+ * @return the restingHeartRate
+ */
+public float getRestingHeartRate() {
+	return this.restingHeartRate;
+}
+
+/**
+ * @return the outOfRange
+ */
+public HRZone getOutOfRange() {
+	return this.outOfRange;
+}
+
+/**
+ * @return the fatBurn
+ */
+public HRZone getFatBurn() {
+	return this.fatBurn;
+}
+
+/**
+ * @return the cardio
+ */
+public HRZone getCardio() {
+	return this.cardio;
+}
+
+/**
+ * @return the peak
+ */
+public HRZone getPeak() {
+	return this.peak;
+}
+
+/**
    * getter that returns the users daily steps for day
    * @return number of steps the user has walked for the day
    */
