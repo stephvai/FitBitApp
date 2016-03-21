@@ -8,12 +8,15 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -72,8 +75,10 @@ public class MainScreen extends JFrame implements Serializable {
 	
 	//Color Scheme 
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(168,219,168);
-	private Color pannelHoverColor = new Color(188, 240, 188);
+	//private Color pannelColor = new Color(168,219,168);
+	private Color pannelColor = new Color(206,206,206);
+	//private Color pannelHoverColor = new Color(188, 240, 188);
+	private Color pannelHoverColor = new Color(255,255,255);
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
@@ -111,7 +116,19 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    	 this.setLocationRelativeTo(null);
 	    	 this.setResizable(false);
-	    	 contentPane = new JPanel();
+	    	 contentPane = new JPanel() {
+	    		 @Override
+	    		 protected void paintComponent(Graphics g) {
+	    			 BufferedImage img = null;
+	    			 try {
+						img = ImageIO.read(new File("src/main/resources/images/background.jpg"));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	    			g.drawImage(img, 0,0, null);
+	    		 }
+	    	 };
 	    	 
 	    	 contentPane.setBorder(new EmptyBorder(5, 0, 5, 0));
 	    	 this.setContentPane(contentPane);
