@@ -44,7 +44,7 @@ public class MainScreen extends JFrame implements Serializable {
 	//use to get the API information
 	private APIData apiData;
 	//create a linked list for each dash board panel
-	private LinkedList<DashBoardPanel> dashboardPanels;
+	private LinkedList<Integer> dashboardPanels;
 	private DashBoardPanel pnlSteps;
 	private DashBoardPanel pnlStairs;
 	private DashBoardPanel pnlCalories;
@@ -54,7 +54,16 @@ public class MainScreen extends JFrame implements Serializable {
 	private DashBoardPanel pnlAccolades;
 	private DashBoardPanel pnlHeartRate;
 	private DashBoardPanel pnlGoals;
-
+	
+	private final int Steps = 0;
+	private final int Stairs = 1;
+	private final int Calories = 2;
+	private final int Distance = 3;
+	private final int ActiveMin = 4;
+	private final int SedentaryMin = 5;
+	private final int Accolades = 6;
+	private final int HeartRate = 7;
+	private final int Goals = 8;
 	
 	//Color Scheme 
 	private Color bgColor = Color.darkGray;
@@ -156,12 +165,13 @@ public class MainScreen extends JFrame implements Serializable {
 				 public void mouseClicked(MouseEvent arg0) {
 					 //what to do on button click
 					 lblDataUpdate.setText("refreshing...");
+					 //lblDataUpdate.repaint();
 					 updateDate();
-					 if (!apiData.refreshDailyDashBoardData(date)) {
+					 if(!apiData.refreshDailyDashBoardData(date)) {
 			    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
 			    	 }
-					 initUI(date, apiData);
 					 contentPane.repaint();
+					 initUI(date, apiData);
 				 }
 			 });
 			 contentPane.add(imgRefresh);
@@ -188,38 +198,88 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel imgEdit = new JLabel();
 			 imgEdit.setIcon(new ImageIcon(picEdit));
 			 imgEdit.setBounds(966, 5, 48, 48);
-			 /*imgEdit.addMouseListener(new MouseAdapter() {
+			 imgEdit.addMouseListener(new MouseAdapter() {
 				 @Override
 				 public void mouseClicked(MouseEvent arg0) {
 					 //what to do on button click
-					 //home();
-					 //dispose();
+					 EditMode edit = new EditMode(date, apiData);
+					 edit.setVisible(true);
+					 dispose();
 				 }
-			 });*/
+			 });
 			 headerPanel.add(imgEdit);
 			 //contentPane.add(imgEdit);
 
 			 //put steps last
-			 dashboardPanels = new LinkedList<DashBoardPanel>();
-			 //deSerialize();
+			 dashboardPanels = new LinkedList<Integer>();
+			 deSerialize();
 			 if(this.dashboardPanels.isEmpty())
 			 {
-				 dashboardPanels.add(pnlStairs);
-				 dashboardPanels.add(pnlSteps);
-				 dashboardPanels.add(pnlCalories);
-				 dashboardPanels.add(pnlDistance);
-				 dashboardPanels.add(pnlActiveMin);
-				 dashboardPanels.add(pnlSedentaryMin);
-				 dashboardPanels.add(pnlAccolades);
-				 dashboardPanels.add(pnlHeartRate);
-				 dashboardPanels.add(pnlGoals);
+				 dashboardPanels.add(Steps);
+				 dashboardPanels.add(Stairs);
+				 dashboardPanels.add(Calories);
+				 dashboardPanels.add(Distance);
+				 dashboardPanels.add(ActiveMin);
+				 dashboardPanels.add(SedentaryMin);
+				 dashboardPanels.add(Accolades);
+				 dashboardPanels.add(HeartRate);
+				 dashboardPanels.add(Goals);
+				 serialize();
 			 }
 			 int x =65;
 			 int y =100;
-			 Iterator<DashBoardPanel> iter = dashboardPanels.iterator();
+			 Iterator<Integer> iter = dashboardPanels.iterator();
+			 DashBoardPanel tempPanel;
 			 while(iter.hasNext())
 			 {
-				 iter.next().setLocation(x, y);
+				 int temp = iter.next();
+				 if(temp == 0)
+					{
+						pnlSteps.setLocation(x, y);
+						pnlSteps.setVisible(true);
+					}
+					else if(temp == 1)
+					{
+						pnlStairs.setLocation(x, y);
+						pnlStairs.setVisible(true);
+					}
+					else if(temp == 2)
+					{
+						pnlCalories.setLocation(x, y);
+						pnlCalories.setVisible(true);
+					}
+					else if(temp == 3)
+					{
+						pnlDistance.setLocation(x, y);
+						pnlDistance.setVisible(true);
+					}
+					else if(temp == 4)
+					{
+						pnlActiveMin.setLocation(x, y);
+						pnlActiveMin.setVisible(true);
+					}
+					else if(temp == 5)
+					{
+						pnlSedentaryMin.setLocation(x, y);
+						pnlSedentaryMin.setVisible(true);
+					}
+					else if(temp == 6)
+					{
+						pnlAccolades.setLocation(x, y);
+						pnlAccolades.setVisible(true);
+					}
+					else if(temp == 7)
+					{
+						pnlHeartRate.setLocation(x, y);
+						pnlHeartRate.setVisible(true);
+					}
+					else if(temp == 8)
+					{
+						pnlGoals.setLocation(x, y);
+						pnlGoals.setVisible(true);
+					}
+					
+				 //iter.next().setLocation(x, y);
 				 //DashBoardPanel temp = iter.next();
 				 //temp.setLocation(x, y);
 				 //System.out.println(temp.getName());
@@ -235,7 +295,6 @@ public class MainScreen extends JFrame implements Serializable {
 					 y = 100;
 				 }
 			 }
-			
 	     }
 
 	     /**
@@ -298,13 +357,16 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 //set the year
 	    	 String year = dateArray[2];
 	    	 //save the date all in one string
-	    	 this.date = year+"-"+month+"-"+day;
+	    	 String temp = year+"-"+month+"-"+day;
+	    	 //this.date = year+"-"+month+"-"+day;
 	    	 try {
-	    		 java.util.Date chosenDate = new SimpleDateFormat("yyy-MM-dd").parse(date);
+	    		 java.util.Date chosenDate = new SimpleDateFormat("yyy-MM-dd").parse(temp);
 	    		 Calendar cal = Calendar.getInstance();
 	    		 if(cal.getTime().compareTo(chosenDate)<0)
 	    		 {
-	    			 cal = Calendar.getInstance();
+	    			 JOptionPane.showMessageDialog(contentPane, "That is not a valid date");
+	    			 return;
+	    			 /*cal = Calendar.getInstance();
 	    			 int yearTemp = cal.get(Calendar.YEAR);
 	    			 int monthTemp = cal.get(Calendar.MONTH)+1;
 	    			 int dayTemp = cal.get(Calendar.DAY_OF_MONTH);
@@ -320,7 +382,10 @@ public class MainScreen extends JFrame implements Serializable {
 	    				}
 	    				//save the date to a string
 	    				this.date = Integer.toString(yearTemp) +  "-" + monthString + "-" + Integer.toString(dayTemp);
-	    				JOptionPane.showMessageDialog(contentPane, "That is not a valid date");
+	    				JOptionPane.showMessageDialog(contentPane, "That is not a valid date");*/
+	    		 }
+	    		 else{
+	    			 this.date = temp;
 	    		 }
 	    	 } catch (ParseException e) {
 	    		 // TODO Auto-generated catch block
@@ -336,7 +401,8 @@ public class MainScreen extends JFrame implements Serializable {
 		 {
 			//creates a new steps panel
 	    	 pnlSteps = new DashBoardPanel(50, 191);
-	    	 pnlSteps.setLocation(51, 99);
+	    	 //pnlSteps.setLocation(51, 99);
+	    	 pnlSteps.setVisible(false);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -387,8 +453,9 @@ public class MainScreen extends JFrame implements Serializable {
 	     private void stairsPanel()
 	     {
 	    	 pnlStairs = new DashBoardPanel(413, 191);
-	    	 pnlStairs.setLocation(385, 99);
+	    	 //pnlStairs.setLocation(385, 99);
 	    	 pnlStairs.setLayout(null);
+	    	 pnlStairs.setVisible(false);
 	    	 pnlStairs.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -438,8 +505,9 @@ public class MainScreen extends JFrame implements Serializable {
 			 //calories panel
 			 /*---------------------------------------*/
 			 pnlCalories = new DashBoardPanel(776, 191);
-			 pnlCalories.setLocation(709, 99);
+			 //pnlCalories.setLocation(709, 99);
 			 pnlCalories.setLayout(null);
+			 pnlCalories.setVisible(false);
 			 pnlCalories.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -490,6 +558,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 			 pnlDistance = new DashBoardPanel(50, 300);
 			 pnlDistance.setLayout(null);
+			 pnlDistance.setVisible(false);
 			 pnlDistance.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -539,7 +608,9 @@ public class MainScreen extends JFrame implements Serializable {
 			 //Active Minutes panel
 			 /*---------------------------------------*/
 			 pnlActiveMin = new DashBoardPanel(50, 300);
-			 pnlActiveMin.setBounds(385, 300, 265, 155);
+			 pnlActiveMin.setLayout(null);
+			 pnlActiveMin.setVisible(false);
+			 //pnlActiveMin.setBounds(385, 300, 265, 155);
 			 pnlActiveMin.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -547,7 +618,6 @@ public class MainScreen extends JFrame implements Serializable {
 	    			 
 	    		 }
 	    	 });
-			 pnlActiveMin.setLayout(null);
 			 contentPane.add(pnlActiveMin);
 			 
 			 /*------------------------------------------*/
@@ -579,7 +649,8 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 			 pnlSedentaryMin = new DashBoardPanel(50, 300);
 			 pnlSedentaryMin.setLayout(null);
-			 pnlSedentaryMin.setBounds(709, 300, 265, 155);
+			 pnlSedentaryMin.setVisible(false);
+			 //pnlSedentaryMin.setBounds(709, 300, 265, 155);
 			 pnlSedentaryMin.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -618,7 +689,8 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 			 pnlAccolades = new DashBoardPanel(50, 300);
 			 pnlAccolades.setLayout(null);
-			 pnlAccolades.setBounds(51, 501, 265, 155);
+			 pnlAccolades.setVisible(false);
+			 //pnlAccolades.setBounds(51, 501, 265, 155);
 			 pnlAccolades.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -648,7 +720,8 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 			 pnlHeartRate = new DashBoardPanel(50, 300);
 			 pnlHeartRate.setLayout(null);
-			 pnlHeartRate.setBounds(385, 501, 265, 155);
+			 pnlHeartRate.setVisible(false);
+			 //pnlHeartRate.setBounds(385, 501, 265, 155);
 			 pnlHeartRate.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -678,7 +751,8 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 			 pnlGoals = new DashBoardPanel(50, 300);
 			 pnlGoals.setLayout(null);
-			 pnlGoals.setBounds(709, 501, 265, 155);
+			 pnlGoals.setVisible(false);
+			 //pnlGoals.setBounds(709, 501, 265, 155);
 			 pnlGoals.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -722,7 +796,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 ObjectInputStream in;
 			try {
 				in = new ObjectInputStream(new FileInputStream("src/main/resources/dashboardPanel.txt"));
-				this.dashboardPanels = (LinkedList<DashBoardPanel>)in.readObject();
+				this.dashboardPanels = (LinkedList<Integer>)in.readObject();
 				 in.close();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
