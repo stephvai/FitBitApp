@@ -49,10 +49,10 @@ public class APIData {
   private HRZone cardio;
   private HRZone peak;
   //Time Series Data
-  LinkedList<TimeSeriesNode> hrTimeSeries;
-  LinkedList<TimeSeriesNode> stepsTimeSeries;
-  LinkedList<TimeSeriesNode> caloriesTimeSeries;
-  LinkedList<TimeSeriesNode> distanceTimeSeries;
+  private LinkedList<TimeSeriesNode> hrTimeSeries;
+  private LinkedList<TimeSeriesNode> stepsTimeSeries;
+  private LinkedList<TimeSeriesNode> caloriesTimeSeries;
+  private LinkedList<TimeSeriesNode> distanceTimeSeries;
   
   //Instance variables used when getting data from APIData
   private static String CALL_BACK_URI="http://localhost:8080";
@@ -286,6 +286,7 @@ public class APIData {
         	JSONObject obj = new JSONObject(response.getBody());
         	parseCaloriesTimeSeries(obj);
         	
+        	
         }  
         else {
         	return false;
@@ -469,7 +470,7 @@ public class APIData {
 	  bestSteps = bestDays.getJSONObject("steps").getInt("value");
   }
   
-  private void parseHeartRateZones(JSONObject obj) {
+  protected void parseHeartRateZones(JSONObject obj) {
 	  JSONObject value = obj.getJSONArray("activities-heart").getJSONObject(0).getJSONObject("value");
 	  restingHeartRate = value.getInt("restingHeartRate");
 	  JSONArray heartRateZones = value.getJSONArray("heartRateZones");

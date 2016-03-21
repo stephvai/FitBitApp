@@ -68,6 +68,7 @@ public class MainScreen extends JFrame implements Serializable {
 	//Color Scheme 
 	private Color bgColor = Color.darkGray;
 	private Color pannelColor = new Color(168,219,168);
+	private Color pannelHoverColor = new Color(188, 240, 188);
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
@@ -220,6 +221,7 @@ public class MainScreen extends JFrame implements Serializable {
 				 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 					 imgEdit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
@@ -433,10 +435,12 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlSteps.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlSteps.setBackground(pannelHoverColor);
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlSteps.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlSteps.setBackground(pannelColor);
 	    		 }
 	    	 });
 	    	 //set the layout to absolute
@@ -494,10 +498,13 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlStairs.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlStairs.setBackground(pannelHoverColor);
+
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlStairs.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlStairs.setBackground(pannelColor);
 	    		 }
 	    	 });
 	    	 contentPane.add(pnlStairs);
@@ -554,10 +561,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlCalories.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlCalories.setBackground(pannelHoverColor);
+
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlCalories.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlCalories.setBackground(pannelColor);
+
 	    		 }
 	    	 });
 			 contentPane.add(pnlCalories);
@@ -613,10 +624,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlDistance.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlDistance.setBackground(pannelHoverColor);
+
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlDistance.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlDistance.setBackground(pannelColor);
+
 	    		 }
 	    	 });
 			 contentPane.add(pnlDistance);
@@ -671,10 +686,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlActiveMin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlActiveMin.setBackground(pannelHoverColor);
+
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlActiveMin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlActiveMin.setBackground(pannelColor);
+
 	    		 }
 	    	 });
 			 contentPane.add(pnlActiveMin);
@@ -719,10 +738,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlSedentaryMin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlSedentaryMin.setBackground(pannelHoverColor);
+
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlSedentaryMin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlSedentaryMin.setBackground(pannelColor);
+
 	    		 }
 	    	 });
 			 contentPane.add(pnlSedentaryMin);
@@ -767,10 +790,13 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlAccolades.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlAccolades.setBackground(pannelHoverColor);
+
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlAccolades.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlAccolades.setBackground(pannelColor);
 	    		 }
 	    	 });
 			 contentPane.add(pnlAccolades);
@@ -806,10 +832,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlHeartRate.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlHeartRate.setBackground(pannelHoverColor);
+
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlHeartRate.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlHeartRate.setBackground(pannelColor);
+
 	    		 }
 	    	 });
 			 contentPane.add(pnlHeartRate);
@@ -845,10 +875,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    		        pnlGoals.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		        pnlGoals.setBackground(pannelHoverColor);
+
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    		        pnlGoals.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		        pnlGoals.setBackground(pannelColor);
+
 	    		 }
 	    	 });
 			 
