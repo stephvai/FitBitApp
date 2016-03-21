@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+
 /**
  * a main screen class to act as the daily dash board for users, this is the first screen to launch
  *
@@ -113,6 +114,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 this.setLocationRelativeTo(null);
 	    	 this.setResizable(false);
 	    	 contentPane = new JPanel();
+	    	 
 	    	 contentPane.setBorder(new EmptyBorder(5, 0, 5, 0));
 	    	 this.setContentPane(contentPane);
 	    	 contentPane.setLayout(null);
@@ -169,7 +171,20 @@ public class MainScreen extends JFrame implements Serializable {
 			 lblDataUpdate.setForeground(white);
 			 lblDataUpdate.setBounds(51, 660, 923, 37);
 			 contentPane.add(lblDataUpdate);
-
+			 
+			 /*-------------------------------------*
+			  * label to show legal disclaimer
+			  *-------------------------------------*/
+			 JLabel legalLabel = new JLabel("Designed for use with the FITBIT® platform");
+			 legalLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			 legalLabel.setForeground(white);
+			 legalLabel.setBounds(51,680, 923,37);
+			 contentPane.add(legalLabel);
+			 
+			 /*------------------------------------*
+			  * Legal information button
+			  *------------------------------------*/
+			 //JButton legalButton = new JButton();
 
 			 goalTracker = new GoalTracker(apiData);
 			 goalTracker.updateProgress();
