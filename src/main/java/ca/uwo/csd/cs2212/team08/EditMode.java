@@ -1,6 +1,7 @@
 package ca.uwo.csd.cs2212.team08;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -27,16 +28,24 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 
+/**
+ * An editor class that allows users to select which dash board panels they want to be displayed
+ *
+ */
 public class EditMode extends JFrame {
 
+	//a content pane for the editor page
 	private JPanel contentPane;
+	//store the current API data
 	private APIData apiData;
+	//store the current date value
 	private String date;
+	//stores a linked list that contains integers representing each dash board panel
 	public LinkedList<Integer> dashboardPanels;
 	//constants to store the picture locations
 	private static final String backImage = "src/main/resources/images/arrowLeft4.png";
 	
-	
+	//a button for each of the dash board panels
 	public JRadioButton btnSteps;
 	private JRadioButton btnFloorsClimbed;
 	private JRadioButton btnCalories;
@@ -47,6 +56,7 @@ public class EditMode extends JFrame {
 	private JRadioButton btnHeartRate;
 	private JRadioButton btnGoals;
 	
+	//constants for each dashboard panel
 	private final int steps = 0;
 	private final int stairs = 1;
 	private final int calories = 2;
@@ -56,6 +66,10 @@ public class EditMode extends JFrame {
 	private final int accolades = 6;
 	private final int heartRate = 7;
 	private final int goals = 8;
+	
+	//constants to store all the colors
+	private Color bgColor = Color.darkGray;
+	private Color white = Color.white;
 	
 	/**
 	 * Create the frame.
@@ -70,6 +84,7 @@ public class EditMode extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		contentPane.setBackground(bgColor);
 		//contentPane.setBackground(bgColor);
 		date = paramDate;
 		apiData = paramAPIData;
@@ -82,6 +97,7 @@ public class EditMode extends JFrame {
 		lblTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 50));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(80, 21, 837, 84);
+		lblTitle.setForeground(white);
 		contentPane.add(lblTitle);
 		//lblTitle.setForeground(white);
 		
@@ -114,11 +130,18 @@ public class EditMode extends JFrame {
 		
 		
 		JLabel lblSelectWhichPanels = new JLabel("<html>Select which Panels you want to display on the dashboard </html>");
-		lblSelectWhichPanels.setBounds(21, 126, 298, 84);
+		lblSelectWhichPanels.setBounds(41, 124, 337, 84);
+		lblSelectWhichPanels.setForeground(white);
+		lblSelectWhichPanels.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		contentPane.add(lblSelectWhichPanels);
 		
+		
+		
 		btnSteps = new JRadioButton("Steps");
-		btnSteps.setBounds(41, 225, 201, 35);
+		btnSteps.setBounds(41, 225, 960, 35);
+		btnSteps.setForeground(white);
+		btnSteps.setBackground(bgColor);
+		btnSteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		contentPane.add(btnSteps);
 		btnSteps.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -142,7 +165,10 @@ public class EditMode extends JFrame {
         });
  
 		btnFloorsClimbed = new JRadioButton("Floors Climbed");
-		btnFloorsClimbed.setBounds(41, 275, 201, 35);
+		btnFloorsClimbed.setBounds(41, 275, 960, 35);
+		btnFloorsClimbed.setForeground(white);
+		btnFloorsClimbed.setBackground(bgColor);
+		btnFloorsClimbed.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		contentPane.add(btnFloorsClimbed);
 		btnFloorsClimbed.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -168,7 +194,10 @@ public class EditMode extends JFrame {
 		
 		
 		btnCalories = new JRadioButton("Calories Burned");
-		btnCalories.setBounds(41, 325, 201, 35);
+		btnCalories.setBounds(41, 325, 960, 35);
+		btnCalories.setForeground(white);
+		btnCalories.setBackground(bgColor);
+		btnCalories.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		contentPane.add(btnCalories);
 		btnCalories.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -194,7 +223,10 @@ public class EditMode extends JFrame {
 		
 		
 		btnDistance = new JRadioButton("Distance Traveled");
-		btnDistance.setBounds(41, 375, 201, 35);
+		btnDistance.setBounds(41, 375, 960, 35);
+		btnDistance.setForeground(white);
+		btnDistance.setBackground(bgColor);
+		btnDistance.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		contentPane.add(btnDistance);
 		btnDistance.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -219,7 +251,10 @@ public class EditMode extends JFrame {
 		
 		
 		btnActive = new JRadioButton("Active Minutes");
-		btnActive.setBounds(41, 425, 201, 35);
+		btnActive.setBounds(41, 425, 960, 35);
+		btnActive.setForeground(white);
+		btnActive.setBackground(bgColor);
+		btnActive.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		contentPane.add(btnActive);
 		btnActive.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -244,7 +279,10 @@ public class EditMode extends JFrame {
 		
 		
 		btnSedentary = new JRadioButton("Sedentary Minutes");
-		btnSedentary.setBounds(41, 475, 201, 35);
+		btnSedentary.setBounds(41, 475, 960, 35);
+		btnSedentary.setForeground(white);
+		btnSedentary.setBackground(bgColor);
+		btnSedentary.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		contentPane.add(btnSedentary);
 		btnSedentary.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -269,7 +307,10 @@ public class EditMode extends JFrame {
 		
 		
 		btnAccolades = new JRadioButton("Acheivements");
-		btnAccolades.setBounds(41, 525, 201, 35);
+		btnAccolades.setBounds(41, 525, 960, 35);
+		btnAccolades.setForeground(white);
+		btnAccolades.setBackground(bgColor);
+		btnAccolades.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		contentPane.add(btnAccolades);
 		btnAccolades.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -294,7 +335,10 @@ public class EditMode extends JFrame {
 		
 		
 		btnHeartRate = new JRadioButton("Heart Rate Zones");
-		btnHeartRate.setBounds(41, 575, 201, 35);
+		btnHeartRate.setBounds(41, 575, 960, 35);
+		btnHeartRate.setForeground(white);
+		btnHeartRate.setBackground(bgColor);
+		btnHeartRate.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		contentPane.add(btnHeartRate);
 		btnHeartRate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -319,7 +363,10 @@ public class EditMode extends JFrame {
 		
 		
 		btnGoals = new JRadioButton("Daily Goals");
-		btnGoals.setBounds(41, 625, 201, 35);
+		btnGoals.setBounds(41, 625, 960, 35);
+		btnGoals.setForeground(white);
+		btnGoals.setBackground(bgColor);
+		btnGoals.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		contentPane.add(btnGoals);
 		btnGoals.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
