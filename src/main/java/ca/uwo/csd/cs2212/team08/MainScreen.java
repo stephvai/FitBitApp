@@ -269,8 +269,8 @@ public class MainScreen extends JFrame {
 	    	 JProgressBar stepsProgress = new JProgressBar();
 	    	 //this will be switched with a ratio between the daily goal and the current steps
 	    	 stepsProgress.setValue((int)goalTracker.getStepsProgress());
-			 System.out.println(goalTracker.getStepsProgress());
-			 System.out.println((int)goalTracker.getStepsProgress());
+			// System.out.println(goalTracker.getStepsProgress());
+			// System.out.println((int)goalTracker.getStepsProgress());
 
 	    	 stepsProgress.setToolTipText("Current progress towards your goal");
 	    	 stepsProgress.setForeground(new Color(51, 153, 255));
@@ -333,7 +333,7 @@ public class MainScreen extends JFrame {
 
 	    	 
 			 JProgressBar stairsProgress = new JProgressBar();
-
+			 stairsProgress.setValue((int)goalTracker.getFloorsClimbedProgress());
 			 stairsProgress.setToolTipText("Current progress towards your goal");
 			 stairsProgress.setForeground(SystemColor.textHighlight);
 			 stairsProgress.setBounds(17, 113, 231, 36);
@@ -388,6 +388,7 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 			 JProgressBar caloriesProgress = new JProgressBar();
 			// caloriesProgress.setValue(Integer.parseInt(caloriesGoal.getGoal(GoalsEnum.calorieBurned)));
+			 caloriesProgress.setValue((int)goalTracker.getCaloriesProgress());
 			 caloriesProgress.setToolTipText("Current progress towards your goal");
 			 caloriesProgress.setForeground(SystemColor.textHighlight);
 			 caloriesProgress.setBounds(21, 110, 210, 36);
@@ -441,7 +442,7 @@ public class MainScreen extends JFrame {
 			 
 	    	 
 			 JProgressBar distanceProgress = new JProgressBar();
-			// distanceProgress.setValue(Integer.parseInt(distanceGoal.getGoal(GoalsEnum.distance)));
+			 distanceProgress.setValue((int)goalTracker.getDistanceProgress());
 			 distanceProgress.setToolTipText("Current progress towards your goal");
 			 distanceProgress.setForeground(SystemColor.textHighlight);
 			 distanceProgress.setBounds(21,110,210,36);
@@ -504,7 +505,7 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 			 
 			 JProgressBar activeMinutesProgress = new JProgressBar();
-			// activeMinutesProgress.setValue(Integer.parseInt(activeMinutesGoal.getGoal(GoalsEnum.veryActiveMinutes)));
+			 activeMinutesProgress.setValue((int)goalTracker.getVeryActiveMinutesProgress());
 			 activeMinutesProgress.setToolTipText("Current progress towards your goal");
 			 activeMinutesProgress.setForeground(SystemColor.textHighlight);
 			 activeMinutesProgress.setBounds(21, 110, 210, 36);

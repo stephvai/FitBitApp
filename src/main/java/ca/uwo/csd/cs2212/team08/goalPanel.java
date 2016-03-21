@@ -26,8 +26,8 @@ public class goalPanel extends JFrame {
 	private Color white = Color.white;
 	private static final String backImage = "src/main/resources/images/arrowLeft4.png";
 	private String date;
-
 	private GoalTracker goalTracker;
+	private APIData paramAPIData;
 
 
 	/**
@@ -46,6 +46,7 @@ public class goalPanel extends JFrame {
 		/*	-----------------------------------------*/
 		setResizable(false);
 		this.date = date;
+		this.paramAPIData = paramAPIData;
 		setTitle("team08-Fitbit");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024,768);
@@ -323,7 +324,7 @@ public class goalPanel extends JFrame {
 
 	public void home()
 	{
-		MainScreen main = new MainScreen(this.date, apiData);
+		MainScreen main = new MainScreen(this.date, paramAPIData);
 		main.setVisible(true);
 	}
 }
