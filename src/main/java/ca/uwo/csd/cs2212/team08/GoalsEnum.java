@@ -5,6 +5,6 @@ public enum GoalsEnum {
 	distance,
 	calorieBurned,
 	floorsClimbed,
-	sedentaryMinutes
+	veryActiveMinutes
 	
 }
