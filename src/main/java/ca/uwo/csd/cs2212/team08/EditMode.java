@@ -1,6 +1,7 @@
 package ca.uwo.csd.cs2212.team08;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -87,7 +88,7 @@ public class EditMode extends JFrame {
 		/*	-----------------------------------------*/
 		//create a back button to return to dash board
 		/*	-----------------------------------------*/
-		JLabel imgBack = new JLabel();
+		final JLabel imgBack = new JLabel();
 		imgBack.setIcon(new ImageIcon(backImage));
 		imgBack.setBounds(0, 0, 48, 48);
 		imgBack.addMouseListener(new MouseAdapter() {
@@ -98,6 +99,15 @@ public class EditMode extends JFrame {
 				home();
 				dispose();
 			}
+			
+			@Override
+   		 	public void mouseEntered(MouseEvent e) {
+				imgBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+   		 	@Override
+   		 	public void mouseExited(MouseEvent e) {
+   		 	imgBack.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+   		 	}
 		});
 		contentPane.add(imgBack);
 		deSerialize();

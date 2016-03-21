@@ -142,6 +142,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 datePicker.setBounds(385, 69, 225, 27);
 			 contentPane.add(datePicker);
 			 datePicker.setBackground(Color.WHITE);
+
 			 
 			 
 			/*-------------------------------------*/
@@ -157,12 +158,13 @@ public class MainScreen extends JFrame implements Serializable {
 			 /*------------------------------------------*/
 			 //create a refresh button to refresh the data
 			 /*------------------------------------------*/
-			 JLabel imgRefresh = new JLabel();
+			 final JLabel imgRefresh = new JLabel();
 			 imgRefresh.setIcon(new ImageIcon(picRefresh));
 			 imgRefresh.setBounds(613, 63, 36, 36);
 			 imgRefresh.addMouseListener(new MouseAdapter() {
 				 @Override
 				 public void mouseClicked(MouseEvent arg0) {
+					 imgRefresh.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 					 //what to do on button click
 					 lblDataUpdate.setText("refreshing...");
 					 //lblDataUpdate.repaint();
@@ -172,7 +174,16 @@ public class MainScreen extends JFrame implements Serializable {
 			    	 }
 					 contentPane.repaint();
 					 initUI(date, apiData);
+					 imgRefresh.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				 }
+				 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+					 imgRefresh.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 imgRefresh.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		 }
 			 });
 			 contentPane.add(imgRefresh);
 
@@ -195,7 +206,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 /*------------------------------------------*/
 			 
 			 headerPanel.setLayout(null);
-			 JLabel imgEdit = new JLabel();
+			 final JLabel imgEdit = new JLabel();
 			 imgEdit.setIcon(new ImageIcon(picEdit));
 			 imgEdit.setBounds(966, 5, 48, 48);
 			 imgEdit.addMouseListener(new MouseAdapter() {
@@ -206,6 +217,14 @@ public class MainScreen extends JFrame implements Serializable {
 					 edit.setVisible(true);
 					 dispose();
 				 }
+				 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+					 imgEdit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 imgEdit.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		 }
 			 });
 			 headerPanel.add(imgEdit);
 			 //contentPane.add(imgEdit);
@@ -411,6 +430,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    			 steps.setVisible(true);
 	    			 dispose();
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlSteps.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlSteps.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		 }
 	    	 });
 	    	 //set the layout to absolute
 	    	 pnlSteps.setLayout(null);
@@ -464,6 +491,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    			 stairs.setVisible(true);
 	    			 dispose();
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlStairs.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlStairs.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		 }
 	    	 });
 	    	 contentPane.add(pnlStairs);
 
@@ -516,6 +551,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    			 calories.setVisible(true);
 	    			 dispose();
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlCalories.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlCalories.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		 }
 	    	 });
 			 contentPane.add(pnlCalories);
 
@@ -567,6 +610,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    			 distance.setVisible(true);
 	    			 dispose();
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlDistance.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlDistance.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		 }
 	    	 });
 			 contentPane.add(pnlDistance);
 			 
@@ -617,6 +668,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    			 //what to do on button click
 	    			 
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlActiveMin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlActiveMin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		 }
 	    	 });
 			 contentPane.add(pnlActiveMin);
 			 
@@ -656,6 +715,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
 	    			 
+	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlSedentaryMin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlSedentaryMin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	    		 }
 	    	 });
 			 contentPane.add(pnlSedentaryMin);
@@ -697,6 +764,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    			 //what to do on button click
 	    			 
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlAccolades.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlAccolades.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		 }
 	    	 });
 			 contentPane.add(pnlAccolades);
 			 
@@ -727,6 +802,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
 	    			 
+	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlHeartRate.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlHeartRate.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	    		 }
 	    	 });
 			 contentPane.add(pnlHeartRate);
@@ -759,7 +842,16 @@ public class MainScreen extends JFrame implements Serializable {
 	    			 //what to do on button click
 	    			 
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    		        pnlGoals.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    		        pnlGoals.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		 }
 	    	 });
+			 
 			 contentPane.add(pnlGoals);
 			 
 			 /*------------------------------------------*/

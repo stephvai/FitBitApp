@@ -66,7 +66,7 @@ public class StairsPanel extends JFrame {
 		/*	-----------------------------------------*/
 		//create a back button to return to dash board
 		/*	-----------------------------------------*/
-		JLabel imgBack = new JLabel();
+		final JLabel imgBack = new JLabel();
 		imgBack.setIcon(new ImageIcon(backImage));
 		imgBack.setBounds(0, 0, 48, 48);
 		imgBack.addMouseListener(new MouseAdapter() {
@@ -76,6 +76,15 @@ public class StairsPanel extends JFrame {
 				home();
 				dispose();
 			}
+			
+			@Override
+   		 	public void mouseEntered(MouseEvent e) {
+				imgBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+   		 	@Override
+   		 	public void mouseExited(MouseEvent e) {
+   		 	imgBack.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+   		 	}
 		});
 		contentPane.add(imgBack);
 
