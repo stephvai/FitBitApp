@@ -72,7 +72,7 @@ public class DistancePanel extends JFrame {
 		/*	-----------------------------------------*/
 		//create a back button to return to dash board
 		/*	-----------------------------------------*/
-		JLabel imgBack = new JLabel();
+		final JLabel imgBack = new JLabel();
 		imgBack.setIcon(new ImageIcon(backImage));
 		imgBack.setBounds(0, 0, 48, 48);
 		imgBack.addMouseListener(new MouseAdapter() {
@@ -82,32 +82,24 @@ public class DistancePanel extends JFrame {
 				home();
 				dispose();
 			}
+			
+			@Override
+   		 	public void mouseEntered(MouseEvent e) {
+				imgBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+   		 	@Override
+   		 	public void mouseExited(MouseEvent e) {
+   		 	imgBack.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+   		 	}
 		});
 		contentPane.add(imgBack);
 
 
-		/*	-----------------------------------------*/
-		//create a tabbed pane to store the graphs
-		/*	-----------------------------------------*/
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(80, 409, 837, 239);
+		LGraph lineGraph = new LGraph("Distance Traveled", "Distance",apiData.getDistanceTimeSeries());
 
-		//create a panel for the Lifetime progress
-		JPanel pnlLifetime = new JPanel();
-		tabbedPane.addTab("lifetime Progress", pnlLifetime);
+		lineGraph.setBounds(80, 409, 837, 239);
 
-		JPanel pnlToday4 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday4);
-
-
-		//create a panel for the Lifetime progress
-		JPanel pnlToday3 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday3);
-
-		JPanel pnlToday5 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday5);
-
-		contentPane.add(tabbedPane);
+		contentPane.add(lineGraph);
 
 		/*--------------------------------------------*/
 		//create a panel to display Distance information for today
@@ -122,7 +114,7 @@ public class DistancePanel extends JFrame {
 		/*--------------------------------------------*/
 		//add a label to display the Distance for today
 		/*--------------------------------------------*/
-		JLabel lblDailyValue = new JLabel("<html> Today you traveled "+ apiData.getDistance() +"km. </html>");
+		JLabel lblDailyValue = new JLabel("<html> Today you traveled <strong>"+ apiData.getDistance() +"km. </strong> </html>");
 		lblDailyValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblDailyValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDailyValue.setBounds(21, 21, 198, 182);
@@ -141,7 +133,7 @@ public class DistancePanel extends JFrame {
 		/*--------------------------------------------*/
 		//add a label to display the distance lifetime total
 		/*--------------------------------------------*/
-		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have traveled "+ apiData.getTotalDistance()+"km. </html>");
+		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have traveled <strong>"+ apiData.getTotalDistance()+"km. </strong> </html>");
 		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLifetimeTotal.setBounds(21, 31, 198, 182);
@@ -160,7 +152,7 @@ public class DistancePanel extends JFrame {
 		/*--------------------------------------------*/
 		//add a label to display the distance for the best days
 		/*--------------------------------------------*/
-		JLabel lblBestDay = new JLabel("<html> On your best day you traveled "+ apiData.getBestDistance()+"km. </html>");
+		JLabel lblBestDay = new JLabel("<html> On your best day you traveled <strong>"+ apiData.getBestDistance()+"km. </strong> </html>");
 		lblBestDay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblBestDay.setBounds(21, 21, 198, 182);

@@ -5,19 +5,33 @@ import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.awt.Label;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * a main screen class to act as the daily dash board for users, this is the first screen to launch
  *
  */
-public class MainScreen extends JFrame {
+public class MainScreen extends JFrame implements Serializable {
 	
 	//a content pane to store all the components
 	private JPanel contentPane;
@@ -27,14 +41,40 @@ public class MainScreen extends JFrame {
 	private JDatePickerImpl datePicker;
 	//constants to store the picture locations
 	private static final String picRefresh = "src/main/resources/images/refresh.png";
+	private static final String picEdit = "src/main/resources/images/EditMode.png";
 	//use to get the API information
 	private APIData apiData;
 
+
 	private GoalTracker goalTracker;
+
+	//create a linked list for each dash board panel
+	private LinkedList<Integer> dashboardPanels;
+	private DashBoardPanel pnlSteps;
+	private DashBoardPanel pnlStairs;
+	private DashBoardPanel pnlCalories;
+	private DashBoardPanel pnlDistance;
+	private DashBoardPanel pnlActiveMin;
+	private DashBoardPanel pnlSedentaryMin;
+	private DashBoardPanel pnlAccolades;
+	private DashBoardPanel pnlHeartRate;
+	private DashBoardPanel pnlGoals;
+	
+	private final int Steps = 0;
+	private final int Stairs = 1;
+	private final int Calories = 2;
+	private final int Distance = 3;
+	private final int ActiveMin = 4;
+	private final int SedentaryMin = 5;
+	private final int Accolades = 6;
+	private final int HeartRate = 7;
+	private final int Goals = 8;
+
 	
 	//Color Scheme 
 	private Color bgColor = Color.darkGray;
 	private Color pannelColor = new Color(168,219,168);
+	private Color pannelHoverColor = new Color(188, 240, 188);
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
@@ -118,7 +158,6 @@ public class MainScreen extends JFrame {
 			 datePicker.setBounds(385, 69, 225, 27);
 			 contentPane.add(datePicker);
 			 datePicker.setBackground(Color.WHITE);
-			 
 
 			 
 			/*-------------------------------------*/
@@ -130,6 +169,7 @@ public class MainScreen extends JFrame {
 			 lblDataUpdate.setForeground(white);
 			 lblDataUpdate.setBounds(51, 660, 923, 37);
 			 contentPane.add(lblDataUpdate);
+
 
 			 goalTracker = new GoalTracker(apiData);
 			 goalTracker.updateProgress();
@@ -150,32 +190,179 @@ public class MainScreen extends JFrame {
 			 /*------------------------------------------*/
 			 //create a refresh button to refresh the data
 			 /*------------------------------------------*/
-			 JLabel imgRefresh = new JLabel();
+			 final JLabel imgRefresh = new JLabel();
 			 imgRefresh.setIcon(new ImageIcon(picRefresh));
 			 imgRefresh.setBounds(613, 63, 36, 36);
 			 imgRefresh.addMouseListener(new MouseAdapter() {
 				 @Override
 				 public void mouseClicked(MouseEvent arg0) {
+					 imgRefresh.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 					 //what to do on button click
 					 lblDataUpdate.setText("refreshing...");
+					 //lblDataUpdate.repaint();
 					 updateDate();
-					 if (!apiData.refreshDailyDashBoardData(date)) {
+					 if(!apiData.refreshDailyDashBoardData(date)) {
 			    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
 			    	 }
+
 					 try {
 						initUI(date, apiData);
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+
 					 contentPane.repaint();
+					 try {
+						initUI(date, apiData);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					 imgRefresh.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				 }
+				 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+					 imgRefresh.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 imgRefresh.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		 }
 			 });
 
 
 
 			 contentPane.add(imgRefresh);
 
+			 
+			 /*------------------------------------------*/
+			 //create each panel used for the daily dash board
+			 /*------------------------------------------*/
+			 stepsPanel();
+			 stairsPanel();
+			 caloriesPanel();
+			 distancePanel();
+			 activeMinutesPanel();
+			 sedentaryMinutesPanel();
+			 accoladesPanel();
+			 heartRatePanel();
+			 goalsPanel();
+			 
+			 /*------------------------------------------*/
+			 //create a panel to customize the dash board
+			 /*------------------------------------------*/
+			 
+			 headerPanel.setLayout(null);
+			 final JLabel imgEdit = new JLabel();
+			 imgEdit.setIcon(new ImageIcon(picEdit));
+			 imgEdit.setBounds(966, 5, 48, 48);
+			 imgEdit.addMouseListener(new MouseAdapter() {
+				 @Override
+				 public void mouseClicked(MouseEvent arg0) {
+					 //what to do on button click
+					 EditMode edit = new EditMode(date, apiData);
+					 edit.setVisible(true);
+					 dispose();
+				 }
+				 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+					 imgEdit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 imgEdit.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		 }
+			 });
+			 headerPanel.add(imgEdit);
+			 //contentPane.add(imgEdit);
+
+			 //put steps last
+			 dashboardPanels = new LinkedList<Integer>();
+			 deSerialize();
+			 if(this.dashboardPanels.isEmpty())
+			 {
+				 dashboardPanels.add(Steps);
+				 dashboardPanels.add(Stairs);
+				 dashboardPanels.add(Calories);
+				 dashboardPanels.add(Distance);
+				 dashboardPanels.add(ActiveMin);
+				 dashboardPanels.add(SedentaryMin);
+				 dashboardPanels.add(Accolades);
+				 dashboardPanels.add(HeartRate);
+				 dashboardPanels.add(Goals);
+				 serialize();
+			 }
+			 int x =65;
+			 int y =100;
+			 Iterator<Integer> iter = dashboardPanels.iterator();
+			 DashBoardPanel tempPanel;
+			 while(iter.hasNext())
+			 {
+				 int temp = iter.next();
+				 if(temp == 0)
+					{
+						pnlSteps.setLocation(x, y);
+						pnlSteps.setVisible(true);
+					}
+					else if(temp == 1)
+					{
+						pnlStairs.setLocation(x, y);
+						pnlStairs.setVisible(true);
+					}
+					else if(temp == 2)
+					{
+						pnlCalories.setLocation(x, y);
+						pnlCalories.setVisible(true);
+					}
+					else if(temp == 3)
+					{
+						pnlDistance.setLocation(x, y);
+						pnlDistance.setVisible(true);
+					}
+					else if(temp == 4)
+					{
+						pnlActiveMin.setLocation(x, y);
+						pnlActiveMin.setVisible(true);
+					}
+					else if(temp == 5)
+					{
+						pnlSedentaryMin.setLocation(x, y);
+						pnlSedentaryMin.setVisible(true);
+					}
+					else if(temp == 6)
+					{
+						pnlAccolades.setLocation(x, y);
+						pnlAccolades.setVisible(true);
+					}
+					else if(temp == 7)
+					{
+						pnlHeartRate.setLocation(x, y);
+						pnlHeartRate.setVisible(true);
+					}
+					else if(temp == 8)
+					{
+						pnlGoals.setLocation(x, y);
+						pnlGoals.setVisible(true);
+					}
+					
+				 //iter.next().setLocation(x, y);
+				 //DashBoardPanel temp = iter.next();
+				 //temp.setLocation(x, y);
+				 //System.out.println(temp.getName());
+				 //System.out.println(dashboardPanels.toString());
+				 x = x + 308;
+				 if(x >= 974)
+				 {
+					 y = y + 200;
+					 x = 65;
+				 }
+				 if(y >= 656)
+				 {
+					 y = 100;
+				 }
+			 }
 	     }
 
 	     /**
@@ -185,6 +372,8 @@ public class MainScreen extends JFrame {
 	     {
 	    	 //get the new date from the JDatePicker
 	    	 String tempDate = datePicker.getJFormattedTextField().getText();
+	    	 //datePicker.getJFormattedTextField().get
+	    	 
 	    	 if(tempDate.equals("") || tempDate.equals(null))
 	    	 {
 	    		 return;
@@ -236,17 +425,52 @@ public class MainScreen extends JFrame {
 	    	 //set the year
 	    	 String year = dateArray[2];
 	    	 //save the date all in one string
-	    	 this.date = year+"-"+month+"-"+day;
+	    	 String temp = year+"-"+month+"-"+day;
+	    	 //this.date = year+"-"+month+"-"+day;
+	    	 try {
+	    		 java.util.Date chosenDate = new SimpleDateFormat("yyy-MM-dd").parse(temp);
+	    		 Calendar cal = Calendar.getInstance();
+	    		 if(cal.getTime().compareTo(chosenDate)<0)
+	    		 {
+	    			 JOptionPane.showMessageDialog(contentPane, "That is not a valid date");
+	    			 return;
+	    			 /*cal = Calendar.getInstance();
+	    			 int yearTemp = cal.get(Calendar.YEAR);
+	    			 int monthTemp = cal.get(Calendar.MONTH)+1;
+	    			 int dayTemp = cal.get(Calendar.DAY_OF_MONTH);
+	    			 //add an extra zero to the month if it is needed
+	    			 String monthString;
+	    			 if (monthTemp<10)
+	    			 {
+	    					monthString = "0" + Integer.toString(monthTemp);
+	    				}
+	    				else
+	    				{
+	    					monthString = Integer.toString(monthTemp); 
+	    				}
+	    				//save the date to a string
+	    				this.date = Integer.toString(yearTemp) +  "-" + monthString + "-" + Integer.toString(dayTemp);
+	    				JOptionPane.showMessageDialog(contentPane, "That is not a valid date");*/
+	    		 }
+	    		 else{
+	    			 this.date = temp;
+	    		 }
+	    	 } catch (ParseException e) {
+	    		 // TODO Auto-generated catch block
+	    		 JOptionPane.showMessageDialog(contentPane, "Invalid date format.");
+			}
+	    	 
 	     }
-	     
+	   
 	     /**
 	      * creates the panel to display the steps taken
 	      */
 	     private void stepsPanel() throws ClassNotFoundException
 		 {
 			//creates a new steps panel
-	    	 DashBoardPanel pnlSteps = new DashBoardPanel(50, 191);
-	    	 pnlSteps.setLocation(51, 99);
+	    	 pnlSteps = new DashBoardPanel(50, 191);
+	    	 //pnlSteps.setLocation(51, 99);
+	    	 pnlSteps.setVisible(false);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -254,6 +478,16 @@ public class MainScreen extends JFrame {
 	    			 StepsPanel steps = new StepsPanel(date, apiData);
 	    			 steps.setVisible(true);
 	    			 dispose();
+	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlSteps.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlSteps.setBackground(pannelHoverColor);
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlSteps.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlSteps.setBackground(pannelColor);
 	    		 }
 	    	 });
 	    
@@ -281,10 +515,10 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 	    	 //create a label to display the steps
 	    	 /*------------------------------------------*/
-	    	 JLabel lblSteps = new JLabel(Float.toString(apiData.getSteps()));
+	    	 JLabel lblSteps = new JLabel(Integer.toString((int)apiData.getSteps()));
 	    	 lblSteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
-	    	 lblSteps.setBounds(0, 10, 265, 33);
+	    	 lblSteps.setBounds(0, 21, 265, 33);
 	    	 pnlSteps.add(lblSteps);
 
 	    	 /*------------------------------------------*/
@@ -303,11 +537,12 @@ public class MainScreen extends JFrame {
 	      */
 	     private void stairsPanel() throws ClassNotFoundException
 	     {
-	    	 DashBoardPanel StairsPanel = new DashBoardPanel(413, 191);
-	    	 StairsPanel.setLocation(385, 99);
-	    	 StairsPanel.setToolTipText("click here to see more information!");
-	    	 StairsPanel.setLayout(null);
-	    	 StairsPanel.addMouseListener(new MouseAdapter() {
+
+	    	 pnlStairs = new DashBoardPanel(413, 191);
+	    	 //pnlStairs.setLocation(385, 99);
+	    	 pnlStairs.setLayout(null);
+	    	 pnlStairs.setVisible(false);
+	    	 pnlStairs.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
@@ -315,8 +550,19 @@ public class MainScreen extends JFrame {
 	    			 stairs.setVisible(true);
 	    			 dispose();
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlStairs.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlStairs.setBackground(pannelHoverColor);
+
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlStairs.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlStairs.setBackground(pannelColor);
+	    		 }
 	    	 });
-	    	 contentPane.add(StairsPanel);
+	    	 contentPane.add(pnlStairs);
 
 	    	 /*------------------------------------------*/
 	    	 //create a label to display the floors climbed title
@@ -325,7 +571,7 @@ public class MainScreen extends JFrame {
 			 lblStairs.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblStairs.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblStairs.setBounds(0, 51, 265, 38);
-			 StairsPanel.add(lblStairs);
+			 pnlStairs.add(lblStairs);
 
 			 /*------------------------------------------*/
 	    	 //create a label to display the floors climbed title
@@ -337,16 +583,16 @@ public class MainScreen extends JFrame {
 			 stairsProgress.setToolTipText("Current progress towards your goal");
 			 stairsProgress.setForeground(SystemColor.textHighlight);
 			 stairsProgress.setBounds(17, 113, 231, 36);
-			 StairsPanel.add(stairsProgress);
+			 pnlStairs.add(stairsProgress);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the floors climbed
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Float.toString(apiData.getFloorsClimbed()));
+			 JLabel label = new JLabel(Integer.toString((int)apiData.getFloorsClimbed()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 12, 265, 33);
-			 StairsPanel.add(label);
+			 pnlStairs.add(label);
 	     }
 	     
 	     /**
@@ -358,12 +604,12 @@ public class MainScreen extends JFrame {
 	    	 /*---------------------------------------*/
 			 //calories panel
 			 /*---------------------------------------*/
-	    	 
-			 DashBoardPanel caloriesBurned = new DashBoardPanel(776, 191);
-			 caloriesBurned.setLocation(709, 99);
-			 caloriesBurned.setToolTipText("click here to see more information!");
-			 caloriesBurned.setLayout(null);
-			 caloriesBurned.addMouseListener(new MouseAdapter() {
+
+			 pnlCalories = new DashBoardPanel(776, 191);
+			 //pnlCalories.setLocation(709, 99);
+			 pnlCalories.setLayout(null);
+			 pnlCalories.setVisible(false);
+			 pnlCalories.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
@@ -371,8 +617,20 @@ public class MainScreen extends JFrame {
 	    			 calories.setVisible(true);
 	    			 dispose();
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlCalories.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlCalories.setBackground(pannelHoverColor);
+
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlCalories.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlCalories.setBackground(pannelColor);
+
+	    		 }
 	    	 });
-			 contentPane.add(caloriesBurned);
+			 contentPane.add(pnlCalories);
 
 			 /*------------------------------------------*/
 	    	 //create a label to display the Calories burned title
@@ -381,7 +639,7 @@ public class MainScreen extends JFrame {
 			 lblCalories.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblCalories.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblCalories.setBounds(0,45,265,53);
-			 caloriesBurned.add(lblCalories);
+			 pnlCalories.add(lblCalories);
 
 			 /*------------------------------------------*/
 	    	 //create a label to create a new progress bar
@@ -392,16 +650,16 @@ public class MainScreen extends JFrame {
 			 caloriesProgress.setToolTipText("Current progress towards your goal");
 			 caloriesProgress.setForeground(SystemColor.textHighlight);
 			 caloriesProgress.setBounds(21, 110, 210, 36);
-			 caloriesBurned.add(caloriesProgress);
+			 pnlCalories.add(caloriesProgress);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the Calories burned
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Float.toString(apiData.getCalories()));
+			 JLabel label = new JLabel(Integer.toString((int)apiData.getCalories()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 10, 265, 33);
-			 caloriesBurned.add(label);
+			 pnlCalories.add(label);
 	     }
 	     
 	     /**
@@ -413,10 +671,11 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 	    	 //create a Distance traveled panel
 	    	 /*------------------------------------------*/
-			 DashBoardPanel distanceTraveled = new DashBoardPanel(50, 300);
-			 distanceTraveled.setLayout(null);
-			 distanceTraveled.setToolTipText("click here to see more information!");
-			 distanceTraveled.addMouseListener(new MouseAdapter() {
+
+			 pnlDistance = new DashBoardPanel(50, 300);
+			 pnlDistance.setLayout(null);
+			 pnlDistance.setVisible(false);
+			 pnlDistance.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
@@ -424,8 +683,20 @@ public class MainScreen extends JFrame {
 	    			 distance.setVisible(true);
 	    			 dispose();
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlDistance.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlDistance.setBackground(pannelHoverColor);
+
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlDistance.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlDistance.setBackground(pannelColor);
+
+	    		 }
 	    	 });
-			 contentPane.add(distanceTraveled);
+			 contentPane.add(pnlDistance);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the Distance title
@@ -434,7 +705,7 @@ public class MainScreen extends JFrame {
 			 lblDistance.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblDistance.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblDistance.setBounds(0,56,265,42);
-			 distanceTraveled.add(lblDistance);
+			 pnlDistance.add(lblDistance);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the Distance progress bar
@@ -446,16 +717,16 @@ public class MainScreen extends JFrame {
 			 distanceProgress.setToolTipText("Current progress towards your goal");
 			 distanceProgress.setForeground(SystemColor.textHighlight);
 			 distanceProgress.setBounds(21,110,210,36);
-			 distanceTraveled.add(distanceProgress);
+			 pnlDistance.add(distanceProgress);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the Distance
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Double.toString(apiData.getDistance())+"km");
+			 JLabel label = new JLabel(Float.toString(apiData.getDistance()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 10, 265, 33);
-			 distanceTraveled.add(label);
+			 pnlDistance.add(label);
 	     }
 	     
 	     /**
@@ -467,10 +738,11 @@ public class MainScreen extends JFrame {
 	    	 /*---------------------------------------*/
 			 //Active Minutes panel
 			 /*---------------------------------------*/
-			 DashBoardPanel activeMinutes = new DashBoardPanel(50, 300);
-			 activeMinutes.setBounds(385, 300, 265, 155);
-			 activeMinutes.setToolTipText("click here to see more information!");
-			 activeMinutes.addMouseListener(new MouseAdapter() {
+			 pnlActiveMin = new DashBoardPanel(50, 300);
+			 pnlActiveMin.setLayout(null);
+			 pnlActiveMin.setVisible(false);
+			 //pnlActiveMin.setBounds(385, 300, 265, 155);
+			 pnlActiveMin.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
@@ -478,9 +750,20 @@ public class MainScreen extends JFrame {
 	    			 activeMinutes.setVisible(true);
 	    			 dispose();
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlActiveMin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlActiveMin.setBackground(pannelHoverColor);
+
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlActiveMin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlActiveMin.setBackground(pannelColor);
+
+	    		 }
 	    	 });
-			 activeMinutes.setLayout(null);
-			 contentPane.add(activeMinutes);
+			 contentPane.add(pnlActiveMin);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the Active Minutes title
@@ -489,16 +772,16 @@ public class MainScreen extends JFrame {
 			 lblActiveMin.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblActiveMin.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblActiveMin.setBounds(0, 53, 265, 47);
-			 activeMinutes.add(lblActiveMin);
+			 pnlActiveMin.add(lblActiveMin);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the Active minutes
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Float.toString(apiData.getLightlyActiveMin() + apiData.getFairlyActiveMin() + apiData.getVeryActiveMin()));
+			 JLabel label = new JLabel(Integer.toString((int)apiData.getLightlyActiveMin() + (int)apiData.getFairlyActiveMin() + (int)apiData.getVeryActiveMin()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 14, 265, 33);
-			 activeMinutes.add(label);
+			 pnlActiveMin.add(label);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to create a new progress bar
@@ -509,7 +792,8 @@ public class MainScreen extends JFrame {
 			 activeMinutesProgress.setToolTipText("Current progress towards your goal");
 			 activeMinutesProgress.setForeground(SystemColor.textHighlight);
 			 activeMinutesProgress.setBounds(21, 110, 210, 36);
-			 activeMinutes.add(activeMinutesProgress);
+			 pnlActiveMin.add(activeMinutesProgress);
+			 pnlActiveMin.add(label);
 	     }
 	     
 	     /**
@@ -520,11 +804,11 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 	    	 //create the Sedentary Minutes panel
 	    	 /*------------------------------------------*/
-			 DashBoardPanel sedentaryMinutes = new DashBoardPanel(50, 300);
-			 sedentaryMinutes.setLayout(null);
-			 sedentaryMinutes.setBounds(709, 300, 265, 155);
-			 sedentaryMinutes.setToolTipText("click here to see more information!");
-			 sedentaryMinutes.addMouseListener(new MouseAdapter() {
+			 pnlSedentaryMin = new DashBoardPanel(50, 300);
+			 pnlSedentaryMin.setLayout(null);
+			 pnlSedentaryMin.setVisible(false);
+			 //pnlSedentaryMin.setBounds(709, 300, 265, 155);
+			 pnlSedentaryMin.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
@@ -532,8 +816,20 @@ public class MainScreen extends JFrame {
 	    			 sedentMinutes.setVisible(true);
 	    			 dispose();
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlSedentaryMin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlSedentaryMin.setBackground(pannelHoverColor);
+
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlSedentaryMin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlSedentaryMin.setBackground(pannelColor);
+
+	    		 }
 	    	 });
-			 contentPane.add(sedentaryMinutes);
+			 contentPane.add(pnlSedentaryMin);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the sedentary minutes title
@@ -542,16 +838,16 @@ public class MainScreen extends JFrame {
 			 lblSedentaryMin.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblSedentaryMin.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblSedentaryMin.setBounds(0, 52, 265, 50);
-			 sedentaryMinutes.add(lblSedentaryMin );
+			 pnlSedentaryMin.add(lblSedentaryMin );
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the sedentary minutes
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Float.toString(apiData.getSendentaryMinutes()));
+			 JLabel label = new JLabel(Integer.toString((int)apiData.getSendentaryMinutes()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 13, 265, 33);
-			 sedentaryMinutes.add(label);
+			 pnlSedentaryMin.add(label);
 	     }
 	     
 	     /**
@@ -562,19 +858,31 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 	    	 //create a panel for the accolades
 	    	 /*------------------------------------------*/
-			 DashBoardPanel accoladesPanel = new DashBoardPanel(50, 300);
-			 accoladesPanel.setLayout(null);
-			 accoladesPanel.setBounds(51, 501, 265, 155);
-			 accoladesPanel.setToolTipText("click here to see more information!");
-			 accoladesPanel.addMouseListener(new MouseAdapter() {
+
+			 pnlAccolades = new DashBoardPanel(50, 300);
+			 pnlAccolades.setLayout(null);
+			 pnlAccolades.setVisible(false);
+			 //pnlAccolades.setBounds(51, 501, 265, 155);
+			 pnlAccolades.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 AchievementPanel panel = new AchievementPanel(date, apiData);
 	    			 panel.setVisible(true);
 	    			 dispose();
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlAccolades.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlAccolades.setBackground(pannelHoverColor);
+
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlAccolades.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlAccolades.setBackground(pannelColor);
+	    		 }
 	    	 });
-			 contentPane.add(accoladesPanel);
+			 contentPane.add(pnlAccolades);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the accolades title
@@ -583,7 +891,7 @@ public class MainScreen extends JFrame {
 			 lblAccolades.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblAccolades.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblAccolades.setBounds(0, 56, 265, 49);
-			 accoladesPanel.add(lblAccolades);
+			 pnlAccolades.add(lblAccolades);
 	     }
 	     
 	     /**
@@ -594,11 +902,12 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 	    	 //create the heart rate panel
 	    	 /*------------------------------------------*/
-			 DashBoardPanel heartRatePanel = new DashBoardPanel(50, 300);
-			 heartRatePanel.setLayout(null);
-			 heartRatePanel.setBounds(385, 501, 265, 155);
-			 heartRatePanel.setToolTipText("click here to see more information!");
-			 heartRatePanel.addMouseListener(new MouseAdapter() {
+
+			 pnlHeartRate = new DashBoardPanel(50, 300);
+			 pnlHeartRate.setLayout(null);
+			 pnlHeartRate.setVisible(false);
+			 //pnlHeartRate.setBounds(385, 501, 265, 155);
+			 pnlHeartRate.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 HeartRateZones panel = new HeartRateZones(date,apiData);
@@ -606,8 +915,20 @@ public class MainScreen extends JFrame {
 	    			 dispose();
 	    			 
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    			 pnlHeartRate.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    			 pnlHeartRate.setBackground(pannelHoverColor);
+
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    			 pnlHeartRate.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    			 pnlHeartRate.setBackground(pannelColor);
+
+	    		 }
 	    	 });
-			 contentPane.add(heartRatePanel);
+			 contentPane.add(pnlHeartRate);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the heart rate title
@@ -616,7 +937,7 @@ public class MainScreen extends JFrame {
 			 lblHeart.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblHeart.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblHeart.setBounds(0, 50, 265, 53);
-			 heartRatePanel.add(lblHeart);
+			 pnlHeartRate.add(lblHeart);
 	     }
 	     
 	     /***
@@ -627,11 +948,11 @@ public class MainScreen extends JFrame {
 	    	 /*------------------------------------------*/
 	    	 //create the daily Goals panel
 	    	 /*------------------------------------------*/
-			 DashBoardPanel dailyGoals = new DashBoardPanel(50, 300);
-			 dailyGoals.setLayout(null);
-			 dailyGoals.setBounds(709, 501, 265, 155);
-			 dailyGoals.setToolTipText("click here to see more information!");
-			 dailyGoals.addMouseListener(new MouseAdapter() {
+			 pnlGoals = new DashBoardPanel(50, 300);
+			 pnlGoals.setLayout(null);
+			 pnlGoals.setVisible(false);
+			 //pnlGoals.setBounds(709, 501, 265, 155);
+			 pnlGoals.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 goalPanel goals = new goalPanel(date,apiData);
@@ -639,8 +960,21 @@ public class MainScreen extends JFrame {
 	    			 dispose();
 	    			 
 	    		 }
+	    		 @Override
+	    		 public void mouseEntered(MouseEvent e) {
+	    		        pnlGoals.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    		        pnlGoals.setBackground(pannelHoverColor);
+
+	    		 }
+	    		 @Override
+	    		 public void mouseExited(MouseEvent e) {
+	    		        pnlGoals.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	    		        pnlGoals.setBackground(pannelColor);
+
+	    		 }
 	    	 });
-			 contentPane.add(dailyGoals);
+			 
+			 contentPane.add(pnlGoals);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to display the daily goals title
@@ -649,9 +983,46 @@ public class MainScreen extends JFrame {
 			 lblDaily.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblDaily.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblDaily.setBounds(0, 62, 265, 41);
-			 dailyGoals.add(lblDaily);
+			 pnlGoals.add(lblDaily);
 			 
 		
+	     }
+	     
+	     private void serialize()
+	     {
+	    	 ObjectOutputStream out;
+			try {
+				out = new ObjectOutputStream(new FileOutputStream("src/main/resources/dashboardPanel.txt"));
+				 out.writeObject(dashboardPanels);
+				 out.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+	     }
+	     
+		private void deSerialize()
+	     {
+	    	 ObjectInputStream in;
+			try {
+				in = new ObjectInputStream(new FileInputStream("src/main/resources/dashboardPanel.txt"));
+				this.dashboardPanels = (LinkedList<Integer>)in.readObject();
+				 in.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
 	     }
 }
 

@@ -140,24 +140,6 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(titleGoals);
 		titleGoals.setForeground(white);
 
-		/*------------------------------------------*/
-		// create the calendar user can use to pick a date
-		/*------------------------------------------*/
-		UtilDateModel model = new UtilDateModel();
-		// set the calendar date to the one given by java
-		String[] dateArray = this.date.split("-");
-		int year = Integer.parseInt(dateArray[0]);
-		int month = Integer.parseInt(dateArray[1]);
-		int day = Integer.parseInt(dateArray[2]);
-		model.setDate(year, month - 1, day);
-		model.setSelected(true);
-		JDatePanelImpl datePanel = new JDatePanelImpl(model);
-		// create a date picker to allow the user to select the date
-		datePicker = new JDatePickerImpl(datePanel);
-		datePicker.setToolTipText("Please select the desired date");
-		datePicker.setBounds(391, 61, 225, 27);
-		contentPane.add(datePicker);
-		datePicker.setBackground(Color.WHITE);
 		/*-------------------------------------*/
 		// the label to set the last updated time
 		/*------------------------------------*/
@@ -168,28 +150,6 @@ public class AchievementPanel extends JFrame {
 		lblDataUpdate.setForeground(white);
 		lblDataUpdate.setBounds(51, 680, 923, 37);
 		contentPane.add(lblDataUpdate);
-
-		/*------------------------------------------*/
-		// create a refresh button to refresh the data
-		/*------------------------------------------*/
-		JLabel imgRefresh = new JLabel();
-		imgRefresh.setIcon(new ImageIcon(picRefresh));
-		imgRefresh.setBounds(616, 61, 36, 36);
-		imgRefresh.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// what to do on button click
-				lblDataUpdate.setText("refreshing...");
-				updateDate();
-				if (!apiData.refreshDailyDashBoardData(date)) {
-					JOptionPane
-							.showMessageDialog(contentPane,
-									"An error has occured connecting to fitbit servers, please try again later.");
-				}
-				contentPane.repaint();
-			}
-		});
-		contentPane.add(imgRefresh);
 
 		/*-----------------------------------------*/
 		// create a back button to return to dash board
