@@ -120,7 +120,7 @@ public class AchievementPanel extends JFrame {
 		/*---------------------------------------------------*
 		 * Title of the entire page
 		 *---------------------------------------------------*/
-		JLabel titleGoals = new JLabel("    Accolades  ");
+		JLabel titleGoals = new JLabel("    ACHIEVEMENTS  ");
 		titleGoals.setFont(new Font("Trebuchet MS", Font.BOLD, 50));
 		titleGoals.setHorizontalAlignment(SwingConstants.CENTER);
 		titleGoals.setBounds(78, 6, 837, 59);
@@ -153,7 +153,7 @@ public class AchievementPanel extends JFrame {
 				+ cal.getTime().toString());
 		lblDataUpdate.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDataUpdate.setForeground(white);
-		lblDataUpdate.setBounds(51, 660, 923, 37);
+		lblDataUpdate.setBounds(51, 680, 923, 37);
 		contentPane.add(lblDataUpdate);
 
 		/*------------------------------------------*/
@@ -195,13 +195,24 @@ public class AchievementPanel extends JFrame {
 			}
 		});
 		
-		/*
-		 * Labels for all the distance achievements. It will go in order of 10, 20,30,40,50 miles
-		 */
+		
+		/*----------------------------------------------------*
+		 * Title for the accolades badges
+		 *----------------------------------------------------*/
+		JLabel milesTitle = new JLabel("YOUR DISTANCE ACHIEVEMENTS");
+		milesTitle.setSize(239, 50);
+		milesTitle.setLocation(30, 81);
+		milesTitle.setForeground(white);
+		milesTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		milesTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(milesTitle);
+		/*------------------------------------------------*
+		 * Labels for all the distance achievements. 
+		 *------------------------------------------------*/
 		//10 miles
 		JLabel tenMiles = new JLabel();
 		tenMiles.setSize(80, 240);
-		tenMiles.setLocation(39, 125);
+		tenMiles.setLocation(40, 125);
 		tenMiles.setIcon(new ImageIcon(milesTenNot));
 		contentPane.add(tenMiles);
 		
@@ -236,9 +247,20 @@ public class AchievementPanel extends JFrame {
 		 * End of distance achievements
 		 *---------------------------------------*/
 		
+		/*----------------------------------------------------*
+		 * Title for the steps badges
+		 *----------------------------------------------------*/
+		JLabel stepsTitle = new JLabel("YOUR STEPS ACHIEVEMENTS");
+		stepsTitle.setSize(219, 50);
+		stepsTitle.setLocation(26, 375);
+		stepsTitle.setForeground(white);
+		stepsTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		stepsTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(stepsTitle);
 		/*---------------------------------------*
 		 * Start of steps achievements
 		 *---------------------------------------*/
+		
 		//10000 steps
 		JLabel steps10000 = new JLabel();
 		steps10000.setSize(80,240);
@@ -277,6 +299,16 @@ public class AchievementPanel extends JFrame {
 		 * End of steps achievements
 		 *---------------------------------------*/
 		
+		/*----------------------------------------------------*
+		 * Title for the floors "badges"
+		 *----------------------------------------------------*/
+		JLabel floorsTitle = new JLabel("YOUR FLOORS ACHIEVEMENTS");
+		floorsTitle.setSize(239, 50);
+		floorsTitle.setLocation(525, 81);
+		floorsTitle.setForeground(white);
+		floorsTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		floorsTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(floorsTitle);
 		/*---------------------------------------*
 		 * Start of floors achievements
 		 *---------------------------------------*/
@@ -313,6 +345,16 @@ public class AchievementPanel extends JFrame {
 		 * End of steps achievements
 		 *---------------------------------------*/
 		
+		/*----------------------------------------------------*
+		 * Title for the calories "badges"
+		 *----------------------------------------------------*/
+		JLabel caloriesTitle = new JLabel("YOUR FLOORS ACHIEVEMENTS");
+		caloriesTitle.setSize(239, 50);
+		caloriesTitle.setLocation(525, 375);
+		caloriesTitle.setForeground(white);
+		caloriesTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		caloriesTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(caloriesTitle);
 		/*---------------------------------------*
 		 * Start of Calories achievements
 		 *---------------------------------------*/
