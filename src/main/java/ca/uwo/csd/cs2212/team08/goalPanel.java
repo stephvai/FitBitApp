@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.Calendar;
 
-public class goalPanel extends JFrame {
+public class GoalPanel extends JFrame {
 
 	private JPanel contentPane;
 	private Color bgColor = Color.darkGray;
@@ -32,7 +32,7 @@ public class goalPanel extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public goalPanel(final String date, final APIData paramAPIData) {
+	public GoalPanel(final String date, final APIData paramAPIData) {
 		System.out.println("Best Steps:" + paramAPIData.getBestSteps());
 		try {
 			goalTracker = new GoalTracker(paramAPIData);
@@ -123,9 +123,10 @@ public class goalPanel extends JFrame {
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				String target = JOptionPane.showInputDialog(contentPane, "How many steps would you like to take?", null);
-				goalTracker.setGoal(target, GoalsEnum.steps );
-				label.setText(target);
+				optionPromp("How many steps will you take?", label, GoalsEnum.steps);
+
+
+
 			}
 		});
 		editButton.setBounds(82, 147, 117, 29);
@@ -168,9 +169,10 @@ public class goalPanel extends JFrame {
 		editTheDistance.setBounds(88, 146, 117, 29);
 		editTheDistance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String target = JOptionPane.showInputDialog(contentPane, "What distance would you like to travel today?", null);
-				goalTracker.setGoal(target, GoalsEnum.distance );
-				lblDistanceValue.setText(target);
+
+
+
+				optionPromp("How much distance will you travel?", lblDistanceValue, GoalsEnum.distance);
 
 			}
 		});
@@ -212,9 +214,8 @@ public class goalPanel extends JFrame {
 		editTheCalories.setBounds(89, 149, 117, 29);
 		editTheCalories.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String target = JOptionPane.showInputDialog(contentPane, "How many calories would you like to burn today?", null);
-				goalTracker.setGoal(target, GoalsEnum.calorieBurned );
-				lblCalorieValue.setText(target);
+
+				optionPromp("How many calories are you going to burn?", lblCalorieValue, GoalsEnum.calorieBurned);
 
 			}
 		});
@@ -257,9 +258,7 @@ public class goalPanel extends JFrame {
 		editTheFloor.setBounds(85, 149, 117, 29);
 		editTheFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String target = JOptionPane.showInputDialog(contentPane, "How many floors would you like to climb today?", null);
-				goalTracker.setGoal(target, GoalsEnum.floorsClimbed );
-				lblFloorValue.setText(target);
+				optionPromp("How many floors will you climb?", lblFloorValue, GoalsEnum.floorsClimbed);
 
 			}
 		});
@@ -302,9 +301,7 @@ public class goalPanel extends JFrame {
 		editTheActive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// figure out how to edit goals here
-				String target = JOptionPane.showInputDialog(contentPane, "What is your active minutes goal today?", null);
-				goalTracker.setGoal(target, GoalsEnum.veryActiveMinutes );
-				lblActiveGoals.setText(target);
+				optionPromp("How many minutes are you going to be active?", lblActiveGoals, GoalsEnum.veryActiveMinutes);
 
 			}
 		});
@@ -326,4 +323,25 @@ public class goalPanel extends JFrame {
 		MainScreen main = new MainScreen(this.date, paramAPIData);
 		main.setVisible(true);
 	}
+
+	private void helperMethod(String target, String text, JLabel label, GoalsEnum type) {
+
+		try{
+			goalTracker.setGoal(target, type);
+		label.setText(target);
+		}catch(Exception x){
+			optionPromp(text, label, type);
+		}
+	}
+	private void optionPromp(String inputText, JLabel label, GoalsEnum type){
+		String target = JOptionPane.showInputDialog(contentPane, inputText, null);
+		if(target == null){
+			return;
+		}
+		helperMethod(target, inputText, label, type);
+
+
+	}
+
+
 }
