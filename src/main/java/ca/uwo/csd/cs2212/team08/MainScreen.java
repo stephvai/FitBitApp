@@ -5,13 +5,14 @@ import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
-
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.awt.Label;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -43,6 +44,10 @@ public class MainScreen extends JFrame implements Serializable {
 	private static final String picEdit = "src/main/resources/images/EditMode.png";
 	//use to get the API information
 	private APIData apiData;
+
+
+	private GoalTracker goalTracker;
+
 	//create a linked list for each dash board panel
 	private LinkedList<Integer> dashboardPanels;
 	private DashBoardPanel pnlSteps;
@@ -64,6 +69,7 @@ public class MainScreen extends JFrame implements Serializable {
 	private final int Accolades = 6;
 	private final int HeartRate = 7;
 	private final int Goals = 8;
+
 	
 	//Color Scheme 
 	private Color bgColor = Color.darkGray;
@@ -79,20 +85,29 @@ public class MainScreen extends JFrame implements Serializable {
 		 * @param paramAPIData an instance of the APIData that passes in the fitbit information
 		 */
 	     public MainScreen(String date, APIData paramAPIData) {
-	     	
-	          this.initUI(date, paramAPIData);
+
+	          try {
+				this.initUI(date, paramAPIData);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	          
+	          
 	     }
 	    /**
 	     * A method to build the User Interface
 	     * @param paramDate this is the date selected by the user 
 	     * @param paramAPIData an instance of the APIData that passes in the fitbit information
+	     * @throws ClassNotFoundException 
 	     */
-	     private void initUI(String paramDate, APIData paramAPIData) 
+	     private void initUI(String paramDate, APIData paramAPIData) throws ClassNotFoundException 
 	     { 
 	    	 /*	-----------------------------------------*/
 	    	 //create the main window for the daily dash board 
 	    	 /*	-----------------------------------------*/
-	    	 this.setTitle("Team08 Fitbit");
+
+			 this.setTitle("Team08 Fitbit");
 	    	 this.setSize(1024, 768);
 	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    	 this.setLocationRelativeTo(null);
@@ -108,7 +123,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 			 //create a label to display the title of the panel
 	    	 /*	-----------------------------------------*/
-			 JLabel lblTitle = new JLabel("Welcome! Here is your daily dashboard: ");
+			 JLabel lblTitle = new JLabel("     Welcome! Here is your daily dashboard: ");
 			 lblTitle.setFont(new Font("Trebuchet MS", Font.PLAIN, 35));
 			 contentPane.setForeground(titleColor);
 			 lblTitle.setBounds(159, 0, 732, 72);
@@ -145,7 +160,6 @@ public class MainScreen extends JFrame implements Serializable {
 			 datePicker.setBackground(Color.WHITE);
 
 			 
-			 
 			/*-------------------------------------*/
 			//the label to set the last updated time
 			 /*------------------------------------*/
@@ -155,6 +169,23 @@ public class MainScreen extends JFrame implements Serializable {
 			 lblDataUpdate.setForeground(white);
 			 lblDataUpdate.setBounds(51, 660, 923, 37);
 			 contentPane.add(lblDataUpdate);
+
+
+			 goalTracker = new GoalTracker(apiData);
+			 goalTracker.updateProgress();
+
+			 /*------------------------------------------*/
+			 //create each panel used for the daily dash board
+			 /*------------------------------------------*/
+			 stepsPanel();
+			 stairsPanel();
+			 caloriesPanel();
+			 distancePanel();
+			 activeMinutesPanel();
+			 sedentaryMinutesPanel();
+			 accoladesPanel();
+			 heartRatePanel();
+			 goalsPanel();
 
 			 /*------------------------------------------*/
 			 //create a refresh button to refresh the data
@@ -173,8 +204,21 @@ public class MainScreen extends JFrame implements Serializable {
 					 if(!apiData.refreshDailyDashBoardData(date)) {
 			    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
 			    	 }
+
+					 try {
+						initUI(date, apiData);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
 					 contentPane.repaint();
-					 initUI(date, apiData);
+					 try {
+						initUI(date, apiData);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					 imgRefresh.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				 }
 				 @Override
@@ -186,6 +230,9 @@ public class MainScreen extends JFrame implements Serializable {
 	    			 imgRefresh.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	    		 }
 			 });
+
+
+
 			 contentPane.add(imgRefresh);
 
 			 
@@ -418,7 +465,7 @@ public class MainScreen extends JFrame implements Serializable {
 	     /**
 	      * creates the panel to display the steps taken
 	      */
-	     private void stepsPanel()
+	     private void stepsPanel() throws ClassNotFoundException
 		 {
 			//creates a new steps panel
 	    	 pnlSteps = new DashBoardPanel(50, 191);
@@ -443,8 +490,10 @@ public class MainScreen extends JFrame implements Serializable {
 	    			 pnlSteps.setBackground(pannelColor);
 	    		 }
 	    	 });
+	    
 	    	 //set the layout to absolute
 	    	 pnlSteps.setLayout(null);
+	    	 pnlSteps.setToolTipText("click here to see more information!");
 	    	 //add panel to the content pane
 	    	 contentPane.add(pnlSteps);
 
@@ -453,10 +502,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 	    	 JProgressBar stepsProgress = new JProgressBar();
 	    	 //this will be switched with a ratio between the daily goal and the current steps
-	    	 stepsProgress.setValue(20);
+	    	 stepsProgress.setValue((int)goalTracker.getStepsProgress());
+			// System.out.println(goalTracker.getStepsProgress());
+			// System.out.println((int)goalTracker.getStepsProgress());
+
 	    	 stepsProgress.setToolTipText("Current progress towards your goal");
 	    	 stepsProgress.setForeground(new Color(51, 153, 255));
 	    	 stepsProgress.setBounds(17, 113, 231, 36);
+	    	 stepsProgress.repaint();
 	    	 pnlSteps.add(stepsProgress);
 	    	 
 	    	 /*------------------------------------------*/
@@ -480,9 +533,11 @@ public class MainScreen extends JFrame implements Serializable {
 
 	     /**
 	      * creates the panel to display the the stairs climbed
+	     * @throws ClassNotFoundException 
 	      */
-	     private void stairsPanel()
+	     private void stairsPanel() throws ClassNotFoundException
 	     {
+
 	    	 pnlStairs = new DashBoardPanel(413, 191);
 	    	 //pnlStairs.setLocation(385, 99);
 	    	 pnlStairs.setLayout(null);
@@ -521,8 +576,10 @@ public class MainScreen extends JFrame implements Serializable {
 			 /*------------------------------------------*/
 	    	 //create a label to display the floors climbed title
 	    	 /*------------------------------------------*/
+
+	    	 
 			 JProgressBar stairsProgress = new JProgressBar();
-			 stairsProgress.setValue(20);
+			 stairsProgress.setValue((int)goalTracker.getFloorsClimbedProgress());
 			 stairsProgress.setToolTipText("Current progress towards your goal");
 			 stairsProgress.setForeground(SystemColor.textHighlight);
 			 stairsProgress.setBounds(17, 113, 231, 36);
@@ -540,12 +597,14 @@ public class MainScreen extends JFrame implements Serializable {
 	     
 	     /**
 	      * creates the panel to display calories panel
+	     * @throws ClassNotFoundException 
 	      */
-	     private void caloriesPanel()
+	     private void caloriesPanel() throws ClassNotFoundException
 	     {
 	    	 /*---------------------------------------*/
 			 //calories panel
 			 /*---------------------------------------*/
+
 			 pnlCalories = new DashBoardPanel(776, 191);
 			 //pnlCalories.setLocation(709, 99);
 			 pnlCalories.setLayout(null);
@@ -586,7 +645,8 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 //create a label to create a new progress bar
 	    	 /*------------------------------------------*/
 			 JProgressBar caloriesProgress = new JProgressBar();
-			 caloriesProgress.setValue(20);
+			// caloriesProgress.setValue(Integer.parseInt(caloriesGoal.getGoal(GoalsEnum.calorieBurned)));
+			 caloriesProgress.setValue((int)goalTracker.getCaloriesProgress());
 			 caloriesProgress.setToolTipText("Current progress towards your goal");
 			 caloriesProgress.setForeground(SystemColor.textHighlight);
 			 caloriesProgress.setBounds(21, 110, 210, 36);
@@ -604,12 +664,14 @@ public class MainScreen extends JFrame implements Serializable {
 	     
 	     /**
 	      * creates the panel to display user distance traveled
+	     * @throws ClassNotFoundException 
 	      */
-	     private void distancePanel()
+	     private void distancePanel() throws ClassNotFoundException
 	     {	 
 	    	 /*------------------------------------------*/
 	    	 //create a Distance traveled panel
 	    	 /*------------------------------------------*/
+
 			 pnlDistance = new DashBoardPanel(50, 300);
 			 pnlDistance.setLayout(null);
 			 pnlDistance.setVisible(false);
@@ -648,8 +710,10 @@ public class MainScreen extends JFrame implements Serializable {
 			 /*------------------------------------------*/
 	    	 //create a label to display the Distance progress bar
 	    	 /*------------------------------------------*/
+			 
+	    	 
 			 JProgressBar distanceProgress = new JProgressBar();
-			 distanceProgress.setValue(20);
+			 distanceProgress.setValue((int)goalTracker.getDistanceProgress());
 			 distanceProgress.setToolTipText("Current progress towards your goal");
 			 distanceProgress.setForeground(SystemColor.textHighlight);
 			 distanceProgress.setBounds(21,110,210,36);
@@ -667,8 +731,9 @@ public class MainScreen extends JFrame implements Serializable {
 	     
 	     /**
 	      * creates the panel to display user active minutes
+	     * @throws ClassNotFoundException 
 	      */
-	     private void activeMinutesPanel()
+	     private void activeMinutesPanel() throws ClassNotFoundException
 	     {
 	    	 /*---------------------------------------*/
 			 //Active Minutes panel
@@ -681,7 +746,9 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 
+	    			 Minutes activeMinutes = new Minutes(date, apiData);
+	    			 activeMinutes.setVisible(true);
+	    			 dispose();
 	    		 }
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
@@ -715,6 +782,18 @@ public class MainScreen extends JFrame implements Serializable {
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 14, 265, 33);
 			 pnlActiveMin.add(label);
+			 
+			 /*------------------------------------------*/
+	    	 //create a label to create a new progress bar
+	    	 /*------------------------------------------*/
+			 
+			 JProgressBar activeMinutesProgress = new JProgressBar();
+			 activeMinutesProgress.setValue((int)goalTracker.getVeryActiveMinutesProgress());
+			 activeMinutesProgress.setToolTipText("Current progress towards your goal");
+			 activeMinutesProgress.setForeground(SystemColor.textHighlight);
+			 activeMinutesProgress.setBounds(21, 110, 210, 36);
+			 pnlActiveMin.add(activeMinutesProgress);
+			 pnlActiveMin.add(label);
 	     }
 	     
 	     /**
@@ -733,7 +812,9 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
 	    			 //what to do on button click
-	    			 
+	    			 Minutes sedentMinutes = new Minutes(date, apiData);
+	    			 sedentMinutes.setVisible(true);
+	    			 dispose();
 	    		 }
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
@@ -777,6 +858,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 	    	 //create a panel for the accolades
 	    	 /*------------------------------------------*/
+
 			 pnlAccolades = new DashBoardPanel(50, 300);
 			 pnlAccolades.setLayout(null);
 			 pnlAccolades.setVisible(false);
@@ -784,8 +866,9 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlAccolades.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 //what to do on button click
-	    			 
+	    			 AchievementPanel panel = new AchievementPanel(date, apiData);
+	    			 panel.setVisible(true);
+	    			 dispose();
 	    		 }
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
@@ -819,6 +902,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 	    	 //create the heart rate panel
 	    	 /*------------------------------------------*/
+
 			 pnlHeartRate = new DashBoardPanel(50, 300);
 			 pnlHeartRate.setLayout(null);
 			 pnlHeartRate.setVisible(false);
@@ -826,7 +910,9 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlHeartRate.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 //what to do on button click
+	    			 HeartRateZones panel = new HeartRateZones(date,apiData);
+	    			 panel.setVisible(true);
+	    			 dispose();
 	    			 
 	    		 }
 	    		 @Override
@@ -869,7 +955,9 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlGoals.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 //what to do on button click
+	    			 goalPanel goals = new goalPanel(date,apiData);
+	    			 goals.setVisible(true);
+	    			 dispose();
 	    			 
 	    		 }
 	    		 @Override
