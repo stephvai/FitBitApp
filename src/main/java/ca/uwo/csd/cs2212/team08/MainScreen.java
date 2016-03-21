@@ -5,10 +5,8 @@ import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.awt.Label;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -955,7 +953,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlGoals.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 goalPanel goals = new goalPanel(date,apiData);
+	    			 GoalPanel goals = new GoalPanel(date,apiData);
 	    			 goals.setVisible(true);
 	    			 dispose();
 	    			 
