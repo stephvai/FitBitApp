@@ -68,10 +68,15 @@ public class APIDataTest extends APIData {
         userDailyDistance = (float)randInt(1, 20);
         userDailyCalories = randInt(1,2000);
         userDailyFloorsClimbed = randInt(1,25);
-        userDailySendentaryMinutes = randInt(1,1440);
-        userDailyLightlyActiveMinutes = randInt(0,(int)(1440-userDailySendentaryMinutes));
-        userDailyFairlyActiveMinutes = randInt(0,(int)(1440-userDailySendentaryMinutes-userDailyLightlyActiveMinutes));
+        
+        //total day is 1440
+        
+        userDailySendentaryMinutes = randInt(600,800);
+        userDailyLightlyActiveMinutes = randInt(150,300);
+        userDailyFairlyActiveMinutes = randInt(150,300);
         userDailyVeryActiveMinutes = 1440-userDailySendentaryMinutes-userDailyLightlyActiveMinutes-userDailyFairlyActiveMinutes;
+        
+        
         totalDistance = (float)randInt((int)userDailyDistance, 10000);
         totalFloors = randInt((int)userDailyFloorsClimbed,700);
         totalSteps = randInt((int)userDailySteps,100000);

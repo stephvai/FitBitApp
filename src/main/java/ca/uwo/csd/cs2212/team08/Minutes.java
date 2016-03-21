@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -137,7 +138,7 @@ public class Minutes extends JFrame {
 		 * panel where sedentary minutes will be shown
 		 *--------------------------------------------*/
 		JPanel pnlSedentMinutes = new JPanel();
-		pnlSedentMinutes.setBounds(570, 138, 349, 225);
+		pnlSedentMinutes.setBounds(570, 138, 349, 200);
 		contentPane.add(pnlSedentMinutes);
 		pnlSedentMinutes.setLayout(null);
 		pnlSedentMinutes.setBackground(pannelColor);
@@ -160,6 +161,12 @@ public class Minutes extends JFrame {
 		pnlSedentMinutes.add(sedentMinutesValue);
 		sedentMinutesValue.setFont(new Font("Trebouchet MS", Font.PLAIN, 25));
 		sedentMinutesValue.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		PGraph piGraph = new PGraph(apiData);
+		piGraph.setBounds(570, 375, 349, 225);
+		contentPane.add(piGraph);
+		
+		
 	}
 	/**
 	 * returns the user to their daily dash board
