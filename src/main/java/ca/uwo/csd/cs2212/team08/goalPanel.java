@@ -13,7 +13,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.time.Clock;
 import java.util.Calendar;
 
 public class GoalPanel extends JFrame {

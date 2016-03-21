@@ -1,10 +1,6 @@
 package ca.uwo.csd.cs2212.team08;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 public class AchievementTracker {
 
@@ -12,14 +8,17 @@ public class AchievementTracker {
 	private float distanceProgress;
 	private float caloriesProgress;
 	private float floorsProgress;
-
-
+	private APIData source;
 	private Achievement[] achievementArray;
+
 	/* Constructor
 	 * This method will create an Achievement array of 22 and load the progress of the users. 
 	 */
-	public AchievementTracker() throws ClassNotFoundException, IOException {
+	public AchievementTracker(APIData source) throws ClassNotFoundException, IOException {
+
 		this.achievementArray = new Achievement[22];
+
+		this.source = source;
 
 		float startingSteps = 10000;
 		float startingFloors = 100;
@@ -107,22 +106,36 @@ public class AchievementTracker {
         save.close();
 }
 	//this method will load the Achieve.ini file and store the user's progress
-	public void loadProgress() throws IOException, ClassNotFoundException {
+	public void loadProgress()  {
 		// Input stream to read the file
-		FileInputStream	saveAchieve = new FileInputStream("Achieve.ini");
+		FileInputStream	saveAchieve = null;
+		try {
+			saveAchieve = new FileInputStream("Achieve.ini");
+			
+			ObjectInputStream save = new ObjectInputStream(saveAchieve);
 
-		//restores the variables stored in the object
-		ObjectInputStream save = new ObjectInputStream(saveAchieve);
+			//cast to read the object
+			this.achievementArray = (Achievement[]) save.readObject();
 
-		//cast to read the object
-		this.achievementArray = (Achievement[]) save.readObject();
-
-		save.close();
+			save.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e){
+			e.printStackTrace();
+			return;
+		}catch(IOException e){
+			e.printStackTrace();
+			return;
 		}
+		}
+
+	public boolean isAchieved(int i){
+		return this.achievementArray[i].getAchieved();
+	}
 
 	public void updateProgress() {
 
-		APIData source = new APIData();//Gather the API data.
+		this.source = new APIData();//Gather the API data.
 
 		/*Check the steps progress of the achievements.*/
 		float APIsteps = source.getSteps();
