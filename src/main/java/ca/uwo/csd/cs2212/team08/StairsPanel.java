@@ -116,7 +116,7 @@ public class StairsPanel extends JFrame {
 		/*--------------------------------------------*/
 		//add a label to display the floors climbed today
 		/*--------------------------------------------*/
-		JLabel lblDailyValue = new JLabel("<html> Today you climbed "+ apiData.getFloorsClimbed() +" floors. </html>");
+		JLabel lblDailyValue = new JLabel("<html> Today you climbed <strong>"+ apiData.getFloorsClimbed() +"</strong> floors. </html>");
 		lblDailyValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblDailyValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDailyValue.setBounds(21, 21, 198, 182);
@@ -135,7 +135,7 @@ public class StairsPanel extends JFrame {
 		/*--------------------------------------------*/
 		//add a label to display the floors climbed in the users lifetime total
 		/*--------------------------------------------*/
-		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have climbed "+ apiData.getTotalFloors()+" floors. </html>");
+		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have climbed <strong>"+ apiData.getTotalFloors()+"</strong> floors. </html>");
 		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLifetimeTotal.setBounds(21, 31, 198, 182);
@@ -154,7 +154,7 @@ public class StairsPanel extends JFrame {
 		/*--------------------------------------------*/
 		//add a label to display the floors climbed on the users best day
 		/*--------------------------------------------*/
-		JLabel lblBestDay = new JLabel("<html> On your best day you climbed "+ apiData.getBestFloors()+" floors. </html>");
+		JLabel lblBestDay = new JLabel("<html> On your best day you climbed <strong>"+ apiData.getBestFloors()+"</strong> floors. </html>");
 		lblBestDay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblBestDay.setBounds(21, 21, 198, 182);

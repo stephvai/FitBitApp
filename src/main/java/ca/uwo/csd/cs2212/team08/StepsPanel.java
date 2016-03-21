@@ -126,7 +126,7 @@ public class StepsPanel extends JFrame {
 		/*--------------------------------------------*/
 		//add a label to display the users steps
 		/*--------------------------------------------*/
-		JLabel lblDailySteps = new JLabel("<html> Today you took "+ apiData.getSteps()+" steps. </html>");
+		JLabel lblDailySteps = new JLabel("<html> Today you took <strong>"+ apiData.getSteps()+"</strong> steps. </html>");
 		lblDailySteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblDailySteps.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDailySteps.setBounds(21, 21, 198, 182);
@@ -145,7 +145,7 @@ public class StepsPanel extends JFrame {
 		/*--------------------------------------------*/
 		//add a label to display the steps lifetime total
 		/*--------------------------------------------*/
-		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have taken "+ apiData.getTotalSteps()+" steps. </html>");
+		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have taken <strong>"+ apiData.getTotalSteps()+"</strong> steps. </html>");
 		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLifetimeTotal.setBounds(21, 31, 198, 182);
@@ -164,7 +164,7 @@ public class StepsPanel extends JFrame {
 		/*--------------------------------------------*/
 		//add a label to display the steps best day
 		/*--------------------------------------------*/
-		JLabel lblBestDay = new JLabel("<html> On your best day you took "+ apiData.getBestSteps()+" steps. </html>");
+		JLabel lblBestDay = new JLabel("<html> On your best day you took <strong>"+ apiData.getBestSteps()+"</strong> steps. </html>");
 		lblBestDay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblBestDay.setBounds(21, 21, 198, 182);

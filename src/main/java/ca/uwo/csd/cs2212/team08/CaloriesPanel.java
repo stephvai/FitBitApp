@@ -81,28 +81,11 @@ public class CaloriesPanel extends JFrame {
 		contentPane.add(imgBack);
 
 
-		/*-----------------------------------------*/
-		//create a tabbed pane to store the graphs
-		/*-----------------------------------------*/
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(80, 409, 837, 239);
+		LGraph lineGraph = new LGraph("Calories Burned", "Calories",apiData.getCaloriesTimeSeries());
 
-		//create a panel for the Lifetime progress
-		JPanel pnlLifetime = new JPanel();
-		tabbedPane.addTab("lifetime Progress", pnlLifetime);
+		lineGraph.setBounds(80, 409, 837, 239);
 
-		JPanel pnlToday4 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday4);
-
-
-		//create a panel for the Lifetime progress
-		JPanel pnlToday3 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday3);
-
-		JPanel pnlToday5 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday5);
-
-		contentPane.add(tabbedPane);
+		contentPane.add(lineGraph);
 
 		/*--------------------------------------------*/
 		//create a panel to display calories information for today
@@ -117,7 +100,7 @@ public class CaloriesPanel extends JFrame {
 		/*--------------------------------------------*/
 		//add a label to display the calories information for today
 		/*--------------------------------------------*/
-		JLabel lblDailyValue = new JLabel("<html> Today you burned "+ apiData.getCalories() +" calories. </html>");
+		JLabel lblDailyValue = new JLabel("<html> Today you burned <strong>"+ apiData.getCalories() +"</strong> calories. </html>");
 		lblDailyValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblDailyValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDailyValue.setBounds(21, 21, 198, 182);

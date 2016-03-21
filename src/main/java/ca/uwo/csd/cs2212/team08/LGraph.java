@@ -92,9 +92,10 @@ public class LGraph extends JPanel {
         for(int i=0; i < list.size(); i ++){
             hours = Integer.parseInt(list.get(i).getHour());
             minutes = Integer.parseInt(list.get(i).getMinute());
-            value = Integer.parseInt(list.get(i).getValue());
+            value = Float.parseFloat(list.get(i).getValue());
             year = Integer.parseInt(list.get(i).getYear());
-            day =  month = year = 1;
+            day = Integer.parseInt(list.get(i).getDay());
+            month = Integer.parseInt(list.get(i).getMonth());		
             /**
              * TODO add proper minutes, dates...
              */

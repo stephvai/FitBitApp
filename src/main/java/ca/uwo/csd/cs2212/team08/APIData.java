@@ -108,7 +108,7 @@ public class APIData {
                     new FileReader("src/main/resources/Team8Credentials.txt");
             bufferedReader = new BufferedReader(fileReader);
             clientID= bufferedReader.readLine();
-            apiKey= bufferedReader.readLine();
+            apiKey = bufferedReader.readLine();
             apiSecret = bufferedReader.readLine();
             bufferedReader.close();
             fileReader = new FileReader("src/main/resources/Team8Tokens.txt");
@@ -129,15 +129,13 @@ public class APIData {
         finally{
             try{
                 if (bufferedReader!=null)
-                    // Always close files.
                     bufferedReader.close();
             }
             catch(Exception e){
                 return false;
             }
         }
-        //  Create the Fitbit service - you will ask this to ask for access/refresh pairs
-        //     and to add authorization information to the requests to the API
+        //  Create the Fitbit service 
         FitbitOAuth20ServiceImpl service = (FitbitOAuth20ServiceImpl) new ServiceBuilder()
                 .apiKey(clientID)       //fitbit uses the clientID here
                 .apiSecret(apiSecret)
@@ -171,12 +169,10 @@ public class APIData {
         if(!saveTokens(accessToken)) {
         	return false;
         }
-        
         if (checkResponse == successfulResponse) {
         	JSONObject obj = new JSONObject(response.getBody());
         	parseSummary(obj);
         }
-        
         else {
         	return false;
         }
@@ -235,7 +231,6 @@ public class APIData {
         	//parseHeartRateZones(obj);
         	
         }
-        
         else {
         	return false;
         }
@@ -416,6 +411,7 @@ public class APIData {
    * @return a value that represents what kind of response has occured 
    */
   private int checkStatus(int statusCode) {
+	  System.out.println(statusCode);
 	  switch(statusCode){
       case 200:
           return successfulResponse;
@@ -539,7 +535,7 @@ public class APIData {
 	  for (int i = 0; i < dataset.length(); i++) {
 		  JSONObject datapoint = dataset.getJSONObject(i);
 		  String time = datapoint.getString("time");
-		  String datasetValue = Integer.toString(datapoint.getInt("value"));
+		  String datasetValue = Float.toString((float)datapoint.getDouble("value"));
 		  String[] timeArray = time.split(":");
 		  String hour = timeArray[0];
 		  String min = timeArray[1];

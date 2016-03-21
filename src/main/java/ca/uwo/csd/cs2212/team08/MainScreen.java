@@ -328,7 +328,7 @@ public class MainScreen extends JFrame implements Serializable {
 			}
 	    	 
 	     }
-	     
+	   
 	     /**
 	      * creates the panel to display the steps taken
 	      */
@@ -365,7 +365,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 	    	 //create a label to display the steps
 	    	 /*------------------------------------------*/
-	    	 JLabel lblSteps = new JLabel(Float.toString(apiData.getSteps()));
+	    	 JLabel lblSteps = new JLabel(Integer.toString((int)apiData.getSteps()));
 	    	 lblSteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
 	    	 lblSteps.setBounds(0, 21, 265, 33);
@@ -422,7 +422,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 /*------------------------------------------*/
 	    	 //create a label to display the floors climbed
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Float.toString(apiData.getFloorsClimbed()));
+			 JLabel label = new JLabel(Integer.toString((int)apiData.getFloorsClimbed()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 12, 265, 33);
@@ -473,7 +473,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 /*------------------------------------------*/
 	    	 //create a label to display the Calories burned
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Float.toString(apiData.getCalories()));
+			 JLabel label = new JLabel(Integer.toString((int)apiData.getCalories()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 10, 265, 33);
@@ -523,7 +523,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 /*------------------------------------------*/
 	    	 //create a label to display the Distance
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Double.toString(apiData.getDistance())+"km");
+			 JLabel label = new JLabel(Float.toString(apiData.getDistance()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 10, 265, 33);
@@ -562,7 +562,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 /*------------------------------------------*/
 	    	 //create a label to display the Active minutes
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Float.toString(apiData.getLightlyActiveMin() + apiData.getFairlyActiveMin() + apiData.getVeryActiveMin()));
+			 JLabel label = new JLabel(Integer.toString((int)apiData.getLightlyActiveMin() + (int)apiData.getFairlyActiveMin() + (int)apiData.getVeryActiveMin()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 14, 265, 33);
@@ -601,7 +601,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 /*------------------------------------------*/
 	    	 //create a label to display the sedentary minutes
 	    	 /*------------------------------------------*/
-			 JLabel label = new JLabel(Float.toString(apiData.getSendentaryMinutes()));
+			 JLabel label = new JLabel(Integer.toString((int)apiData.getSendentaryMinutes()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 13, 265, 33);
