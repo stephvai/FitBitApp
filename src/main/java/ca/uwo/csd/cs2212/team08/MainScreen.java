@@ -569,7 +569,7 @@ public class MainScreen extends JFrame {
 			 accoladesPanel.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 accoladesPanel panel = new accoladesPanel(date, apiData);
+	    			 AchievementPanel panel = new AchievementPanel(date, apiData);
 	    			 panel.setVisible(true);
 	    			 dispose();
 	    		 }
