@@ -32,6 +32,11 @@ public class Minutes extends JFrame {
 	 * Create the frame.
 	 */
 	public Minutes(String date, APIData paramAPIData) {
+		
+		/*
+		 * Graph
+		 */
+		
 		/*-------------------------------------------*
 		 * Default size and settings for all windows
 		 *-------------------------------------------*/
@@ -132,7 +137,7 @@ public class Minutes extends JFrame {
 		 * panel where sedentary minutes will be shown
 		 *--------------------------------------------*/
 		JPanel pnlSedentMinutes = new JPanel();
-		pnlSedentMinutes.setBounds(570, 138, 349, 461);
+		pnlSedentMinutes.setBounds(570, 138, 349, 225);
 		contentPane.add(pnlSedentMinutes);
 		pnlSedentMinutes.setLayout(null);
 		pnlSedentMinutes.setBackground(pannelColor);
@@ -151,7 +156,7 @@ public class Minutes extends JFrame {
 		 * information for sedentary minutes minus the API currently
 		 *----------------------------------------------------------*/
 		JLabel sedentMinutesValue = new JLabel("<html> Today you were not active for: " + apiData.getSendentaryMinutes() +" minutes. </html>");
-		sedentMinutesValue.setBounds(22,151, 321,182);
+		sedentMinutesValue.setBounds(22,93, 321,96);
 		pnlSedentMinutes.add(sedentMinutesValue);
 		sedentMinutesValue.setFont(new Font("Trebouchet MS", Font.PLAIN, 25));
 		sedentMinutesValue.setHorizontalAlignment(SwingConstants.CENTER);
