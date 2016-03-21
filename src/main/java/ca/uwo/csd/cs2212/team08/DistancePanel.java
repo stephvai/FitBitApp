@@ -136,7 +136,7 @@ public class DistancePanel extends JFrame {
 		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have traveled <strong>"+ apiData.getTotalDistance()+"km. </strong> </html>");
 		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLifetimeTotal.setBounds(21, 31, 198, 182);
+		lblLifetimeTotal.setBounds(6, 21, 228, 182);
 		pnlLifetimeTotal.add(lblLifetimeTotal);
 		
 		/*--------------------------------------------*/
