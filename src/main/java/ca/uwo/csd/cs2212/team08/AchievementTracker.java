@@ -56,36 +56,11 @@ public class AchievementTracker {
 			this.achievementArray[i]=achievement;
 			startingCalories+=250;
 		}
-		
+		this.saveProgress();
 		this.loadProgress();
 		this.updateProgress();
 	}
-/*
-	public void setAchievement(float target, AchievementsEnum type) {
-		Achievement achievementObj = new Achievement();
 
-		if(type == AchievementsEnum.steps){ //sets the goal for the steps.
-			achievementObj.setSteps(target);
-			this.achievementArray[0] = achievementObj;
-			return;
-		}
-		else if(type==AchievementsEnum.distance){
-			achievementObj.setDistance(target);
-			this.achievementArray[1] = achievementObj;
-			return;
-		}
-		else if(type==AchievementsEnum.calorieBurned){
-			achievementObj.setCalories(target);
-			this.achievementArray[2] = achievementObj;
-			return;
-		}
-		else if(type==AchievementsEnum.floorsClimbed){
-			achievementObj.setFloorsClimbed(target);
-			this.achievementArray[3] = achievementObj;
-			return;
-		}
-	}
-	*/
 	/****************************methods
 	 * @throws IOException
 	 * @throws ClassNotFoundException *********************************/
