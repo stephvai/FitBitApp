@@ -12,50 +12,90 @@ public class AchievementTracker {
 	private Achievement[] achievementArray;
 
 	/* Constructor
-	 * This method will create an Achievement array of 22 and load the progress of the users. 
+	 * This method will create an Achievement array of 21 and load the progress of the users.
+	 * 1.10k steps in one day
+	 * 2.15k steps in one day
+	 * 3.20k steps in one day
+	 * 4.50k steps in total
+	 * 5.100k steps in total
+	 * 6.250k steps in total
+	 * 7.30 floors in one day
+	 * 8.50 floors in one day
+	 * 9.100 floors in one day
+	 * 10.500 floors in total
+	 * 11.1000 floors in total
+	 * 12.2000 floors in total
+	 * 13.10km in one day
+	 * 14.15km in one day
+	 * 15.20km in one day
+	 * 16.200km in total
+	 * 17.300km in total
+	 * 18.500km in total
+	 * 19.2000 calories in one day
+	 * 20.3000 calories in one day
+	 * 21.5000 calories in total
 	 */
 	public AchievementTracker(APIData source) throws ClassNotFoundException, IOException {
 
-		this.achievementArray = new Achievement[22];
+		this.achievementArray = new Achievement[21];
 
 		this.source = source;
 
-		float startingSteps = 10000;
-		float startingFloors = 100;
+		float startingDaySteps = 10000;
+		float startingTotalSteps = 50000;
+		float startingDayFloors = 30;
 		float startingDistance = 10;
-		float startingCalories = 2000;
-		
 
-		for(int i=0;i<5;i++){
+		/*Set the achievements of 10k, 15k and 20k steps in a day.*/
+		for(int i=0;i<3;i++){
 			Achievement achievement = new Achievement();
-			achievement.setSteps(startingSteps);
+			achievement.setSteps(startingDaySteps);
 			this.achievementArray[i]=achievement;
-			startingSteps+=2500;
+			startingDaySteps+=5000;
 		}
-		
 
-		for(int i=5;i<10;i++){
+		/*Set the achievements of 50k, 100k, 250k steps in life-time total.*/
+		for(int i=3;i<5;i++){
 			Achievement achievement = new Achievement();
-			achievement.setFloorsClimbed(startingFloors);
+			achievement.setSteps(startingTotalSteps);
 			this.achievementArray[i]=achievement;
-			startingFloors+=100;
+			startingTotalSteps+=50000;
 		}
-		
+		this.achievementArray[5].setSteps(250000);
 
-		for(int i=10;i<15;i++){
+		/*Set the achievements of 30, 50, 100 floors in a day.*/
+		for(int i=6;i<8;i++){
+			Achievement achievement = new Achievement();
+			achievement.setFloorsClimbed(startingDayFloors);
+			this.achievementArray[i]=achievement;
+			startingDistance+=20;
+		}
+		this.achievementArray[8].setFloorsClimbed(100);
+
+		/*Set the achievements of 500, 1000, 2000 floors in life-time total.*/
+		this.achievementArray[9].setFloorsClimbed(500);
+		this.achievementArray[10].setFloorsClimbed(1000);
+		this.achievementArray[11].setFloorsClimbed(2000);
+
+		/*Set the achievements of 10km, 15km, 20km in a day.*/
+		for(int i=12;i<15;i++){
 			Achievement achievement = new Achievement();
 			achievement.setDistance(startingDistance);
 			this.achievementArray[i]=achievement;
-			startingDistance+=10;
+			startingDistance+=5;
 		}
-		
+		/*Set the achievements of 200km, 300km, 500km in life-time total.*/
+		this.achievementArray[15].setDistance(200);
+		this.achievementArray[16].setDistance(300);
+		this.achievementArray[17].setDistance(500);
 
-		for(int i=15;i<22;i++){
-			Achievement achievement = new Achievement();
-			achievement.setCalories(startingCalories);
-			this.achievementArray[i]=achievement;
-			startingCalories+=250;
-		}
+		/*Set the achievements of burning 2000, 3000 calories in a day.*/
+		this.achievementArray[18].setCalories(2000);
+		this.achievementArray[19].setCalories(3000);
+
+		/*Set the achievements of burning 5000 calories in life-time total*/
+		this.achievementArray[20].setCalories(5000);
+
 		this.saveProgress();
 		this.loadProgress();
 		this.updateProgress();
@@ -112,33 +152,56 @@ public class AchievementTracker {
 
 		this.source = new APIData();//Gather the API data.
 
-		/*Check the steps progress of the achievements.*/
+		/*Check the steps progress of the daily achievements.*/
 		float APIsteps = source.getSteps();
-		for(int i=0;i<5;i++){
+		for(int i=0;i<3;i++){
 			this.stepsProgress = APIsteps/(float) this.achievementArray[i].getObjective()/APIsteps*100.0f;
 			if (this.stepsProgress >= 100)
 				this.achievementArray[i].setAchieved();
 		}
 
-		/*Check the floors progress of the achievements.*/
+		/*Check the steps progress of the life-time achievements.*/
+		float APITotalSteps = source.getTotalSteps();
+		for(int i=3;i<6;i++){
+			this.stepsProgress = APITotalSteps/(float) this.achievementArray[i].getObjective()/APIsteps*100.0f;
+			if (this.stepsProgress >= 100)
+				this.achievementArray[i].setAchieved();
+		}
+
+		/*Check the floors progress of the daily achievements.*/
 		float APIfloors = source.getFloorsClimbed();
-		for(int i=5;i<10;i++){
+		for(int i=6;i<9;i++){
 			this.floorsProgress = APIfloors/(float) this.achievementArray[i].getObjective()/APIfloors*100.0f;
 			if (this.floorsProgress >= 100)
 				this.achievementArray[i].setAchieved();
 		}
+		/*Check the floors progress of the life-time achievements.*/
+		float APITotalFloors = source.getTotalFloors();
+		for(int i=9;i<12;i++){
+			this.floorsProgress = APITotalFloors/(float) this.achievementArray[i].getObjective()/APIfloors*100.0f;
+			if (this.floorsProgress >= 100)
+				this.achievementArray[i].setAchieved();
+		}
 
-		/*Check the distance progress of the achievements.*/
+		/*Check the distance progress of the daily achievements.*/
 		float APIdistance = source.getDistance();
-		for(int i=10;i<15;i++){
+		for(int i=12;i<15;i++){
 			this.distanceProgress = APIdistance/(float) this.achievementArray[i].getObjective()/APIdistance*100.0f;
+			if (this.distanceProgress >= 100)
+				this.achievementArray[i].setAchieved();
+		}
+
+		/*Check the distance progress of the life-time achievements.*/
+		float APITotalDistance = source.getTotalDistance();
+		for(int i=15;i<18;i++){
+			this.distanceProgress = APITotalDistance/(float) this.achievementArray[i].getObjective()/APIdistance*100.0f;
 			if (this.distanceProgress >= 100)
 				this.achievementArray[i].setAchieved();
 		}
 
 		/*Check the calories progress of the achievements.*/
 		float APIcalories = source.getCalories();
-		for(int i=15;i<22;i++){
+		for(int i=18;i<20;i++){
 			this.caloriesProgress = (float) APIcalories/this.achievementArray[i].getObjective()/APIcalories*100.0f;
 			if (this.caloriesProgress >= 100)
 				this.achievementArray[i].setAchieved();
