@@ -9,15 +9,13 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.LinkedList;
-
-//TODO Make sure it returns false whenever the application crashes
-//TODO Remove all writing to console and instead save it to log.txt
 
 /**
  * APIData Class that gets data from the fitbit servers and parses it to variables that can be 
@@ -43,7 +41,7 @@ public class APIData {
   private float bestFloors;
   private float bestSteps;
   //Instance variables for heart rate zones
-  private float restingHeartRate;
+  private String restingHeartRate;
   private HRZone outOfRange;
   private HRZone fatBurn;
   private HRZone cardio;
@@ -228,7 +226,7 @@ public class APIData {
         
         if (checkResponse == successfulResponse) {
         	JSONObject obj = new JSONObject(response.getBody());
-        	//parseHeartRateZones(obj);
+        	parseHeartRateZones(obj);
         	
         }
         else {
@@ -407,7 +405,7 @@ public class APIData {
   }
   
   /**
-   * Method that takes a HTTP status code and returns a code for what kind of response occured
+   * Method that takes a HTTcP status code and returns a code for what kind of response occured
    * @param statusCode the HTTP status code provided in the response
    * @return a value that represents what kind of response has occured 
    */
@@ -470,28 +468,57 @@ public class APIData {
 	  bestSteps = bestDays.getJSONObject("steps").getInt("value");
   }
   
-  protected void parseHeartRateZones(JSONObject obj) {
-	  JSONObject value = obj.getJSONArray("activities-heart").getJSONObject(0).getJSONObject("value");
-	  restingHeartRate = value.getInt("restingHeartRate");
-	  JSONArray heartRateZones = value.getJSONArray("heartRateZones");
-	  outOfRange = new HRZone(heartRateZones.getJSONObject(0));
-	  fatBurn = new HRZone(heartRateZones.getJSONObject(1));
-	  cardio = new HRZone(heartRateZones.getJSONObject(2));
-	  peak = new HRZone(heartRateZones.getJSONObject(3));
+  private void parseHeartRateZones(JSONObject obj) {
 	  
-	  hrTimeSeries = new LinkedList<TimeSeriesNode>();
-	  
-	  JSONArray dataset = obj.getJSONObject("activities-heart-intraday").getJSONArray("dataset");
-	  for (int i = 0; i < dataset.length(); i++) {
-		  JSONObject datapoint = dataset.getJSONObject(i);
-		  String time = datapoint.getString("time");
-		  String datasetValue = Integer.toString(datapoint.getInt("value"));
-		  String[] timeArray = time.split(":");
-		  String hour = timeArray[0];
-		  String min = timeArray[1];
-		  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
-		  hrTimeSeries.add(node);
-	 }
+	  try {
+		  JSONObject value = obj.getJSONArray("activities-heart").getJSONObject(0).getJSONObject("value");
+		  try {
+			  restingHeartRate = Integer.toString(value.getInt("restingHeartRate"));
+		  } catch (JSONException e){
+			  restingHeartRate = "Not Avaliable";
+		  }
+		  
+		  JSONArray heartRateZones = value.getJSONArray("heartRateZones");
+		  outOfRange = new HRZone(heartRateZones.getJSONObject(0));
+		  fatBurn = new HRZone(heartRateZones.getJSONObject(1));
+		  cardio = new HRZone(heartRateZones.getJSONObject(2));
+		  peak = new HRZone(heartRateZones.getJSONObject(3));
+		  
+		  hrTimeSeries = new LinkedList<TimeSeriesNode>();
+		  
+		  JSONArray dataset = obj.getJSONObject("activities-heart-intraday").getJSONArray("dataset");
+		  for (int i = 0; i < dataset.length(); i++) {
+			  JSONObject datapoint = dataset.getJSONObject(i);
+			  String time = datapoint.getString("time");
+			  String datasetValue = Integer.toString(datapoint.getInt("value"));
+			  String[] timeArray = time.split(":");
+			  String hour = timeArray[0];
+			  String min = timeArray[1];
+			  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+			  hrTimeSeries.add(node);
+		  }
+	  }
+	  //if not HR zone data is returned set them all to not avaliable
+	  catch (JSONException e) {
+		  restingHeartRate = "NA";
+		  outOfRange = new HRZone("Out Of Range", "Not Avaliable");
+		  fatBurn = new HRZone("Fat Burn", "Not Avaliable");
+		  cardio =  new HRZone("Cardio", "Not Avaliable");
+		  peak = new HRZone("Peak", "Not Avaliable");
+		  
+		  hrTimeSeries = new LinkedList<TimeSeriesNode>();
+		  
+		  for (int i = 0; i < 1440; i++) {
+			  int minute = 0;
+			  int hours = 0;
+			  TimeSeriesNode node = new TimeSeriesNode(Integer.toString(minute), Integer.toString(hours), currentDate, Integer.toString(0));
+			  hrTimeSeries.add(node);
+			  minute ++;
+			  if ((minute %= 60) == 0) {
+				  hours++;  
+			  }
+		  }
+	  }
 	  
   }
   
@@ -499,50 +526,94 @@ public class APIData {
 	  
 	  stepsTimeSeries = new LinkedList<TimeSeriesNode>();
 	  
-	  JSONArray dataset = obj.getJSONObject("activities-steps-intraday").getJSONArray("dataset");
-	  for (int i = 0; i < dataset.length(); i++) {
-		  JSONObject datapoint = dataset.getJSONObject(i);
-		  String time = datapoint.getString("time");
-		  String datasetValue = Integer.toString(datapoint.getInt("value"));
-		  String[] timeArray = time.split(":");
-		  String hour = timeArray[0];
-		  String min = timeArray[1];
-		  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+	  try {
+		  JSONArray dataset = obj.getJSONObject("activities-steps-intraday").getJSONArray("dataset");
+		  for (int i = 0; i < dataset.length(); i++) {
+			  JSONObject datapoint = dataset.getJSONObject(i);
+			  String time = datapoint.getString("time");
+			  String datasetValue = Integer.toString(datapoint.getInt("value"));
+			  String[] timeArray = time.split(":");
+			  String hour = timeArray[0];
+			  String min = timeArray[1];
+			  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+			  stepsTimeSeries.add(node);
+		 }
+	  }
+	  
+	  catch (JSONException e){
+		  int minute = 0;
+		  int hours = 0;
+		  TimeSeriesNode node = new TimeSeriesNode(Integer.toString(minute), Integer.toString(hours), currentDate, Integer.toString(0));
 		  stepsTimeSeries.add(node);
-	 }
+		  minute ++;
+		  minute %= 60;
+		  if ((minute %= 60) == 0) {
+			  hours++;  
+		  }
+	  }
+
 	  
   }
   
   private void parseCaloriesTimeSeries(JSONObject obj) {
 	  caloriesTimeSeries = new LinkedList<TimeSeriesNode>();
 	  
-	  JSONArray dataset = obj.getJSONObject("activities-calories-intraday").getJSONArray("dataset");
-	  for (int i = 0; i < dataset.length(); i++) {
-		  JSONObject datapoint = dataset.getJSONObject(i);
-		  String time = datapoint.getString("time");
-		  String datasetValue = Integer.toString(datapoint.getInt("value"));
-		  String[] timeArray = time.split(":");
-		  String hour = timeArray[0];
-		  String min = timeArray[1];
-		  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+	  try {
+		  JSONArray dataset = obj.getJSONObject("activities-calories-intraday").getJSONArray("dataset");
+		  for (int i = 0; i < dataset.length(); i++) {
+			  JSONObject datapoint = dataset.getJSONObject(i);
+			  String time = datapoint.getString("time");
+			  String datasetValue = Integer.toString(datapoint.getInt("value"));
+			  String[] timeArray = time.split(":");
+			  String hour = timeArray[0];
+			  String min = timeArray[1];
+			  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+			  caloriesTimeSeries.add(node);
+		 }
+	  }
+	  
+	  catch (JSONException e) {
+		  int minute = 0;
+		  int hours = 0;
+		  TimeSeriesNode node = new TimeSeriesNode(Integer.toString(minute), Integer.toString(hours), currentDate, Integer.toString(0));
 		  caloriesTimeSeries.add(node);
-	 }
+		  minute ++;
+		  minute %= 60;
+		  if ((minute %= 60) == 0) {
+			  hours++;  
+		  }
+	  }
+	  
   }
   
   private void parseDistanceTimeSeries(JSONObject obj) {
 	  distanceTimeSeries = new LinkedList<TimeSeriesNode>();
+	  try {
+		  JSONArray dataset = obj.getJSONObject("activities-distance-intraday").getJSONArray("dataset");
+		  for (int i = 0; i < dataset.length(); i++) {
+			  JSONObject datapoint = dataset.getJSONObject(i);
+			  String time = datapoint.getString("time");
+			  String datasetValue = Float.toString((float)datapoint.getDouble("value"));
+			  String[] timeArray = time.split(":");
+			  String hour = timeArray[0];
+			  String min = timeArray[1];
+			  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+			  distanceTimeSeries.add(node);
+		 }
+	  }
 	  
-	  JSONArray dataset = obj.getJSONObject("activities-distance-intraday").getJSONArray("dataset");
-	  for (int i = 0; i < dataset.length(); i++) {
-		  JSONObject datapoint = dataset.getJSONObject(i);
-		  String time = datapoint.getString("time");
-		  String datasetValue = Float.toString((float)datapoint.getDouble("value"));
-		  String[] timeArray = time.split(":");
-		  String hour = timeArray[0];
-		  String min = timeArray[1];
-		  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+	  catch (JSONException e) {
+		  int minute = 0;
+		  int hours = 0;
+		  TimeSeriesNode node = new TimeSeriesNode(Integer.toString(minute), Integer.toString(hours), currentDate, Integer.toString(0));
 		  distanceTimeSeries.add(node);
-	 }
+		  minute ++;
+		  minute %= 60;
+		  if ((minute %= 60) == 0) {
+			  hours++;  
+		  }
+	  }
+
   }
   
   /********************************************************
@@ -581,7 +652,7 @@ public LinkedList<TimeSeriesNode> getHrTimeSeries() {
   /**
  * @return the restingHeartRate
  */
-public float getRestingHeartRate() {
+public String getRestingHeartRate() {
 	return this.restingHeartRate;
 }
 

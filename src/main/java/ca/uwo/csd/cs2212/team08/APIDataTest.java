@@ -29,7 +29,7 @@ public class APIDataTest extends APIData {
 	  private float bestFloors;
 	  private float bestSteps;
 	  //Instance variables for heart rate zones
-	  private float restingHeartRate;
+	  private String restingHeartRate;
 	  private HRZone outOfRange;
 	  private HRZone fatBurn;
 	  private HRZone cardio;
@@ -83,15 +83,19 @@ public class APIDataTest extends APIData {
         bestDistance = (float)randInt((int)userDailyDistance, (int)totalDistance);
         bestFloors = randInt((int)userDailyFloorsClimbed, (int)totalFloors);
         bestSteps= randInt((int)userDailySteps, (int)totalSteps);
-        restingHeartRate = randInt(60, 100);
+        restingHeartRate = Integer.toString(randInt(60, 100));
         
         FileReader fileReader;
 		try {
 			fileReader = new FileReader("src/main/resources/testdata.txt");
 			BufferedReader reader = new BufferedReader(fileReader);
 			
+			String HRJson = reader.readLine();
+			JSONObject obj = new JSONObject(HRJson);
+			parseHeartRateZones(obj);
+			
 			String stepsJson = reader.readLine();
-			JSONObject obj = new JSONObject(stepsJson);
+			obj = new JSONObject(stepsJson);
 			parseStepsTimeSeries(obj);
 
 			String caloriesJson = reader.readLine();
@@ -112,6 +116,30 @@ public class APIDataTest extends APIData {
         return true;
 
     }
+    
+    private void parseHeartRateZones(JSONObject obj) {
+  		  JSONObject value = obj.getJSONArray("activities-heart").getJSONObject(0).getJSONObject("value");
+  		  restingHeartRate = Integer.toString(value.getInt("restingHeartRate"));
+  		  JSONArray heartRateZones = value.getJSONArray("heartRateZones");
+  		  outOfRange = new HRZone(heartRateZones.getJSONObject(0));
+  		  fatBurn = new HRZone(heartRateZones.getJSONObject(1));
+  		  cardio = new HRZone(heartRateZones.getJSONObject(2));
+  		  peak = new HRZone(heartRateZones.getJSONObject(3));
+  		  
+  		  hrTimeSeries = new LinkedList<TimeSeriesNode>();
+  		  
+  		  JSONArray dataset = obj.getJSONObject("activities-heart-intraday").getJSONArray("dataset");
+  		  for (int i = 0; i < dataset.length(); i++) {
+  			  JSONObject datapoint = dataset.getJSONObject(i);
+  			  String time = datapoint.getString("time");
+  			  String datasetValue = Integer.toString(datapoint.getInt("value"));
+  			  String[] timeArray = time.split(":");
+  			  String hour = timeArray[0];
+  			  String min = timeArray[1];
+  			  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
+  			  hrTimeSeries.add(node);
+  		  }
+  	  }
     
     private void parseStepsTimeSeries(JSONObject obj) {
   	  
@@ -199,7 +227,7 @@ public class APIDataTest extends APIData {
     /**
    * @return the restingHeartRate
    */
-  public float getRestingHeartRate() {
+  public String getRestingHeartRate() {
   	return this.restingHeartRate;
   }
 
