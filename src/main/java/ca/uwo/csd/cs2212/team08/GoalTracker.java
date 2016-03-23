@@ -16,7 +16,7 @@ public class GoalTracker implements Serializable {
     private float distanceProgress;
     private float caloriesProgress;
     private float floorsClimbedProgress;
-    private float veryActiveMinutesProgress;
+    private float activeMinutesProgress;
 
     private APIData source;
     private Goal[] goalArray;
@@ -233,11 +233,11 @@ public class GoalTracker implements Serializable {
                 this.goalArray[3].setAchieved();
         }
 
-        float APIVeryActiveMinutes = source.getVeryActiveMin();
+        float APIActiveMinutes = source.getVeryActiveMin() + source.getLightlyActiveMin() + source.getFairlyActiveMin();
         if (this.goalArray[4].getTarget() != "0") { //sedentary minutes goal
-            this.veryActiveMinutesProgress = APIVeryActiveMinutes / Float.parseFloat(this.goalArray[4].getTarget()) * 100.0f;
+            this.activeMinutesProgress = APIActiveMinutes / Float.parseFloat(this.goalArray[4].getTarget()) * 100.0f;
 
-            if (this.veryActiveMinutesProgress >= 100)
+            if (this.activeMinutesProgress >= 100)
                 this.goalArray[4].setAchieved();
         }
 
@@ -289,7 +289,7 @@ public class GoalTracker implements Serializable {
     }
 
     public float getVeryActiveMinutesProgress() {
-        return veryActiveMinutesProgress;
+        return activeMinutesProgress;
     }
 
 

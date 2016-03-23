@@ -99,7 +99,7 @@ public class LGraph extends JPanel {
             /**
              * TODO add proper minutes, dates...
              */
-            series.add(new Minute( minutes, hours, day, month, year), value);
+            series.addOrUpdate(new Minute( minutes, hours, day, month, year), value);
 
         }
         return series;

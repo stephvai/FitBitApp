@@ -5,11 +5,16 @@ import org.json.JSONObject;
 public class HRZone {
 	
 	String name;
-	float minutes;
+	String value;
 	
 	public HRZone(JSONObject heartRateData) {
 		this.name = heartRateData.getString("name");
-		this.minutes = heartRateData.getInt("minutes");
+		this.value = Integer.toString(heartRateData.getInt("minutes"));
+	}
+	
+	public HRZone(String name, String value) {
+		this.name = name;
+		this.value = value;
 	}
 
 	/**
@@ -22,8 +27,8 @@ public class HRZone {
 	/**
 	 * @return the minutes
 	 */
-	public float getMinutes() {
-		return minutes;
+	public String getValue() {
+		return value;
 	}
 
 }

@@ -1,6 +1,7 @@
 package ca.uwo.csd.cs2212.team08;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
@@ -106,7 +107,7 @@ public class CaloriesPanel extends JFrame {
 		contentPane.add(pnlTodaysValue);
 		pnlTodaysValue.setLayout(null);
 		pnlTodaysValue.setBackground(pannelColor);
-		pnlTodaysValue.setBorder(BorderFactory.createLineBorder(borderColor));
+		pnlTodaysValue.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 
 		/*--------------------------------------------*/
 		//add a label to display the calories information for today

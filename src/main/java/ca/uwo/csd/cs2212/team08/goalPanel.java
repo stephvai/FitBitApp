@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.event.ActionListener;
@@ -33,7 +34,6 @@ public class goalPanel extends JFrame {
 	 * Create the frame.
 	 */
 	public goalPanel(final String date, final APIData paramAPIData) {
-		System.out.println("Best Steps:" + paramAPIData.getBestSteps());
 		try {
 			goalTracker = new GoalTracker(paramAPIData);
 		} catch (ClassNotFoundException e) {
@@ -97,7 +97,7 @@ public class goalPanel extends JFrame {
 		contentPane.add(stepGoalPanel);
 		stepGoalPanel.setLayout(null);
 		stepGoalPanel.setBackground(pannelColor);
-		stepGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
+		stepGoalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		
 		/*------------------------------------------*
 		 * Title of the step goal panel
@@ -138,7 +138,7 @@ public class goalPanel extends JFrame {
 		 *-------------------------------------------*/
 		JPanel distanceGoalPanel = new JPanel();
 		distanceGoalPanel.setLayout(null);
-		distanceGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
+		distanceGoalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		distanceGoalPanel.setBackground(new Color(168, 219, 168));
 		distanceGoalPanel.setBounds(368, 172, 285, 201);
 		contentPane.add(distanceGoalPanel);
@@ -182,7 +182,7 @@ public class goalPanel extends JFrame {
 		 *-------------------------------------------*/
 		final JPanel caloriesGoalPanel = new JPanel();
 		caloriesGoalPanel.setLayout(null);
-		caloriesGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
+		caloriesGoalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		caloriesGoalPanel.setBackground(new Color(168, 219, 168));
 		caloriesGoalPanel.setBounds(703, 172, 285, 201);
 		contentPane.add(caloriesGoalPanel);
@@ -227,7 +227,7 @@ public class goalPanel extends JFrame {
 		 *-------------------------------------------*/
 		JPanel floorsGoalPanel = new JPanel();
 		floorsGoalPanel.setLayout(null);
-		floorsGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
+		floorsGoalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		floorsGoalPanel.setBackground(new Color(168, 219, 168));
 		floorsGoalPanel.setBounds(183, 466, 285, 201);
 		contentPane.add(floorsGoalPanel);
@@ -271,7 +271,7 @@ public class goalPanel extends JFrame {
 		 *------------------------------------------------------*/
 		JPanel activeGoalPanel = new JPanel();
 		activeGoalPanel.setLayout(null);
-		activeGoalPanel.setBorder(BorderFactory.createLineBorder(borderColor));
+		activeGoalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		activeGoalPanel.setBackground(new Color(168, 219, 168));
 		activeGoalPanel.setBounds(529, 466, 285, 201);
 		contentPane.add(activeGoalPanel);

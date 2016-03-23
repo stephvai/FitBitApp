@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -96,7 +97,7 @@ public class Minutes extends JFrame {
 		contentPane.add(pnlActiveMinutes);
 		pnlActiveMinutes.setLayout(null);
 		pnlActiveMinutes.setBackground(pannelColor);
-		pnlActiveMinutes.setBorder(BorderFactory.createLineBorder(borderColor));
+		pnlActiveMinutes.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		
 		/*----------------------------------------*
 		 * Title of the panel 
@@ -110,7 +111,7 @@ public class Minutes extends JFrame {
 		/*-------------------------------------------------------------*
 		 * information shown for lightly active minutes
 		 *-------------------------------------------------------------*/
-		JLabel activeMinutesValue = new JLabel("<html> Today you were lightly active for: "+ apiData.getLightlyActiveMin() +" minutes. </html>");
+		JLabel activeMinutesValue = new JLabel("<html> Today you were lightly active for: <strong>"+ apiData.getLightlyActiveMin() +"</strong> minutes. </html>");
 		activeMinutesValue.setBounds(24, 88, 300, 142);
 		pnlActiveMinutes.add(activeMinutesValue);
 		activeMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
@@ -119,7 +120,7 @@ public class Minutes extends JFrame {
 		/*-------------------------------------------------------------*
 		 * information shown for fairly active minutes
 		 *-------------------------------------------------------------*/
-		JLabel fairlyActiveMinutesValue = new JLabel("<html> Today you were fairly active for: "+ apiData.getFairlyActiveMin()+ " minutes. </html>");
+		JLabel fairlyActiveMinutesValue = new JLabel("<html> Today you were fairly active for: <strong>"+ apiData.getFairlyActiveMin()+ "</strong> minutes. </html>");
 		fairlyActiveMinutesValue.setBounds(24, 213, 300, 123);
 		pnlActiveMinutes.add(fairlyActiveMinutesValue);
 		fairlyActiveMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
@@ -128,7 +129,7 @@ public class Minutes extends JFrame {
 		/*-------------------------------------------------------------*
 		 * information shown for very active minutes, maybe we could add it all up?
 		 *-------------------------------------------------------------*/
-		JLabel veryActiveMinutesValue = new JLabel("<html> Today you were very active for: "+ apiData.getVeryActiveMin()+ " minutes. </html>");
+		JLabel veryActiveMinutesValue = new JLabel("<html> Today you were very active for: <strong>"+ apiData.getVeryActiveMin()+ "</strong> minutes. </html>");
 		veryActiveMinutesValue.setBounds(24,332, 300, 123);
 		pnlActiveMinutes.add(veryActiveMinutesValue);
 		veryActiveMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
@@ -142,7 +143,7 @@ public class Minutes extends JFrame {
 		contentPane.add(pnlSedentMinutes);
 		pnlSedentMinutes.setLayout(null);
 		pnlSedentMinutes.setBackground(pannelColor);
-		pnlSedentMinutes.setBorder(BorderFactory.createLineBorder(borderColor));
+		pnlSedentMinutes.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		
 		/*------------------------------------------*
 		 * Title of sedentary panel 
@@ -156,7 +157,7 @@ public class Minutes extends JFrame {
 		/*----------------------------------------------------------*
 		 * information for sedentary minutes minus the API currently
 		 *----------------------------------------------------------*/
-		JLabel sedentMinutesValue = new JLabel("<html> Today you were not active for: " + apiData.getSendentaryMinutes() +" minutes. </html>");
+		JLabel sedentMinutesValue = new JLabel("<html> Today you were not active for: <strong>" + apiData.getSendentaryMinutes() +"</strong> minutes. </html>");
 		sedentMinutesValue.setBounds(22,93, 321,96);
 		pnlSedentMinutes.add(sedentMinutesValue);
 		sedentMinutesValue.setFont(new Font("Trebouchet MS", Font.PLAIN, 25));

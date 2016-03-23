@@ -47,10 +47,6 @@ public class PGraph extends JPanel {
         add(new ChartPanel(chart), BorderLayout.CENTER);
 
         setPreferredSize(new Dimension(600,500));
-
-
-
-
     }
 
 

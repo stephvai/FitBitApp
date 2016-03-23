@@ -1,6 +1,7 @@
 package ca.uwo.csd.cs2212.team08;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
@@ -132,7 +133,7 @@ public class StepsPanel extends JFrame {
 		contentPane.add(pnlTodaysSteps);
 		pnlTodaysSteps.setLayout(null);
 		pnlTodaysSteps.setBackground(pannelColor);
-		pnlTodaysSteps.setBorder(BorderFactory.createLineBorder(borderColor));
+		pnlTodaysSteps.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 
 		/*--------------------------------------------*/
 		//add a label to display the users steps
@@ -151,7 +152,7 @@ public class StepsPanel extends JFrame {
 		contentPane.add(pnlLifetimeTotal);
 		pnlLifetimeTotal.setLayout(null);
 		pnlLifetimeTotal.setBackground(pannelColor);
-		pnlLifetimeTotal.setBorder(BorderFactory.createLineBorder(borderColor));
+		pnlLifetimeTotal.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		
 		/*--------------------------------------------*/
 		//add a label to display the steps lifetime total
@@ -170,7 +171,7 @@ public class StepsPanel extends JFrame {
 		contentPane.add(pnlBestDay);
 		pnlBestDay.setLayout(null);
 		pnlBestDay.setBackground(pannelColor);
-		pnlBestDay.setBorder(BorderFactory.createLineBorder(borderColor));
+		pnlBestDay.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		
 		/*--------------------------------------------*/
 		//add a label to display the steps best day
