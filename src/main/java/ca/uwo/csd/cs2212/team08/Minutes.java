@@ -28,7 +28,7 @@ public class Minutes extends JFrame {
 
 	private JPanel contentPane;
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(206,206,206);
+	private Color pannelColor = new Color(0,0,0,60);
 	private Color borderColor = new Color(121, 189, 154);
 	private Color titleColor = new Color(11, 72, 107);
 	private Color white = Color.white;
@@ -109,45 +109,66 @@ public class Minutes extends JFrame {
 		/*------------------------------------------*
 		 * Panel where active minutes will be shown
 		 *------------------------------------------*/
-		JPanel pnlActiveMinutes = new JPanel();
+		JPanel pnlActiveMinutes = new JPanel() {
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		pnlActiveMinutes.setBounds(80, 138, 349, 461);
 		contentPane.add(pnlActiveMinutes);
 		pnlActiveMinutes.setLayout(null);
+		pnlActiveMinutes.setOpaque(false);
 		pnlActiveMinutes.setBackground(pannelColor);
-		pnlActiveMinutes.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		//pnlActiveMinutes.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		
 		/*----------------------------------------*
 		 * Title of the panel 
 		 *----------------------------------------*/
 		JLabel activeTitle = new JLabel("<html> Active Minutes</html>");
 		activeTitle.setBounds(52, 21, 229, 80);
+		activeTitle.setOpaque(false);
+		activeTitle.setForeground(white);
+		//activeTitle.setBackground(pannelColor);
 		pnlActiveMinutes.add(activeTitle);
+		
 		activeTitle.setFont(new Font("Trebuchet MS", Font.PLAIN, 35)); //font is here
 		activeTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
+		contentPane.repaint();
 		/*-------------------------------------------------------------*
 		 * information shown for lightly active minutes
 		 *-------------------------------------------------------------*/
 		JLabel activeMinutesValue = new JLabel("<html> Today you were lightly active for: <strong>"+ apiData.getLightlyActiveMin() +"</strong> minutes. </html>");
 		activeMinutesValue.setBounds(24, 88, 300, 142);
-		pnlActiveMinutes.add(activeMinutesValue);
+		activeMinutesValue.setOpaque(false);
+		activeMinutesValue.setForeground(white);
 		activeMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		activeMinutesValue.setHorizontalAlignment(SwingConstants.CENTER);
+		pnlActiveMinutes.add(activeMinutesValue);
+		contentPane.repaint();
 		
 		/*-------------------------------------------------------------*
 		 * information shown for fairly active minutes
 		 *-------------------------------------------------------------*/
 		JLabel fairlyActiveMinutesValue = new JLabel("<html> Today you were fairly active for: <strong>"+ apiData.getFairlyActiveMin()+ "</strong> minutes. </html>");
 		fairlyActiveMinutesValue.setBounds(24, 213, 300, 123);
+		fairlyActiveMinutesValue.setForeground(white);
+		fairlyActiveMinutesValue.setBackground(pannelColor);
 		pnlActiveMinutes.add(fairlyActiveMinutesValue);
 		fairlyActiveMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		fairlyActiveMinutesValue.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.repaint();
 		
 		/*-------------------------------------------------------------*
 		 * information shown for very active minutes, maybe we could add it all up?
 		 *-------------------------------------------------------------*/
 		JLabel veryActiveMinutesValue = new JLabel("<html> Today you were very active for: <strong>"+ apiData.getVeryActiveMin()+ "</strong> minutes. </html>");
 		veryActiveMinutesValue.setBounds(24,332, 300, 123);
+		veryActiveMinutesValue.setForeground(white);
+		veryActiveMinutesValue.setBackground(pannelColor);
 		pnlActiveMinutes.add(veryActiveMinutesValue);
 		veryActiveMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		veryActiveMinutesValue.setHorizontalAlignment(SwingConstants.CENTER);
@@ -155,30 +176,46 @@ public class Minutes extends JFrame {
 		/*--------------------------------------------*
 		 * panel where sedentary minutes will be shown
 		 *--------------------------------------------*/
-		JPanel pnlSedentMinutes = new JPanel();
+		JPanel pnlSedentMinutes = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		pnlSedentMinutes.setBounds(570, 138, 349, 200);
-		contentPane.add(pnlSedentMinutes);
 		pnlSedentMinutes.setLayout(null);
+		pnlSedentMinutes.setOpaque(false);
 		pnlSedentMinutes.setBackground(pannelColor);
 		pnlSedentMinutes.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		contentPane.add(pnlSedentMinutes);
+		contentPane.repaint();
+		
 		
 		/*------------------------------------------*
 		 * Title of sedentary panel 
 		 *------------------------------------------*/
 		JLabel sedentTitle = new JLabel("<html>Sedentary Minutes</html>");
 		sedentTitle.setBounds(22, 21, 321, 80);
-		pnlSedentMinutes.add(sedentTitle);
+		sedentTitle.setForeground(white);
+		sedentTitle.setOpaque(false);
 		sedentTitle.setFont(new Font("Trebuchet MS", Font.PLAIN, 35)); //font is here
 		sedentTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		pnlSedentMinutes.add(sedentTitle);
+		contentPane.repaint();
 		
-		/*----------------------------------------------------------*
-		 * information for sedentary minutes minus the API currently
-		 *----------------------------------------------------------*/
+		/*------------------------------------------*
+		 * information for sedentary minutes 
+		 *------------------------------------------*/
 		JLabel sedentMinutesValue = new JLabel("<html> Today you were not active for: <strong>" + apiData.getSendentaryMinutes() +"</strong> minutes. </html>");
 		sedentMinutesValue.setBounds(22,93, 321,96);
-		pnlSedentMinutes.add(sedentMinutesValue);
+		sedentMinutesValue.setOpaque(false);
+		sedentMinutesValue.setForeground(white);
 		sedentMinutesValue.setFont(new Font("Trebouchet MS", Font.PLAIN, 25));
 		sedentMinutesValue.setHorizontalAlignment(SwingConstants.CENTER);
+		pnlSedentMinutes.add(sedentMinutesValue);
+		contentPane.repaint();
 		
 		PGraph piGraph = new PGraph(apiData);
 		piGraph.setBounds(570, 375, 349, 225);

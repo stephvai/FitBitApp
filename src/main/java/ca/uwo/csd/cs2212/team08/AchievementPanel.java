@@ -71,6 +71,9 @@ public class AchievementPanel extends JFrame {
 	private static final String calTwoThousandSevenHundredFiftyImage = "src/main/resources/Academy Awards/2,750 cals reached.png";
 	private static final String calThreeThousandImage = "src/main/resources/Academy Awards/3,000 cals reached.png";
 	
+	
+	private static final String Testpic = "src/main/resources/images/pc2.jpg";
+	
 	/*
 	 * default pictures shown. All corresponding pictures will go in order, so milesTen and milesTenNot
 	 * will always correspond to each other (in terms of order) in this section of code. Sorry if that's confusing. 
@@ -215,9 +218,9 @@ public class AchievementPanel extends JFrame {
 		//if achieved method returns true then
 		// tenMiles.setIcon(new ImageIcon(milesTen));
 		if(this.tracker.isAchieved(0)){
-			tenMiles.setIcon(new ImageIcon(milesTen));
+			tenMiles.setIcon(new ImageIcon(Testpic));
 		}
-		tenMiles.setIcon(new ImageIcon(milesTenNot));
+		tenMiles.setIcon(new ImageIcon(Testpic));
 		contentPane.add(tenMiles);
 		
 		//20 miles

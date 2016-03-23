@@ -30,7 +30,7 @@ public class DistancePanel extends JFrame {
 
 	//Color Scheme
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(206,206,206);
+	private Color pannelColor = new Color(0,0,0,64);
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
@@ -121,59 +121,92 @@ public class DistancePanel extends JFrame {
 		/*--------------------------------------------*/
 		//create a panel to display Distance information for today
 		/*--------------------------------------------*/
-		JPanel pnlTodaysValue = new JPanel();
+		JPanel pnlTodaysValue = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		pnlTodaysValue.setBounds(80, 138, 240, 224);
-		contentPane.add(pnlTodaysValue);
+		pnlTodaysValue.setOpaque(false);
 		pnlTodaysValue.setLayout(null);
 		pnlTodaysValue.setBackground(pannelColor);
 		pnlTodaysValue.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-
+		contentPane.add(pnlTodaysValue);
+		contentPane.repaint();
 		/*--------------------------------------------*/
 		//add a label to display the Distance for today
 		/*--------------------------------------------*/
 		JLabel lblDailyValue = new JLabel("<html> Today you traveled <strong>"+ apiData.getDistance() +"km. </strong> </html>");
 		lblDailyValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblDailyValue.setForeground(white);
+		lblDailyValue.setOpaque(false);
 		lblDailyValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDailyValue.setBounds(21, 21, 198, 182);
 		pnlTodaysValue.add(lblDailyValue);
+		contentPane.repaint();
 
 		/*--------------------------------------------*/
 		//create a panel to display distance information for lifetime totals
 		/*--------------------------------------------*/
-		JPanel pnlLifetimeTotal = new JPanel();
+		JPanel pnlLifetimeTotal = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		pnlLifetimeTotal.setBounds(373, 138, 240, 224);
-		contentPane.add(pnlLifetimeTotal);
+		pnlLifetimeTotal.setOpaque(false);
 		pnlLifetimeTotal.setLayout(null);
 		pnlLifetimeTotal.setBackground(pannelColor);
 		pnlLifetimeTotal.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		
+		contentPane.add(pnlLifetimeTotal);
+		contentPane.repaint();
 		/*--------------------------------------------*/
 		//add a label to display the distance lifetime total
 		/*--------------------------------------------*/
 		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have traveled <strong>"+ apiData.getTotalDistance()+"km. </strong> </html>");
 		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblLifetimeTotal.setForeground(white);
+		lblLifetimeTotal.setOpaque(false);
 		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLifetimeTotal.setBounds(6, 21, 228, 182);
 		pnlLifetimeTotal.add(lblLifetimeTotal);
+		contentPane.repaint();
 		
 		/*--------------------------------------------*/
 		//create a panel to display distance information for the users best day
 		/*--------------------------------------------*/
-		JPanel pnlBestDay = new JPanel();
+		JPanel pnlBestDay = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		pnlBestDay.setBounds(677, 138, 240, 224);
-		contentPane.add(pnlBestDay);
+		pnlBestDay.setOpaque(false);
 		pnlBestDay.setLayout(null);
 		pnlBestDay.setBackground(pannelColor);
 		pnlBestDay.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		
+		contentPane.add(pnlBestDay);
+		contentPane.repaint();
 		/*--------------------------------------------*/
 		//add a label to display the distance for the best days
 		/*--------------------------------------------*/
 		JLabel lblBestDay = new JLabel("<html> On your best day you traveled <strong>"+ apiData.getBestDistance()+"km. </strong> </html>");
 		lblBestDay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblBestDay.setOpaque(false);
+		lblBestDay.setForeground(white);
 		lblBestDay.setBounds(21, 21, 198, 182);
 		pnlBestDay.add(lblBestDay);
+		contentPane.repaint();
 		
 		/*-------------------------------------*/
 		//the label to set the last updated time

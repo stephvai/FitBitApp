@@ -31,11 +31,11 @@ public class CaloriesPanel extends JFrame {
 	//Color Scheme
 	private Color bgColor = Color.darkGray;
 	//private Color pannelColor = new Color(168,219,168);
-	private Color pannelColor = new Color(206,206,206);
+	private Color pannelColor = new Color(0,0,0,60);
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
-	
+		
 	/**
 	 * create a calories panel to show user information on their calories
 	 * @param date this is the date selected by the user 
@@ -134,6 +134,8 @@ public class CaloriesPanel extends JFrame {
 		lblDailyValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblDailyValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDailyValue.setBounds(21, 21, 792, 182);
+		lblDailyValue.setBackground(pannelColor);
+		lblDailyValue.setForeground(white);
 		pnlTodaysValue.add(lblDailyValue);
 		
 		/*

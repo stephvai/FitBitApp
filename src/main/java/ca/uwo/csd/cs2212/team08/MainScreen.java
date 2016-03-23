@@ -80,6 +80,9 @@ public class MainScreen extends JFrame implements Serializable {
 	//private Color pannelHoverColor = new Color(188, 240, 188);
 	private Color pannelColor = new Color(206,206,206);
 	private Color borderColor = new Color(121,189,154);
+	
+	private Color transparentColor = new Color(0,0,0,60);
+	private Color transparentHoverColor = new Color(0,0,0,60);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
 	
@@ -208,9 +211,10 @@ public class MainScreen extends JFrame implements Serializable {
 			 goalTracker = new GoalTracker(apiData);
 			 goalTracker.updateProgress();
 
+			 /*
 			 /*------------------------------------------*/
 			 //create each panel used for the daily dash board
-			 /*------------------------------------------*/
+			 /*------------------------------------------/
 			 stepsPanel();
 			 stairsPanel();
 			 caloriesPanel();
@@ -220,7 +224,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 accoladesPanel();
 			 heartRatePanel();
 			 goalsPanel();
-
+			  */
 			 /*------------------------------------------*/
 			 //create a refresh button to refresh the data
 			 /*------------------------------------------*/
@@ -282,6 +286,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 accoladesPanel();
 			 heartRatePanel();
 			 goalsPanel();
+		
 			 
 			 /*------------------------------------------*/
 			 //create a panel to customize the dash board
@@ -505,6 +510,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 pnlSteps = new DashBoardPanel(50, 196);
 	    	 //pnlSteps.setLocation(51, 99);
 	    	 pnlSteps.setVisible(false);
+	    	 pnlSteps.setBackground(transparentColor);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -516,15 +522,17 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlSteps.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	    			 pnlSteps.setBackground(pannelHoverColor);
+	    			 pnlSteps.setOpaque(false);
+	    			 pnlSteps.setBackground(transparentColor);
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlSteps.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-	    			 pnlSteps.setBackground(pannelColor);
+	    			 pnlSteps.setOpaque(false);
+	    			 pnlSteps.setBackground(transparentHoverColor);
 	    		 }
 	    	 });
-	    
+	    	
 	    	 //set the layout to absolute
 	    	 pnlSteps.setLayout(null);
 	    	 pnlSteps.setToolTipText("click here to see more information!");
@@ -552,6 +560,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 JLabel lblSteps = new JLabel(Integer.toString((int)apiData.getSteps()));
 	    	 lblSteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
+	    	 lblSteps.setForeground(white);
 	    	 lblSteps.setBounds(0, 26, 265, 33);
 	    	 pnlSteps.add(lblSteps);
 
@@ -560,6 +569,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 	    	 JLabel lblStepsTtile = new JLabel("Steps");
 	    	 lblStepsTtile.setBounds(0, 58, 265, 26);
+	    	 lblStepsTtile.setForeground(white);
 	    	 pnlSteps.add(lblStepsTtile);
 	    	 lblStepsTtile.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);
@@ -576,6 +586,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 //pnlStairs.setLocation(385, 99);
 	    	 pnlStairs.setLayout(null);
 	    	 pnlStairs.setVisible(false);
+	    	 pnlStairs.setBackground(transparentColor);
 	    	 pnlStairs.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -587,13 +598,13 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlStairs.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	    			 pnlStairs.setBackground(pannelHoverColor);
+	    			 pnlStairs.setBackground(transparentHoverColor);
 
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlStairs.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-	    			 pnlStairs.setBackground(pannelColor);
+	    			 pnlStairs.setBackground(transparentColor);
 	    		 }
 	    	 });
 	    	 contentPane.add(pnlStairs);
@@ -604,6 +615,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel lblStairs = new JLabel("Floors Climbed:");
 			 lblStairs.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblStairs.setHorizontalAlignment(SwingConstants.CENTER);
+			 lblStairs.setForeground(white);
 			 lblStairs.setBounds(0, 56, 265, 38);
 			 pnlStairs.add(lblStairs);
 
@@ -611,7 +623,6 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 //create a label to display the floors climbed title
 	    	 /*------------------------------------------*/
 
-	    	 
 			 JProgressBar stairsProgress = new JProgressBar();
 			 stairsProgress.setValue((int)goalTracker.getFloorsClimbedProgress());
 			 stairsProgress.setToolTipText("Current progress towards your goal");
@@ -625,6 +636,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel label = new JLabel(Integer.toString((int)apiData.getFloorsClimbed()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
+			 label.setForeground(white);
 			 label.setBounds(0, 17, 265, 33);
 			 pnlStairs.add(label);
 	     }
@@ -643,6 +655,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 //pnlCalories.setLocation(709, 99);
 			 pnlCalories.setLayout(null);
 			 pnlCalories.setVisible(false);
+			 pnlCalories.setBackground(transparentColor);
 			 pnlCalories.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -654,13 +667,13 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlCalories.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	    			 pnlCalories.setBackground(pannelHoverColor);
+	    			 pnlCalories.setBackground(transparentHoverColor);
 
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlCalories.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-	    			 pnlCalories.setBackground(pannelColor);
+	    			 pnlCalories.setBackground(transparentColor);
 
 	    		 }
 	    	 });
@@ -673,6 +686,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 lblCalories.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblCalories.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblCalories.setBounds(0,51,265,53);
+			 lblCalories.setForeground(white);
 			 pnlCalories.add(lblCalories);
 
 			 /*------------------------------------------*/
@@ -693,6 +707,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 15, 265, 33);
+			 label.setForeground(white);
 			 pnlCalories.add(label);
 	     }
 	     
@@ -709,6 +724,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlDistance = new DashBoardPanel(50, 305);
 			 pnlDistance.setLayout(null);
 			 pnlDistance.setVisible(false);
+			 pnlDistance.setBackground(transparentColor);
 			 pnlDistance.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
@@ -720,13 +736,13 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlDistance.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	    			 pnlDistance.setBackground(pannelHoverColor);
+	    			 pnlDistance.setBackground(transparentHoverColor);
 
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlDistance.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-	    			 pnlDistance.setBackground(pannelColor);
+	    			 pnlDistance.setBackground(transparentColor);
 
 	    		 }
 	    	 });
@@ -739,6 +755,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 lblDistance.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblDistance.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblDistance.setBounds(0,61,265,42);
+			 lblDistance.setForeground(white);
 			 pnlDistance.add(lblDistance);
 			 
 			 /*------------------------------------------*/
@@ -751,6 +768,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 distanceProgress.setToolTipText("Current progress towards your goal");
 			 distanceProgress.setForeground(SystemColor.textHighlight);
 			 distanceProgress.setBounds(21,115,210,36);
+			 distanceProgress.setForeground(white);
 			 pnlDistance.add(distanceProgress);
 			 
 			 /*------------------------------------------*/
@@ -760,6 +778,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 15, 265, 33);
+			 label.setForeground(white);
 			 pnlDistance.add(label);
 	     }
 	     
@@ -775,6 +794,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlActiveMin = new DashBoardPanel(50, 305);
 			 pnlActiveMin.setLayout(null);
 			 pnlActiveMin.setVisible(false);
+			 pnlActiveMin.setBackground(transparentColor);
 			 //pnlActiveMin.setBounds(385, 300, 265, 155);
 			 pnlActiveMin.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -787,13 +807,13 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlActiveMin.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	    			 pnlActiveMin.setBackground(pannelHoverColor);
+	    			 pnlActiveMin.setBackground(transparentHoverColor);
 
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlActiveMin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-	    			 pnlActiveMin.setBackground(pannelColor);
+	    			 pnlActiveMin.setBackground(transparentColor);
 
 	    		 }
 	    	 });
@@ -806,6 +826,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 lblActiveMin.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblActiveMin.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblActiveMin.setBounds(0, 58, 265, 47);
+			 lblActiveMin.setForeground(white);
 			 pnlActiveMin.add(lblActiveMin);
 			 
 			 /*------------------------------------------*/
@@ -815,12 +836,12 @@ public class MainScreen extends JFrame implements Serializable {
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 19, 265, 33);
+			 label.setForeground(white);
 			 pnlActiveMin.add(label);
 			 
 			 /*------------------------------------------*/
 	    	 //create a label to create a new progress bar
-	    	 /*------------------------------------------*/
-			 
+	    	 /*------------------------------------------*/			 
 			 JProgressBar activeMinutesProgress = new JProgressBar();
 			 activeMinutesProgress.setValue((int)goalTracker.getVeryActiveMinutesProgress());
 			 activeMinutesProgress.setToolTipText("Current progress towards your goal");
@@ -841,6 +862,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlSedentaryMin = new DashBoardPanel(50, 305);
 			 pnlSedentaryMin.setLayout(null);
 			 pnlSedentaryMin.setVisible(false);
+			 pnlSedentaryMin.setBackground(transparentColor);
 			 //pnlSedentaryMin.setBounds(709, 300, 265, 155);
 			 pnlSedentaryMin.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -853,13 +875,13 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlSedentaryMin.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	    			 pnlSedentaryMin.setBackground(pannelHoverColor);
+	    			 pnlSedentaryMin.setBackground(transparentHoverColor);
 
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlSedentaryMin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-	    			 pnlSedentaryMin.setBackground(pannelColor);
+	    			 pnlSedentaryMin.setBackground(transparentColor);
 
 	    		 }
 	    	 });
@@ -872,6 +894,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 lblSedentaryMin.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblSedentaryMin.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblSedentaryMin.setBounds(0, 57, 265, 50);
+			 lblSedentaryMin.setForeground(white);
 			 pnlSedentaryMin.add(lblSedentaryMin );
 			 
 			 /*------------------------------------------*/
@@ -881,6 +904,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
 			 label.setBounds(0, 18, 265, 33);
+			 label.setForeground(white);
 			 pnlSedentaryMin.add(label);
 	     }
 	     
@@ -896,6 +920,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlAccolades = new DashBoardPanel(50, 305);
 			 pnlAccolades.setLayout(null);
 			 pnlAccolades.setVisible(false);
+			 pnlAccolades.setBackground(transparentColor);
 			 //pnlAccolades.setBounds(51, 501, 265, 155);
 			 pnlAccolades.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -907,13 +932,13 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlAccolades.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	    			 pnlAccolades.setBackground(pannelHoverColor);
+	    			 pnlAccolades.setBackground(transparentHoverColor);
 
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlAccolades.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-	    			 pnlAccolades.setBackground(pannelColor);
+	    			 pnlAccolades.setBackground(transparentColor);
 	    		 }
 	    	 });
 			 contentPane.add(pnlAccolades);
@@ -925,6 +950,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 lblAccolades.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblAccolades.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblAccolades.setBounds(0, 61, 265, 49);
+			 lblAccolades.setForeground(white);
 			 pnlAccolades.add(lblAccolades);
 	     }
 	     
@@ -940,6 +966,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlHeartRate = new DashBoardPanel(50, 305);
 			 pnlHeartRate.setLayout(null);
 			 pnlHeartRate.setVisible(false);
+			 pnlHeartRate.setBackground(transparentColor);
 			 //pnlHeartRate.setBounds(385, 501, 265, 155);
 			 pnlHeartRate.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -952,13 +979,13 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlHeartRate.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	    			 pnlHeartRate.setBackground(pannelHoverColor);
+	    			 pnlHeartRate.setBackground(transparentHoverColor);
 
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlHeartRate.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-	    			 pnlHeartRate.setBackground(pannelColor);
+	    			 pnlHeartRate.setBackground(transparentColor);
 
 	    		 }
 	    	 });
@@ -971,6 +998,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 lblHeart.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblHeart.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblHeart.setBounds(0, 55, 265, 53);
+			 lblHeart.setForeground(white);
 			 pnlHeartRate.add(lblHeart);
 	     }
 	     
@@ -985,6 +1013,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlGoals = new DashBoardPanel(50, 305);
 			 pnlGoals.setLayout(null);
 			 pnlGoals.setVisible(false);
+			 pnlGoals.setBackground(transparentColor);
 			 //pnlGoals.setBounds(709, 501, 265, 155);
 			 pnlGoals.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -997,13 +1026,13 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 @Override
 	    		 public void mouseEntered(MouseEvent e) {
 	    		        pnlGoals.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	    		        pnlGoals.setBackground(pannelHoverColor);
+	    		        pnlGoals.setBackground(transparentHoverColor);
 
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
 	    		        pnlGoals.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-	    		        pnlGoals.setBackground(pannelColor);
+	    		        pnlGoals.setBackground(transparentColor);
 
 	    		 }
 	    	 });
@@ -1017,9 +1046,8 @@ public class MainScreen extends JFrame implements Serializable {
 			 lblDaily.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblDaily.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblDaily.setBounds(0, 67, 265, 41);
-			 pnlGoals.add(lblDaily);
-			 
-		
+			 lblDaily.setForeground(white);
+			 pnlGoals.add(lblDaily);	 
 	     }
 	     
 	     private void serialize()
