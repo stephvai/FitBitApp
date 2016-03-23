@@ -5,17 +5,18 @@ import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.awt.Label;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -26,6 +27,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
+
 
 /**
  * a main screen class to act as the daily dash board for users, this is the first screen to launch
@@ -73,8 +75,10 @@ public class MainScreen extends JFrame implements Serializable {
 	
 	//Color Scheme 
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(168,219,168);
-	private Color pannelHoverColor = new Color(188, 240, 188);
+	//private Color pannelColor = new Color(168,219,168);
+	private Color pannelHoverColor = new Color(255,255,255);
+	//private Color pannelHoverColor = new Color(188, 240, 188);
+	private Color pannelColor = new Color(206,206,206);
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
@@ -112,7 +116,24 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    	 this.setLocationRelativeTo(null);
 	    	 this.setResizable(false);
-	    	 contentPane = new JPanel();
+	    	 contentPane = new JPanel() {
+	    		 /*
+	    		  * background image
+	    		  * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	    		  */
+	    		 @Override
+	    		 protected void paintComponent(Graphics g) {
+	    			 BufferedImage img = null;
+	    			 try {
+						img = ImageIO.read(new File("src/main/resources/images/track.jpg"));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	    			g.drawImage(img, 0,0, null);
+	    		 }
+	    	 };
+	    	 
 	    	 contentPane.setBorder(new EmptyBorder(5, 0, 5, 0));
 	    	 this.setContentPane(contentPane);
 	    	 contentPane.setLayout(null);
@@ -169,7 +190,20 @@ public class MainScreen extends JFrame implements Serializable {
 			 lblDataUpdate.setForeground(white);
 			 lblDataUpdate.setBounds(51, 660, 923, 37);
 			 contentPane.add(lblDataUpdate);
-
+			 
+			 /*-------------------------------------*
+			  * label to show legal disclaimer
+			  *-------------------------------------*/
+			 JLabel legalLabel = new JLabel("Designed for use with the FITBIT® platform");
+			 legalLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			 legalLabel.setForeground(white);
+			 legalLabel.setBounds(51,680, 923,37);
+			 contentPane.add(legalLabel);
+			 
+			 /*------------------------------------*
+			  * Legal information button
+			  *------------------------------------*/
+			 //JButton legalButton = new JButton();
 
 			 goalTracker = new GoalTracker(apiData);
 			 goalTracker.updateProgress();
@@ -468,7 +502,7 @@ public class MainScreen extends JFrame implements Serializable {
 	     private void stepsPanel() throws ClassNotFoundException
 		 {
 			//creates a new steps panel
-	    	 pnlSteps = new DashBoardPanel(50, 191);
+	    	 pnlSteps = new DashBoardPanel(50, 196);
 	    	 //pnlSteps.setLocation(51, 99);
 	    	 pnlSteps.setVisible(false);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
@@ -508,7 +542,7 @@ public class MainScreen extends JFrame implements Serializable {
 
 	    	 stepsProgress.setToolTipText("Current progress towards your goal");
 	    	 stepsProgress.setForeground(new Color(51, 153, 255));
-	    	 stepsProgress.setBounds(17, 113, 231, 36);
+	    	 stepsProgress.setBounds(17, 118, 231, 36);
 	    	 stepsProgress.repaint();
 	    	 pnlSteps.add(stepsProgress);
 	    	 
@@ -518,14 +552,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 JLabel lblSteps = new JLabel(Integer.toString((int)apiData.getSteps()));
 	    	 lblSteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblSteps.setHorizontalAlignment(SwingConstants.CENTER);
-	    	 lblSteps.setBounds(0, 21, 265, 33);
+	    	 lblSteps.setBounds(0, 26, 265, 33);
 	    	 pnlSteps.add(lblSteps);
 
 	    	 /*------------------------------------------*/
 	    	 //create a label to display the steps title
 	    	 /*------------------------------------------*/
 	    	 JLabel lblStepsTtile = new JLabel("Steps");
-	    	 lblStepsTtile.setBounds(0, 53, 265, 26);
+	    	 lblStepsTtile.setBounds(0, 58, 265, 26);
 	    	 pnlSteps.add(lblStepsTtile);
 	    	 lblStepsTtile.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 	    	 lblStepsTtile.setHorizontalAlignment(SwingConstants.CENTER);
@@ -538,7 +572,7 @@ public class MainScreen extends JFrame implements Serializable {
 	     private void stairsPanel() throws ClassNotFoundException
 	     {
 
-	    	 pnlStairs = new DashBoardPanel(413, 191);
+	    	 pnlStairs = new DashBoardPanel(413, 196);
 	    	 //pnlStairs.setLocation(385, 99);
 	    	 pnlStairs.setLayout(null);
 	    	 pnlStairs.setVisible(false);
@@ -570,7 +604,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel lblStairs = new JLabel("Floors Climbed:");
 			 lblStairs.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblStairs.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblStairs.setBounds(0, 51, 265, 38);
+			 lblStairs.setBounds(0, 56, 265, 38);
 			 pnlStairs.add(lblStairs);
 
 			 /*------------------------------------------*/
@@ -582,7 +616,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 stairsProgress.setValue((int)goalTracker.getFloorsClimbedProgress());
 			 stairsProgress.setToolTipText("Current progress towards your goal");
 			 stairsProgress.setForeground(SystemColor.textHighlight);
-			 stairsProgress.setBounds(17, 113, 231, 36);
+			 stairsProgress.setBounds(17, 118, 231, 36);
 			 pnlStairs.add(stairsProgress);
 			 
 			 /*------------------------------------------*/
@@ -591,7 +625,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel label = new JLabel(Integer.toString((int)apiData.getFloorsClimbed()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
-			 label.setBounds(0, 12, 265, 33);
+			 label.setBounds(0, 17, 265, 33);
 			 pnlStairs.add(label);
 	     }
 	     
@@ -605,7 +639,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 //calories panel
 			 /*---------------------------------------*/
 
-			 pnlCalories = new DashBoardPanel(776, 191);
+			 pnlCalories = new DashBoardPanel(776, 196);
 			 //pnlCalories.setLocation(709, 99);
 			 pnlCalories.setLayout(null);
 			 pnlCalories.setVisible(false);
@@ -638,7 +672,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel lblCalories = new JLabel("Calories Burned");
 			 lblCalories.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblCalories.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblCalories.setBounds(0,45,265,53);
+			 lblCalories.setBounds(0,51,265,53);
 			 pnlCalories.add(lblCalories);
 
 			 /*------------------------------------------*/
@@ -649,7 +683,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 caloriesProgress.setValue((int)goalTracker.getCaloriesProgress());
 			 caloriesProgress.setToolTipText("Current progress towards your goal");
 			 caloriesProgress.setForeground(SystemColor.textHighlight);
-			 caloriesProgress.setBounds(21, 110, 210, 36);
+			 caloriesProgress.setBounds(21, 115, 210, 36);
 			 pnlCalories.add(caloriesProgress);
 			 
 			 /*------------------------------------------*/
@@ -658,7 +692,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel label = new JLabel(Integer.toString((int)apiData.getCalories()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
-			 label.setBounds(0, 10, 265, 33);
+			 label.setBounds(0, 15, 265, 33);
 			 pnlCalories.add(label);
 	     }
 	     
@@ -672,7 +706,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 //create a Distance traveled panel
 	    	 /*------------------------------------------*/
 
-			 pnlDistance = new DashBoardPanel(50, 300);
+			 pnlDistance = new DashBoardPanel(50, 305);
 			 pnlDistance.setLayout(null);
 			 pnlDistance.setVisible(false);
 			 pnlDistance.addMouseListener(new MouseAdapter() {
@@ -704,7 +738,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel lblDistance = new JLabel("Distance"); 
 			 lblDistance.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblDistance.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblDistance.setBounds(0,56,265,42);
+			 lblDistance.setBounds(0,61,265,42);
 			 pnlDistance.add(lblDistance);
 			 
 			 /*------------------------------------------*/
@@ -716,7 +750,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 distanceProgress.setValue((int)goalTracker.getDistanceProgress());
 			 distanceProgress.setToolTipText("Current progress towards your goal");
 			 distanceProgress.setForeground(SystemColor.textHighlight);
-			 distanceProgress.setBounds(21,110,210,36);
+			 distanceProgress.setBounds(21,115,210,36);
 			 pnlDistance.add(distanceProgress);
 			 
 			 /*------------------------------------------*/
@@ -725,7 +759,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel label = new JLabel(Float.toString(apiData.getDistance()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
-			 label.setBounds(0, 10, 265, 33);
+			 label.setBounds(0, 15, 265, 33);
 			 pnlDistance.add(label);
 	     }
 	     
@@ -738,7 +772,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*---------------------------------------*/
 			 //Active Minutes panel
 			 /*---------------------------------------*/
-			 pnlActiveMin = new DashBoardPanel(50, 300);
+			 pnlActiveMin = new DashBoardPanel(50, 305);
 			 pnlActiveMin.setLayout(null);
 			 pnlActiveMin.setVisible(false);
 			 //pnlActiveMin.setBounds(385, 300, 265, 155);
@@ -771,7 +805,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel lblActiveMin = new JLabel("Active Minutes");
 			 lblActiveMin.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblActiveMin.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblActiveMin.setBounds(0, 53, 265, 47);
+			 lblActiveMin.setBounds(0, 58, 265, 47);
 			 pnlActiveMin.add(lblActiveMin);
 			 
 			 /*------------------------------------------*/
@@ -780,7 +814,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel label = new JLabel(Integer.toString((int)apiData.getLightlyActiveMin() + (int)apiData.getFairlyActiveMin() + (int)apiData.getVeryActiveMin()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
-			 label.setBounds(0, 14, 265, 33);
+			 label.setBounds(0, 19, 265, 33);
 			 pnlActiveMin.add(label);
 			 
 			 /*------------------------------------------*/
@@ -791,7 +825,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 activeMinutesProgress.setValue((int)goalTracker.getVeryActiveMinutesProgress());
 			 activeMinutesProgress.setToolTipText("Current progress towards your goal");
 			 activeMinutesProgress.setForeground(SystemColor.textHighlight);
-			 activeMinutesProgress.setBounds(21, 110, 210, 36);
+			 activeMinutesProgress.setBounds(21, 115, 210, 36);
 			 pnlActiveMin.add(activeMinutesProgress);
 			 pnlActiveMin.add(label);
 	     }
@@ -804,7 +838,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 	    	 //create the Sedentary Minutes panel
 	    	 /*------------------------------------------*/
-			 pnlSedentaryMin = new DashBoardPanel(50, 300);
+			 pnlSedentaryMin = new DashBoardPanel(50, 305);
 			 pnlSedentaryMin.setLayout(null);
 			 pnlSedentaryMin.setVisible(false);
 			 //pnlSedentaryMin.setBounds(709, 300, 265, 155);
@@ -837,7 +871,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel lblSedentaryMin = new JLabel("Sedentary Minutes");
 			 lblSedentaryMin.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblSedentaryMin.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblSedentaryMin.setBounds(0, 52, 265, 50);
+			 lblSedentaryMin.setBounds(0, 57, 265, 50);
 			 pnlSedentaryMin.add(lblSedentaryMin );
 			 
 			 /*------------------------------------------*/
@@ -846,7 +880,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel label = new JLabel(Integer.toString((int)apiData.getSendentaryMinutes()));
 			 label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 label.setHorizontalAlignment(SwingConstants.CENTER);
-			 label.setBounds(0, 13, 265, 33);
+			 label.setBounds(0, 18, 265, 33);
 			 pnlSedentaryMin.add(label);
 	     }
 	     
@@ -859,7 +893,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 //create a panel for the accolades
 	    	 /*------------------------------------------*/
 
-			 pnlAccolades = new DashBoardPanel(50, 300);
+			 pnlAccolades = new DashBoardPanel(50, 305);
 			 pnlAccolades.setLayout(null);
 			 pnlAccolades.setVisible(false);
 			 //pnlAccolades.setBounds(51, 501, 265, 155);
@@ -890,7 +924,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel lblAccolades = new JLabel("Accolades");
 			 lblAccolades.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblAccolades.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblAccolades.setBounds(0, 56, 265, 49);
+			 lblAccolades.setBounds(0, 61, 265, 49);
 			 pnlAccolades.add(lblAccolades);
 	     }
 	     
@@ -903,7 +937,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 //create the heart rate panel
 	    	 /*------------------------------------------*/
 
-			 pnlHeartRate = new DashBoardPanel(50, 300);
+			 pnlHeartRate = new DashBoardPanel(50, 305);
 			 pnlHeartRate.setLayout(null);
 			 pnlHeartRate.setVisible(false);
 			 //pnlHeartRate.setBounds(385, 501, 265, 155);
@@ -936,7 +970,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel lblHeart = new JLabel("Heart Rate Zones");
 			 lblHeart.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblHeart.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblHeart.setBounds(0, 50, 265, 53);
+			 lblHeart.setBounds(0, 55, 265, 53);
 			 pnlHeartRate.add(lblHeart);
 	     }
 	     
@@ -948,14 +982,14 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 	    	 //create the daily Goals panel
 	    	 /*------------------------------------------*/
-			 pnlGoals = new DashBoardPanel(50, 300);
+			 pnlGoals = new DashBoardPanel(50, 305);
 			 pnlGoals.setLayout(null);
 			 pnlGoals.setVisible(false);
 			 //pnlGoals.setBounds(709, 501, 265, 155);
 			 pnlGoals.addMouseListener(new MouseAdapter() {
 	    		 @Override
 	    		 public void mouseClicked(MouseEvent arg0) {
-	    			 goalPanel goals = new goalPanel(date,apiData);
+	    			 GoalPanel goals = new GoalPanel(date,apiData);
 	    			 goals.setVisible(true);
 	    			 dispose();
 	    			 
@@ -982,7 +1016,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 JLabel lblDaily = new JLabel("Daily Goals");
 			 lblDaily.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblDaily.setHorizontalAlignment(SwingConstants.CENTER);
-			 lblDaily.setBounds(0, 62, 265, 41);
+			 lblDaily.setBounds(0, 67, 265, 41);
 			 pnlGoals.add(lblDaily);
 			 
 		

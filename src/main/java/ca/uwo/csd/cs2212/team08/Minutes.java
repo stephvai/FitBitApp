@@ -4,10 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -23,7 +28,7 @@ public class Minutes extends JFrame {
 
 	private JPanel contentPane;
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(168, 219, 168);
+	private Color pannelColor = new Color(206,206,206);
 	private Color borderColor = new Color(121, 189, 154);
 	private Color titleColor = new Color(11, 72, 107);
 	private Color white = Color.white;
@@ -54,7 +59,19 @@ public class Minutes extends JFrame {
 		/*---------------------------------------------------*
 		 * make the panel where all information will be shown
 		 *---------------------------------------------------*/
-		contentPane = new JPanel();
+		contentPane = new JPanel() {
+		 @Override
+		 protected void paintComponent(Graphics g) {
+			 BufferedImage img = null;
+			 try {
+				img = ImageIO.read(new File("src/main/resources/images/track.jpg"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			g.drawImage(img, 0,0, null);
+		 }
+	 };
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

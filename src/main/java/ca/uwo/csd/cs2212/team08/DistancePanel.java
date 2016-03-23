@@ -1,5 +1,6 @@
 package ca.uwo.csd.cs2212.team08;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
@@ -7,6 +8,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
 /**
@@ -26,7 +30,7 @@ public class DistancePanel extends JFrame {
 
 	//Color Scheme
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(168,219,168);
+	private Color pannelColor = new Color(206,206,206);
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
@@ -50,7 +54,19 @@ public class DistancePanel extends JFrame {
 		/*---------------------------------------------------*
 		 * make the panel where all information will be shown
 		 *---------------------------------------------------*/
-		contentPane = new JPanel();
+   	 	contentPane = new JPanel() {
+		 @Override
+		 protected void paintComponent(Graphics g) {
+			 BufferedImage img = null;
+			 try {
+				img = ImageIO.read(new File("src/main/resources/images/track.jpg"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			g.drawImage(img, 0,0, null);
+		 }
+	 };
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -137,7 +153,7 @@ public class DistancePanel extends JFrame {
 		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have traveled <strong>"+ apiData.getTotalDistance()+"km. </strong> </html>");
 		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLifetimeTotal.setBounds(21, 31, 198, 182);
+		lblLifetimeTotal.setBounds(6, 21, 228, 182);
 		pnlLifetimeTotal.add(lblLifetimeTotal);
 		
 		/*--------------------------------------------*/

@@ -4,9 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,6 +23,7 @@ import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
@@ -27,7 +31,7 @@ public class AchievementPanel extends JFrame {
 
 	private JPanel contentPane;
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(168, 219, 168);
+	private Color pannelColor = new Color(206, 206, 206);
 	private Color borderColor = new Color(121, 189, 154);
 	private Color titleColor = new Color(11, 72, 107);
 	private Color white = Color.white;
@@ -38,6 +42,7 @@ public class AchievementPanel extends JFrame {
 	private JDatePickerImpl datePicker;
 	private static final String picRefresh = "src/main/resources/images/refresh.png";
 	private static final String imgTest = "src/main/resouces/images/fitbit.png";
+	private AchievementTracker tracker;
 	/*
 	 * Many static final string variables for all accolades pictures that will be used as "badges"
 	 * This section of the code will be badges users will be able to see if they have acheived goals
@@ -55,16 +60,16 @@ public class AchievementPanel extends JFrame {
 	private static final String stepsTwentyThousand = "src/main/resources/Academy Awards/20,000 steps reached.png";
 	
 	private static final String floorsHundred = "src/main/resources/Academy Awards/100 floors reached.png";
-	private static final String floorsTwoHundred = "src/main/resources/Academy Awards/200 floors reached.png";
-	private static final String floorsThreeHundred = "src/main/resources/Academy Awards/300 floors reached.png";
-	private static final String floorFoursHundred = "src/main/resources/Academy Awards/400 floors reached.png";
-	private static final String floorsFiveHundred = "src/main/resources/Academy Awards/500 floors reached.png";
+	private static final String floorsTwoHundredImage = "src/main/resources/Academy Awards/200 floors reached.png";
+	private static final String floorsThreeHundredImage = "src/main/resources/Academy Awards/300 floors reached.png";
+	private static final String floorsFourHundredImage = "src/main/resources/Academy Awards/400 floors reached.png";
+	private static final String floorsFiveHundredImage = "src/main/resources/Academy Awards/500 floors reached.png";
 	
-	private static final String calTwoThousand = "src/main/resources/Academy Awards/2,000 cals reached.png";
-	private static final String calTwoThousandTwoHundredFifty = "src/main/resources/Academy Awards/2,250 cals reached.png";
-	private static final String calTwoThousandFiveHundred = "src/main/resources/Academy Awards/2,500 cals reached.png";
-	private static final String calTwoThousandSevenHundredFifty = "src/main/resources/Academy Awards/2,750 cals reached.png";
-	private static final String calThreeThousand = "src/main/resources/Academy Awards/3,000 cals reached.png";
+	private static final String calTwoThousandImage = "src/main/resources/Academy Awards/2,000 cals reached.png";
+	private static final String calTwoThousandTwoHundredFiftyImage = "src/main/resources/Academy Awards/2,250 cals reached.png";
+	private static final String calTwoThousandFiveHundredImage = "src/main/resources/Academy Awards/2,500 cals reached.png";
+	private static final String calTwoThousandSevenHundredFiftyImage = "src/main/resources/Academy Awards/2,750 cals reached.png";
+	private static final String calThreeThousandImage = "src/main/resources/Academy Awards/3,000 cals reached.png";
 	
 	/*
 	 * default pictures shown. All corresponding pictures will go in order, so milesTen and milesTenNot
@@ -104,8 +109,17 @@ public class AchievementPanel extends JFrame {
 		 * if yes, the program will give them a different picture
 		 * than the one that's shown to them by default
 		 *---------------------------------------------------*/
-		
-		Achievement track = new Achievement();
+
+		try {
+			this.tracker = new AchievementTracker(paramAPIData);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+		this.tracker.updateProgress();
 		//System.out.println(track.getAchieved());
 		
 		
@@ -123,7 +137,19 @@ public class AchievementPanel extends JFrame {
 		/*---------------------------------------------------*
 		 * make the panel where all information will be shown
 		 *---------------------------------------------------*/
-		contentPane = new JPanel();
+   	 	contentPane = new JPanel() {
+		 @Override
+		 protected void paintComponent(Graphics g) {
+			 BufferedImage img = null;
+			 try {
+				img = ImageIO.read(new File("src/main/resources/images/track.jpg"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			g.drawImage(img, 0,0, null);
+		 }
+	 };
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -186,6 +212,11 @@ public class AchievementPanel extends JFrame {
 		JLabel tenMiles = new JLabel();
 		tenMiles.setSize(80, 240);
 		tenMiles.setLocation(40, 125);
+		//if achieved method returns true then
+		// tenMiles.setIcon(new ImageIcon(milesTen));
+		if(this.tracker.isAchieved(0)){
+			tenMiles.setIcon(new ImageIcon(milesTen));
+		}
 		tenMiles.setIcon(new ImageIcon(milesTenNot));
 		contentPane.add(tenMiles);
 		
@@ -193,6 +224,9 @@ public class AchievementPanel extends JFrame {
 		JLabel twentyMiles = new JLabel();
 		twentyMiles.setSize(80, 240);
 		twentyMiles.setLocation(130,125);
+		if(this.tracker.isAchieved(1)){
+			tenMiles.setIcon(new ImageIcon(milesTwenty));
+		}
 		twentyMiles.setIcon(new ImageIcon(milesTwentyNot));
 		contentPane.add(twentyMiles);
 		
@@ -200,6 +234,9 @@ public class AchievementPanel extends JFrame {
 		JLabel thirtyMiles = new JLabel();
 		thirtyMiles.setSize(80, 240);
 		thirtyMiles.setLocation(221,125);
+		if(this.tracker.isAchieved(2)){
+			tenMiles.setIcon(new ImageIcon(milesThirty));
+		}
 		thirtyMiles.setIcon(new ImageIcon(milesThirtyNot));
 		contentPane.add(thirtyMiles);
 		
@@ -207,6 +244,9 @@ public class AchievementPanel extends JFrame {
 		JLabel fortyMiles = new JLabel();
 		fortyMiles.setSize(80, 240);
 		fortyMiles.setLocation(311,125);
+		if(this.tracker.isAchieved(3)){
+			tenMiles.setIcon(new ImageIcon(milesFourty));
+		}
 		fortyMiles.setIcon(new ImageIcon(milesFourtyNot));
 		contentPane.add(fortyMiles);
 		
@@ -214,6 +254,9 @@ public class AchievementPanel extends JFrame {
 		JLabel fiftyMiles = new JLabel();
 		fiftyMiles.setSize(80, 240);
 		fiftyMiles.setLocation(402,125);
+		if(this.tracker.isAchieved(4)){
+			tenMiles.setIcon(new ImageIcon(milesFifty));
+		}
 		fiftyMiles.setIcon(new ImageIcon(milesFiftyNot));
 		contentPane.add(fiftyMiles);
 		/*---------------------------------------*
@@ -238,6 +281,9 @@ public class AchievementPanel extends JFrame {
 		JLabel steps10000 = new JLabel();
 		steps10000.setSize(80,240);
 		steps10000.setLocation(39, 420);
+		if(this.tracker.isAchieved(5)){
+			tenMiles.setIcon(new ImageIcon(stepsTenThousand));
+		}
 		steps10000.setIcon(new ImageIcon(stepsTenThousandNot));
 		contentPane.add(steps10000);
 		
@@ -245,6 +291,9 @@ public class AchievementPanel extends JFrame {
 		JLabel steps12500 = new JLabel();
 		steps12500.setSize(80,240);
 		steps12500.setLocation(130,420);
+		if(this.tracker.isAchieved(6)){
+			tenMiles.setIcon(new ImageIcon(stepsTwelveThousandFiveHundred));
+		}
 		steps12500.setIcon(new ImageIcon(stepsTwelveThousandFiveHundredNot));
 		contentPane.add(steps12500);
 		
@@ -252,6 +301,9 @@ public class AchievementPanel extends JFrame {
 		JLabel steps15000 = new JLabel();
 		steps15000.setSize(80,240);
 		steps15000.setLocation(221, 420);
+		if(this.tracker.isAchieved(7)){
+			tenMiles.setIcon(new ImageIcon(stepsFifteenThousand));
+		}
 		steps15000.setIcon(new ImageIcon(stepsFifteenThousandNot));
 		contentPane.add(steps15000);
 		
@@ -259,6 +311,9 @@ public class AchievementPanel extends JFrame {
 		JLabel steps17500 = new JLabel();
 		steps17500.setSize(80,240);
 		steps17500.setLocation(311,420);
+		if(this.tracker.isAchieved(8)){
+			tenMiles.setIcon(new ImageIcon(stepsSevenTeenFiveHundredThousand));
+		}
 		steps17500.setIcon(new ImageIcon(stepsSevenTeenFiveHundredThousandNot));
 		contentPane.add(steps17500);
 		
@@ -266,6 +321,9 @@ public class AchievementPanel extends JFrame {
 		JLabel steps20000 = new JLabel();
 		steps20000.setSize(80,240);
 		steps20000.setLocation(402,420);
+		if(this.tracker.isAchieved(9)){
+			tenMiles.setIcon(new ImageIcon(stepsTwentyThousand));
+		}
 		steps20000.setIcon(new ImageIcon(stepsTwentyThousandNot));
 		contentPane.add(steps20000);
 		/*---------------------------------------*
@@ -285,33 +343,48 @@ public class AchievementPanel extends JFrame {
 		/*---------------------------------------*
 		 * Start of floors achievements
 		 *---------------------------------------*/
-		JLabel floorsHundred = new JLabel(); //100
-		floorsHundred.setSize(80,240);
-		floorsHundred.setLocation(540, 125);
-		floorsHundred.setIcon(new ImageIcon(floorsHundredNot));
-		contentPane.add(floorsHundred);
+		JLabel floorsOneHundred = new JLabel(); //100
+		floorsOneHundred.setSize(80,240);
+		floorsOneHundred.setLocation(540, 125);
+		if(this.tracker.isAchieved(10)){
+			tenMiles.setIcon(new ImageIcon(floorsHundred));
+		}
+		floorsOneHundred.setIcon(new ImageIcon(floorsHundredNot));
+		contentPane.add(floorsOneHundred);
 		
 		JLabel floorsTwoHundred = new JLabel(); //200
 		floorsTwoHundred.setSize(80,240);
 		floorsTwoHundred.setLocation(631, 125);
+		if(this.tracker.isAchieved(11)){
+			tenMiles.setIcon(new ImageIcon(floorsTwoHundredImage));
+		}
 		floorsTwoHundred.setIcon(new ImageIcon(floorsTwoHundredNot));
 		contentPane.add(floorsTwoHundred);
 		
 		JLabel floorsThreeHundred = new JLabel(); //300
 		floorsThreeHundred.setSize(80,240);
 		floorsThreeHundred.setLocation(722, 125);
+		if(this.tracker.isAchieved(12)){
+			tenMiles.setIcon(new ImageIcon(floorsThreeHundredImage));
+		}
 		floorsThreeHundred.setIcon(new ImageIcon(floorsThreeHundredNot));
 		contentPane.add(floorsThreeHundred);
 		
 		JLabel floorsFourHundred = new JLabel(); //400
 		floorsFourHundred.setSize(80,240);
 		floorsFourHundred.setLocation(813, 125);
+		if(this.tracker.isAchieved(13)){
+			tenMiles.setIcon(new ImageIcon(floorsFourHundredImage));
+		}
 		floorsFourHundred.setIcon(new ImageIcon(floorFoursHundredNot));
 		contentPane.add(floorsFourHundred);
 		
 		JLabel floorsFiveHundred = new JLabel(); //500
 		floorsFiveHundred.setSize(80,240);
 		floorsFiveHundred.setLocation(904, 125);
+		if(this.tracker.isAchieved(14)){
+			tenMiles.setIcon(new ImageIcon(floorsFiveHundredImage));
+		}
 		floorsFiveHundred.setIcon(new ImageIcon(floorsFiveHundredNot));
 		contentPane.add(floorsFiveHundred);
 		/*---------------------------------------*
@@ -334,30 +407,45 @@ public class AchievementPanel extends JFrame {
 		JLabel cal2Thousand = new JLabel(); //2000
 		cal2Thousand.setSize(80,240);
 		cal2Thousand.setLocation(540,420);
+		if(this.tracker.isAchieved(15)){
+			tenMiles.setIcon(new ImageIcon(calTwoThousandImage));
+		}
 		cal2Thousand.setIcon(new ImageIcon(calTwoThousandNot));
 		contentPane.add(cal2Thousand);
 		
 		JLabel cal2250 = new JLabel(); //2250
 		cal2250.setSize(80,240);
 		cal2250.setLocation(631,420);
+		if(this.tracker.isAchieved(16)){
+			tenMiles.setIcon(new ImageIcon(calTwoThousandTwoHundredFiftyImage));
+		}
 		cal2250.setIcon(new ImageIcon(calTwoThousandTwoHundredFiftyNot));
 		contentPane.add(cal2250);
 		
 		JLabel cal2500 = new JLabel(); //2500
 		cal2500.setSize(80, 240);
 		cal2500.setLocation(722,420);
+		if(this.tracker.isAchieved(17)){
+			tenMiles.setIcon(new ImageIcon(calTwoThousandFiveHundredImage));
+		}
 		cal2500.setIcon(new ImageIcon(calTwoThousandFiveHundredNot));
 		contentPane.add(cal2500);
 		
 		JLabel cal2750 = new JLabel(); //2750
 		cal2750.setSize(80, 240);
 		cal2750.setLocation(813,420);
+		if(this.tracker.isAchieved(18)){
+			tenMiles.setIcon(new ImageIcon(calTwoThousandSevenHundredFiftyImage));
+		}
 		cal2750.setIcon(new ImageIcon(calTwoThousandSevenHundredFiftyNot));
 		contentPane.add(cal2750);
 		
 		JLabel cal3000 = new JLabel(); //3000
 		cal3000.setSize(80, 240);
 		cal3000.setLocation(904,420);
+		if(this.tracker.isAchieved(19)){
+			tenMiles.setIcon(new ImageIcon(calThreeThousandImage));
+		}
 		cal3000.setIcon(new ImageIcon(calThreeThousandNot));
 		contentPane.add(cal3000);
 		
