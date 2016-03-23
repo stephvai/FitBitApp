@@ -47,30 +47,6 @@ public class AchievementPanel extends JFrame {
 	 * Many static final string variables for all accolades pictures that will be used as "badges"
 	 * This section of the code will be badges users will be able to see if they have acheived goals
 	 */
-	private static final String milesTen = "src/main/resources/Academy Awards/10 miles reached.png";
-	private static final String milesTwenty = "src/main/resources/Academy Awards/20 miles reached.png";
-	private static final String milesThirty = "src/main/resources/Academy Awards/30 miles reached.png";
-	private static final String milesFourty = "src/main/resources/Academy Awards/40 miles reached.png";
-	private static final String milesFifty = "src/main/resources/Academy Awards/50 miles reached.png";
-	
-	private static final String stepsTenThousand = "src/main/resources/Academy Awards/10,000 steps reached.png";
-	private static final String stepsTwelveThousandFiveHundred = "src/main/resources/Academy Awards/12,500 steps reached.png";
-	private static final String stepsFifteenThousand = "src/main/resources/Academy Awards/15,000 steps reached.png";
-	private static final String stepsSevenTeenFiveHundredThousand = "src/main/resources/Academy Awards/17,500 steps reached.png";
-	private static final String stepsTwentyThousand = "src/main/resources/Academy Awards/20,000 steps reached.png";
-	
-	private static final String floorsHundred = "src/main/resources/Academy Awards/100 floors reached.png";
-	private static final String floorsTwoHundredImage = "src/main/resources/Academy Awards/200 floors reached.png";
-	private static final String floorsThreeHundredImage = "src/main/resources/Academy Awards/300 floors reached.png";
-	private static final String floorsFourHundredImage = "src/main/resources/Academy Awards/400 floors reached.png";
-	private static final String floorsFiveHundredImage = "src/main/resources/Academy Awards/500 floors reached.png";
-	
-	private static final String calTwoThousandImage = "src/main/resources/Academy Awards/2,000 cals reached.png";
-	private static final String calTwoThousandTwoHundredFiftyImage = "src/main/resources/Academy Awards/2,250 cals reached.png";
-	private static final String calTwoThousandFiveHundredImage = "src/main/resources/Academy Awards/2,500 cals reached.png";
-	private static final String calTwoThousandSevenHundredFiftyImage = "src/main/resources/Academy Awards/2,750 cals reached.png";
-	private static final String calThreeThousandImage = "src/main/resources/Academy Awards/3,000 cals reached.png";
-	
 	
 	private static final String Testpic = "src/main/resources/images/pc2.jpg";
 	
@@ -78,29 +54,6 @@ public class AchievementPanel extends JFrame {
 	 * default pictures shown. All corresponding pictures will go in order, so milesTen and milesTenNot
 	 * will always correspond to each other (in terms of order) in this section of code. Sorry if that's confusing. 
 	 */
-	private static final String milesTenNot = "src/main/resources/Academy Awards/10 miles not reached.png"; 
-	private static final String milesTwentyNot = "src/main/resources/Academy Awards/20 miles not reached.png";
-	private static final String milesThirtyNot = "src/main/resources/Academy Awards/30 miles not reached.png";
-	private static final String milesFourtyNot = "src/main/resources/Academy Awards/40 miles not reached.png";
-	private static final String milesFiftyNot = "src/main/resources/Academy Awards/50 miles not reached.png";
-	
-	private static final String stepsTenThousandNot = "src/main/resources/Academy Awards/10,000 steps not reached.png";
-	private static final String stepsTwelveThousandFiveHundredNot = "src/main/resources/Academy Awards/12,500 steps not reached.png";
-	private static final String stepsFifteenThousandNot = "src/main/resources/Academy Awards/15,000 steps not reached.png";
-	private static final String stepsSevenTeenFiveHundredThousandNot = "src/main/resources/Academy Awards/17,500 steps not reached.png";
-	private static final String stepsTwentyThousandNot = "src/main/resources/Academy Awards/20,000 steps not reached.png";
-	
-	private static final String floorsHundredNot = "src/main/resources/Academy Awards/100 floors not reached.png";
-	private static final String floorsTwoHundredNot = "src/main/resources/Academy Awards/200 Floors not reached.png";
-	private static final String floorsThreeHundredNot = "src/main/resources/Academy Awards/300 floors not reached.png";
-	private static final String floorFoursHundredNot = "src/main/resources/Academy Awards/400 floors not reached.png";
-	private static final String floorsFiveHundredNot = "src/main/resources/Academy Awards/500 floors not reached.png";
-	
-	private static final String calTwoThousandNot = "src/main/resources/Academy Awards/2,000 cals not reached.png";
-	private static final String calTwoThousandTwoHundredFiftyNot = "src/main/resources/Academy Awards/2,250 cals not reached.png";
-	private static final String calTwoThousandFiveHundredNot = "src/main/resources/Academy Awards/2,500 cals not reached.png";
-	private static final String calTwoThousandSevenHundredFiftyNot = "src/main/resources/Academy Awards/2,750 cals not reached.png";
-	private static final String calThreeThousandNot = "src/main/resources/Academy Awards/3,000 cals not reached.png";
 	
 
 	public AchievementPanel(final String date, APIData paramAPIData) {
@@ -212,7 +165,7 @@ public class AchievementPanel extends JFrame {
 		 * Labels for all the distance achievements. 
 		 *------------------------------------------------*/
 		//10 miles
-		JLabel tenMiles = new JLabel();
+		/*JLabel tenMiles = new JLabel();
 		tenMiles.setSize(80, 240);
 		tenMiles.setLocation(40, 125);
 		//if achieved method returns true then
@@ -264,11 +217,11 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(fiftyMiles);
 		/*---------------------------------------*
 		 * End of distance achievements
-		 *---------------------------------------*/
+		 *---------------------------------------/
 		
-		/*----------------------------------------------------*
+		/----------------------------------------------------*
 		 * Title for the steps badges
-		 *----------------------------------------------------*/
+		 *----------------------------------------------------/
 		JLabel stepsTitle = new JLabel("YOUR STEPS ACHIEVEMENTS");
 		stepsTitle.setSize(219, 50);
 		stepsTitle.setLocation(26, 375);
@@ -276,9 +229,9 @@ public class AchievementPanel extends JFrame {
 		stepsTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		stepsTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(stepsTitle);
-		/*---------------------------------------*
+		/---------------------------------------*
 		 * Start of steps achievements
-		 *---------------------------------------*/
+		 *---------------------------------------/
 		
 		//10000 steps
 		JLabel steps10000 = new JLabel();
@@ -329,13 +282,13 @@ public class AchievementPanel extends JFrame {
 		}
 		steps20000.setIcon(new ImageIcon(stepsTwentyThousandNot));
 		contentPane.add(steps20000);
-		/*---------------------------------------*
+		/---------------------------------------*
 		 * End of steps achievements
-		 *---------------------------------------*/
+		 *---------------------------------------/
 		
-		/*----------------------------------------------------*
+		/----------------------------------------------------*
 		 * Title for the floors "badges"
-		 *----------------------------------------------------*/
+		 *----------------------------------------------------/
 		JLabel floorsTitle = new JLabel("YOUR FLOORS ACHIEVEMENTS");
 		floorsTitle.setSize(239, 50);
 		floorsTitle.setLocation(525, 81);
@@ -345,7 +298,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(floorsTitle);
 		/*---------------------------------------*
 		 * Start of floors achievements
-		 *---------------------------------------*/
+		 *---------------------------------------/
 		JLabel floorsOneHundred = new JLabel(); //100
 		floorsOneHundred.setSize(80,240);
 		floorsOneHundred.setLocation(540, 125);
@@ -390,13 +343,13 @@ public class AchievementPanel extends JFrame {
 		}
 		floorsFiveHundred.setIcon(new ImageIcon(floorsFiveHundredNot));
 		contentPane.add(floorsFiveHundred);
-		/*---------------------------------------*
+		/---------------------------------------*
 		 * End of steps achievements
-		 *---------------------------------------*/
-		
+		 *---------------------------------------/
+		*/
 		/*----------------------------------------------------*
 		 * Title for the calories "badges"
-		 *----------------------------------------------------*/
+		 *----------------------------------------------------/
 		JLabel caloriesTitle = new JLabel("YOUR FLOORS ACHIEVEMENTS");
 		caloriesTitle.setSize(239, 50);
 		caloriesTitle.setLocation(525, 375);
@@ -406,7 +359,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(caloriesTitle);
 		/*---------------------------------------*
 		 * Start of Calories achievements
-		 *---------------------------------------*/
+		 *---------------------------------------/
 		JLabel cal2Thousand = new JLabel(); //2000
 		cal2Thousand.setSize(80,240);
 		cal2Thousand.setLocation(540,420);

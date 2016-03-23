@@ -529,7 +529,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 public void mouseExited(MouseEvent e) {
 	    			 pnlSteps.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	    			 pnlSteps.setOpaque(false);
-	    			 pnlSteps.setBackground(transparentHoverColor);
+	    			 pnlSteps.setBackground(transparentColor);
 	    		 }
 	    	 });
 	    	
@@ -946,7 +946,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 /*------------------------------------------*/
 	    	 //create a label to display the accolades title
 	    	 /*------------------------------------------*/
-			 JLabel lblAccolades = new JLabel("Accolades");
+			 JLabel lblAccolades = new JLabel("Achievements");
 			 lblAccolades.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			 lblAccolades.setHorizontalAlignment(SwingConstants.CENTER);
 			 lblAccolades.setBounds(0, 61, 265, 49);
