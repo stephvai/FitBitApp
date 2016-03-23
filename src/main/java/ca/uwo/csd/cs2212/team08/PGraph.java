@@ -10,11 +10,10 @@ import org.jfree.data.general.DefaultPieDataset;
 import javax.swing.*;
 import java.awt.*;
 
-public class Graph extends JPanel {
+public class PGraph extends JPanel {
 
 
-    public Graph(){
-        APIData data = new APIData();
+    public PGraph(APIData data){
 
         float fairlyActiveMin = data.getFairlyActiveMin();
         float lightlyActiveMin = data.getLightlyActiveMin();
@@ -31,10 +30,10 @@ public class Graph extends JPanel {
 
         setLayout(new BorderLayout());
         DefaultPieDataset dataSet = new DefaultPieDataset();
-        dataSet.setValue("Sedentary /n", sedentaryMinPer);
-        dataSet.setValue("Fairly Active /n", fairlyActiveMinPer);
-        dataSet.setValue("Lightly Active", lightlyActiveMinPer);
-        dataSet.setValue("Very Active", veryActiveMinPerc);
+        dataSet.setValue("Sedentary " + (int)sedentaryMinPer + "%", sedentaryMinPer);
+        dataSet.setValue("Fairly Active " + (int)fairlyActiveMinPer + "%", fairlyActiveMinPer);
+        dataSet.setValue("Very Active " + (int)veryActiveMinPerc + "%", veryActiveMinPerc);
+        dataSet.setValue("Lightly Active " + (int)lightlyActiveMinPer + "%", lightlyActiveMinPer);
 
 
 
@@ -48,10 +47,6 @@ public class Graph extends JPanel {
         add(new ChartPanel(chart), BorderLayout.CENTER);
 
         setPreferredSize(new Dimension(600,500));
-
-
-
-
     }
 
 

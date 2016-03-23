@@ -4,15 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -21,7 +28,7 @@ public class Minutes extends JFrame {
 
 	private JPanel contentPane;
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(168, 219, 168);
+	private Color pannelColor = new Color(206,206,206);
 	private Color borderColor = new Color(121, 189, 154);
 	private Color titleColor = new Color(11, 72, 107);
 	private Color white = Color.white;
@@ -32,6 +39,11 @@ public class Minutes extends JFrame {
 	 * Create the frame.
 	 */
 	public Minutes(String date, APIData paramAPIData) {
+		
+		/*
+		 * Graph
+		 */
+		
 		/*-------------------------------------------*
 		 * Default size and settings for all windows
 		 *-------------------------------------------*/
@@ -47,7 +59,19 @@ public class Minutes extends JFrame {
 		/*---------------------------------------------------*
 		 * make the panel where all information will be shown
 		 *---------------------------------------------------*/
-		contentPane = new JPanel();
+		contentPane = new JPanel() {
+		 @Override
+		 protected void paintComponent(Graphics g) {
+			 BufferedImage img = null;
+			 try {
+				img = ImageIO.read(new File("src/main/resources/images/track.jpg"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			g.drawImage(img, 0,0, null);
+		 }
+	 };
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -90,7 +114,7 @@ public class Minutes extends JFrame {
 		contentPane.add(pnlActiveMinutes);
 		pnlActiveMinutes.setLayout(null);
 		pnlActiveMinutes.setBackground(pannelColor);
-		pnlActiveMinutes.setBorder(BorderFactory.createLineBorder(borderColor));
+		pnlActiveMinutes.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		
 		/*----------------------------------------*
 		 * Title of the panel 
@@ -104,7 +128,7 @@ public class Minutes extends JFrame {
 		/*-------------------------------------------------------------*
 		 * information shown for lightly active minutes
 		 *-------------------------------------------------------------*/
-		JLabel activeMinutesValue = new JLabel("<html> Today you were lightly active for: "+ apiData.getLightlyActiveMin() +" minutes. </html>");
+		JLabel activeMinutesValue = new JLabel("<html> Today you were lightly active for: <strong>"+ apiData.getLightlyActiveMin() +"</strong> minutes. </html>");
 		activeMinutesValue.setBounds(24, 88, 300, 142);
 		pnlActiveMinutes.add(activeMinutesValue);
 		activeMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
@@ -113,7 +137,7 @@ public class Minutes extends JFrame {
 		/*-------------------------------------------------------------*
 		 * information shown for fairly active minutes
 		 *-------------------------------------------------------------*/
-		JLabel fairlyActiveMinutesValue = new JLabel("<html> Today you were fairly active for: "+ apiData.getFairlyActiveMin()+ " minutes. </html>");
+		JLabel fairlyActiveMinutesValue = new JLabel("<html> Today you were fairly active for: <strong>"+ apiData.getFairlyActiveMin()+ "</strong> minutes. </html>");
 		fairlyActiveMinutesValue.setBounds(24, 213, 300, 123);
 		pnlActiveMinutes.add(fairlyActiveMinutesValue);
 		fairlyActiveMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
@@ -122,7 +146,7 @@ public class Minutes extends JFrame {
 		/*-------------------------------------------------------------*
 		 * information shown for very active minutes, maybe we could add it all up?
 		 *-------------------------------------------------------------*/
-		JLabel veryActiveMinutesValue = new JLabel("<html> Today you were very active for: "+ apiData.getVeryActiveMin()+ " minutes. </html>");
+		JLabel veryActiveMinutesValue = new JLabel("<html> Today you were very active for: <strong>"+ apiData.getVeryActiveMin()+ "</strong> minutes. </html>");
 		veryActiveMinutesValue.setBounds(24,332, 300, 123);
 		pnlActiveMinutes.add(veryActiveMinutesValue);
 		veryActiveMinutesValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
@@ -132,11 +156,11 @@ public class Minutes extends JFrame {
 		 * panel where sedentary minutes will be shown
 		 *--------------------------------------------*/
 		JPanel pnlSedentMinutes = new JPanel();
-		pnlSedentMinutes.setBounds(570, 138, 349, 461);
+		pnlSedentMinutes.setBounds(570, 138, 349, 200);
 		contentPane.add(pnlSedentMinutes);
 		pnlSedentMinutes.setLayout(null);
 		pnlSedentMinutes.setBackground(pannelColor);
-		pnlSedentMinutes.setBorder(BorderFactory.createLineBorder(borderColor));
+		pnlSedentMinutes.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		
 		/*------------------------------------------*
 		 * Title of sedentary panel 
@@ -150,11 +174,17 @@ public class Minutes extends JFrame {
 		/*----------------------------------------------------------*
 		 * information for sedentary minutes minus the API currently
 		 *----------------------------------------------------------*/
-		JLabel sedentMinutesValue = new JLabel("<html> Today you were not active for: " + apiData.getSendentaryMinutes() +" minutes. </html>");
-		sedentMinutesValue.setBounds(22,151, 321,182);
+		JLabel sedentMinutesValue = new JLabel("<html> Today you were not active for: <strong>" + apiData.getSendentaryMinutes() +"</strong> minutes. </html>");
+		sedentMinutesValue.setBounds(22,93, 321,96);
 		pnlSedentMinutes.add(sedentMinutesValue);
 		sedentMinutesValue.setFont(new Font("Trebouchet MS", Font.PLAIN, 25));
 		sedentMinutesValue.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		PGraph piGraph = new PGraph(apiData);
+		piGraph.setBounds(570, 375, 349, 225);
+		contentPane.add(piGraph);
+		
+		
 	}
 	/**
 	 * returns the user to their daily dash board

@@ -16,17 +16,19 @@ public class GoalTracker implements Serializable {
     private float distanceProgress;
     private float caloriesProgress;
     private float floorsClimbedProgress;
-    private float veryActiveMinutesProgress;
+    private float activeMinutesProgress;
 
-
+    private APIData source;
     private Goal[] goalArray;
 
     /*constructor
     This method will create a Goal array of 6 and load the settings of the user.
     */
 
-    public GoalTracker() throws ClassNotFoundException {
+    public GoalTracker(APIData source) throws ClassNotFoundException {
         this.goalArray = new Goal[5];
+
+        this.source = source;
 
         for(int i = 0; i< 5; i++){
             goalArray[i]= new Goal();
@@ -123,26 +125,51 @@ public class GoalTracker implements Serializable {
             goalObj.setSteps(goal);
             this.goalArray[0].setSteps(goal);
             updateProgress();
+            try {
+                saveProgress();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
 
         } else if (type == GoalsEnum.distance) {
             this.goalArray[1].setCalories(goal);
             updateProgress();
+            try {
+                saveProgress();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
 
         } else if (type == GoalsEnum.calorieBurned) {
             this.goalArray[2].setDistance(goal);
             updateProgress();
+            try {
+                saveProgress();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
 
         } else if (type == GoalsEnum.floorsClimbed) {
             this.goalArray[3].setFloorsClimbed(goal);
             updateProgress();
+            try {
+                saveProgress();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
 
         } else if (type == GoalsEnum.veryActiveMinutes) {
             this.goalArray[4].setVeryActiveMinutes(goal);
             updateProgress();
+            try {
+                saveProgress();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
 
         }
@@ -172,11 +199,10 @@ public class GoalTracker implements Serializable {
 
     public void updateProgress() {
 
-        APIData source = new APIData(); // gather the data
 
         float APIsteps = source.getSteps();
         if (this.goalArray[0].getTarget() != "0" ) { //steps goal
-            this.stepsProgress = Float.parseFloat( this.goalArray[0].getTarget()) / APIsteps * 100.0f;
+            this.stepsProgress = APIsteps / Float.parseFloat( this.goalArray[0].getTarget()) * 100.0f;
 
             if (this.stepsProgress >= 100)
                 this.goalArray[0].setAchieved();
@@ -184,7 +210,7 @@ public class GoalTracker implements Serializable {
 
         float APIdistance =  source.getDistance();
         if (this.goalArray[1].getTarget() != "0") { //distance goal
-            this.distanceProgress = Float.parseFloat(this.goalArray[1].getTarget()) / APIsteps * 100.0f;
+            this.distanceProgress = APIdistance / Float.parseFloat(this.goalArray[1].getTarget()) * 100.0f;
 
             if (this.distanceProgress >= 100)
                 this.goalArray[1].setAchieved();
@@ -193,7 +219,7 @@ public class GoalTracker implements Serializable {
 
         float APIcalories = source.getCalories();
         if (this.goalArray[2].getTarget() != "0") { //calories goal
-            this.caloriesProgress = Float.parseFloat(this.goalArray[2].getTarget()) / APIcalories * 100.0f;
+            this.caloriesProgress = APIcalories / Float.parseFloat(this.goalArray[2].getTarget()) * 100.0f;
 
             if (this.caloriesProgress >= 100)
                 this.goalArray[2].setAchieved();
@@ -201,17 +227,17 @@ public class GoalTracker implements Serializable {
 
         float APIfloors = source.getFloorsClimbed();
         if (this.goalArray[3].getTarget() != "0") { //floors goal
-            this.floorsClimbedProgress = Float.parseFloat(this.goalArray[3].getTarget()) / APIfloors * 100.0f;
+            this.floorsClimbedProgress = APIfloors / Float.parseFloat(this.goalArray[3].getTarget()) * 100.0f;
 
             if (this.floorsClimbedProgress >= 100)
                 this.goalArray[3].setAchieved();
         }
 
-        float APIVeryActiveMinutes = source.getVeryActiveMin();
+        float APIActiveMinutes = source.getVeryActiveMin() + source.getLightlyActiveMin() + source.getFairlyActiveMin();
         if (this.goalArray[4].getTarget() != "0") { //sedentary minutes goal
-            this.veryActiveMinutesProgress = Float.parseFloat(this.goalArray[4].getTarget()) / APIVeryActiveMinutes * 100.0f;
+            this.activeMinutesProgress = APIActiveMinutes / Float.parseFloat(this.goalArray[4].getTarget()) * 100.0f;
 
-            if (this.veryActiveMinutesProgress >= 100)
+            if (this.activeMinutesProgress >= 100)
                 this.goalArray[4].setAchieved();
         }
 
@@ -263,7 +289,7 @@ public class GoalTracker implements Serializable {
     }
 
     public float getVeryActiveMinutesProgress() {
-        return veryActiveMinutesProgress;
+        return activeMinutesProgress;
     }
 
 

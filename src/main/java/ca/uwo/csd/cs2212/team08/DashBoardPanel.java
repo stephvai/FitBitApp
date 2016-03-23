@@ -1,6 +1,9 @@
 package ca.uwo.csd.cs2212.team08;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+
+import java.io.Serializable;
 import java.awt.*;
 
 /**
@@ -14,8 +17,11 @@ public class DashBoardPanel extends JPanel {
 	private static final int WIDTH = 265;
 	private static final int HEIGHT = 155;
 	//Color scheme
-	private Color pannelColor = new Color(168,219,168);
-	private Color borderColor = new Color(121,189,154);
+	//private Color pannelColor = new Color(168,219,168);
+	//private Color borderColor = new Color(121,189,154);
+	private Color borderColor = new Color(255,255,255);
+	
+	private Color pannelColor = new Color(205,206,206);
 	
 	//a rectangle variable to store the dimensions of the panel
 	private Rectangle r;
@@ -34,7 +40,7 @@ public class DashBoardPanel extends JPanel {
 		this.setBounds(r);
 		//set the background color of the panel
    	 	this.setBackground(pannelColor);
-   	 	this.setBorder(BorderFactory.createLineBorder(borderColor));
+   	 	this.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 	}
 	
 	

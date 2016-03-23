@@ -1,11 +1,16 @@
 package ca.uwo.csd.cs2212.team08;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
 /**
@@ -25,7 +30,8 @@ public class CaloriesPanel extends JFrame {
 
 	//Color Scheme
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(168,219,168);
+	//private Color pannelColor = new Color(168,219,168);
+	private Color pannelColor = new Color(206,206,206);
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
@@ -46,7 +52,20 @@ public class CaloriesPanel extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024,768);
 		this.setLocationRelativeTo(null); 
-		contentPane = new JPanel();
+		contentPane = new JPanel() {
+		 @Override
+		 protected void paintComponent(Graphics g) {
+			 BufferedImage img = null;
+			 try {
+				img = ImageIO.read(new File("src/main/resources/images/track.jpg"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			g.drawImage(img, 0,0, null);
+		 }
+	 };
+		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -69,7 +88,7 @@ public class CaloriesPanel extends JFrame {
 		/*-----------------------------------------*/
 		//create a back button to return to dash board
 		/*----------------------------------------*/
-		JLabel imgBack = new JLabel();
+		final JLabel imgBack = new JLabel();
 		imgBack.setIcon(new ImageIcon(backImage));
 		imgBack.setBounds(0, 0, 48, 48);
 		imgBack.addMouseListener(new MouseAdapter() {
@@ -79,79 +98,43 @@ public class CaloriesPanel extends JFrame {
 				home();
 				dispose();
 			}
+			
+			@Override
+   		 	public void mouseEntered(MouseEvent e) {
+				imgBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+   		 	@Override
+   		 	public void mouseExited(MouseEvent e) {
+   		 	imgBack.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+   		 	}
 		});
 		contentPane.add(imgBack);
 
 
-		/*-----------------------------------------*/
-		//create a tabbed pane to store the graphs
-		/*-----------------------------------------*/
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(80, 409, 837, 239);
+		LGraph lineGraph = new LGraph("Calories Burned", "Calories",apiData.getCaloriesTimeSeries());
 
-		//create a panel for the Lifetime progress
-		JPanel pnlLifetime = new JPanel();
-		tabbedPane.addTab("lifetime Progress", pnlLifetime);
+		lineGraph.setBounds(80, 409, 837, 239);
 
-		JPanel pnlToday4 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday4);
-
-
-		//create a panel for the Lifetime progress
-		JPanel pnlToday3 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday3);
-
-		JPanel pnlToday5 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday5);
-
-		contentPane.add(tabbedPane);
+		contentPane.add(lineGraph);
 
 		/*--------------------------------------------*/
 		//create a panel to display calories information for today
 		/*--------------------------------------------*/
 		JPanel pnlTodaysValue = new JPanel();
-		pnlTodaysValue.setBounds(80, 138, 240, 224);
+		pnlTodaysValue.setBounds(80, 138, 837, 224);
 		contentPane.add(pnlTodaysValue);
 		pnlTodaysValue.setLayout(null);
 		pnlTodaysValue.setBackground(pannelColor);
-		pnlTodaysValue.setBorder(BorderFactory.createLineBorder(borderColor));
+		pnlTodaysValue.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 
 		/*--------------------------------------------*/
 		//add a label to display the calories information for today
 		/*--------------------------------------------*/
-		JLabel lblDailyValue = new JLabel("<html> Today you burned "+ apiData.getCalories() +" calories. </html>");
+		JLabel lblDailyValue = new JLabel("<html> Today you burned <strong>"+ apiData.getCalories() +"</strong> calories. </html>");
 		lblDailyValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblDailyValue.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDailyValue.setBounds(21, 21, 198, 182);
+		lblDailyValue.setBounds(21, 21, 792, 182);
 		pnlTodaysValue.add(lblDailyValue);
-
-		/*--------------------------------------------*/
-		//create a panel to display calories information for the lifetime total
-		/*--------------------------------------------*/
-		JPanel pnlLifetimeTotal = new JPanel();
-		pnlLifetimeTotal.setBounds(373, 138, 240, 224);
-		contentPane.add(pnlLifetimeTotal);
-		pnlLifetimeTotal.setLayout(null);
-		pnlLifetimeTotal.setBackground(pannelColor);
-		pnlLifetimeTotal.setBorder(BorderFactory.createLineBorder(borderColor));
-		
-		/*
-		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have burned "+ apiData.+" calories. </html>");
-		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLifetimeTotal.setBounds(21, 31, 198, 182);
-		pnlLifetimeTotal.add(lblLifetimeTotal);
-		*/
-		
-		/*--------------------------------------------*/
-		//create a panel to display calories information for the users best day
-		/*--------------------------------------------*/
-		JPanel pnlBestDay = new JPanel();
-		pnlBestDay.setBounds(677, 138, 240, 224);
-		contentPane.add(pnlBestDay);
-		pnlBestDay.setLayout(null);
-		pnlBestDay.setBackground(pannelColor);
-		pnlBestDay.setBorder(BorderFactory.createLineBorder(borderColor));
 		
 		/*
 		JLabel lblBestDay = new JLabel("<html> On your best day you traveled "+ apiData.getBestDistance()+"km. </html>");
