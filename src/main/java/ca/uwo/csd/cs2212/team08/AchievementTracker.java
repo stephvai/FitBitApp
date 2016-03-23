@@ -38,7 +38,12 @@ public class AchievementTracker {
 	public AchievementTracker(APIData source) throws ClassNotFoundException, IOException {
 
 		this.achievementArray = new Achievement[21];
-
+		
+		for (int i = 0; i < achievementArray.length; i++) {
+			Achievement achievement = new Achievement();
+			this.achievementArray[i] = achievement;
+		}
+		
 		this.source = source;
 
 		float startingDaySteps = 10000;
@@ -55,12 +60,13 @@ public class AchievementTracker {
 		}
 
 		/*Set the achievements of 50k, 100k, 250k steps in life-time total.*/
-		for(int i=3;i<5;i++){
+		for(int i=3;i<=5;i++){
 			Achievement achievement = new Achievement();
 			achievement.setSteps(startingTotalSteps);
 			this.achievementArray[i]=achievement;
 			startingTotalSteps+=50000;
 		}
+
 		this.achievementArray[5].setSteps(250000);
 
 		/*Set the achievements of 30, 50, 100 floors in a day.*/
