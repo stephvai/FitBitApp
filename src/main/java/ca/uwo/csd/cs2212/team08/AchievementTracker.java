@@ -102,7 +102,6 @@ public class AchievementTracker {
 		/*Set the achievements of burning 5000 calories in life-time total*/
 		this.achievementArray[20].setCalories(5000);
 
-		this.saveProgress();
 		this.loadProgress();
 		this.updateProgress();
 	}
@@ -156,7 +155,6 @@ public class AchievementTracker {
 
 	public void updateProgress() {
 
-		this.source = new APIData();//Gather the API data.
 
 		/*Check the steps progress of the daily achievements.*/
 		float APIsteps = source.getSteps();
