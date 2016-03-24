@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -411,11 +412,28 @@ public class GoalPanel extends JFrame {
 	}
 	private void optionPromp(String inputText, JLabel label, GoalsEnum type){
 		String target = JOptionPane.showInputDialog(contentPane, inputText, null);
+
 		if(target == null){
 			return;
 		}
-		helperMethod(target, inputText, label, type);
+		else {
+			try {
+				float start = Float.parseFloat(target);
+				int check = (int) start;
 
+				target = Integer.toString(check);
+
+			if (check == 0)
+				target = "0";
+			else if (check < 0) {
+				target = null;
+			}
+			}catch(Exception e){
+					return;
+
+			}
+			helperMethod(target, inputText, label, type);
+		}
 
 	}
 
