@@ -3,6 +3,9 @@ package ca.uwo.csd.cs2212.team08;
 import java.io.*;
 import java.util.LinkedList;
 
+/**
+ * A class that tracks the status of achievements the user has gotten
+ */
 public class AchievementTracker {
 
 	private float stepsProgress;
@@ -34,7 +37,13 @@ public class AchievementTracker {
 	 * 17.500km in total
 	 * 18.2000 calories in one day
 	 * 19.3000 calories in one day
-	 * 20.5000 calories in total
+	 * 20.5000 calories in one day
+	 */
+	/**
+	 * Creates an Achievement tracker 
+	 * @param source
+	 * @throws ClassNotFoundException
+	 * @throws IOException
 	 */
 	public AchievementTracker(APIData source) throws ClassNotFoundException, IOException {
 		
