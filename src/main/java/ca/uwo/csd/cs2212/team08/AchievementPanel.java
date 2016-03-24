@@ -216,7 +216,7 @@ public class AchievementPanel extends JFrame {
 		JLabel floors30 = new JLabel();
 		floors30.setLocation(51, 77);
 		floors30.setSize(112,112);
-		if(this.tracker.isAchieved(7)){
+		if(this.tracker.isAchieved(6)){
 			floors30.setIcon(new ImageIcon(thirtyFloors));
 		}
 		floors30.setIcon(new ImageIcon(thirtyFloorsNot));
@@ -226,7 +226,7 @@ public class AchievementPanel extends JFrame {
 		JLabel floors50 = new JLabel();
 		floors50.setLocation(51,219);
 		floors50.setSize(112,112);
-		if(this.tracker.isAchieved(8)){
+		if(this.tracker.isAchieved(7)){
 			floors50.setIcon(new ImageIcon(fiftyFloors));
 		}
 			floors50.setIcon(new ImageIcon(fiftyFloorsNot));
@@ -235,7 +235,7 @@ public class AchievementPanel extends JFrame {
 		JLabel floors100 = new JLabel();
 		floors100.setLocation(51,361);
 		floors100.setSize(112,112);
-		if(this.tracker.isAchieved(9)){
+		if(this.tracker.isAchieved(8)){
 			floors100.setIcon(new ImageIcon(hundredFloors));
 		}
 			floors100.setIcon(new ImageIcon(hundredFloorsNot));
@@ -250,7 +250,7 @@ public class AchievementPanel extends JFrame {
 		JLabel floors500 = new JLabel();
 		floors500.setLocation(192,77);
 		floors500.setSize(112,112);
-		if(this.tracker.isAchieved(10)){
+		if(this.tracker.isAchieved(9)){
 			floors500.setIcon(new ImageIcon(fiveHundredFloors));
 		}
 		else{
@@ -262,7 +262,7 @@ public class AchievementPanel extends JFrame {
 		JLabel floors1000 = new JLabel();
 		floors1000.setLocation(192, 219);
 		floors1000.setSize(112,112);
-		if(this.tracker.isAchieved(11)){
+		if(this.tracker.isAchieved(10)){
 			floors1000.setIcon(new ImageIcon(oneKFloors));
 		}
 		else{
@@ -274,7 +274,7 @@ public class AchievementPanel extends JFrame {
 		JLabel floors2000 = new JLabel();
 		floors2000.setLocation(192, 361);
 		floors2000.setSize(112,112);
-		if(this.tracker.isAchieved(12)){
+		if(this.tracker.isAchieved(11)){
 			floors2000.setIcon(new ImageIcon(twoKFloors));
 		}
 		else{
@@ -291,7 +291,7 @@ public class AchievementPanel extends JFrame {
 		JLabel steps10K = new JLabel();
 		steps10K.setLocation(334, 77);
 		steps10K.setSize(112,112);
-		if(this.tracker.isAchieved(1)){
+		if(this.tracker.isAchieved(0)){
 			steps10K.setIcon(new ImageIcon(tenKSteps));
 		}
 		else{
@@ -302,7 +302,7 @@ public class AchievementPanel extends JFrame {
 		JLabel steps15K = new JLabel();
 		steps15K.setLocation(334,219);
 		steps15K.setSize(112,112);
-		if(this.tracker.isAchieved(2)){
+		if(this.tracker.isAchieved(1)){
 			steps15K.setIcon(new ImageIcon(fifteenKSteps));
 		}
 		else{
@@ -313,7 +313,7 @@ public class AchievementPanel extends JFrame {
 		JLabel steps20K = new JLabel();
 		steps20K.setLocation(334,361);
 		steps20K.setSize(112,112);
-		if(this.tracker.isAchieved(3)){
+		if(this.tracker.isAchieved(2)){
 			steps20K.setIcon(new ImageIcon(twentyKSteps));
 		}
 		else{
@@ -329,7 +329,7 @@ public class AchievementPanel extends JFrame {
 		JLabel steps50K = new JLabel();
 		steps50K.setLocation(476,77);
 		steps50K.setSize(112,112);
-		if(this.tracker.isAchieved(4)){
+		if(this.tracker.isAchieved(3)){
 			steps50K.setIcon(new ImageIcon(fiftyKSteps));
 		}
 		else{
@@ -340,7 +340,7 @@ public class AchievementPanel extends JFrame {
 		JLabel steps100K = new JLabel();
 		steps100K.setLocation(476,219);
 		steps100K.setSize(112,112);
-		if(this.tracker.isAchieved(5)){
+		if(this.tracker.isAchieved(4)){
 			steps100K.setIcon(new ImageIcon(hundredKSteps));
 		}
 		else{
@@ -351,7 +351,7 @@ public class AchievementPanel extends JFrame {
 		JLabel steps250K = new JLabel();
 		steps250K.setLocation(476,361);
 		steps250K.setSize(112,112);
-		if(this.tracker.isAchieved(6)){
+		if(this.tracker.isAchieved(5)){
 			steps250K.setIcon(new ImageIcon(twoHundredFiftyKSteps));
 		}
 		else{
@@ -368,7 +368,7 @@ public class AchievementPanel extends JFrame {
 		JLabel walked10K = new JLabel();
 		walked10K.setLocation(618, 77);
 		walked10K.setSize(112,112);
-		if(this.tracker.isAchieved(13)){
+		if(this.tracker.isAchieved(12)){
 			walked10K.setIcon(new ImageIcon(tenKWalked));
 		}
 		else{
@@ -379,7 +379,7 @@ public class AchievementPanel extends JFrame {
 		JLabel walked15K = new JLabel();
 		walked15K.setLocation(618,219);
 		walked15K.setSize(112,112);
-		if(this.tracker.isAchieved(14)){
+		if(this.tracker.isAchieved(13)){
 			walked15K.setIcon(new ImageIcon(fifteenKWalked));
 		}
 		else{
@@ -390,7 +390,7 @@ public class AchievementPanel extends JFrame {
 		JLabel walked20K = new JLabel();
 		walked20K.setLocation(618,361);
 		walked20K.setSize(112,112);
-		if(this.tracker.isAchieved(15)){
+		if(this.tracker.isAchieved(14)){
 			walked20K.setIcon(new ImageIcon(twentyKWalked));
 		}
 		else{
@@ -406,7 +406,7 @@ public class AchievementPanel extends JFrame {
 		JLabel walked200K = new JLabel();
 		walked200K.setLocation(760, 77);
 		walked200K.setSize(112,112);
-		if(this.tracker.isAchieved(16)){
+		if(this.tracker.isAchieved(15)){
 			walked200K.setIcon(new ImageIcon(twoHundredKWalked));
 		}
 		else{
@@ -417,7 +417,7 @@ public class AchievementPanel extends JFrame {
 		JLabel walked300K = new JLabel();
 		walked300K.setLocation(760, 219);
 		walked300K.setSize(112,112);
-		if(this.tracker.isAchieved(17)){
+		if(this.tracker.isAchieved(16)){
 			walked300K.setIcon(new ImageIcon(threeHundredKWalked));
 		}
 		else{
@@ -428,7 +428,7 @@ public class AchievementPanel extends JFrame {
 		JLabel walked500K = new JLabel();
 		walked500K.setLocation(760,361);
 		walked500K.setSize(112,112);
-		if(this.tracker.isAchieved(18)){
+		if(this.tracker.isAchieved(17)){
 			walked500K.setIcon(new ImageIcon(fiveHundredKWalked));
 		}
 		else{
@@ -444,7 +444,7 @@ public class AchievementPanel extends JFrame {
 		JLabel burned2K = new JLabel();
 		burned2K.setLocation(902,77);
 		burned2K.setSize(112,112);
-		if(this.tracker.isAchieved(19)){
+		if(this.tracker.isAchieved(18)){
 			burned2K.setIcon(new ImageIcon(twoKCalories));
 		}
 		else{
@@ -455,7 +455,7 @@ public class AchievementPanel extends JFrame {
 		JLabel burned3K = new JLabel();
 		burned3K.setLocation(902, 219);
 		burned3K.setSize(112,112);
-		if(this.tracker.isAchieved(20)){
+		if(this.tracker.isAchieved(19)){
 			burned3K.setIcon(new ImageIcon(threeKCalories));
 		}
 		else{
@@ -466,7 +466,7 @@ public class AchievementPanel extends JFrame {
 		JLabel burned5K = new JLabel();
 		burned5K.setLocation(902, 361);
 		burned5K.setSize(112,112);
-		if(this.tracker.isAchieved(21)){
+		if(this.tracker.isAchieved(20)){
 			burned5K.setIcon(new ImageIcon(fiveKCalories));
 		}
 		else{
