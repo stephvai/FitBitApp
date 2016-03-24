@@ -17,6 +17,8 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.util.LinkedList;
 
+import javax.swing.JOptionPane;
+
 /**
  * APIData Class that gets data from the fitbit servers and parses it to variables that can be 
  * gotten from the main class
@@ -66,6 +68,8 @@ public class APIData {
   //String representation of the date in YYYY-MM-DD format
   String currentDate = "2016-02-26";
   String requestUrlPrefix = "https://api.fitbit.com/1/user/3WGW2P/";
+  
+  
   
   /**
    * Constructor for API data
@@ -154,14 +158,22 @@ public class APIData {
         String requestUrl = activitySummaryRequestBuilder(requestUrlPrefix);
         OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl, service);
         service.signRequest(accessToken, request);
-        Response response = request.send();
+        Response response;
+        try {
+         response = request.send();
+        } 
+        catch (Exception e) {
+        	JOptionPane.showMessageDialog(null, "Cannot connect with the fitbit servers. Please check your connection and try again later");           	  
+        	zeroValues();
+        	return true;
+        }
         int checkResponse = checkStatus(response.getCode());
         if (checkResponse == expiredToken) {
         	//refresh token then send it again
         	accessToken = service.refreshOAuth2AccessToken(accessToken);
         	request = new OAuthRequest(Verb.GET, requestUrl, service);
             service.signRequest(accessToken, request);
-            response = request.send();
+            	response = request.send();
             checkResponse = checkStatus(response.getCode());
         }
         if(!saveTokens(accessToken)) {
@@ -172,6 +184,7 @@ public class APIData {
         	parseSummary(obj);
         }
         else {
+        	zeroValues();
         	return false;
         }
         
@@ -230,6 +243,7 @@ public class APIData {
         	
         }
         else {
+        	zeroValues();
         	return false;
         }
         
@@ -287,6 +301,7 @@ public class APIData {
         	
         }  
         else {
+        	zeroValues();
         	return false;
         }
         
@@ -316,6 +331,7 @@ public class APIData {
         	
         }  
         else {
+        	zeroValues();
         	return false;
         }
         
@@ -410,7 +426,6 @@ public class APIData {
    * @return a value that represents what kind of response has occured 
    */
   private int checkStatus(int statusCode) {
-	  System.out.println(statusCode);
 	  switch(statusCode){
       case 200:
           return successfulResponse;
@@ -614,6 +629,49 @@ public class APIData {
 		  }
 	  }
 
+  }
+  
+  public void zeroValues() {
+	  userDailySteps = 0;
+	  userDailyDistance = 0;
+	  userDailyCalories = 0;
+	  userDailyFloorsClimbed = 0;
+	  userDailySendentaryMinutes = 0;
+	  userDailyLightlyActiveMinutes = 0;
+	  userDailyFairlyActiveMinutes = 0;
+	  userDailyVeryActiveMinutes = 0;
+	  
+	  totalDistance = 0;
+	  totalFloors = 0;
+	  totalSteps = 0;
+	  bestDistance = 0;
+	  bestFloors = 0;
+	  bestSteps = 0;
+	  
+	  restingHeartRate = "0";
+	  outOfRange = new HRZone("Out of range", "0");
+	  fatBurn = new HRZone("Fat Burn", "0");
+	  cardio = new HRZone("Cardio", "0");
+	  peak = new HRZone("Peak", "0");
+	  hrTimeSeries = new LinkedList<TimeSeriesNode>();
+	  stepsTimeSeries = new LinkedList<TimeSeriesNode>();
+	  caloriesTimeSeries = new LinkedList<TimeSeriesNode>();
+	  distanceTimeSeries = new LinkedList<TimeSeriesNode>();
+	  
+	  for (int i = 0; i < 1440; i++) {
+		  int minute = 0;
+		  int hours = 0;
+		  TimeSeriesNode node = new TimeSeriesNode(Integer.toString(minute), Integer.toString(hours), currentDate, Integer.toString(0));
+		  hrTimeSeries.add(node);
+		  stepsTimeSeries.add(node);
+		  caloriesTimeSeries.add(node);
+		  distanceTimeSeries.add(node);
+		  minute ++;
+		  if ((minute %= 60) == 0) {
+			  hours++;  
+		  }
+	  }
+			  
   }
   
   /********************************************************

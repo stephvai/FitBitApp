@@ -24,7 +24,7 @@ public class GoalPanel extends JFrame {
 
 	private JPanel contentPane;
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(206, 206, 206);
+	private Color pannelColor = new Color(0,0,0,60);
 	private Color borderColor = new Color(121, 189, 154);
 	private Color titleColor = new Color(11, 72, 107);
 	private Color white = Color.white;
@@ -83,9 +83,8 @@ public class GoalPanel extends JFrame {
 		titleGoals.setFont(new Font("Trebuchet MS", Font.BOLD, 50));
 		titleGoals.setHorizontalAlignment(SwingConstants.CENTER);
 		titleGoals.setBounds(80, 21, 837, 84);
-		contentPane.add(titleGoals);
 		titleGoals.setForeground(white);
-		
+		contentPane.add(titleGoals);
 		/*-----------------------------------------*/
 		//create a back button to return to dash board
 		/*----------------------------------------*/
@@ -106,33 +105,46 @@ public class GoalPanel extends JFrame {
 		/*-------------------------------------------*
 		 * the panel where step goals will be displayed
 		 *-------------------------------------------*/
-		JPanel stepGoalPanel = new JPanel();
+		JPanel stepGoalPanel = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		stepGoalPanel.setLocation(38, 172);
 		stepGoalPanel.setSize(285, 201);
-		contentPane.setBounds(50,50,400, 500);
-		contentPane.add(stepGoalPanel);
+		stepGoalPanel.setOpaque(false);
 		stepGoalPanel.setLayout(null);
 		stepGoalPanel.setBackground(pannelColor);
 		stepGoalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		
+		contentPane.setBounds(50,50,400, 500);
+		contentPane.add(stepGoalPanel);
+		contentPane.repaint();
 		/*------------------------------------------*
 		 * Title of the step goal panel
 		 *------------------------------------------*/
 		final JLabel lblStepsGoal = new JLabel("<html> Steps </html>");
 		lblStepsGoal.setBounds(66, 6, 150, 56);
-		stepGoalPanel.add(lblStepsGoal);
+		lblStepsGoal.setForeground(white);
 		lblStepsGoal.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
 		lblStepsGoal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStepsGoal.setBackground(pannelColor);
-
+		lblStepsGoal.setOpaque(false);
+		stepGoalPanel.add(lblStepsGoal);
+		contentPane.repaint();
 		/*--------------------------------------------*
 		 * where the data for steps goal would be displayed
 		 *--------------------------------------------*/
 		final JLabel label = new JLabel(goalTracker.getGoal(GoalsEnum.steps));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setOpaque(false);
+		label.setForeground(white);
 		label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		label.setBounds(105, 90, 68, 29);
 		stepGoalPanel.add(label);
+		contentPane.repaint();
 		/*------------------------------------------*
 		 * Edit Button
 		 *------------------------------------------*/
@@ -152,23 +164,33 @@ public class GoalPanel extends JFrame {
 		/*-------------------------------------------*
 		 * the panel where distance goals will be displayed
 		 *-------------------------------------------*/
-		JPanel distanceGoalPanel = new JPanel();
+		JPanel distanceGoalPanel = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		distanceGoalPanel.setLayout(null);
+		distanceGoalPanel.setOpaque(false);
 		distanceGoalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		distanceGoalPanel.setBackground(new Color(168, 219, 168));
 		distanceGoalPanel.setBounds(368, 172, 285, 201);
 		distanceGoalPanel.setBackground(pannelColor);
 		contentPane.add(distanceGoalPanel);
+		contentPane.repaint();
 		
 		/*------------------------------------------*
 		 * Title of the distance goal panel
 		 *------------------------------------------*/
 		final JLabel distanceGoalLbl = new JLabel("<html> Distance </html>");
 		distanceGoalLbl.setBounds(68, 6, 150, 56);
-		distanceGoalPanel.add(distanceGoalLbl);
+		distanceGoalLbl.setForeground(white);
 		distanceGoalLbl.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
 		distanceGoalLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		
+		distanceGoalPanel.add(distanceGoalLbl);
+		contentPane.repaint();
 		/*-------------------------------------------------------------*
 		 * information shown for distance goals 
 		 *-------------------------------------------------------------*/
@@ -176,8 +198,11 @@ public class GoalPanel extends JFrame {
 		lblDistanceValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDistanceValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblDistanceValue.setBounds(110, 87, 68, 29);
+		lblDistanceValue.setForeground(white);
+		lblDistanceValue.setOpaque(false);
 		lblDistanceValue.setBackground(pannelColor);
 		distanceGoalPanel.add(lblDistanceValue);
+		contentPane.repaint();
 		
 		/*------------------------------------------*
 		 * Edit Button
@@ -186,9 +211,6 @@ public class GoalPanel extends JFrame {
 		editTheDistance.setBounds(88, 146, 117, 29);
 		editTheDistance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-
-
 				optionPromp("How much distance will you travel?", lblDistanceValue, GoalsEnum.distance);
 
 			}
@@ -199,31 +221,43 @@ public class GoalPanel extends JFrame {
 		/*-------------------------------------------*
 		 * the panel where calories goals will be displayed
 		 *-------------------------------------------*/
-		final JPanel caloriesGoalPanel = new JPanel();
+		final JPanel caloriesGoalPanel = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		caloriesGoalPanel.setLayout(null);
 		caloriesGoalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		caloriesGoalPanel.setBackground(new Color(168, 219, 168));
+		caloriesGoalPanel.setBackground(pannelColor);
 		caloriesGoalPanel.setBounds(703, 172, 285, 201);
 		contentPane.add(caloriesGoalPanel);
+		contentPane.repaint();
 		
 		/*------------------------------------------*
 		 * Title of the calories goal panel
 		 *------------------------------------------*/
 		final JLabel lblCaloriesGoalPanel = new JLabel("<html> Calories </html>");
 		lblCaloriesGoalPanel.setBounds(68,6, 150,56);
-		caloriesGoalPanel.add(lblCaloriesGoalPanel);
+		lblCaloriesGoalPanel.setOpaque(false);
+		lblCaloriesGoalPanel.setForeground(white);
 		lblCaloriesGoalPanel.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
 		lblCaloriesGoalPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		
+		caloriesGoalPanel.add(lblCaloriesGoalPanel);
+		contentPane.repaint();
 		/*-------------------------------------------------------------*
 		 * information shown for calories goals 
 		 *-------------------------------------------------------------*/
 		final JLabel lblCalorieValue = new JLabel(goalTracker.getGoal(GoalsEnum.calorieBurned));
 		lblCalorieValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCalorieValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblCalorieValue.setOpaque(false);
+		lblCalorieValue.setForeground(white);
 		lblCalorieValue.setBounds(108, 88, 68, 29);
 		caloriesGoalPanel.add(lblCalorieValue);
-		
+		contentPane.repaint();
 		/*------------------------------------------*
 		 * Edit Button
 		 *------------------------------------------*/
@@ -237,37 +271,49 @@ public class GoalPanel extends JFrame {
 			}
 		});
 		caloriesGoalPanel.add(editTheCalories);
-		
-
 				
 		/*-------------------------------------------*
 		 * the panel where floor goals will be displayed
 		 *-------------------------------------------*/
-		JPanel floorsGoalPanel = new JPanel();
+		JPanel floorsGoalPanel = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		floorsGoalPanel.setLayout(null);
 		floorsGoalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		floorsGoalPanel.setBackground(new Color(168, 219, 168));
+		floorsGoalPanel.setBackground(pannelColor);
 		floorsGoalPanel.setBounds(183, 466, 285, 201);
 		contentPane.add(floorsGoalPanel);
+		contentPane.repaint();
 		
 		/*------------------------------------------*
 		 * Title of the floor goal panel
 		 *------------------------------------------*/
 		final JLabel lblFloorGoal = new JLabel("<html> Floors </html>");
 		lblFloorGoal.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFloorGoal.setOpaque(false);
 		lblFloorGoal.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
 		lblFloorGoal.setBounds(65, 22, 150, 56);
+		lblFloorGoal.setForeground(white);
+		lblFloorGoal.setForeground(white);
 		floorsGoalPanel.add(lblFloorGoal);
+		contentPane.repaint();
 		
 		/*-------------------------------------------------------------*
 		 * information shown for Floor goals 
 		 *-------------------------------------------------------------*/
 		final JLabel lblFloorValue = new JLabel(goalTracker.getGoal(GoalsEnum.floorsClimbed));
 		lblFloorValue.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFloorValue.setOpaque(false);
+		lblFloorValue.setForeground(white);
 		lblFloorValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblFloorValue.setBounds(106, 97, 68, 29);
 		floorsGoalPanel.add(lblFloorValue);
-		
+		contentPane.repaint();
 		/*------------------------------------------*
 		 * Edit Button
 		 *------------------------------------------*/
@@ -285,30 +331,43 @@ public class GoalPanel extends JFrame {
 		/*------------------------------------------------------*
 		 * the panel where active minute goals will be displayed
 		 *------------------------------------------------------*/
-		JPanel activeGoalPanel = new JPanel();
+		JPanel activeGoalPanel = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		activeGoalPanel.setLayout(null);
 		activeGoalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		activeGoalPanel.setBackground(new Color(168, 219, 168));
+		activeGoalPanel.setBackground(pannelColor);
 		activeGoalPanel.setBounds(529, 466, 285, 201);
 		contentPane.add(activeGoalPanel);
+		contentPane.repaint();
 		
 		/*------------------------------------------*
 		 * Title of the active minutes goal panel
 		 *------------------------------------------*/
 		final JLabel lblActiveMinutesGoalPanel = new JLabel("<html> Active Minutes </html>");
 		lblActiveMinutesGoalPanel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblActiveMinutesGoalPanel.setOpaque(false);
+		lblActiveMinutesGoalPanel.setForeground(white);
 		lblActiveMinutesGoalPanel.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
 		lblActiveMinutesGoalPanel.setBounds(58, 23, 183, 56);
 		activeGoalPanel.add(lblActiveMinutesGoalPanel);
-		
+		contentPane.repaint();
 		/*-------------------------------------------------------------*
 		 * information shown for Active Minutes goals 
 		 *-------------------------------------------------------------*/
 		final JLabel lblActiveGoals = new JLabel(goalTracker.getGoal(GoalsEnum.veryActiveMinutes));
 		lblActiveGoals.setHorizontalAlignment(SwingConstants.CENTER);
+		lblActiveGoals.setForeground(white);
+		lblActiveGoals.setOpaque(false);
 		lblActiveGoals.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblActiveGoals.setBounds(108, 97, 68, 29);
 		activeGoalPanel.add(lblActiveGoals);
+		contentPane.repaint();
 		
 		/*------------------------------------------*
 		 * Edit Button

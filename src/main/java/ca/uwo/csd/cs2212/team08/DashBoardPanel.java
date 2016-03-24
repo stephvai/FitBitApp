@@ -22,6 +22,7 @@ public class DashBoardPanel extends JPanel {
 	private Color borderColor = new Color(255,255,255);
 	
 	private Color pannelColor = new Color(205,206,206);
+	private Color transParentColor = new Color(0,0,0,60);
 	
 	//a rectangle variable to store the dimensions of the panel
 	private Rectangle r;

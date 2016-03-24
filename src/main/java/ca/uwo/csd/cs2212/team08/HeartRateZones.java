@@ -43,7 +43,7 @@ public class HeartRateZones extends JFrame {
 
 	// Color Scheme
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(206,206,206);
+	private Color pannelColor = new Color(0,0,0,60);
 	private Color borderColor = new Color(121, 189, 154);
 	private Color titleColor = new Color(11, 72, 107);
 	private Color white = Color.white;
@@ -128,12 +128,22 @@ public class HeartRateZones extends JFrame {
 		 /*--------------------------------------------*/
 			// create a panel to display floors climbed information for today
 			/*--------------------------------------------*/
-			JPanel pnlRestingHR = new JPanel();
+			JPanel pnlRestingHR = new JPanel(){
+				@Override
+				public void paintComponent(Graphics g) {
+					super.paintComponent(g);
+					g.setColor(getBackground());
+					g.fillRect(0, 0, getWidth(), getHeight());
+				}
+			};
 			pnlRestingHR.setBounds(740, 409, 170, 239);
-			contentPane.add(pnlRestingHR);
 			pnlRestingHR.setLayout(null);
+			pnlRestingHR.setOpaque(false);
 			pnlRestingHR.setBackground(pannelColor);
 			pnlRestingHR.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			contentPane.add(pnlRestingHR);
+			contentPane.repaint();
+			
 			
 			/*--------------------------------------------*/
 			// add a label to display the floors climbed today
@@ -142,17 +152,29 @@ public class HeartRateZones extends JFrame {
 			lblRestingHR.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblRestingHR.setHorizontalAlignment(SwingConstants.CENTER);
 			lblRestingHR.setBounds(21, 21, 110, 200);
+			lblRestingHR.setForeground(white);
+			lblRestingHR.setOpaque(false);
 			pnlRestingHR.add(lblRestingHR);
+			contentPane.repaint();
 		 
 		 	/*--------------------------------------------*/
 			// create a panel to display floors climbed information for today
 			/*--------------------------------------------*/
-			JPanel pnlOutOfRange = new JPanel();
+			JPanel pnlOutOfRange = new JPanel(){
+				@Override
+				public void paintComponent(Graphics g) {
+					super.paintComponent(g);
+					g.setColor(getBackground());
+					g.fillRect(0, 0, getWidth(), getHeight());
+				}
+			};
 			pnlOutOfRange.setBounds(80, 138, 170, 224);
-			contentPane.add(pnlOutOfRange);
 			pnlOutOfRange.setLayout(null);
+			pnlOutOfRange.setOpaque(false);
 			pnlOutOfRange.setBackground(pannelColor);
 			pnlOutOfRange.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			contentPane.add(pnlOutOfRange);
+			contentPane.repaint();
 			
 			/*--------------------------------------------*/
 			// add a label to display the floors climbed today
@@ -161,18 +183,29 @@ public class HeartRateZones extends JFrame {
 			lblOutOfRange.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblOutOfRange.setHorizontalAlignment(SwingConstants.CENTER);
 			lblOutOfRange.setBounds(21, 21, 130, 182);
+			lblOutOfRange.setOpaque(false);
+			lblOutOfRange.setForeground(white);
 			pnlOutOfRange.add(lblOutOfRange);
+			contentPane.repaint();
 
 			/*--------------------------------------------*/
 			// create a panel to display floors climbed information for today
 			/*--------------------------------------------*/
-			JPanel pnlFatBurn = new JPanel();
+			JPanel pnlFatBurn = new JPanel(){
+				@Override
+				public void paintComponent(Graphics g) {
+					super.paintComponent(g);
+					g.setColor(getBackground());
+					g.fillRect(0, 0, getWidth(), getHeight());
+				}
+			};
 			pnlFatBurn.setBounds(300, 138, 170, 224);
-			contentPane.add(pnlFatBurn);
+			pnlFatBurn.setOpaque(false);
 			pnlFatBurn.setLayout(null);
 			pnlFatBurn.setBackground(pannelColor);
 			pnlFatBurn.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-			
+			contentPane.add(pnlFatBurn);
+			contentPane.repaint();
 			/*--------------------------------------------*/
 			// add a label to display the floors climbed today
 			/*--------------------------------------------*/
@@ -180,37 +213,59 @@ public class HeartRateZones extends JFrame {
 			lblFatBurn.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblFatBurn.setHorizontalAlignment(SwingConstants.CENTER);
 			lblFatBurn.setBounds(21, 21, 130, 182);
+			lblFatBurn.setOpaque(false);
+			lblFatBurn.setForeground(white);
 			pnlFatBurn.add(lblFatBurn);
+			contentPane.repaint();
 			
 			/*--------------------------------------------*/
 			// create a panel to display floors climbed information for today
 			/*--------------------------------------------*/
-			JPanel pnlCardio = new JPanel();
+			JPanel pnlCardio = new JPanel(){
+				@Override
+				public void paintComponent(Graphics g) {
+					super.paintComponent(g);
+					g.setColor(getBackground());
+					g.fillRect(0, 0, getWidth(), getHeight());
+				}
+			};
 			pnlCardio.setBounds(520, 138, 170, 224);
-			contentPane.add(pnlCardio);
+			pnlCardio.setOpaque(false);
 			pnlCardio.setLayout(null);
 			pnlCardio.setBackground(pannelColor);
 			pnlCardio.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-			
+			contentPane.add(pnlCardio);
+			contentPane.repaint();
 			/*--------------------------------------------*/
 			// add a label to display the floors climbed today
 			/*--------------------------------------------*/
 			JLabel lblCardio = new JLabel("<html> Today you were in the cardio zone for <strong>"+ apiData.getCardio().getValue() +"</strong> minutes. </html>");
 			lblCardio.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+			lblCardio.setOpaque(false);
 			lblCardio.setHorizontalAlignment(SwingConstants.CENTER);
 			lblCardio.setBounds(21, 21, 130, 182);
+			lblCardio.setForeground(white);
 			pnlCardio.add(lblCardio);
+			contentPane.repaint();
 			
 			/*--------------------------------------------*/
 			// create a panel to display floors climbed information for today
 			/*--------------------------------------------*/
-			JPanel pnlPeak = new JPanel();
+			JPanel pnlPeak = new JPanel(){
+				@Override
+				public void paintComponent(Graphics g) {
+					super.paintComponent(g);
+					g.setColor(getBackground());
+					g.fillRect(0, 0, getWidth(), getHeight());
+				}
+			};
 			pnlPeak.setBounds(740, 138, 170, 224);
-			contentPane.add(pnlPeak);
+			pnlPeak.setOpaque(false);
 			pnlPeak.setLayout(null);
 			pnlPeak.setBackground(pannelColor);
 			pnlPeak.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-			
+			contentPane.add(pnlPeak);
+			contentPane.repaint();
 			/*--------------------------------------------*/
 			// add a label to display the floors climbed today
 			/*--------------------------------------------*/
@@ -218,9 +273,10 @@ public class HeartRateZones extends JFrame {
 			lblPeak.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblPeak.setHorizontalAlignment(SwingConstants.CENTER);
 			lblPeak.setBounds(21, 21, 130, 182);
+			lblPeak.setOpaque(false);
+			lblPeak.setForeground(white);
 			pnlPeak.add(lblPeak);
-			
-
+			contentPane.repaint();
 
 	}
 	

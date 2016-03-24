@@ -30,7 +30,7 @@ public class StairsPanel extends JFrame {
 	
 	//Color Scheme
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(206,206,206);
+	private Color pannelColor = new Color(0,0,0,64);
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
@@ -79,12 +79,12 @@ public class StairsPanel extends JFrame {
 		lblTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 50));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(80, 21, 837, 84);
-		contentPane.add(lblTitle);
 		lblTitle.setForeground(white);
+		contentPane.add(lblTitle);
+		
 
 		/*-----------------------------------------*/
 		//create a back button to return to dash board
-
 		/*	-----------------------------------------*/
 		final JLabel imgBack = new JLabel();
 		imgBack.setIcon(new ImageIcon(backImage));
@@ -108,86 +108,96 @@ public class StairsPanel extends JFrame {
 		});
 		contentPane.add(imgBack);
 
-
-		/*-----------------------------------------*/
-		// create a tabbed pane to store the graphs
-		/*-----------------------------------------*/
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(80, 409, 837, 239);
-
-		//create a panel for the Lifetime progress
-		JPanel pnlLifetime = new JPanel();
-		tabbedPane.addTab("lifetime Progress", pnlLifetime);
-
-		JPanel pnlToday4 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday4);
-
-
-		//create a panel for the Lifetime progress
-		JPanel pnlToday3 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday3);
-
-		JPanel pnlToday5 = new JPanel();
-		tabbedPane.addTab("Today's Progress", pnlToday5);
-
-		contentPane.add(tabbedPane);
-
 		/*--------------------------------------------*/
 		// create a panel to display floors climbed information for today
 		/*--------------------------------------------*/
-		JPanel pnlTodaysValue = new JPanel();
-		pnlTodaysValue.setBounds(80, 138, 240, 224);
-		contentPane.add(pnlTodaysValue);
+		JPanel pnlTodaysValue = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
+		pnlTodaysValue.setBounds(80, 138, 240, 433);
+		pnlTodaysValue.setOpaque(false);
 		pnlTodaysValue.setLayout(null);
 		pnlTodaysValue.setBackground(pannelColor);
 		pnlTodaysValue.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-
+		contentPane.add(pnlTodaysValue);
+		contentPane.repaint();
 		/*--------------------------------------------*/
 		// add a label to display the floors climbed today
 		/*--------------------------------------------*/
 		JLabel lblDailyValue = new JLabel("<html> Today you climbed <strong>"+ apiData.getFloorsClimbed() +"</strong> floors. </html>");
 		lblDailyValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblDailyValue.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDailyValue.setBounds(21, 21, 198, 182);
+		lblDailyValue.setBounds(20, 135, 198, 182);
+		lblDailyValue.setForeground(white);
+		lblDailyValue.setOpaque(false);
 		pnlTodaysValue.add(lblDailyValue);
+		contentPane.repaint();
 
 		/*--------------------------------------------*/
 		// create a panel to display floors climbed information for their lifetime totals
 		/*--------------------------------------------*/
-		JPanel pnlLifetimeTotal = new JPanel();
-		pnlLifetimeTotal.setBounds(373, 138, 240, 224);
-		contentPane.add(pnlLifetimeTotal);
+		JPanel pnlLifetimeTotal = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
+		pnlLifetimeTotal.setBounds(373, 138, 240, 433);
+		pnlLifetimeTotal.setOpaque(false);
 		pnlLifetimeTotal.setLayout(null);
 		pnlLifetimeTotal.setBackground(pannelColor);
 		pnlLifetimeTotal.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		
+		contentPane.add(pnlLifetimeTotal);
+		contentPane.repaint();
 		/*--------------------------------------------*/
 		// add a label to display the floors climbed in the users lifetime total
 		/*--------------------------------------------*/
 		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have climbed <strong>"+ apiData.getTotalFloors()+"</strong> floors. </html>");
 		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLifetimeTotal.setBounds(21, 31, 198, 182);
+		lblLifetimeTotal.setOpaque(false);
+		lblLifetimeTotal.setForeground(white);
+		lblLifetimeTotal.setBounds(20, 135, 198, 182);
 		pnlLifetimeTotal.add(lblLifetimeTotal);
+		contentPane.repaint();
 		
 		/*--------------------------------------------*/
 		// create a panel to display floors climbed information for today
 		/*--------------------------------------------*/
-		JPanel pnlBestDay = new JPanel();
-		pnlBestDay.setBounds(677, 138, 240, 224);
-		contentPane.add(pnlBestDay);
+		JPanel pnlBestDay = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
+		pnlBestDay.setBounds(677, 138, 240, 433);
+		pnlBestDay.setOpaque(false);
 		pnlBestDay.setLayout(null);
 		pnlBestDay.setBackground(pannelColor);
 		pnlBestDay.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		contentPane.add(pnlBestDay);
+		contentPane.repaint();
 		
 		/*--------------------------------------------*/
 		// add a label to display the floors climbed on the users best day
 		/*--------------------------------------------*/
 		JLabel lblBestDay = new JLabel("<html> On your best day you climbed <strong>"+ apiData.getBestFloors()+"</strong> floors. </html>");
 		lblBestDay.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBestDay.setOpaque(false);
+		lblBestDay.setForeground(white);
 		lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblBestDay.setBounds(21, 21, 198, 182);
+		lblBestDay.setBounds(17, 135, 198, 182);
 		pnlBestDay.add(lblBestDay);
+		contentPane.repaint();
 		
 		/*-------------------------------------*/
 		//the label to set the last updated time

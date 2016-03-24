@@ -30,7 +30,7 @@ public class StepsPanel extends JFrame {
 
 	//Color Scheme
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(206,206,206);
+	private Color pannelColor = new Color(0,0,0,64);
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
@@ -145,51 +145,82 @@ public class StepsPanel extends JFrame {
 		/*--------------------------------------------*/
 		//create a panel to display steps information for today
 		/*--------------------------------------------*/
-		JPanel pnlTodaysSteps = new JPanel();
+		JPanel pnlTodaysSteps = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		pnlTodaysSteps.setBounds(80, 138, 240, 224);
-		contentPane.add(pnlTodaysSteps);
+		pnlTodaysSteps.setOpaque(false);
 		pnlTodaysSteps.setLayout(null);
 		pnlTodaysSteps.setBackground(pannelColor);
 		pnlTodaysSteps.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-
+		contentPane.add(pnlTodaysSteps);
+		contentPane.repaint();
 		/*--------------------------------------------*/
 		//add a label to display the users steps
 		/*--------------------------------------------*/
 		JLabel lblDailySteps = new JLabel("<html> Today you took <strong>"+ apiData.getSteps()+"</strong> steps. </html>");
 		lblDailySteps.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblDailySteps.setOpaque(false);
+		lblDailySteps.setForeground(white);
 		lblDailySteps.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDailySteps.setBounds(21, 21, 198, 182);
 		pnlTodaysSteps.add(lblDailySteps);
+		contentPane.repaint();
 
 		/*--------------------------------------------*/
 		//create a panel to display steps information for lifetime totals
 		/*--------------------------------------------*/
-		JPanel pnlLifetimeTotal = new JPanel();
+		JPanel pnlLifetimeTotal = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		pnlLifetimeTotal.setBounds(373, 138, 240, 224);
-		contentPane.add(pnlLifetimeTotal);
+		pnlLifetimeTotal.setOpaque(false);
 		pnlLifetimeTotal.setLayout(null);
 		pnlLifetimeTotal.setBackground(pannelColor);
 		pnlLifetimeTotal.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		contentPane.add(pnlLifetimeTotal);
+		contentPane.repaint();
 		
 		/*--------------------------------------------*/
 		//add a label to display the steps lifetime total
 		/*--------------------------------------------*/
 		JLabel lblLifetimeTotal = new JLabel("<html> In your lifetime you have taken <strong>"+ apiData.getTotalSteps()+"</strong> steps. </html>");
 		lblLifetimeTotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
+		lblLifetimeTotal.setOpaque(false);
+		lblLifetimeTotal.setForeground(white);
 		lblLifetimeTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLifetimeTotal.setBounds(21, 31, 198, 182);
 		pnlLifetimeTotal.add(lblLifetimeTotal);
+		contentPane.repaint();
 		
 		/*--------------------------------------------*/
 		//create a panel to display steps information for their best Day
 		/*--------------------------------------------*/
-		JPanel pnlBestDay = new JPanel();
+		JPanel pnlBestDay = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		pnlBestDay.setBounds(677, 138, 240, 224);
-		contentPane.add(pnlBestDay);
+		pnlBestDay.setOpaque(false);
 		pnlBestDay.setLayout(null);
 		pnlBestDay.setBackground(pannelColor);
 		pnlBestDay.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		
+		contentPane.add(pnlBestDay);
+		contentPane.repaint();
 		/*--------------------------------------------*/
 		//add a label to display the steps best day
 		/*--------------------------------------------*/
@@ -197,7 +228,10 @@ public class StepsPanel extends JFrame {
 		lblBestDay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBestDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblBestDay.setBounds(21, 21, 198, 182);
+		lblBestDay.setOpaque(false);
+		lblBestDay.setForeground(white);
 		pnlBestDay.add(lblBestDay);
+		contentPane.repaint();
 		
 		/*-------------------------------------*/
 		//the label to set the last updated time
