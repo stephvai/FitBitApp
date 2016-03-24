@@ -505,7 +505,7 @@ public class APIData {
 
   /**
    * A method that parses heart rate zone data and generates a linked list
-   * @param obj JSON object tht contains the heart rate zone data
+   * @param obj JSON object that contains the heart rate zone data
    */
   private void parseHeartRateZones(JSONObject obj) {
 	  

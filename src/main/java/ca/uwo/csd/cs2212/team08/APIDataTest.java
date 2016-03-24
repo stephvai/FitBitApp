@@ -218,8 +218,8 @@ public class APIDataTest extends APIData {
     }
     
     /**
-     * Method to see if the app is in test mode
-     *@return Returns if it is in test mode
+     * Method to see if the api data is in test mode
+     *@return Returns true if it is in test mode
      */
     public Boolean isTestMode() {
   	  return true;
