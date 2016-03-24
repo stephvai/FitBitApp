@@ -223,20 +223,6 @@ public class MainScreen extends JFrame implements Serializable {
 			 goalTracker = new GoalTracker(apiData);
 			 goalTracker.updateProgress();
 
-			 /*
-			 /*------------------------------------------*/
-			 //create each panel used for the daily dash board
-			 /*------------------------------------------/
-			 stepsPanel();
-			 stairsPanel();
-			 caloriesPanel();
-			 distancePanel();
-			 activeMinutesPanel();
-			 sedentaryMinutesPanel();
-			 accoladesPanel();
-			 heartRatePanel();
-			 goalsPanel();
-			  */
 			 /*------------------------------------------*/
 			 //create a refresh button to refresh the data
 			 /*------------------------------------------*/
@@ -524,9 +510,8 @@ public class MainScreen extends JFrame implements Serializable {
 		 {
 			//creates a new steps panel
 	    	 pnlSteps = new DashBoardPanel(50, 196);
-	    	 //pnlSteps.setLocation(51, 99);
 	    	 pnlSteps.setVisible(false);
-	    	 
+	    	 pnlSteps.setToolTipText("click here to see how many steps you took today!");
 	    	 pnlSteps.setBackground(transparentColor);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -605,6 +590,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 //pnlStairs.setLocation(385, 99);
 	    	 pnlStairs.setLayout(null);
 	    	 pnlStairs.setVisible(false);
+	    	 pnlStairs.setToolTipText("click here to see how many floors you have climbed today!");
 	    	 pnlStairs.setBackground(transparentColor);
 	    	 pnlStairs.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -673,6 +659,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlCalories = new DashBoardPanel(776, 196);
 			 //pnlCalories.setLocation(709, 99);
 			 pnlCalories.setLayout(null);
+			 pnlCalories.setToolTipText("click here to see more information about calories!");
 			 pnlCalories.setVisible(false);
 			 pnlCalories.setBackground(transparentColor);
 			 pnlCalories.addMouseListener(new MouseAdapter() {
@@ -743,6 +730,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlDistance = new DashBoardPanel(50, 305);
 			 pnlDistance.setLayout(null);
 			 pnlDistance.setVisible(false);
+			 pnlDistance.setToolTipText("click here to see more information!");
 			 pnlDistance.setBackground(transparentColor);
 			 pnlDistance.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -813,6 +801,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlActiveMin = new DashBoardPanel(50, 305);
 			 pnlActiveMin.setLayout(null);
 			 pnlActiveMin.setVisible(false);
+			 pnlActiveMin.setToolTipText("click here to see more information!");
 			 pnlActiveMin.setBackground(transparentColor);
 			 //pnlActiveMin.setBounds(385, 300, 265, 155);
 			 pnlActiveMin.addMouseListener(new MouseAdapter() {
@@ -880,6 +869,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*------------------------------------------*/
 			 pnlSedentaryMin = new DashBoardPanel(50, 305);
 			 pnlSedentaryMin.setLayout(null);
+			 pnlSedentaryMin.setToolTipText("click here to see more information!");
 			 pnlSedentaryMin.setVisible(false);
 			 pnlSedentaryMin.setBackground(transparentColor);
 			 //pnlSedentaryMin.setBounds(709, 300, 265, 155);
@@ -939,6 +929,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlAccolades = new DashBoardPanel(50, 305);
 			 pnlAccolades.setLayout(null);
 			 pnlAccolades.setVisible(false);
+			 pnlAccolades.setToolTipText("click here to see more information!");
 			 pnlAccolades.setBackground(transparentColor);
 			 //pnlAccolades.setBounds(51, 501, 265, 155);
 			 pnlAccolades.addMouseListener(new MouseAdapter() {
@@ -985,6 +976,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlHeartRate = new DashBoardPanel(50, 305);
 			 pnlHeartRate.setLayout(null);
 			 pnlHeartRate.setVisible(false);
+			 pnlHeartRate.setToolTipText("click here to see more information");
 			 pnlHeartRate.setBackground(transparentColor);
 			 //pnlHeartRate.setBounds(385, 501, 265, 155);
 			 pnlHeartRate.addMouseListener(new MouseAdapter() {
@@ -1032,6 +1024,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 pnlGoals = new DashBoardPanel(50, 305);
 			 pnlGoals.setLayout(null);
 			 pnlGoals.setVisible(false);
+			 pnlGoals.setToolTipText("click here for more information!");
 			 pnlGoals.setBackground(transparentColor);
 			 //pnlGoals.setBounds(709, 501, 265, 155);
 			 pnlGoals.addMouseListener(new MouseAdapter() {
