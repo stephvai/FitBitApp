@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -31,7 +32,7 @@ public class AchievementPanel extends JFrame {
 
 	private JPanel contentPane;
 	private Color bgColor = Color.darkGray;
-	private Color pannelColor = new Color(206, 206, 206);
+	private Color pannelColor = new Color(0,0,0,60);
 	private Color borderColor = new Color(121, 189, 154);
 	private Color titleColor = new Color(11, 72, 107);
 	private Color white = Color.white;
@@ -214,7 +215,7 @@ public class AchievementPanel extends JFrame {
 		 *---------------------------------------------------*/
 		//30 floors in one day
 		JLabel floors30 = new JLabel();
-		floors30.setLocation(51, 77);
+		floors30.setLocation(96, 77);
 		floors30.setSize(112,112);
 		if(this.tracker.isAchieved(6)){
 			floors30.setIcon(new ImageIcon(thirtyFloors));
@@ -224,7 +225,7 @@ public class AchievementPanel extends JFrame {
 		
 		//50 floors in one day 
 		JLabel floors50 = new JLabel();
-		floors50.setLocation(51,219);
+		floors50.setLocation(96,219);
 		floors50.setSize(112,112);
 		if(this.tracker.isAchieved(7)){
 			floors50.setIcon(new ImageIcon(fiftyFloors));
@@ -233,7 +234,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(floors50);
 		
 		JLabel floors100 = new JLabel();
-		floors100.setLocation(51,361);
+		floors100.setLocation(96,361);
 		floors100.setSize(112,112);
 		if(this.tracker.isAchieved(8)){
 			floors100.setIcon(new ImageIcon(hundredFloors));
@@ -248,7 +249,7 @@ public class AchievementPanel extends JFrame {
 		 *-----------------------------------------*/
 		//500 floors
 		JLabel floors500 = new JLabel();
-		floors500.setLocation(192,77);
+		floors500.setLocation(237,77);
 		floors500.setSize(112,112);
 		if(this.tracker.isAchieved(9)){
 			floors500.setIcon(new ImageIcon(fiveHundredFloors));
@@ -260,7 +261,7 @@ public class AchievementPanel extends JFrame {
 		
 		//1000 floors
 		JLabel floors1000 = new JLabel();
-		floors1000.setLocation(192, 219);
+		floors1000.setLocation(237, 219);
 		floors1000.setSize(112,112);
 		if(this.tracker.isAchieved(10)){
 			floors1000.setIcon(new ImageIcon(oneKFloors));
@@ -272,7 +273,7 @@ public class AchievementPanel extends JFrame {
 	
 		//2000 floors climbed
 		JLabel floors2000 = new JLabel();
-		floors2000.setLocation(192, 361);
+		floors2000.setLocation(237, 361);
 		floors2000.setSize(112,112);
 		if(this.tracker.isAchieved(11)){
 			floors2000.setIcon(new ImageIcon(twoKFloors));
@@ -289,7 +290,7 @@ public class AchievementPanel extends JFrame {
 		 *---------------------------------------------*/
 		
 		JLabel steps10K = new JLabel();
-		steps10K.setLocation(334, 77);
+		steps10K.setLocation(379, 77);
 		steps10K.setSize(112,112);
 		if(this.tracker.isAchieved(0)){
 			steps10K.setIcon(new ImageIcon(tenKSteps));
@@ -300,7 +301,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(steps10K);
 		
 		JLabel steps15K = new JLabel();
-		steps15K.setLocation(334,219);
+		steps15K.setLocation(379,219);
 		steps15K.setSize(112,112);
 		if(this.tracker.isAchieved(1)){
 			steps15K.setIcon(new ImageIcon(fifteenKSteps));
@@ -311,7 +312,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(steps15K);
 		
 		JLabel steps20K = new JLabel();
-		steps20K.setLocation(334,361);
+		steps20K.setLocation(379,361);
 		steps20K.setSize(112,112);
 		if(this.tracker.isAchieved(2)){
 			steps20K.setIcon(new ImageIcon(twentyKSteps));
@@ -327,7 +328,7 @@ public class AchievementPanel extends JFrame {
 		 * start of steps lifetime total achievements
 		 *-------------------------------------------*/
 		JLabel steps50K = new JLabel();
-		steps50K.setLocation(476,77);
+		steps50K.setLocation(521,77);
 		steps50K.setSize(112,112);
 		if(this.tracker.isAchieved(3)){
 			steps50K.setIcon(new ImageIcon(fiftyKSteps));
@@ -338,7 +339,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(steps50K);
 		
 		JLabel steps100K = new JLabel();
-		steps100K.setLocation(476,219);
+		steps100K.setLocation(521,219);
 		steps100K.setSize(112,112);
 		if(this.tracker.isAchieved(4)){
 			steps100K.setIcon(new ImageIcon(hundredKSteps));
@@ -349,7 +350,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(steps100K);
 		
 		JLabel steps250K = new JLabel();
-		steps250K.setLocation(476,361);
+		steps250K.setLocation(521,361);
 		steps250K.setSize(112,112);
 		if(this.tracker.isAchieved(5)){
 			steps250K.setIcon(new ImageIcon(twoHundredFiftyKSteps));
@@ -366,7 +367,7 @@ public class AchievementPanel extends JFrame {
 		 *-------------------------------------------*/
 
 		JLabel walked10K = new JLabel();
-		walked10K.setLocation(618, 77);
+		walked10K.setLocation(663, 77);
 		walked10K.setSize(112,112);
 		if(this.tracker.isAchieved(12)){
 			walked10K.setIcon(new ImageIcon(tenKWalked));
@@ -377,7 +378,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(walked10K);
 		
 		JLabel walked15K = new JLabel();
-		walked15K.setLocation(618,219);
+		walked15K.setLocation(663,219);
 		walked15K.setSize(112,112);
 		if(this.tracker.isAchieved(13)){
 			walked15K.setIcon(new ImageIcon(fifteenKWalked));
@@ -388,7 +389,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(walked15K);
 		
 		JLabel walked20K = new JLabel();
-		walked20K.setLocation(618,361);
+		walked20K.setLocation(663,361);
 		walked20K.setSize(112,112);
 		if(this.tracker.isAchieved(14)){
 			walked20K.setIcon(new ImageIcon(twentyKWalked));
@@ -404,7 +405,7 @@ public class AchievementPanel extends JFrame {
 		 * Start of distance walked in total achievements
 		 *-------------------------------------------*/
 		JLabel walked200K = new JLabel();
-		walked200K.setLocation(760, 77);
+		walked200K.setLocation(805, 77);
 		walked200K.setSize(112,112);
 		if(this.tracker.isAchieved(15)){
 			walked200K.setIcon(new ImageIcon(twoHundredKWalked));
@@ -415,7 +416,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(walked200K);
 		
 		JLabel walked300K = new JLabel();
-		walked300K.setLocation(760, 219);
+		walked300K.setLocation(805, 219);
 		walked300K.setSize(112,112);
 		if(this.tracker.isAchieved(16)){
 			walked300K.setIcon(new ImageIcon(threeHundredKWalked));
@@ -426,7 +427,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(walked300K);
 		
 		JLabel walked500K = new JLabel();
-		walked500K.setLocation(760,361);
+		walked500K.setLocation(805,361);
 		walked500K.setSize(112,112);
 		if(this.tracker.isAchieved(17)){
 			walked500K.setIcon(new ImageIcon(fiveHundredKWalked));
@@ -442,7 +443,7 @@ public class AchievementPanel extends JFrame {
 		 * Start of Calories Achievements
 		 *-----------------------------------------*/
 		JLabel burned2K = new JLabel();
-		burned2K.setLocation(902,77);
+		burned2K.setLocation(947,77);
 		burned2K.setSize(112,112);
 		if(this.tracker.isAchieved(18)){
 			burned2K.setIcon(new ImageIcon(twoKCalories));
@@ -453,7 +454,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(burned2K);
 		
 		JLabel burned3K = new JLabel();
-		burned3K.setLocation(902, 219);
+		burned3K.setLocation(947, 219);
 		burned3K.setSize(112,112);
 		if(this.tracker.isAchieved(19)){
 			burned3K.setIcon(new ImageIcon(threeKCalories));
@@ -464,7 +465,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(burned3K);
 		
 		JLabel burned5K = new JLabel();
-		burned5K.setLocation(902, 361);
+		burned5K.setLocation(947, 361);
 		burned5K.setSize(112,112);
 		if(this.tracker.isAchieved(20)){
 			burned5K.setIcon(new ImageIcon(fiveKCalories));
@@ -476,9 +477,82 @@ public class AchievementPanel extends JFrame {
 		/*-------------------------------------------*
 		 * End of calories achievements
 		 *-------------------------------------------*/
+	
+		JPanel informationPanel = new JPanel(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
+		//informationPanel.setOpaque(false);
+		informationPanel.setBackground(pannelColor);
+		informationPanel.setSize(966,160);
+		informationPanel.setLocation(34,523);
+		contentPane.add(informationPanel);
+		contentPane.repaint();
+		
+		JLabel inform1 = new JLabel("Hey there! Welcome to your Achievements Page!");
+		inform1.setOpaque(false);
+		inform1.setForeground(white);
+		inform1.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		inform1.setHorizontalAlignment(SwingConstants.CENTER);
+		informationPanel.add(inform1);
+		contentPane.repaint();
+		
+		JLabel inform2 = new JLabel("In here, you can see all of the achievements that you can achieve!");
+		inform2.setOpaque(false);
+		inform2.setForeground(white);
+		inform2.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		inform2.setHorizontalAlignment(SwingConstants.CENTER);
+		informationPanel.add(inform2);
+		contentPane.repaint();
+		
+		JLabel inform3 = new JLabel("Once you achieve a goal, you will see these beauty badges come alive with Color!");
+		inform3.setOpaque(false);
+		inform3.setForeground(white);
+		inform3.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		inform3.setHorizontalAlignment(SwingConstants.CENTER);
+		informationPanel.add(inform3);
+		contentPane.repaint();
+		
+		JLabel inform4 = new JLabel("What are you waiting for?");
+		inform4.setOpaque(false);
+		inform4.setForeground(white);
+		inform4.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		inform4.setHorizontalAlignment(SwingConstants.CENTER);
+		informationPanel.add(inform4);
+		
+		JLabel inform5 = new JLabel("Get moving to get those achievements! ");
+		informationPanel.add(inform5);
+		inform5.setOpaque(false);
+		inform5.setForeground(white);
+		inform5.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		inform5.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.repaint();
+		contentPane.repaint();
+		/*
+		JTextArea information = new JTextArea(){
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
+		
+		information.setOpaque(false);
+		information.setBackground(pannelColor);
+		information.setSize(966,191);
+		information.setLocation(34,499);
+		information.setForeground(new Color(255,255,255));
+		information.setText("                         Hey there! Welcome to the Achievements page!\n                Here you can see all the possible achievements you can get!\n  Once you achieve a goal, you will see these beautful badges filled in with color!  \n\t\t       Well?\n\t              what are you waiting for? \n                          Get Moving to get those Achievements!");
+		information.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		contentPane.add(information);
+		contentPane.repaint();
+		*/
 	}
-	
-	
 
 	public void home() {
 		MainScreen main = new MainScreen(this.date, apiData);
