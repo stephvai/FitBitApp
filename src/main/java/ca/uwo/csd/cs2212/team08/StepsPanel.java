@@ -34,7 +34,7 @@ public class StepsPanel extends JFrame {
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
-
+	private final String infoButton = "src/main/resources/New accolades/info.png";
 
 	/**
 	 * create a steps panel to show user information on their steps
@@ -83,6 +83,28 @@ public class StepsPanel extends JFrame {
 		lblTitle.setBounds(386, 21, 193, 84);
 		contentPane.add(lblTitle);
 		lblTitle.setForeground(white);
+		
+		/*------------------------------------------*
+		 * information button 
+		 *------------------------------------------*/
+		final JLabel informButtonLabel = new JLabel();
+		informButtonLabel.setSize(24,24);
+		informButtonLabel.setLocation(918,409);
+		informButtonLabel.setIcon(new ImageIcon(infoButton));
+		informButtonLabel.addMouseListener(new MouseAdapter() {
+			 @Override
+			 public void mouseClicked(MouseEvent arg0) {
+		    		 JOptionPane.showMessageDialog(contentPane, "drag to the right to zoom in to a specific time frame! \n Drag to the left to zoom out");
+			 } @Override
+   		 public void mouseEntered(MouseEvent e) {
+				 informButtonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+   		 }
+   		 @Override
+   		 public void mouseExited(MouseEvent e) {
+   			informButtonLabel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+   		 }
+		 });
+		contentPane.add(informButtonLabel);
 
 		/*	-----------------------------------------*/
 		//create a back button to return to dash board
