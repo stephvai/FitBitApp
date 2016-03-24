@@ -47,14 +47,73 @@ public class AchievementPanel extends JFrame {
 	 * Many static final string variables for all accolades pictures that will be used as "badges"
 	 * This section of the code will be badges users will be able to see if they have acheived goals
 	 */
+	//in one day 
+	private static final String thirtyFloors = "src/main/resources/New accolades/30 floors in 1 day.png";
+	private static final String fiftyFloors = "src/main/resources/New accolades/50 floors in 1 day.png";
+	private static final String hundredFloors = "src/main/resources/New accolades/100 floors in 1 day.png";
+	//in lifetime
+	private static final String fiveHundredFloors = "src/main/resources/New accolades/500 floors.png";
+	private static final String twoKFloors = "src/main/resources/New accolades/2k floors.png";
+	private static final String oneKFloors = "src/main/resources/New accolades/1k floors.png";
+	//in one day
+	private static final String tenKSteps = "src/main/resources/New accolades/10k steps in 1 day.png";
+	private static final String fifteenKSteps = "src/main/resources/New accolades/15k steps in 1 day.png";
+	private static final String twentyKSteps = "src/main/resources/New accolades/20k steps in 1 day.png";
+	//in lifetime
+	private static final String fiftyKSteps = "src/main/resources/New accolades/50k steps.png";
+	private static final String hundredKSteps = "src/main/resources/New accolades/100k steps.png";
+	private static final String twoHundredFiftyKSteps = "src/main/resources/New accolades/250k steps.png";
 	
-	private static final String Testpic = "src/main/resources/images/pc2.jpg";
+	//in one day 
+	private static final String tenKWalked = "src/main/resources/New accolades/10km walked.png";
+	private static final String fifteenKWalked ="src/main/resources/New accolades/15km walked.png";
+	private static final String twentyKWalked = "src/main/resources/New accolades/20km walked.png";
 	
+	//in lifetime
+	private static final String twoHundredKWalked = "src/main/resources/New accolades/200km walked.png";
+	private static final String threeHundredKWalked = "src/main/resources/New accolades/300km walked.png";
+	private static final String fiveHundredKWalked = "src/main/resources/New accolades/500km walked.png";
+
+	//in one day
+	private static final String twoKCalories = "src/main/resources/New accolades/2k cals in 1 day.png";
+	private static final String threeKCalories = "src/main/resources/New accolades/3k cals in 1 day.png";
+	private static final String fiveKCalories = "src/main/resources/New accolades/5k cals in 1 day.png";
 	/*
 	 * default pictures shown. All corresponding pictures will go in order, so milesTen and milesTenNot
 	 * will always correspond to each other (in terms of order) in this section of code. Sorry if that's confusing. 
 	 */
 	
+	//in one day 
+		private static final String thirtyFloorsNot = "src/main/resources/New accolades/30 floors NOT.png";
+		private static final String fiftyFloorsNot = "src/main/resources/New accolades/50 floors NOT.png";
+		private static final String hundredFloorsNot = "src/main/resources/New accolades/100 floors NOT.png";
+		//in lifetime
+		private static final String fiveHundredFloorsNot = "src/main/resources/New accolades/500 floors NOT.png";
+		private static final String twoKFloorsNot = "src/main/resources/New accolades/2k floors NOT.png";
+		private static final String oneKFloorsNot = "src/main/resources/New accolades/1k floors NOT.png";
+		//in one day
+		private static final String tenKStepsNot = "src/main/resources/New accolades/10k steps NOT.png";
+		private static final String fifteenKStepsNot = "src/main/resources/New accolades/15k steps NOT.png";
+		private static final String twentyKStepsNot = "src/main/resources/New accolades/20k steps NOT.png";
+		//in lifetime
+		private static final String fiftyKStepsNot = "src/main/resources/New accolades/50k steps NOT.png";
+		private static final String hundredKStepsNot = "src/main/resources/New accolades/100k steps NOT.png";
+		private static final String twoHundredFiftyKStepsNot = "src/main/resources/New accolades/250k steps NOT.png";
+		
+		//in one day 
+		private static final String tenKWalkedNot = "src/main/resources/New accolades/10km walked NOT.png";
+		private static final String fifteenKWalkedNot ="src/main/resources/New accolades/15km walked NOT.png";
+		private static final String twentyKWalkedNot = "src/main/resources/New accolades/20km walked NOT.png";
+		
+		//in lifetime
+		private static final String twoHundredKWalkedNot = "src/main/resources/New accolades/200km walked NOT.png";
+		private static final String threeHundredKWalkedNot = "src/main/resources/New accolades/300km walked NOT.png";
+		private static final String fiveHundredKWalkedNot = "src/main/resources/New accolades/500km walked NOT.png";
+
+		//in one day
+		private static final String twoKCaloriesNot = "src/main/resources/New accolades/2k cals in 1 day NOT.png";
+		private static final String threeKCaloriesNot = "src/main/resources/New accolades/3k cals in 1 day NOT.png";
+		private static final String fiveKCaloriesNot = "src/main/resources/New accolades/5k cals in 1 day NOT.png";
 
 	public AchievementPanel(final String date, APIData paramAPIData) {
 
@@ -150,265 +209,276 @@ public class AchievementPanel extends JFrame {
 			}
 		});
 		
-		
-		/*----------------------------------------------------*
-		 * Title for the accolades badges
-		 *----------------------------------------------------*/
-		JLabel milesTitle = new JLabel("YOUR DISTANCE ACHIEVEMENTS");
-		milesTitle.setSize(239, 50);
-		milesTitle.setLocation(30, 81);
-		milesTitle.setForeground(white);
-		milesTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		milesTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(milesTitle);
-		/*------------------------------------------------*
-		 * Labels for all the distance achievements. 
-		 *------------------------------------------------*/
-		//10 miles
-		/*JLabel tenMiles = new JLabel();
-		tenMiles.setSize(80, 240);
-		tenMiles.setLocation(40, 125);
-		//if achieved method returns true then
-		// tenMiles.setIcon(new ImageIcon(milesTen));
-		if(this.tracker.isAchieved(0)){
-			tenMiles.setIcon(new ImageIcon(Testpic));
-		}
-		tenMiles.setIcon(new ImageIcon(Testpic));
-		contentPane.add(tenMiles);
-		
-		//20 miles
-		JLabel twentyMiles = new JLabel();
-		twentyMiles.setSize(80, 240);
-		twentyMiles.setLocation(130,125);
-		if(this.tracker.isAchieved(1)){
-			tenMiles.setIcon(new ImageIcon(milesTwenty));
-		}
-		twentyMiles.setIcon(new ImageIcon(milesTwentyNot));
-		contentPane.add(twentyMiles);
-		
-		//30 miles
-		JLabel thirtyMiles = new JLabel();
-		thirtyMiles.setSize(80, 240);
-		thirtyMiles.setLocation(221,125);
-		if(this.tracker.isAchieved(2)){
-			tenMiles.setIcon(new ImageIcon(milesThirty));
-		}
-		thirtyMiles.setIcon(new ImageIcon(milesThirtyNot));
-		contentPane.add(thirtyMiles);
-		
-		//40 miles
-		JLabel fortyMiles = new JLabel();
-		fortyMiles.setSize(80, 240);
-		fortyMiles.setLocation(311,125);
-		if(this.tracker.isAchieved(3)){
-			tenMiles.setIcon(new ImageIcon(milesFourty));
-		}
-		fortyMiles.setIcon(new ImageIcon(milesFourtyNot));
-		contentPane.add(fortyMiles);
-		
-		//50 miles 
-		JLabel fiftyMiles = new JLabel();
-		fiftyMiles.setSize(80, 240);
-		fiftyMiles.setLocation(402,125);
-		if(this.tracker.isAchieved(4)){
-			tenMiles.setIcon(new ImageIcon(milesFifty));
-		}
-		fiftyMiles.setIcon(new ImageIcon(milesFiftyNot));
-		contentPane.add(fiftyMiles);
-		/*---------------------------------------*
-		 * End of distance achievements
-		 *---------------------------------------/
-		
-		/----------------------------------------------------*
-		 * Title for the steps badges
-		 *----------------------------------------------------/
-		JLabel stepsTitle = new JLabel("YOUR STEPS ACHIEVEMENTS");
-		stepsTitle.setSize(219, 50);
-		stepsTitle.setLocation(26, 375);
-		stepsTitle.setForeground(white);
-		stepsTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		stepsTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(stepsTitle);
-		/---------------------------------------*
-		 * Start of steps achievements
-		 *---------------------------------------/
-		
-		//10000 steps
-		JLabel steps10000 = new JLabel();
-		steps10000.setSize(80,240);
-		steps10000.setLocation(39, 420);
-		if(this.tracker.isAchieved(5)){
-			tenMiles.setIcon(new ImageIcon(stepsTenThousand));
-		}
-		steps10000.setIcon(new ImageIcon(stepsTenThousandNot));
-		contentPane.add(steps10000);
-		
-		//12500 steps
-		JLabel steps12500 = new JLabel();
-		steps12500.setSize(80,240);
-		steps12500.setLocation(130,420);
-		if(this.tracker.isAchieved(6)){
-			tenMiles.setIcon(new ImageIcon(stepsTwelveThousandFiveHundred));
-		}
-		steps12500.setIcon(new ImageIcon(stepsTwelveThousandFiveHundredNot));
-		contentPane.add(steps12500);
-		
-		//15000 steps
-		JLabel steps15000 = new JLabel();
-		steps15000.setSize(80,240);
-		steps15000.setLocation(221, 420);
+		/*---------------------------------------------------*
+		 * labels for all the floors in one day achievements
+		 *---------------------------------------------------*/
+		//30 floors in one day
+		JLabel floors30 = new JLabel();
+		floors30.setLocation(51, 77);
+		floors30.setSize(112,112);
 		if(this.tracker.isAchieved(7)){
-			tenMiles.setIcon(new ImageIcon(stepsFifteenThousand));
+			floors30.setIcon(new ImageIcon(thirtyFloors));
 		}
-		steps15000.setIcon(new ImageIcon(stepsFifteenThousandNot));
-		contentPane.add(steps15000);
+		floors30.setIcon(new ImageIcon(thirtyFloorsNot));
+		contentPane.add(floors30);
 		
-		//17500 steps
-		JLabel steps17500 = new JLabel();
-		steps17500.setSize(80,240);
-		steps17500.setLocation(311,420);
+		//50 floors in one day 
+		JLabel floors50 = new JLabel();
+		floors50.setLocation(51,219);
+		floors50.setSize(112,112);
 		if(this.tracker.isAchieved(8)){
-			tenMiles.setIcon(new ImageIcon(stepsSevenTeenFiveHundredThousand));
+			floors50.setIcon(new ImageIcon(fiftyFloors));
 		}
-		steps17500.setIcon(new ImageIcon(stepsSevenTeenFiveHundredThousandNot));
-		contentPane.add(steps17500);
+			floors50.setIcon(new ImageIcon(fiftyFloorsNot));
+		contentPane.add(floors50);
 		
-		//20000 steps
-		JLabel steps20000 = new JLabel();
-		steps20000.setSize(80,240);
-		steps20000.setLocation(402,420);
+		JLabel floors100 = new JLabel();
+		floors100.setLocation(51,361);
+		floors100.setSize(112,112);
 		if(this.tracker.isAchieved(9)){
-			tenMiles.setIcon(new ImageIcon(stepsTwentyThousand));
+			floors100.setIcon(new ImageIcon(hundredFloors));
 		}
-		steps20000.setIcon(new ImageIcon(stepsTwentyThousandNot));
-		contentPane.add(steps20000);
-		/---------------------------------------*
-		 * End of steps achievements
-		 *---------------------------------------/
-		
-		/----------------------------------------------------*
-		 * Title for the floors "badges"
-		 *----------------------------------------------------/
-		JLabel floorsTitle = new JLabel("YOUR FLOORS ACHIEVEMENTS");
-		floorsTitle.setSize(239, 50);
-		floorsTitle.setLocation(525, 81);
-		floorsTitle.setForeground(white);
-		floorsTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		floorsTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(floorsTitle);
-		/*---------------------------------------*
-		 * Start of floors achievements
-		 *---------------------------------------/
-		JLabel floorsOneHundred = new JLabel(); //100
-		floorsOneHundred.setSize(80,240);
-		floorsOneHundred.setLocation(540, 125);
+			floors100.setIcon(new ImageIcon(hundredFloorsNot));
+		contentPane.add(floors100);
+		/*-----------------------------------------*
+		 * End of floors in a day achievements
+		 *-----------------------------------------*/
+		/*-----------------------------------------*
+		 * start of floors in lifetime achievements
+		 *-----------------------------------------*/
+		//500 floors
+		JLabel floors500 = new JLabel();
+		floors500.setLocation(192,77);
+		floors500.setSize(112,112);
 		if(this.tracker.isAchieved(10)){
-			tenMiles.setIcon(new ImageIcon(floorsHundred));
+			floors500.setIcon(new ImageIcon(fiveHundredFloors));
 		}
-		floorsOneHundred.setIcon(new ImageIcon(floorsHundredNot));
-		contentPane.add(floorsOneHundred);
+		else{
+			floors500.setIcon(new ImageIcon(fiveHundredFloorsNot));
+		}
+		contentPane.add(floors500);
 		
-		JLabel floorsTwoHundred = new JLabel(); //200
-		floorsTwoHundred.setSize(80,240);
-		floorsTwoHundred.setLocation(631, 125);
+		//1000 floors
+		JLabel floors1000 = new JLabel();
+		floors1000.setLocation(192, 219);
+		floors1000.setSize(112,112);
 		if(this.tracker.isAchieved(11)){
-			tenMiles.setIcon(new ImageIcon(floorsTwoHundredImage));
+			floors1000.setIcon(new ImageIcon(oneKFloors));
 		}
-		floorsTwoHundred.setIcon(new ImageIcon(floorsTwoHundredNot));
-		contentPane.add(floorsTwoHundred);
-		
-		JLabel floorsThreeHundred = new JLabel(); //300
-		floorsThreeHundred.setSize(80,240);
-		floorsThreeHundred.setLocation(722, 125);
+		else{
+			floors1000.setIcon(new ImageIcon(oneKFloorsNot));
+		}
+		contentPane.add(floors1000);
+	
+		//2000 floors climbed
+		JLabel floors2000 = new JLabel();
+		floors2000.setLocation(192, 361);
+		floors2000.setSize(112,112);
 		if(this.tracker.isAchieved(12)){
-			tenMiles.setIcon(new ImageIcon(floorsThreeHundredImage));
+			floors2000.setIcon(new ImageIcon(twoKFloors));
 		}
-		floorsThreeHundred.setIcon(new ImageIcon(floorsThreeHundredNot));
-		contentPane.add(floorsThreeHundred);
+		else{
+			floors2000.setIcon(new ImageIcon(twoKFloorsNot));
+		}
+		contentPane.add(floors2000);
+		/*------------------------------------*
+		 * End of lifetime Floor achievements
+		 *------------------------------------*/
+		/*---------------------------------------------*
+		 * Start of steps taken in one day achievements
+		 *---------------------------------------------*/
 		
-		JLabel floorsFourHundred = new JLabel(); //400
-		floorsFourHundred.setSize(80,240);
-		floorsFourHundred.setLocation(813, 125);
+		JLabel steps10K = new JLabel();
+		steps10K.setLocation(334, 77);
+		steps10K.setSize(112,112);
+		if(this.tracker.isAchieved(1)){
+			steps10K.setIcon(new ImageIcon(tenKSteps));
+		}
+		else{
+			steps10K.setIcon(new ImageIcon(tenKStepsNot));
+		}
+		contentPane.add(steps10K);
+		
+		JLabel steps15K = new JLabel();
+		steps15K.setLocation(334,219);
+		steps15K.setSize(112,112);
+		if(this.tracker.isAchieved(2)){
+			steps15K.setIcon(new ImageIcon(fifteenKSteps));
+		}
+		else{
+			steps15K.setIcon(new ImageIcon(fifteenKStepsNot));
+		}
+		contentPane.add(steps15K);
+		
+		JLabel steps20K = new JLabel();
+		steps20K.setLocation(334,361);
+		steps20K.setSize(112,112);
+		if(this.tracker.isAchieved(3)){
+			steps20K.setIcon(new ImageIcon(twentyKSteps));
+		}
+		else{
+			steps20K.setIcon(new ImageIcon(twentyKStepsNot));
+		}
+		contentPane.add(steps20K);
+		/*-----------------------------------*
+		 * End of steps in a day achievements
+		 *-----------------------------------*/
+		/*-------------------------------------------*
+		 * start of steps lifetime total achievements
+		 *-------------------------------------------*/
+		JLabel steps50K = new JLabel();
+		steps50K.setLocation(476,77);
+		steps50K.setSize(112,112);
+		if(this.tracker.isAchieved(4)){
+			steps50K.setIcon(new ImageIcon(fiftyKSteps));
+		}
+		else{
+			steps50K.setIcon(new ImageIcon(fiftyKStepsNot));
+		}
+		contentPane.add(steps50K);
+		
+		JLabel steps100K = new JLabel();
+		steps100K.setLocation(476,219);
+		steps100K.setSize(112,112);
+		if(this.tracker.isAchieved(5)){
+			steps100K.setIcon(new ImageIcon(hundredKSteps));
+		}
+		else{
+			steps100K.setIcon(new ImageIcon(hundredKStepsNot));
+		}
+		contentPane.add(steps100K);
+		
+		JLabel steps250K = new JLabel();
+		steps250K.setLocation(476,361);
+		steps250K.setSize(112,112);
+		if(this.tracker.isAchieved(6)){
+			steps250K.setIcon(new ImageIcon(twoHundredFiftyKSteps));
+		}
+		else{
+			steps250K.setIcon(new ImageIcon(twoHundredFiftyKStepsNot));
+		}
+		contentPane.add(steps250K);
+		/*-------------------------------------------*
+		 * End of steps lifetime total achievements
+		 *-------------------------------------------*/
+		/*-------------------------------------------*
+		 * start of distance walked in a day achievements
+		 *-------------------------------------------*/
+
+		JLabel walked10K = new JLabel();
+		walked10K.setLocation(618, 77);
+		walked10K.setSize(112,112);
 		if(this.tracker.isAchieved(13)){
-			tenMiles.setIcon(new ImageIcon(floorsFourHundredImage));
+			walked10K.setIcon(new ImageIcon(tenKWalked));
 		}
-		floorsFourHundred.setIcon(new ImageIcon(floorFoursHundredNot));
-		contentPane.add(floorsFourHundred);
+		else{
+			walked10K.setIcon(new ImageIcon(tenKWalkedNot));
+		}
+		contentPane.add(walked10K);
 		
-		JLabel floorsFiveHundred = new JLabel(); //500
-		floorsFiveHundred.setSize(80,240);
-		floorsFiveHundred.setLocation(904, 125);
+		JLabel walked15K = new JLabel();
+		walked15K.setLocation(618,219);
+		walked15K.setSize(112,112);
 		if(this.tracker.isAchieved(14)){
-			tenMiles.setIcon(new ImageIcon(floorsFiveHundredImage));
+			walked15K.setIcon(new ImageIcon(fifteenKWalked));
 		}
-		floorsFiveHundred.setIcon(new ImageIcon(floorsFiveHundredNot));
-		contentPane.add(floorsFiveHundred);
-		/---------------------------------------*
-		 * End of steps achievements
-		 *---------------------------------------/
-		*/
-		/*----------------------------------------------------*
-		 * Title for the calories "badges"
-		 *----------------------------------------------------/
-		JLabel caloriesTitle = new JLabel("YOUR FLOORS ACHIEVEMENTS");
-		caloriesTitle.setSize(239, 50);
-		caloriesTitle.setLocation(525, 375);
-		caloriesTitle.setForeground(white);
-		caloriesTitle.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		caloriesTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(caloriesTitle);
-		/*---------------------------------------*
-		 * Start of Calories achievements
-		 *---------------------------------------/
-		JLabel cal2Thousand = new JLabel(); //2000
-		cal2Thousand.setSize(80,240);
-		cal2Thousand.setLocation(540,420);
+		else{
+			walked15K.setIcon(new ImageIcon(fifteenKWalkedNot));
+		}
+		contentPane.add(walked15K);
+		
+		JLabel walked20K = new JLabel();
+		walked20K.setLocation(618,361);
+		walked20K.setSize(112,112);
 		if(this.tracker.isAchieved(15)){
-			tenMiles.setIcon(new ImageIcon(calTwoThousandImage));
+			walked20K.setIcon(new ImageIcon(twentyKWalked));
 		}
-		cal2Thousand.setIcon(new ImageIcon(calTwoThousandNot));
-		contentPane.add(cal2Thousand);
-		
-		JLabel cal2250 = new JLabel(); //2250
-		cal2250.setSize(80,240);
-		cal2250.setLocation(631,420);
+		else{
+			walked20K.setIcon(new ImageIcon(twentyKWalkedNot));
+		}
+		contentPane.add(walked20K);
+		/*-------------------------------------------*
+		 * End of distance walked in a day achievements
+		 *-------------------------------------------*/
+		/*-------------------------------------------*
+		 * Start of distance walked in total achievements
+		 *-------------------------------------------*/
+		JLabel walked200K = new JLabel();
+		walked200K.setLocation(760, 77);
+		walked200K.setSize(112,112);
 		if(this.tracker.isAchieved(16)){
-			tenMiles.setIcon(new ImageIcon(calTwoThousandTwoHundredFiftyImage));
+			walked200K.setIcon(new ImageIcon(twoHundredKWalked));
 		}
-		cal2250.setIcon(new ImageIcon(calTwoThousandTwoHundredFiftyNot));
-		contentPane.add(cal2250);
+		else{
+			walked200K.setIcon(new ImageIcon(twoHundredKWalkedNot));
+		}
+		contentPane.add(walked200K);
 		
-		JLabel cal2500 = new JLabel(); //2500
-		cal2500.setSize(80, 240);
-		cal2500.setLocation(722,420);
+		JLabel walked300K = new JLabel();
+		walked300K.setLocation(760, 219);
+		walked300K.setSize(112,112);
 		if(this.tracker.isAchieved(17)){
-			tenMiles.setIcon(new ImageIcon(calTwoThousandFiveHundredImage));
+			walked300K.setIcon(new ImageIcon(threeHundredKWalked));
 		}
-		cal2500.setIcon(new ImageIcon(calTwoThousandFiveHundredNot));
-		contentPane.add(cal2500);
+		else{
+			walked300K.setIcon(new ImageIcon(threeHundredKWalkedNot));
+		}
+		contentPane.add(walked300K);
 		
-		JLabel cal2750 = new JLabel(); //2750
-		cal2750.setSize(80, 240);
-		cal2750.setLocation(813,420);
+		JLabel walked500K = new JLabel();
+		walked500K.setLocation(760,361);
+		walked500K.setSize(112,112);
 		if(this.tracker.isAchieved(18)){
-			tenMiles.setIcon(new ImageIcon(calTwoThousandSevenHundredFiftyImage));
+			walked500K.setIcon(new ImageIcon(fiveHundredKWalked));
 		}
-		cal2750.setIcon(new ImageIcon(calTwoThousandSevenHundredFiftyNot));
-		contentPane.add(cal2750);
-		
-		JLabel cal3000 = new JLabel(); //3000
-		cal3000.setSize(80, 240);
-		cal3000.setLocation(904,420);
+		else{
+			walked500K.setIcon(new ImageIcon(fiveHundredKWalkedNot));
+		}
+		contentPane.add(walked500K);
+		/*-------------------------------------------*
+		 * End of distance walked in total achievements
+		 *-------------------------------------------*/
+		/*-----------------------------------------*
+		 * Start of Calories Achievements
+		 *-----------------------------------------*/
+		JLabel burned2K = new JLabel();
+		burned2K.setLocation(902,77);
+		burned2K.setSize(112,112);
 		if(this.tracker.isAchieved(19)){
-			tenMiles.setIcon(new ImageIcon(calThreeThousandImage));
+			burned2K.setIcon(new ImageIcon(twoKCalories));
 		}
-		cal3000.setIcon(new ImageIcon(calThreeThousandNot));
-		contentPane.add(cal3000);
+		else{
+			burned2K.setIcon(new ImageIcon(twoKCaloriesNot));
+		}
+		contentPane.add(burned2K);
 		
-		/*---------------------------------------*
-		 * End of Calories achievements
-		 *---------------------------------------*/
+		JLabel burned3K = new JLabel();
+		burned3K.setLocation(902, 219);
+		burned3K.setSize(112,112);
+		if(this.tracker.isAchieved(20)){
+			burned3K.setIcon(new ImageIcon(threeKCalories));
+		}
+		else{
+			burned3K.setIcon(new ImageIcon(threeKCaloriesNot));
+		}
+		contentPane.add(burned3K);
+		
+		JLabel burned5K = new JLabel();
+		burned5K.setLocation(902, 361);
+		burned5K.setSize(112,112);
+		if(this.tracker.isAchieved(21)){
+			burned5K.setIcon(new ImageIcon(fiveKCalories));
+		}
+		else{
+			burned5K.setIcon(new ImageIcon(fiveKCaloriesNot));
+		}
+		contentPane.add(burned5K);
+		/*-------------------------------------------*
+		 * End of calories achievements
+		 *-------------------------------------------*/
 	}
+	
+	
 
 	public void home() {
 		MainScreen main = new MainScreen(this.date, apiData);
