@@ -176,12 +176,14 @@ public class MainScreen extends JFrame implements Serializable {
 			 model.setDate(year, month-1, day);
 			 model.setSelected(true);
 			 JDatePanelImpl datePanel = new JDatePanelImpl(model);
+			 datePanel.setOpaque(false);
 			 //create a date picker to allow the user to select the date
 			 datePicker = new JDatePickerImpl(datePanel);
 			 datePicker.setToolTipText("Please select the desired date");
 			 datePicker.setBounds(385, 69, 225, 27);
-			 contentPane.add(datePicker);
 			 datePicker.setBackground(Color.WHITE);
+			 contentPane.add(datePicker);
+			 contentPane.repaint();
 
 			 
 			/*-------------------------------------*/
@@ -514,6 +516,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 pnlSteps = new DashBoardPanel(50, 196);
 	    	 //pnlSteps.setLocation(51, 99);
 	    	 pnlSteps.setVisible(false);
+	    	 
 	    	 pnlSteps.setBackground(transparentColor);
 	    	 pnlSteps.addMouseListener(new MouseAdapter() {
 	    		 @Override
@@ -527,7 +530,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 public void mouseEntered(MouseEvent e) {
 	    			 pnlSteps.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	    			 pnlSteps.setOpaque(false);
-	    			 pnlSteps.setBackground(transparentColor);
+	    			 pnlSteps.setBackground(transparentHoverColor);
 	    		 }
 	    		 @Override
 	    		 public void mouseExited(MouseEvent e) {
@@ -542,6 +545,8 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 pnlSteps.setToolTipText("click here to see more information!");
 	    	 //add panel to the content pane
 	    	 contentPane.add(pnlSteps);
+	    	 pnlSteps.repaint();
+	    	 
 
 	    	 /*------------------------------------------*/
 	    	 //create a progress bar for the steps panel
