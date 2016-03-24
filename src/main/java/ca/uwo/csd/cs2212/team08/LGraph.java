@@ -76,6 +76,9 @@ public class LGraph extends JPanel {
     }
 
 
+
+
+
     /**
      * Method will loop through the Linkedlist and store the data into a database
      * @param list
