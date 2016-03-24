@@ -1,6 +1,7 @@
 package ca.uwo.csd.cs2212.team08;
 
 import java.io.*;
+import java.util.LinkedList;
 
 public class AchievementTracker {
 
@@ -37,11 +38,15 @@ public class AchievementTracker {
 	 */
 	public AchievementTracker(APIData source) throws ClassNotFoundException, IOException {
 		
-		this.achievementArray = new Achievement[21];
-		
-		for (int i = 0; i < achievementArray.length; i++) {
-			Achievement achievement = new Achievement();
-			this.achievementArray[i] = achievement;
+		deSerialize();
+		if(this.achievementArray == null)
+		{
+			this.achievementArray = new Achievement[21];
+
+			for (int i = 0; i < achievementArray.length; i++) {
+				Achievement achievement = new Achievement();
+				this.achievementArray[i] = achievement;
+			}
 		}
 		
 		this.source = source;
@@ -201,6 +206,54 @@ public class AchievementTracker {
 				this.achievementArray[i].setAchieved();
 			}
 		}
+		if(source.isTestMode())
+		{
+			serialize();
+		}
 		
 	}
+	
+	 /**
+     * save the users current achievements into a text file to be loaded later
+     */
+	public void serialize()
+    {
+   	 ObjectOutputStream out;
+		try {
+			out = new ObjectOutputStream(new FileOutputStream("src/main/resources/achievement.txt"));
+			 out.writeObject(achievementArray);
+			 out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+    }
+    
+	/**
+     * loads the users current achievements from a text file
+     */
+    private void deSerialize()
+    {
+   	 ObjectInputStream in;
+		try {
+			in = new ObjectInputStream(new FileInputStream("src/main/resources/achievement.txt"));
+			achievementArray = (Achievement[])in.readObject();
+			//this.dashboardPanels = (LinkedList<Integer>)in.readObject();
+			 in.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   	
+    }
 }

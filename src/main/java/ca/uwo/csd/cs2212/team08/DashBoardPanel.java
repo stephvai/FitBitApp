@@ -8,8 +8,6 @@ import java.awt.*;
 
 /**
  * a dash board object that can be used to create the main panels on the daily dashboard
- * @author James-Featherstone
- *
  */
 public class DashBoardPanel extends JPanel {
 	
@@ -20,7 +18,6 @@ public class DashBoardPanel extends JPanel {
 	//private Color pannelColor = new Color(168,219,168);
 	//private Color borderColor = new Color(121,189,154);
 	private Color borderColor = new Color(255,255,255);
-	
 	private Color pannelColor = new Color(205,206,206);
 	private Color transParentColor = new Color(0,0,0,60);
 	
@@ -28,7 +25,7 @@ public class DashBoardPanel extends JPanel {
 	private Rectangle r;
 
 	/**
-	 * creates a new panel for the daily dashboard
+	 * creates a new panel for the daily dash board
 	 * @param x the starting x position
 	 * @param y the starting y position
 	 * @return 
@@ -43,14 +40,4 @@ public class DashBoardPanel extends JPanel {
    	 	this.setBackground(pannelColor);
    	 	this.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 	}
-	
-	
-	/* code that can be used to track for clicks
-	   panel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			//what to do on button click here!
-			}
-		});
-	 */
 }
