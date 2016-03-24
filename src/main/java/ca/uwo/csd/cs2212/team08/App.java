@@ -3,8 +3,15 @@ package ca.uwo.csd.cs2212.team08;
 import javax.swing.*;
 import java.util.Calendar;
 
+/**
+ * the main page to start the application
+ */
 public class App {
 
+	/**
+	 * a main class in charge of starting the application
+	 * @param args a parameter that checks if it is in test mode or not
+	 */
 	public static void main (String args[]){
 		//set the default date to the current date
 		Calendar cal = Calendar.getInstance();
