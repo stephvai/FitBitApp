@@ -182,7 +182,7 @@ public class HeartRateZones extends JFrame {
 			JLabel lblOutOfRange = new JLabel("<html> Today you were in the out of range zone for <strong>"+ apiData.getOutOfRange().getValue() +"</strong> minutes. </html>");
 			lblOutOfRange.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblOutOfRange.setHorizontalAlignment(SwingConstants.CENTER);
-			lblOutOfRange.setBounds(21, 21, 130, 182);
+			lblOutOfRange.setBounds(6, 21, 158, 182);
 			lblOutOfRange.setOpaque(false);
 			lblOutOfRange.setForeground(white);
 			pnlOutOfRange.add(lblOutOfRange);
@@ -212,7 +212,7 @@ public class HeartRateZones extends JFrame {
 			JLabel lblFatBurn = new JLabel("<html> Today you were in the fat burn zone for <strong>"+ apiData.getFatBurn().getValue() +"</strong> minutes. </html>");
 			lblFatBurn.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblFatBurn.setHorizontalAlignment(SwingConstants.CENTER);
-			lblFatBurn.setBounds(21, 21, 130, 182);
+			lblFatBurn.setBounds(6, 21, 158, 182);
 			lblFatBurn.setOpaque(false);
 			lblFatBurn.setForeground(white);
 			pnlFatBurn.add(lblFatBurn);
@@ -243,7 +243,7 @@ public class HeartRateZones extends JFrame {
 			lblCardio.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblCardio.setOpaque(false);
 			lblCardio.setHorizontalAlignment(SwingConstants.CENTER);
-			lblCardio.setBounds(21, 21, 130, 182);
+			lblCardio.setBounds(6, 21, 158, 182);
 			lblCardio.setForeground(white);
 			pnlCardio.add(lblCardio);
 			contentPane.repaint();
@@ -272,7 +272,7 @@ public class HeartRateZones extends JFrame {
 			JLabel lblPeak = new JLabel("<html> Today you were at your peak zone for <strong>"+ apiData.getPeak().getValue() +"</strong> minutes. </html>");
 			lblPeak.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblPeak.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPeak.setBounds(21, 21, 130, 182);
+			lblPeak.setBounds(6, 21, 158, 182);
 			lblPeak.setOpaque(false);
 			lblPeak.setForeground(white);
 			pnlPeak.add(lblPeak);
