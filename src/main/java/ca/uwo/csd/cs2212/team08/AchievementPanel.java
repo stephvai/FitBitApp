@@ -28,6 +28,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
+/**
+ * creates a panel used to display all the users achievements 
+ *
+ */
 public class AchievementPanel extends JFrame {
 
 	private JPanel contentPane;
@@ -64,12 +68,12 @@ public class AchievementPanel extends JFrame {
 	private static final String fiftyKSteps = "src/main/resources/New accolades/50k steps.png";
 	private static final String hundredKSteps = "src/main/resources/New accolades/100k steps.png";
 	private static final String twoHundredFiftyKSteps = "src/main/resources/New accolades/250k steps.png";
-	
+
 	//in one day 
 	private static final String tenKWalked = "src/main/resources/New accolades/10km walked.png";
 	private static final String fifteenKWalked ="src/main/resources/New accolades/15km walked.png";
 	private static final String twentyKWalked = "src/main/resources/New accolades/20km walked.png";
-	
+
 	//in lifetime
 	private static final String twoHundredKWalked = "src/main/resources/New accolades/200km walked.png";
 	private static final String threeHundredKWalked = "src/main/resources/New accolades/300km walked.png";
@@ -83,51 +87,51 @@ public class AchievementPanel extends JFrame {
 	 * default pictures shown. All corresponding pictures will go in order, so milesTen and milesTenNot
 	 * will always correspond to each other (in terms of order) in this section of code. Sorry if that's confusing. 
 	 */
-	
-	//in one day 
-		private static final String thirtyFloorsNot = "src/main/resources/New accolades/30 floors NOT.png";
-		private static final String fiftyFloorsNot = "src/main/resources/New accolades/50 floors NOT.png";
-		private static final String hundredFloorsNot = "src/main/resources/New accolades/100 floors NOT.png";
-		//in lifetime
-		private static final String fiveHundredFloorsNot = "src/main/resources/New accolades/500 floors NOT.png";
-		private static final String twoKFloorsNot = "src/main/resources/New accolades/2k floors NOT.png";
-		private static final String oneKFloorsNot = "src/main/resources/New accolades/1k floors NOT.png";
-		//in one day
-		private static final String tenKStepsNot = "src/main/resources/New accolades/10k steps NOT.png";
-		private static final String fifteenKStepsNot = "src/main/resources/New accolades/15k steps NOT.png";
-		private static final String twentyKStepsNot = "src/main/resources/New accolades/20k steps NOT.png";
-		//in lifetime
-		private static final String fiftyKStepsNot = "src/main/resources/New accolades/50k steps NOT.png";
-		private static final String hundredKStepsNot = "src/main/resources/New accolades/100k steps NOT.png";
-		private static final String twoHundredFiftyKStepsNot = "src/main/resources/New accolades/250k steps NOT.png";
-		
-		//in one day 
-		private static final String tenKWalkedNot = "src/main/resources/New accolades/10km walked NOT.png";
-		private static final String fifteenKWalkedNot ="src/main/resources/New accolades/15km walked NOT.png";
-		private static final String twentyKWalkedNot = "src/main/resources/New accolades/20km walked NOT.png";
-		
-		//in lifetime
-		private static final String twoHundredKWalkedNot = "src/main/resources/New accolades/200km walked NOT.png";
-		private static final String threeHundredKWalkedNot = "src/main/resources/New accolades/300km walked NOT.png";
-		private static final String fiveHundredKWalkedNot = "src/main/resources/New accolades/500km walked NOT.png";
 
-		//in one day
-		private static final String twoKCaloriesNot = "src/main/resources/New accolades/2k cals NOT.png";
-		private static final String threeKCaloriesNot = "src/main/resources/New accolades/3k cals NOT.png";
-		private static final String fiveKCaloriesNot = "src/main/resources/New accolades/5k cals NOT.png";
-/**
- * 
+	//in one day 
+	private static final String thirtyFloorsNot = "src/main/resources/New accolades/30 floors NOT.png";
+	private static final String fiftyFloorsNot = "src/main/resources/New accolades/50 floors NOT.png";
+	private static final String hundredFloorsNot = "src/main/resources/New accolades/100 floors NOT.png";
+	//in lifetime
+	private static final String fiveHundredFloorsNot = "src/main/resources/New accolades/500 floors NOT.png";
+	private static final String twoKFloorsNot = "src/main/resources/New accolades/2k floors NOT.png";
+	private static final String oneKFloorsNot = "src/main/resources/New accolades/1k floors NOT.png";
+	//in one day
+	private static final String tenKStepsNot = "src/main/resources/New accolades/10k steps NOT.png";
+	private static final String fifteenKStepsNot = "src/main/resources/New accolades/15k steps NOT.png";
+	private static final String twentyKStepsNot = "src/main/resources/New accolades/20k steps NOT.png";
+	//in lifetime
+	private static final String fiftyKStepsNot = "src/main/resources/New accolades/50k steps NOT.png";
+	private static final String hundredKStepsNot = "src/main/resources/New accolades/100k steps NOT.png";
+	private static final String twoHundredFiftyKStepsNot = "src/main/resources/New accolades/250k steps NOT.png";
+
+	//in one day 
+	private static final String tenKWalkedNot = "src/main/resources/New accolades/10km walked NOT.png";
+	private static final String fifteenKWalkedNot ="src/main/resources/New accolades/15km walked NOT.png";
+	private static final String twentyKWalkedNot = "src/main/resources/New accolades/20km walked NOT.png";
+
+	//in lifetime
+	private static final String twoHundredKWalkedNot = "src/main/resources/New accolades/200km walked NOT.png";
+	private static final String threeHundredKWalkedNot = "src/main/resources/New accolades/300km walked NOT.png";
+	private static final String fiveHundredKWalkedNot = "src/main/resources/New accolades/500km walked NOT.png";
+
+	//in one day
+	private static final String twoKCaloriesNot = "src/main/resources/New accolades/2k cals NOT.png";
+	private static final String threeKCaloriesNot = "src/main/resources/New accolades/3k cals NOT.png";
+	private static final String fiveKCaloriesNot = "src/main/resources/New accolades/5k cals NOT.png";
+	/**
+	 * 
 		  create achievementTracker object
 		  will use this down in the code to check if user
 		  has reached their goal
 		  if yes, the program will give them a different picture
 		  than the one that's shown to them by default
- * @param date
- * @param paramAPIData
- */
+	 * @param date
+	 * @param paramAPIData
+	 */
 	public AchievementPanel(final String date, APIData paramAPIData) {
 
-		
+
 
 		try {
 			this.tracker = new AchievementTracker(paramAPIData);
@@ -140,8 +144,8 @@ public class AchievementPanel extends JFrame {
 
 		this.tracker.updateProgress();
 		//System.out.println(track.getAchieved());
-		
-		
+
+
 		/*----------------------------------------------------*
 		 * Create MainWindow
 		 *----------------------------------------------------*/
@@ -152,29 +156,29 @@ public class AchievementPanel extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024, 768);
 		this.setLocationRelativeTo(null);
-     
+
 		/*---------------------------------------------------*
 		 * make the panel where all information will be shown
 		 *---------------------------------------------------*/
-   	 	contentPane = new JPanel() {
-		 @Override
-		 protected void paintComponent(Graphics g) {
-			 BufferedImage img = null;
-			 try {
-				img = ImageIO.read(new File("src/main/resources/images/track.jpg"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		contentPane = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				BufferedImage img = null;
+				try {
+					img = ImageIO.read(new File("src/main/resources/images/track.jpg"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				g.drawImage(img, 0,0, null);
 			}
-			g.drawImage(img, 0,0, null);
-		 }
-	 };
+		};
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.setBackground(bgColor);
-		
-	    
+
+
 		/*---------------------------------------------------*
 		 * Title of the entire page
 		 *---------------------------------------------------*/
@@ -212,7 +216,7 @@ public class AchievementPanel extends JFrame {
 				dispose();
 			}
 		});
-		
+
 		/*---------------------------------------------------*
 		 * labels for all the floors in one day achievements
 		 *---------------------------------------------------*/
@@ -224,10 +228,10 @@ public class AchievementPanel extends JFrame {
 			floors30.setIcon(new ImageIcon(thirtyFloors));
 		}
 		else {
-		floors30.setIcon(new ImageIcon(thirtyFloorsNot));
+			floors30.setIcon(new ImageIcon(thirtyFloorsNot));
 		}
 		contentPane.add(floors30);
-		
+
 		//50 floors in one day 
 		JLabel floors50 = new JLabel();
 		floors50.setLocation(36,219);
@@ -239,7 +243,7 @@ public class AchievementPanel extends JFrame {
 			floors50.setIcon(new ImageIcon(fiftyFloorsNot));
 		}
 		contentPane.add(floors50);
-		
+
 		JLabel floors100 = new JLabel();
 		floors100.setLocation(36,361);
 		floors100.setSize(112,112);
@@ -253,6 +257,7 @@ public class AchievementPanel extends JFrame {
 		/*-----------------------------------------*
 		 * End of floors in a day achievements
 		 *-----------------------------------------*/
+		
 		/*-----------------------------------------*
 		 * start of floors in lifetime achievements
 		 *-----------------------------------------*/
@@ -267,7 +272,7 @@ public class AchievementPanel extends JFrame {
 			floors500.setIcon(new ImageIcon(fiveHundredFloorsNot));
 		}
 		contentPane.add(floors500);
-		
+
 		//1000 floors
 		JLabel floors1000 = new JLabel();
 		floors1000.setLocation(177, 219);
@@ -279,7 +284,7 @@ public class AchievementPanel extends JFrame {
 			floors1000.setIcon(new ImageIcon(oneKFloorsNot));
 		}
 		contentPane.add(floors1000);
-	
+
 		//2000 floors climbed
 		JLabel floors2000 = new JLabel();
 		floors2000.setLocation(177, 361);
@@ -297,7 +302,7 @@ public class AchievementPanel extends JFrame {
 		/*---------------------------------------------*
 		 * Start of steps taken in one day achievements
 		 *---------------------------------------------*/
-		
+
 		JLabel steps10K = new JLabel();
 		steps10K.setLocation(319, 77);
 		steps10K.setSize(112,112);
@@ -308,7 +313,7 @@ public class AchievementPanel extends JFrame {
 			steps10K.setIcon(new ImageIcon(tenKStepsNot));
 		}
 		contentPane.add(steps10K);
-		
+
 		JLabel steps15K = new JLabel();
 		steps15K.setLocation(319,219);
 		steps15K.setSize(112,112);
@@ -319,7 +324,7 @@ public class AchievementPanel extends JFrame {
 			steps15K.setIcon(new ImageIcon(fifteenKStepsNot));
 		}
 		contentPane.add(steps15K);
-		
+
 		JLabel steps20K = new JLabel();
 		steps20K.setLocation(319,361);
 		steps20K.setSize(112,112);
@@ -346,7 +351,7 @@ public class AchievementPanel extends JFrame {
 			steps50K.setIcon(new ImageIcon(fiftyKStepsNot));
 		}
 		contentPane.add(steps50K);
-		
+
 		JLabel steps100K = new JLabel();
 		steps100K.setLocation(461,219);
 		steps100K.setSize(112,112);
@@ -357,7 +362,7 @@ public class AchievementPanel extends JFrame {
 			steps100K.setIcon(new ImageIcon(hundredKStepsNot));
 		}
 		contentPane.add(steps100K);
-		
+
 		JLabel steps250K = new JLabel();
 		steps250K.setLocation(461,361);
 		steps250K.setSize(112,112);
@@ -385,7 +390,7 @@ public class AchievementPanel extends JFrame {
 			walked10K.setIcon(new ImageIcon(tenKWalkedNot));
 		}
 		contentPane.add(walked10K);
-		
+
 		JLabel walked15K = new JLabel();
 		walked15K.setLocation(603,219);
 		walked15K.setSize(112,112);
@@ -396,7 +401,7 @@ public class AchievementPanel extends JFrame {
 			walked15K.setIcon(new ImageIcon(fifteenKWalkedNot));
 		}
 		contentPane.add(walked15K);
-		
+
 		JLabel walked20K = new JLabel();
 		walked20K.setLocation(603,361);
 		walked20K.setSize(112,112);
@@ -423,7 +428,7 @@ public class AchievementPanel extends JFrame {
 			walked200K.setIcon(new ImageIcon(twoHundredKWalkedNot));
 		}
 		contentPane.add(walked200K);
-		
+
 		JLabel walked300K = new JLabel();
 		walked300K.setLocation(745, 219);
 		walked300K.setSize(112,112);
@@ -434,7 +439,7 @@ public class AchievementPanel extends JFrame {
 			walked300K.setIcon(new ImageIcon(threeHundredKWalkedNot));
 		}
 		contentPane.add(walked300K);
-		
+
 		JLabel walked500K = new JLabel();
 		walked500K.setLocation(745,361);
 		walked500K.setSize(112,112);
@@ -448,7 +453,7 @@ public class AchievementPanel extends JFrame {
 		/*-------------------------------------------*
 		 * End of distance walked in total achievements
 		 *-------------------------------------------*/
-		
+
 		/*-------------------------------------------*
 		 *Start of daily calories achievements
 		 *-------------------------------------------*/
@@ -462,7 +467,7 @@ public class AchievementPanel extends JFrame {
 			burned2K.setIcon(new ImageIcon(twoKCaloriesNot));
 		}
 		contentPane.add(burned2K);
-		
+
 		JLabel burned3K = new JLabel();
 		burned3K.setLocation(885,219);
 		burned3K.setSize(112,112);
@@ -473,7 +478,7 @@ public class AchievementPanel extends JFrame {
 			burned3K.setIcon(new ImageIcon(threeKCaloriesNot));
 		}
 		contentPane.add(burned3K);
-		
+
 		JLabel burned5K = new JLabel();
 		burned5K.setLocation(885,361);
 		burned5K.setSize(112,112);
@@ -484,12 +489,12 @@ public class AchievementPanel extends JFrame {
 			burned5K.setIcon(new ImageIcon(fiveKCaloriesNot));
 		}
 		contentPane.add(burned5K);
-		
+
 		/*-------------------------------------------*
 		 *End of daily calories achievements
 		 *-------------------------------------------*/
 		//end of all achievements
-	
+
 		JPanel informationPanel = new JPanel(){
 			@Override
 			public void paintComponent(Graphics g) {
@@ -504,7 +509,7 @@ public class AchievementPanel extends JFrame {
 		informationPanel.setLocation(34,523);
 		contentPane.add(informationPanel);
 		contentPane.repaint();
-		
+
 		JLabel inform1 = new JLabel("Hey there! Welcome to your Achievements Page!");
 		inform1.setOpaque(false);
 		inform1.setForeground(white);
@@ -512,7 +517,7 @@ public class AchievementPanel extends JFrame {
 		inform1.setHorizontalAlignment(SwingConstants.CENTER);
 		informationPanel.add(inform1);
 		contentPane.repaint();
-		
+
 		JLabel inform2 = new JLabel("In here, you can see all of the achievements that you can achieve!");
 		inform2.setOpaque(false);
 		inform2.setForeground(white);
@@ -520,7 +525,7 @@ public class AchievementPanel extends JFrame {
 		inform2.setHorizontalAlignment(SwingConstants.CENTER);
 		informationPanel.add(inform2);
 		contentPane.repaint();
-		
+
 		JLabel inform3 = new JLabel("Once you achieve a goal, you will see these beauty badges come alive with Color!");
 		inform3.setOpaque(false);
 		inform3.setForeground(white);
@@ -528,14 +533,14 @@ public class AchievementPanel extends JFrame {
 		inform3.setHorizontalAlignment(SwingConstants.CENTER);
 		informationPanel.add(inform3);
 		contentPane.repaint();
-		
+
 		JLabel inform4 = new JLabel("What are you waiting for?");
 		inform4.setOpaque(false);
 		inform4.setForeground(white);
 		inform4.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
 		inform4.setHorizontalAlignment(SwingConstants.CENTER);
 		informationPanel.add(inform4);
-		
+
 		JLabel inform5 = new JLabel("Get moving to get those achievements! ");
 		informationPanel.add(inform5);
 		inform5.setOpaque(false);
@@ -544,87 +549,71 @@ public class AchievementPanel extends JFrame {
 		inform5.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.repaint();
 		contentPane.repaint();
-		/*
-		JTextArea information = new JTextArea(){
-			@Override
-			public void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				g.setColor(getBackground());
-				g.fillRect(0, 0, getWidth(), getHeight());
-			}
-		};
-		
-		information.setOpaque(false);
-		information.setBackground(pannelColor);
-		information.setSize(966,191);
-		information.setLocation(34,499);
-		information.setForeground(new Color(255,255,255));
-		information.setText("                         Hey there! Welcome to the Achievements page!\n                Here you can see all the possible achievements you can get!\n  Once you achieve a goal, you will see these beautful badges filled in with color!  \n\t\t       Well?\n\t              what are you waiting for? \n                          Get Moving to get those Achievements!");
-		information.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
-		contentPane.add(information);
-		contentPane.repaint();
-		*/
 	}
 
+    /**
+	 * returns the user to their daily dash board
+	 */
 	public void home() {
 		MainScreen main = new MainScreen(this.date, apiData);
 		main.setVisible(true);
 	}
-	 private void updateDate()
-     {
-    	 //get the new date from the JDatePicker
-    	 String tempDate = datePicker.getJFormattedTextField().getText();
-    	 if(tempDate.equals("") || tempDate.equals(null))
-    	 {
-    		 return;
-    	 }
-    	 //save the date in a array of strings
-    	 String[] dateArray = tempDate.split("-");
-    	 //set the day
-    	 String day = dateArray[0];
-    	 //set the month
-    	 String month = dateArray[1];
-    	 
-    	 //switch the month from letters to numbers
-    	 if(month.equals("Jan")){
-    	 month = "01";	 
-    	 }
-    	 else if(month.equals("Feb")){
-    		 month = "02";
-    	 }
-    	 else if(month.equals("Mar")){
-    		 month = "03";
-    	 }
-    	 else if(month.equals("Apr")){
-    		 month = "04";
-    	 }
-    	 else if(month.equals("May")){
-    		 month = "05";
-    	 }
-    	 else if(month.equals("Jun")){
-    		 month = "06";
-    	 }
-    	 else if(month.equals("Jul")){
-    		 month = "07";
-    	 }
-    	 else if(month.equals("Aug")){
-    		 month = "08";
-    	 }
-    	 else if(month.equals("Sep")){
-    		 month = "09";
-    	 }
-    	 else if(month.equals("Oct")){
-    		 month = "10";
-    	 }
-    	 else if(month.equals("Nov")){
-    		 month = "11";
-    	 }
-    	 else if(month.equals("Dec")){
-    		 month = "12";
-    	 }
-    	 //set the year
-    	 String year = dateArray[2];
-    	 //save the date all in one string
-    	 this.date = year+"-"+month+"-"+day;
-     }
+/*
+	private void updateDate()
+	{
+		//get the new date from the JDatePicker
+		String tempDate = datePicker.getJFormattedTextField().getText();
+		if(tempDate.equals("") || tempDate.equals(null))
+		{
+			return;
+		}
+		//save the date in a array of strings
+		String[] dateArray = tempDate.split("-");
+		//set the day
+		String day = dateArray[0];
+		//set the month
+		String month = dateArray[1];
+
+		//switch the month from letters to numbers
+		if(month.equals("Jan")){
+			month = "01";	 
+		}
+		else if(month.equals("Feb")){
+			month = "02";
+		}
+		else if(month.equals("Mar")){
+			month = "03";
+		}
+		else if(month.equals("Apr")){
+			month = "04";
+		}
+		else if(month.equals("May")){
+			month = "05";
+		}
+		else if(month.equals("Jun")){
+			month = "06";
+		}
+		else if(month.equals("Jul")){
+			month = "07";
+		}
+		else if(month.equals("Aug")){
+			month = "08";
+		}
+		else if(month.equals("Sep")){
+			month = "09";
+		}
+		else if(month.equals("Oct")){
+			month = "10";
+		}
+		else if(month.equals("Nov")){
+			month = "11";
+		}
+		else if(month.equals("Dec")){
+			month = "12";
+		}
+		//set the year
+		String year = dateArray[2];
+		//save the date all in one string
+		this.date = year+"-"+month+"-"+day;
+	}*/
 }
