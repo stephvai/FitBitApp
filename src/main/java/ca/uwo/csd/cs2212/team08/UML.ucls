@@ -1,155 +1,612 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.9" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="ca.uwo.csd.cs2212.team08.MainScreen" project="team08_app" 
-    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/MainScreen.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="461" width="189" x="809" y="23"/>    
+  <class id="1" language="java" name="ca.uwo.csd.cs2212.team08.Achievement" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/Achievement.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2077" y="1778"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="ca.uwo.csd.cs2212.team08.GoalTracker" project="team08_app" 
+  <class id="2" language="java" name="ca.uwo.csd.cs2212.team08.GoalPanel" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/GoalPanel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2251" y="-161"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="ca.uwo.csd.cs2212.team08.GoalTracker" project="team08_app" 
     file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/GoalTracker.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="263" width="201" x="194" y="23"/>    
+    <position height="-1" width="-1" x="2249" y="997"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="ca.uwo.csd.cs2212.team08.StairsPanel" project="team08_app" 
-    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/StairsPanel.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="245" width="177" x="1038" y="23"/>    
+  <class id="4" language="java" name="ca.uwo.csd.cs2212.team08.AchievementPanel" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/AchievementPanel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1947" y="235"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="ca.uwo.csd.cs2212.team08.App" project="team08_app" 
-    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/App.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="137" x="435" y="23"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="ca.uwo.csd.cs2212.team08.DashBoardPanel" project="team08_app" 
-    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/DashBoardPanel.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="686" y="111"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="6" language="java" name="ca.uwo.csd.cs2212.team08.DistancePanel" project="team08_app" 
+  <class id="5" language="java" name="ca.uwo.csd.cs2212.team08.DistancePanel" project="team08_app" 
     file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/DistancePanel.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="245" width="194" x="1255" y="23"/>    
+    <position height="-1" width="-1" x="342" y="943"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="ca.uwo.csd.cs2212.team08.CaloriesPanel" project="team08_app" 
+  <class id="6" language="java" name="ca.uwo.csd.cs2212.team08.HeartRateZones" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/HeartRateZones.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="581" y="970"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="ca.uwo.csd.cs2212.team08.HRZone" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/HRZone.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2327" y="2630"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="ca.uwo.csd.cs2212.team08.AchievementTracker" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/AchievementTracker.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1979" y="934"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="ca.uwo.csd.cs2212.team08.CaloriesPanel" project="team08_app" 
     file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/CaloriesPanel.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="245" width="192" x="1489" y="23"/>    
+    <position height="-1" width="-1" x="819" y="943"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="ca.uwo.csd.cs2212.team08.APIDataTest" project="team08_app" 
-    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/APIDataTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="641" width="269" x="1255" y="1457"/>    
+  <class id="10" language="java" name="ca.uwo.csd.cs2212.team08.TimeSeriesNode" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/TimeSeriesNode.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1238" y="2725"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="ca.uwo.csd.cs2212.team08.StepsPanel" project="team08_app" 
+  <class id="11" language="java" name="ca.uwo.csd.cs2212.team08.StepsPanel" project="team08_app" 
     file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/StepsPanel.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="245" width="177" x="1721" y="23"/>    
+    <position height="-1" width="-1" x="1043" y="943"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="ca.uwo.csd.cs2212.team08.APIData" project="team08_app" 
-    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/APIData.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="893" width="305" x="1255" y="524"/>    
+  <class id="12" language="java" name="ca.uwo.csd.cs2212.team08.Minutes" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/Minutes.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1250" y="934"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="ca.uwo.csd.cs2212.team08.Goal" project="team08_app" 
+  <class id="13" language="java" name="ca.uwo.csd.cs2212.team08.Goal" project="team08_app" 
     file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/Goal.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="335" width="188" x="194" y="524"/>    
+    <position height="-1" width="-1" x="2275" y="1597"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="12">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="13" name="apiData"/>      
-      <multiplicity id="14" minimum="0" maximum="1"/>    
+  <class id="14" language="java" name="ca.uwo.csd.cs2212.team08.MainScreen" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/MainScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2564" y="64"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="15" language="java" name="ca.uwo.csd.cs2212.team08.GoalsEnum" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/GoalsEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="402" y="-215"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="16" language="java" name="ca.uwo.csd.cs2212.team08.StairsPanel" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/StairsPanel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1457" y="934"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="ca.uwo.csd.cs2212.team08.App" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/App.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="668" y="-251"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="ca.uwo.csd.cs2212.team08.DashBoardPanel" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/DashBoardPanel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2600" y="1234"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="19" language="java" name="ca.uwo.csd.cs2212.team08.AchievementsEnum" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/AchievementsEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="947" y="-224"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="20" language="java" name="ca.uwo.csd.cs2212.team08.LGraph" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/LGraph.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1326" y="-251"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="ca.uwo.csd.cs2212.team08.PGraph" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/PGraph.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1666" y="-260"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="ca.uwo.csd.cs2212.team08.APIDataTest" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/APIDataTest.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1749" y="3187"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="ca.uwo.csd.cs2212.team08.APIData" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/APIData.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1749" y="2065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="ca.uwo.csd.cs2212.team08.EditMode" project="team08_app" 
+    file="/team08_app/src/main/java/ca/uwo/csd/cs2212/team08/EditMode.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1704" y="1105"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="25">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="26" name="distanceTimeSeries"/>      
+      <multiplicity id="27" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="15">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="16" name="apiData"/>      
-      <multiplicity id="17" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="18">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="19" name="apiData"/>      
-      <multiplicity id="20" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="21">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="22" name="goalArray"/>      
-      <multiplicity id="23" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="24">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="25" name="apiData"/>      
-      <multiplicity id="26" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="27">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="10"/>  
-  </generalization>  
   <association id="28">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="29" name="apiData"/>      
-      <multiplicity id="30" minimum="0" maximum="1"/>    
+    <bendpoint x="1507" y="2662"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="29" name="distanceTimeSeries"/>      
+      <multiplicity id="30" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="32" name="source"/>      
+      <multiplicity id="33" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="34">    
+    <bendpoint x="2622" y="621"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="35" name="pnlAccolades">        
+        <position height="19" width="82" x="2598" y="1030"/>      
+      </attribute>      
+      <multiplicity id="36" minimum="0" maximum="1">        
+        <position height="17" width="25" x="2631" y="1043"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="37">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="38" name="apiData"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="40">    
+    <bendpoint x="2438" y="2854"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="41" name="cardio"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="43">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="44" name="hrTimeSeries"/>      
+      <multiplicity id="45" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="46">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="47" name="apiData"/>      
+      <multiplicity id="48" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="49">    
+    <bendpoint x="2107" y="2401"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="50" name="fatBurn"/>      
+      <multiplicity id="51" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="52">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="53" name="goalTracker"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="56" name="tracker"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="58">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="59" name="stepsTimeSeries"/>      
+      <multiplicity id="60" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="61">    
+    <bendpoint x="2554" y="787"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="62" name="pnlCalories">        
+        <position height="19" width="71" x="2509" y="1111"/>      
+      </attribute>      
+      <multiplicity id="63" minimum="0" maximum="1">        
+        <position height="17" width="25" x="2586" y="1083"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="64">    
+    <bendpoint x="1979" y="2643"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="65" name="outOfRange"/>      
+      <multiplicity id="66" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="67">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="68" name="goalTracker"/>      
+      <multiplicity id="69" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="70">    
+    <bendpoint x="2411" y="2709"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="71" name="outOfRange"/>      
+      <multiplicity id="72" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="73">    
+    <bendpoint x="1853" y="812"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="74" name="apiData"/>      
+      <multiplicity id="75" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="76">    
+    <bendpoint x="2511" y="977"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="77" name="pnlDistance">        
+        <position height="19" width="73" x="2498" y="1086"/>      
+      </attribute>      
+      <multiplicity id="78" minimum="0" maximum="1">        
+        <position height="17" width="25" x="2530" y="1124"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="79">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <association id="80">    
+    <bendpoint x="2105" y="812"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="81" name="paramAPIData"/>      
+      <multiplicity id="82" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="83">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="84" name="apiData"/>      
+      <multiplicity id="85" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="86">    
+    <bendpoint x="2388" y="1225"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="87" name="pnlActiveMin"/>      
+      <multiplicity id="88" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="89">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="90" name="fatBurn"/>      
+      <multiplicity id="91" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="92">    
+    <bendpoint x="2723" y="625"/>    
+    <bendpoint x="2732" y="887"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="93" name="pnlSedentaryMin">        
+        <position height="19" width="101" x="2535" y="1067"/>      
+      </attribute>      
+      <multiplicity id="94" minimum="0" maximum="1">        
+        <position height="17" width="25" x="2643" y="1123"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="95">    
+    <bendpoint x="2756" y="1041"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="96" name="pnlStairs">        
+        <position height="19" width="56" x="2630" y="1108"/>      
+      </attribute>      
+      <multiplicity id="97" minimum="0" maximum="1">        
+        <position height="17" width="25" x="2519" y="1097"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="98">    
+    <bendpoint x="2194" y="2336"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="99" name="peak"/>      
+      <multiplicity id="100" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="101">    
+    <bendpoint x="2454" y="1171"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="102" name="pnlSteps">        
+        <position height="19" width="56" x="2465" y="1160"/>      
+      </attribute>      
+      <multiplicity id="103" minimum="0" maximum="1">        
+        <position height="17" width="25" x="2493" y="1175"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="104">    
+    <bendpoint x="1555" y="2732"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="105" name="caloriesTimeSeries"/>      
+      <multiplicity id="106" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="107">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="108" name="achievementArray"/>      
+      <multiplicity id="109" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="110">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="111" name="stepsTimeSeries"/>      
+      <multiplicity id="112" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="113">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="114" name="caloriesTimeSeries"/>      
+      <multiplicity id="115" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="116">    
+    <bendpoint x="2707" y="1147"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="117" name="pnlGoals">        
+        <position height="19" width="57" x="2708" y="1135"/>      
+      </attribute>      
+      <multiplicity id="118" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="119">    
+    <bendpoint x="1469" y="2622"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="120" name="hrTimeSeries"/>      
+      <multiplicity id="121" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="122">    
+    <bendpoint x="2487" y="1103"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="123" name="pnlHeartRate">        
+        <position height="19" width="81" x="2411" y="1104"/>      
+      </attribute>      
+      <multiplicity id="124" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="125">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="126" name="source"/>      
+      <multiplicity id="127" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="128">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="129" name="apiData"/>      
+      <multiplicity id="130" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="131">    
+    <bendpoint x="2034" y="2520"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="132" name="cardio"/>      
+      <multiplicity id="133" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="134">    
+    <bendpoint x="2393" y="812"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="135" name="apiData"/>      
+      <multiplicity id="136" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="137">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="138" name="apiData"/>      
+      <multiplicity id="139" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="140">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="141" name="goalArray"/>      
+      <multiplicity id="142" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="143">    
+    <bendpoint x="2142" y="2967"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="144" name="peak"/>      
+      <multiplicity id="145" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="146">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="147" name="apiData"/>      
+      <multiplicity id="148" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="149">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="150" name="apiData"/>      
+      <multiplicity id="151" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
