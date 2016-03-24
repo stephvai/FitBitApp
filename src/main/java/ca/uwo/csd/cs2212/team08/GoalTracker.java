@@ -74,10 +74,10 @@ public class GoalTracker implements Serializable {
             save.close();
 
         }catch (IOException e){
-            e.printStackTrace();
+            //e.printStackTrace();
             return;
         }catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return;
         }
 
@@ -128,7 +128,7 @@ public class GoalTracker implements Serializable {
             try {
                 saveProgress();
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             return;
 
@@ -138,7 +138,7 @@ public class GoalTracker implements Serializable {
             try {
                 saveProgress();
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             return;
 
@@ -148,7 +148,7 @@ public class GoalTracker implements Serializable {
             try {
                 saveProgress();
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             return;
 
@@ -158,7 +158,7 @@ public class GoalTracker implements Serializable {
             try {
                 saveProgress();
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             return;
 
@@ -168,7 +168,7 @@ public class GoalTracker implements Serializable {
             try {
                 saveProgress();
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             return;
 
