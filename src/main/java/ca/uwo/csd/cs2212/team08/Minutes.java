@@ -26,6 +26,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
+/**
+ * create a frame to store the minutes
+ *
+ */
 public class Minutes extends JFrame {
 
 	private JPanel contentPane;
@@ -38,7 +42,9 @@ public class Minutes extends JFrame {
 	private APIData apiData;
 	private String date;
 	/**
-	 * Create the frame.
+	 * create the frame
+	 * @param date pass in the current date
+	 * @param paramAPIData pass in the current APIData
 	 */
 	public Minutes(String date, APIData paramAPIData) {
 		

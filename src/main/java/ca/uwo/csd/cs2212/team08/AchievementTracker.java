@@ -124,7 +124,7 @@ public class AchievementTracker {
 	 * @throws ClassNotFoundException *********************************/
 	
 	//this method will save a user's progress
-	public void saveProgress() throws IOException {
+	/*public void saveProgress() throws IOException {
 		// Creates a file and writes it to Object called saveAchieve
         FileOutputStream saveAchieve;
 		saveAchieve = new FileOutputStream("Achieve.ini");
@@ -137,14 +137,21 @@ public class AchievementTracker {
 
         //close the outputstream
         save.close();
-}
+}*/
 	//this method will load the Achieve.ini file and store the user's progress
 
-
+	/**
+	 * checks if an achievement is achieved
+	 * @param i passes in which achievement is being checked
+	 * @return returns true if the achievement is achieved and false otherwise
+	 */
 	public boolean isAchieved(int i){
 		return this.achievementArray[i].getAchieved();
 	}
 
+	/**
+	 * updates which achievements have been reached and which haven't
+	 */
 	public void updateProgress() {
 
 
@@ -215,7 +222,7 @@ public class AchievementTracker {
 				this.achievementArray[i].setAchieved();
 			}
 		}
-		if(source.isTestMode())
+		if(!source.isTestMode())
 		{
 			serialize();
 		}

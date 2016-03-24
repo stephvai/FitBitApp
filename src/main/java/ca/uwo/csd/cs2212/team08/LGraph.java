@@ -20,12 +20,17 @@ import java.awt.*;
 import java.util.LinkedList;
 
 /**
- * Created by Stephane on 2016-03-17.
+ * a class to create a line graph object
+ *
  */
 public class LGraph extends JPanel {
 
-
-
+	/**
+	 * a constructor to create a line graph
+	 * @param title pass in the title of the graph
+	 * @param yAxis pass in the yaxis label 
+	 * @param list pass a linked list of values
+	 */
     public LGraph(String title,String yAxis, LinkedList list){
 
         TimeSeries timeSeriesDataSet = createDataset(list);
@@ -81,8 +86,8 @@ public class LGraph extends JPanel {
 
     /**
      * Method will loop through the Linkedlist and store the data into a database
-     * @param list
-     * @return
+     * @param list pass in the list of values
+     * @return return the graph object
      */
     private TimeSeries createDataset(LinkedList<TimeSeriesNode> list) {
         TimeSeries series = new TimeSeries("Per Minute Data", Minute.class);

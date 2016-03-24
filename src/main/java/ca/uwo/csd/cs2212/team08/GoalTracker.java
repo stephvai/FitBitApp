@@ -3,7 +3,9 @@ package ca.uwo.csd.cs2212.team08;
 import java.io.*;
 
 //TODO add image when is achieved
-
+/**
+ * a class that is used to track the users goals
+ */
 public class GoalTracker implements Serializable {
 
 
@@ -21,10 +23,12 @@ public class GoalTracker implements Serializable {
     private APIData source;
     private Goal[] goalArray;
 
-    /*constructor
-    This method will create a Goal array of 6 and load the settings of the user.
-    */
 
+    /**
+     * This method will create a Goal array of 6 and load the settings of the user.
+     * @param source the apidata that you can pass in
+     * @throws ClassNotFoundException
+     */
     public GoalTracker(APIData source) throws ClassNotFoundException {
         this.goalArray = new Goal[5];
 
@@ -53,7 +57,9 @@ public class GoalTracker implements Serializable {
      * @throws ClassNotFoundException
      *********************************/
 
-/*this method will load the file and store it's progress*/
+    /**
+     * This method will load the file and store it's progress
+     */
     public void loadProgress(){
 
         // Input stream to read the file
@@ -85,7 +91,10 @@ public class GoalTracker implements Serializable {
 
 
     /////////////////////////////////////////////////////////////////
-/*This method will save a user progress*/
+    /**
+     * this method will save the user progress
+     * @throws IOException
+     */
     public void saveProgress() throws IOException {
 
 
@@ -116,7 +125,11 @@ public class GoalTracker implements Serializable {
  * 5 sedentaryMinutes
  */
 
-
+    /**
+     * set the goals that the user created
+     * @param goal pass in the goal value
+     * @param type pass in the type of the goal
+     */
     public void setGoal(String goal, GoalsEnum type) {
         Goal goalObj = new Goal();
 
@@ -194,9 +207,10 @@ public class GoalTracker implements Serializable {
      * veryActiveMinutes
      */
 
-
-/*This method will update the progress of your goal by seeing if it over 100% and set it to achieved if it is the case */
-
+    
+    /**
+     * this method will update the progress of your goal by seeing if it over 100% and set it to achieved if it is the case
+     */
     public void updateProgress() {
 
 
@@ -255,6 +269,12 @@ public class GoalTracker implements Serializable {
      * floorsCLimbed
      * veryActiveMinutes
      */
+    
+    /**
+     * gets the goal for a specific goal type
+     * @param type pas in the type of goal
+     * @return the value of the goal you are looking for
+     */
     public String getGoal(GoalsEnum type) {
 
         if (type == GoalsEnum.steps) { //sets the goal for the steps.
@@ -272,22 +292,41 @@ public class GoalTracker implements Serializable {
         return null;
     }
 
+    /**
+     * @return the steps progress
+     */
     public float getStepsProgress() {
         return stepsProgress;
     }
 
+    /**
+     * 
+     * @return the distance progress
+     */
     public float getDistanceProgress() {
         return distanceProgress;
     }
 
+    /**
+     * 
+     * @return the calories progress
+     */
     public float getCaloriesProgress() {
         return caloriesProgress;
     }
 
+    /**
+     * 
+     * @return the floors climbed progress
+     */
     public float getFloorsClimbedProgress() {
         return floorsClimbedProgress;
     }
 
+    /**
+     * 
+     * @return returns the active min progress
+     */
     public float getVeryActiveMinutesProgress() {
         return activeMinutesProgress;
     }

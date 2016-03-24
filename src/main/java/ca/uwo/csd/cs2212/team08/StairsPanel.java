@@ -15,7 +15,6 @@ import java.util.Calendar;
 
 /**
  * creates a JFrame that displays the users floors climbed information
- *
  */
 public class StairsPanel extends JFrame {
 

@@ -72,7 +72,7 @@ public class EditMode extends JFrame {
 	private Color white = Color.white;
 	
 	/**
-	 * Create the frame.
+	 * Create the frame so users can select which panels to display.
 	 */
 	public EditMode(String paramDate, APIData paramAPIData) {
 		this.setTitle("Team08 Fitbit");
@@ -446,7 +446,12 @@ public class EditMode extends JFrame {
 			
 		
 	}
-    public void serialize()
+    	
+
+    /**
+     * save the users current dash board settings into a text file to be loaded later
+     */
+	public void serialize()
     {
    	 ObjectOutputStream out;
 		try {
@@ -463,6 +468,9 @@ public class EditMode extends JFrame {
 		
     }
     
+	/**
+     * loads the users current dash board settings from a text file
+     */
     private void deSerialize()
     {
    	 ObjectInputStream in;
@@ -483,12 +491,19 @@ public class EditMode extends JFrame {
    	
     }
     
+    /**
+	 * returns the user to their daily dash board
+	 */
 	public void home()
 	{
 		MainScreen main = new MainScreen(this.date, apiData);
 		main.setVisible(true);
 	}
 	
+	/**
+	 * checks if the user has removed all panels from the daily dash board
+	 * @return returns true if all the buttons are deselected and false otherwise
+	 */
 	private Boolean checkEmpty()
 	{
 		if(btnSteps.isSelected())

@@ -1068,11 +1068,14 @@ public class MainScreen extends JFrame implements Serializable {
 			 lblDaily.setForeground(white);
 			 pnlGoals.add(lblDaily);	 
 	     }
-	     
+
+	     /**
+	      * save the users current dash board settings into a text file to be loaded later
+	      */
 	     private void serialize()
 	     {
 	    	 ObjectOutputStream out;
-			try {
+	    	 try {
 				out = new ObjectOutputStream(new FileOutputStream("src/main/resources/dashboardPanel.txt"));
 				 out.writeObject(dashboardPanels);
 				 out.close();
@@ -1085,35 +1088,37 @@ public class MainScreen extends JFrame implements Serializable {
 			}
 			
 	     }
-	     
-		private void deSerialize()
+	     /**
+	      * loads the users current dash board settings from a text file
+	      */
+	     private void deSerialize()
 	     {
 	    	 ObjectInputStream in;
-			try {
-				in = new ObjectInputStream(new FileInputStream("src/main/resources/dashboardPanel.txt"));
-				this.dashboardPanels = (LinkedList<Integer>)in.readObject();
-				in.close();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				//JOptionPane.showMessageDialog(contentPane, "The program cannot find dashboardPanel.txt, please create a new blank text file ");
-				String path = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "dashboardPanel.txt";
-				// Use relative path for Unix systems
-				File f = new File(path);
-				try {
-					f.createNewFile();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					//e1.printStackTrace();
-				}
-				//e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
-			}
-	    	
+	    	 try {
+	    		 in = new ObjectInputStream(new FileInputStream("src/main/resources/dashboardPanel.txt"));
+	    		 this.dashboardPanels = (LinkedList<Integer>)in.readObject();
+	    		 in.close();
+	    	 } catch (FileNotFoundException e) {
+	    		 // TODO Auto-generated catch block
+	    		 //JOptionPane.showMessageDialog(contentPane, "The program cannot find dashboardPanel.txt, please create a new blank text file ");
+	    		 String path = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "dashboardPanel.txt";
+	    		 // Use relative path for Unix systems
+	    		 File f = new File(path);
+	    		 try {
+	    			 f.createNewFile();
+	    		 } catch (IOException e1) {
+	    			 // TODO Auto-generated catch block
+	    			 //e1.printStackTrace();
+	    		 }
+	    		 //e.printStackTrace();
+	    	 } catch (IOException e) {
+	    		 // TODO Auto-generated catch block
+	    		 //e.printStackTrace();
+	    	 } catch (ClassNotFoundException e) {
+	    		 // TODO Auto-generated catch block
+	    		 //e.printStackTrace();
+	    	 }
+
 	     }
 }
 
