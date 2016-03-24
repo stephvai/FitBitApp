@@ -190,6 +190,10 @@ public class APIDataTest extends APIData {
   		  distanceTimeSeries.add(node);
   	 }
     }
+    
+    public Boolean isTestMode() {
+  	  return true;
+    }
 
     /********************************************************
      * 						Getters						  *
