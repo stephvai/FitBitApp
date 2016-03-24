@@ -112,19 +112,22 @@ public class AchievementPanel extends JFrame {
 		private static final String fiveHundredKWalkedNot = "src/main/resources/New accolades/500km walked NOT.png";
 
 		//in one day
-		private static final String twoKCaloriesNot = "src/main/resources/New accolades/2k cals in 1 day NOT.png";
-		private static final String threeKCaloriesNot = "src/main/resources/New accolades/3k cals in 1 day NOT.png";
-		private static final String fiveKCaloriesNot = "src/main/resources/New accolades/5k cals in 1 day NOT.png";
-
+		private static final String twoKCaloriesNot = "src/main/resources/New accolades/2k cals NOT.png";
+		private static final String threeKCaloriesNot = "src/main/resources/New accolades/3k cals NOT.png";
+		private static final String fiveKCaloriesNot = "src/main/resources/New accolades/5k cals NOT.png";
+/**
+ * 
+		  create achievementTracker object
+		  will use this down in the code to check if user
+		  has reached their goal
+		  if yes, the program will give them a different picture
+		  than the one that's shown to them by default
+ * @param date
+ * @param paramAPIData
+ */
 	public AchievementPanel(final String date, APIData paramAPIData) {
 
-		/*----------------------------------------------------*
-		 * create achievementTracker object
-		 * will use this down in the code to check if user
-		 * has reached their goal
-		 * if yes, the program will give them a different picture
-		 * than the one that's shown to them by default
-		 *---------------------------------------------------*/
+		
 
 		try {
 			this.tracker = new AchievementTracker(paramAPIData);
@@ -215,7 +218,7 @@ public class AchievementPanel extends JFrame {
 		 *---------------------------------------------------*/
 		//30 floors in one day
 		JLabel floors30 = new JLabel();
-		floors30.setLocation(96, 77);
+		floors30.setLocation(36, 77);
 		floors30.setSize(112,112);
 		if(this.tracker.isAchieved(6)){
 			floors30.setIcon(new ImageIcon(thirtyFloors));
@@ -227,7 +230,7 @@ public class AchievementPanel extends JFrame {
 		
 		//50 floors in one day 
 		JLabel floors50 = new JLabel();
-		floors50.setLocation(96,219);
+		floors50.setLocation(36,219);
 		floors50.setSize(112,112);
 		if(this.tracker.isAchieved(7)){
 			floors50.setIcon(new ImageIcon(fiftyFloors));
@@ -238,7 +241,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(floors50);
 		
 		JLabel floors100 = new JLabel();
-		floors100.setLocation(96,361);
+		floors100.setLocation(36,361);
 		floors100.setSize(112,112);
 		if(this.tracker.isAchieved(8)){
 			floors100.setIcon(new ImageIcon(hundredFloors));
@@ -255,7 +258,7 @@ public class AchievementPanel extends JFrame {
 		 *-----------------------------------------*/
 		//500 floors
 		JLabel floors500 = new JLabel();
-		floors500.setLocation(237,77);
+		floors500.setLocation(177,77);
 		floors500.setSize(112,112);
 		if(this.tracker.isAchieved(9)){
 			floors500.setIcon(new ImageIcon(fiveHundredFloors));
@@ -267,7 +270,7 @@ public class AchievementPanel extends JFrame {
 		
 		//1000 floors
 		JLabel floors1000 = new JLabel();
-		floors1000.setLocation(237, 219);
+		floors1000.setLocation(177, 219);
 		floors1000.setSize(112,112);
 		if(this.tracker.isAchieved(10)){
 			floors1000.setIcon(new ImageIcon(oneKFloors));
@@ -279,7 +282,7 @@ public class AchievementPanel extends JFrame {
 	
 		//2000 floors climbed
 		JLabel floors2000 = new JLabel();
-		floors2000.setLocation(237, 361);
+		floors2000.setLocation(177, 361);
 		floors2000.setSize(112,112);
 		if(this.tracker.isAchieved(11)){
 			floors2000.setIcon(new ImageIcon(twoKFloors));
@@ -296,7 +299,7 @@ public class AchievementPanel extends JFrame {
 		 *---------------------------------------------*/
 		
 		JLabel steps10K = new JLabel();
-		steps10K.setLocation(379, 77);
+		steps10K.setLocation(319, 77);
 		steps10K.setSize(112,112);
 		if(this.tracker.isAchieved(0)){
 			steps10K.setIcon(new ImageIcon(tenKSteps));
@@ -307,7 +310,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(steps10K);
 		
 		JLabel steps15K = new JLabel();
-		steps15K.setLocation(379,219);
+		steps15K.setLocation(319,219);
 		steps15K.setSize(112,112);
 		if(this.tracker.isAchieved(1)){
 			steps15K.setIcon(new ImageIcon(fifteenKSteps));
@@ -318,7 +321,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(steps15K);
 		
 		JLabel steps20K = new JLabel();
-		steps20K.setLocation(379,361);
+		steps20K.setLocation(319,361);
 		steps20K.setSize(112,112);
 		if(this.tracker.isAchieved(2)){
 			steps20K.setIcon(new ImageIcon(twentyKSteps));
@@ -334,7 +337,7 @@ public class AchievementPanel extends JFrame {
 		 * start of steps lifetime total achievements
 		 *-------------------------------------------*/
 		JLabel steps50K = new JLabel();
-		steps50K.setLocation(521,77);
+		steps50K.setLocation(461,77);
 		steps50K.setSize(112,112);
 		if(this.tracker.isAchieved(3)){
 			steps50K.setIcon(new ImageIcon(fiftyKSteps));
@@ -345,7 +348,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(steps50K);
 		
 		JLabel steps100K = new JLabel();
-		steps100K.setLocation(521,219);
+		steps100K.setLocation(461,219);
 		steps100K.setSize(112,112);
 		if(this.tracker.isAchieved(4)){
 			steps100K.setIcon(new ImageIcon(hundredKSteps));
@@ -356,7 +359,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(steps100K);
 		
 		JLabel steps250K = new JLabel();
-		steps250K.setLocation(521,361);
+		steps250K.setLocation(461,361);
 		steps250K.setSize(112,112);
 		if(this.tracker.isAchieved(5)){
 			steps250K.setIcon(new ImageIcon(twoHundredFiftyKSteps));
@@ -373,7 +376,7 @@ public class AchievementPanel extends JFrame {
 		 *-------------------------------------------*/
 
 		JLabel walked10K = new JLabel();
-		walked10K.setLocation(663, 77);
+		walked10K.setLocation(603, 77);
 		walked10K.setSize(112,112);
 		if(this.tracker.isAchieved(12)){
 			walked10K.setIcon(new ImageIcon(tenKWalked));
@@ -384,7 +387,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(walked10K);
 		
 		JLabel walked15K = new JLabel();
-		walked15K.setLocation(663,219);
+		walked15K.setLocation(603,219);
 		walked15K.setSize(112,112);
 		if(this.tracker.isAchieved(13)){
 			walked15K.setIcon(new ImageIcon(fifteenKWalked));
@@ -395,7 +398,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(walked15K);
 		
 		JLabel walked20K = new JLabel();
-		walked20K.setLocation(663,361);
+		walked20K.setLocation(603,361);
 		walked20K.setSize(112,112);
 		if(this.tracker.isAchieved(14)){
 			walked20K.setIcon(new ImageIcon(twentyKWalked));
@@ -411,7 +414,7 @@ public class AchievementPanel extends JFrame {
 		 * Start of distance walked in total achievements
 		 *-------------------------------------------*/
 		JLabel walked200K = new JLabel();
-		walked200K.setLocation(805, 77);
+		walked200K.setLocation(745, 77);
 		walked200K.setSize(112,112);
 		if(this.tracker.isAchieved(15)){
 			walked200K.setIcon(new ImageIcon(twoHundredKWalked));
@@ -422,7 +425,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(walked200K);
 		
 		JLabel walked300K = new JLabel();
-		walked300K.setLocation(805, 219);
+		walked300K.setLocation(745, 219);
 		walked300K.setSize(112,112);
 		if(this.tracker.isAchieved(16)){
 			walked300K.setIcon(new ImageIcon(threeHundredKWalked));
@@ -433,7 +436,7 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(walked300K);
 		
 		JLabel walked500K = new JLabel();
-		walked500K.setLocation(805,361);
+		walked500K.setLocation(745,361);
 		walked500K.setSize(112,112);
 		if(this.tracker.isAchieved(17)){
 			walked500K.setIcon(new ImageIcon(fiveHundredKWalked));
@@ -445,6 +448,47 @@ public class AchievementPanel extends JFrame {
 		/*-------------------------------------------*
 		 * End of distance walked in total achievements
 		 *-------------------------------------------*/
+		
+		/*-------------------------------------------*
+		 *Start of daily calories achievements
+		 *-------------------------------------------*/
+		JLabel burned2K = new JLabel();
+		burned2K.setLocation(885,77);
+		burned2K.setSize(112,112);
+		if(this.tracker.isAchieved(18)){
+			burned2K.setIcon(new ImageIcon(twoKCalories));
+		}
+		else{
+			burned2K.setIcon(new ImageIcon(twoKCaloriesNot));
+		}
+		contentPane.add(burned2K);
+		
+		JLabel burned3K = new JLabel();
+		burned3K.setLocation(885,219);
+		burned3K.setSize(112,112);
+		if(this.tracker.isAchieved(19)){
+			burned3K.setIcon(new ImageIcon(threeKCalories));
+		}
+		else{
+			burned3K.setIcon(new ImageIcon(threeKCaloriesNot));
+		}
+		contentPane.add(burned3K);
+		
+		JLabel burned5K = new JLabel();
+		burned5K.setLocation(885,361);
+		burned5K.setSize(112,112);
+		if(this.tracker.isAchieved(20)){
+			burned5K.setIcon(new ImageIcon(fiveKCalories));
+		}
+		else{
+			burned5K.setIcon(new ImageIcon(fiveKCaloriesNot));
+		}
+		contentPane.add(burned5K);
+		
+		/*-------------------------------------------*
+		 *End of daily calories achievements
+		 *-------------------------------------------*/
+		//end of all achievements
 	
 		JPanel informationPanel = new JPanel(){
 			@Override
