@@ -296,6 +296,7 @@ public class MainScreen extends JFrame implements Serializable {
 			 final JLabel imgEdit = new JLabel();
 			 imgEdit.setIcon(new ImageIcon(picEdit));
 			 imgEdit.setBounds(966, 5, 48, 48);
+			 imgEdit.setToolTipText("Click here to edit your daily dashboard");
 			 imgEdit.addMouseListener(new MouseAdapter() {
 				 @Override
 				 public void mouseClicked(MouseEvent arg0) {
@@ -1076,16 +1077,26 @@ public class MainScreen extends JFrame implements Serializable {
 			try {
 				in = new ObjectInputStream(new FileInputStream("src/main/resources/dashboardPanel.txt"));
 				this.dashboardPanels = (LinkedList<Integer>)in.readObject();
-				 in.close();
+				in.close();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//JOptionPane.showMessageDialog(contentPane, "The program cannot find dashboardPanel.txt, please create a new blank text file ");
+				String path = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "dashboardPanel.txt";
+				// Use relative path for Unix systems
+				File f = new File(path);
+				try {
+					f.createNewFile();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					//e1.printStackTrace();
+				}
+				//e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 	    	
 	     }
