@@ -34,7 +34,7 @@ public class DistancePanel extends JFrame {
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
-
+	private final String infoButton = "src/main/resources/New accolades/info.png";
 	/**
 	 * create a distance panel to show user information on their distance traveled
 	 * @param date this is the date selected by the user 
@@ -111,6 +111,28 @@ public class DistancePanel extends JFrame {
 		});
 		contentPane.add(imgBack);
 
+		/*------------------------------------------*
+		 * information button 
+		 *------------------------------------------*/
+		final JLabel informButtonLabel = new JLabel();
+		informButtonLabel.setSize(24,24);
+		informButtonLabel.setLocation(918,410);
+		informButtonLabel.setIcon(new ImageIcon(infoButton));
+		informButtonLabel.addMouseListener(new MouseAdapter() {
+			 @Override
+			 public void mouseClicked(MouseEvent arg0) {
+		    		 JOptionPane.showMessageDialog(contentPane, "drag to the right to zoom in to a specific time frame! \n Drag to the left to zoom out");
+			 } @Override
+   		 public void mouseEntered(MouseEvent e) {
+				 informButtonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+   		 }
+   		 @Override
+   		 public void mouseExited(MouseEvent e) {
+   			informButtonLabel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+   		 }
+		 });
+		contentPane.add(informButtonLabel);
+		
 
 		LGraph lineGraph = new LGraph("Distance Traveled", "Distance",apiData.getDistanceTimeSeries());
 

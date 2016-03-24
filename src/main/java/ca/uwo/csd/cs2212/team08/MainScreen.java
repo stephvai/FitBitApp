@@ -78,7 +78,7 @@ public class MainScreen extends JFrame implements Serializable {
 	//private Color pannelColor = new Color(168,219,168);
 	private Color pannelHoverColor = new Color(255,255,255);
 	//private Color pannelHoverColor = new Color(188, 240, 188);
-	private Color pannelColor = new Color(206,206,206);
+	private Color pannelColor = new Color(0,0,0,60);
 	private Color borderColor = new Color(121,189,154);
 	
 	private Color transparentColor = new Color(0,0,0,60);
@@ -149,6 +149,7 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 /*	-----------------------------------------*/
 			 JLabel lblTitle = new JLabel("     Welcome! Here is your daily dashboard: ");
 			 lblTitle.setFont(new Font("Trebuchet MS", Font.PLAIN, 35));
+			 lblTitle.setForeground(white);
 			 contentPane.setForeground(titleColor);
 			 lblTitle.setBounds(159, 0, 732, 72);
 			 contentPane.add(lblTitle);
@@ -157,11 +158,20 @@ public class MainScreen extends JFrame implements Serializable {
 			 /*------------------------------------------*/
 			 // creates a Header Panel 
 			 /*------------------------------------------*/
-			 JPanel headerPanel = new JPanel();
-			 headerPanel.setBackground(white);
+			 JPanel headerPanel = new JPanel(){
+					@Override
+					public void paintComponent(Graphics g) {
+						super.paintComponent(g);
+						g.setColor(getBackground());
+						g.fillRect(0, 0, getWidth(), getHeight());
+					}
+				};
+			 headerPanel.setBackground(pannelColor);
+			 headerPanel.setOpaque(false);
 			 headerPanel.setBounds(0, 0, 1024, 63);
 			 headerPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 			 contentPane.add(headerPanel);
+			 contentPane.repaint();
 			 
 			 
 			 /*------------------------------------------*/

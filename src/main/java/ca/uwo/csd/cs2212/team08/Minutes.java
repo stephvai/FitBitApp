@@ -11,9 +11,11 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -105,7 +107,16 @@ public class Minutes extends JFrame {
 				dispose();
 			}
 		});
-		
+		/*-------------------------------------*/
+		//the label to set the last updated time
+		/*-------------------------------------*/
+		 Calendar cal = Calendar.getInstance();
+		 final JLabel lblDataUpdate = new JLabel("Last updated: " + cal.getTime().toString());
+		 lblDataUpdate.setHorizontalAlignment(SwingConstants.CENTER);
+		 lblDataUpdate.setForeground(white);
+		 lblDataUpdate.setBounds(51, 660, 923, 37);
+		 contentPane.add(lblDataUpdate);
+		 
 		/*------------------------------------------*
 		 * Panel where active minutes will be shown
 		 *------------------------------------------*/
@@ -191,7 +202,6 @@ public class Minutes extends JFrame {
 		pnlSedentMinutes.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		contentPane.add(pnlSedentMinutes);
 		contentPane.repaint();
-		
 		
 		/*------------------------------------------*
 		 * Title of sedentary panel 

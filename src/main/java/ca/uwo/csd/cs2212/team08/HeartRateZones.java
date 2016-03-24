@@ -2,6 +2,7 @@ package ca.uwo.csd.cs2212.team08;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -48,7 +49,7 @@ public class HeartRateZones extends JFrame {
 	private Color titleColor = new Color(11, 72, 107);
 	private Color white = Color.white;
 	private static final String picRefresh = "src/main/resources/images/refresh.png";
-	
+	private final String infoButton = "src/main/resources/New accolades/info.png";
 	/**
 	 * Create the frame.
 	 */
@@ -91,6 +92,28 @@ public class HeartRateZones extends JFrame {
 		lblTitle.setBounds(80, 21, 837, 84);
 		contentPane.add(lblTitle);
 		lblTitle.setForeground(white);
+		
+		/*------------------------------------------*
+		 * information button 
+		 *------------------------------------------*/
+		final JLabel informButtonLabel = new JLabel();
+		informButtonLabel.setSize(24,24);
+		informButtonLabel.setLocation(716,410);
+		informButtonLabel.setIcon(new ImageIcon(infoButton));
+		informButtonLabel.addMouseListener(new MouseAdapter() {
+			 @Override
+			 public void mouseClicked(MouseEvent arg0) {
+		    		 JOptionPane.showMessageDialog(contentPane, "drag to the right to zoom in to a specific time frame! \n Drag to the left to zoom out");
+			 } @Override
+   		 public void mouseEntered(MouseEvent e) {
+				 informButtonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+   		 }
+   		 @Override
+   		 public void mouseExited(MouseEvent e) {
+   			informButtonLabel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+   		 }
+		 });
+		contentPane.add(informButtonLabel);
 		
 		/*-----------------------------------------*/
 		//create a back button to return to dash board

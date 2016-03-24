@@ -35,6 +35,7 @@ public class CaloriesPanel extends JFrame {
 	private Color borderColor = new Color(121,189,154);
 	private Color titleColor = new Color(11,72,107);
 	private Color white = Color.white;
+	private final String infoButton = "src/main/resources/New accolades/info.png";
 		
 	/**
 	 * create a calories panel to show user information on their calories
@@ -88,27 +89,6 @@ public class CaloriesPanel extends JFrame {
 		/*-----------------------------------------*/
 		//create a back button to return to dash board
 		/*----------------------------------------*/
-		final JLabel imgBack = new JLabel();
-		imgBack.setIcon(new ImageIcon(backImage));
-		imgBack.setBounds(0, 0, 48, 48);
-		imgBack.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				//what to do on button click
-				home();
-				dispose();
-			}
-			
-			@Override
-   		 	public void mouseEntered(MouseEvent e) {
-				imgBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}
-   		 	@Override
-   		 	public void mouseExited(MouseEvent e) {
-   		 	imgBack.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-   		 	}
-		});
-		contentPane.add(imgBack);
 
 
 		LGraph lineGraph = new LGraph("Calories Burned", "Calories",apiData.getCaloriesTimeSeries());
@@ -117,6 +97,29 @@ public class CaloriesPanel extends JFrame {
 
 		contentPane.add(lineGraph);
 
+		/*------------------------------------------*
+		 * information button 
+		 *------------------------------------------*/
+		final JLabel informButtonLabel = new JLabel();
+		informButtonLabel.setSize(24,24);
+		informButtonLabel.setLocation(917,409);
+		informButtonLabel.setIcon(new ImageIcon(infoButton));
+		informButtonLabel.addMouseListener(new MouseAdapter() {
+			 @Override
+			 public void mouseClicked(MouseEvent arg0) {
+		    		 JOptionPane.showMessageDialog(contentPane, "drag to the right to zoom in to a specific time frame! \n Drag to the left to zoom out");
+			 } @Override
+   		 public void mouseEntered(MouseEvent e) {
+				 informButtonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+   		 }
+   		 @Override
+   		 public void mouseExited(MouseEvent e) {
+   			informButtonLabel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+   		 }
+		 });
+
+		contentPane.add(informButtonLabel);
+		
 		/*--------------------------------------------*/
 		//create a panel to display calories information for today
 		/*--------------------------------------------*/
@@ -155,6 +158,27 @@ public class CaloriesPanel extends JFrame {
 		 lblDataUpdate.setForeground(white);
 		 lblDataUpdate.setBounds(51, 660, 923, 37);
 		 contentPane.add(lblDataUpdate);
+		 final JLabel imgBack = new JLabel();
+		 imgBack.setBounds(0, 0, 48, 48);
+		 contentPane.add(imgBack);
+		 imgBack.setIcon(new ImageIcon(backImage));
+		 imgBack.addMouseListener(new MouseAdapter() {
+		 	@Override
+		 	public void mouseClicked(MouseEvent arg0) {
+		 		//what to do on button click
+		 		home();
+		 		dispose();
+		 	}
+		 	
+		 	@Override
+   		 	public void mouseEntered(MouseEvent e) {
+		 		imgBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		 	}
+   		 	@Override
+   		 	public void mouseExited(MouseEvent e) {
+   		 	imgBack.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+   		 	}
+		 });
 		
 	}
 	
