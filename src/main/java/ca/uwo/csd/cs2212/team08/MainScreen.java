@@ -238,8 +238,8 @@ public class MainScreen extends JFrame implements Serializable {
 					 //what to do on button click
 					 lblDataUpdate.setText("refreshing...");
 					 //lblDataUpdate.repaint();
-					 updateDate();
-					 if(!apiData.refreshDailyDashBoardData(date)) {
+					 Boolean validDate = updateDate();
+					 if(validDate && !apiData.refreshDailyDashBoardData(date)) {
 			    		 JOptionPane.showMessageDialog(contentPane, "An error has occured connecting to fitbit servers, please try again later.");
 			    	 }
 
@@ -407,7 +407,7 @@ public class MainScreen extends JFrame implements Serializable {
 	     /**
 	      * a method that can be used to pull a new date from the JDatePicker
 	      */
-	     private void updateDate()
+	     private Boolean updateDate()
 	     {
 	    	 //get the new date from the JDatePicker
 	    	 String tempDate = datePicker.getJFormattedTextField().getText();
@@ -415,7 +415,8 @@ public class MainScreen extends JFrame implements Serializable {
 	    	 
 	    	 if(tempDate.equals("") || tempDate.equals(null))
 	    	 {
-	    		 return;
+	    		 JOptionPane.showMessageDialog(contentPane, "Invalid Date: You must select a date");
+	    		 return false;
 	    	 }
 	    	 //save the date in a array of strings
 	    	 String[] dateArray = tempDate.split("-");
@@ -471,8 +472,8 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 Calendar cal = Calendar.getInstance();
 	    		 if(cal.getTime().compareTo(chosenDate)<0)
 	    		 {
-	    			 JOptionPane.showMessageDialog(contentPane, "That is not a valid date");
-	    			 return;
+	    			 JOptionPane.showMessageDialog(contentPane, "Invalid Date: Cannot select a date in the future");
+	    			 return false;
 	    			 /*cal = Calendar.getInstance();
 	    			 int yearTemp = cal.get(Calendar.YEAR);
 	    			 int monthTemp = cal.get(Calendar.MONTH)+1;
@@ -493,10 +494,12 @@ public class MainScreen extends JFrame implements Serializable {
 	    		 }
 	    		 else{
 	    			 this.date = temp;
+	    			 return true;
 	    		 }
 	    	 } catch (ParseException e) {
 	    		 // TODO Auto-generated catch block
 	    		 JOptionPane.showMessageDialog(contentPane, "Invalid date format.");
+	    		 return false;
 			}
 	    	 
 	     }
