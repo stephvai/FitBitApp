@@ -253,15 +253,21 @@ public class AchievementTracker {
 			achievementArray = (Achievement[])in.readObject();
 			//this.dashboardPanels = (LinkedList<Integer>)in.readObject();
 			 in.close();
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) { //if the file has been deleted create a new blank file
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			String path = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "achievement.txt";
+			// Use relative path for Unix systems
+			File f = new File(path);
+			try {
+				f.createNewFile();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+			}
+			//e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
    	
     }
