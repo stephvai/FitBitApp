@@ -361,19 +361,39 @@ public class APIData {
 	  return requestUrlPrefix + "activities.json";
   }
   
+  /**
+   * A method that given a URL prefix it generates the request for heart rate zones
+   * @param requestUrlPrefix prefix for the users API request URL
+   * @return returns the complete URL
+   */
   private String heartRateZoneRequestBuilder(String requestUrlPrefix) {
 	  //https://api.fitbit.com/1/user/-/activities/heart/date/[date]/1d/[detail-level].json
 	  return "https://api.fitbit.com/1/user/3WGW2P/activities/heart/date/" + currentDate + "/1d/1min.json";
   }
   
+  /**
+   * A method that given a URL prefix it generates the request for steps
+   * @param requestUrlPrefix prefix for the users API request URL
+   * @return returns the complete URL
+   */
   private String stepsTimeSeriesRequestBuilder(String requestUrlPrefix) {
 	  return "https://api.fitbit.com/1/user/3WGW2P/activities/steps/date/"+ currentDate +"/1d/1min.json";
   }
   
+  /**
+   * A method that given a URL prefix it generates the request for calories
+   * @param requestUrlPrefix prefix for the users API request URL
+   * @return returns the complete URL
+   */
   private String caloriesTimeSeriesRequestBuilder(String requestUrlPrefix) {
 	  return "https://api.fitbit.com/1/user/-/activities/calories/date/" + currentDate + "/1d/1min.json";
   }
   
+  /**
+   * A method that given a URL prefix it generates the request for distance
+   * @param requestUrlPrefix prefix for the users API request URL
+   * @return returns the complete URL
+   */
   private String distanceTimeSeriesRequestBuilder(String requestUrlPrefix) {
 	  return "https://api.fitbit.com/1/user/-/activities/distance/date/" + currentDate + "/1d/1min.json";
   }
@@ -482,7 +502,11 @@ public class APIData {
 	  bestFloors = bestDays.getJSONObject("floors").getInt("value");
 	  bestSteps = bestDays.getJSONObject("steps").getInt("value");
   }
-  
+
+  /**
+   * A method that parses heart rate zone data and generates a linked list
+   * @param obj JSON object tht contains the heart rate zone data
+   */
   private void parseHeartRateZones(JSONObject obj) {
 	  
 	  try {
@@ -537,6 +561,10 @@ public class APIData {
 	  
   }
   
+  /**
+   * A method that parses steps data and generates a linked list
+   * @param obj JSON object that contains the steps data
+   */
   private void parseStepsTimeSeries(JSONObject obj) {
 	  
 	  stepsTimeSeries = new LinkedList<TimeSeriesNode>();
@@ -570,6 +598,10 @@ public class APIData {
 	  
   }
   
+  /**
+   * A method that parses calories data and generates a linked list
+   * @param obj JSON object that contains the calories data
+   */
   private void parseCaloriesTimeSeries(JSONObject obj) {
 	  caloriesTimeSeries = new LinkedList<TimeSeriesNode>();
 	  
@@ -601,6 +633,10 @@ public class APIData {
 	  
   }
   
+  /**
+   * A method that parses distance data and generates a linked list
+   * @param obj JSON object that contains the distance data
+   */
   private void parseDistanceTimeSeries(JSONObject obj) {
 	  distanceTimeSeries = new LinkedList<TimeSeriesNode>();
 	  try {
@@ -631,6 +667,9 @@ public class APIData {
 
   }
   
+  /**
+   * method that zeros all values
+   */
   public void zeroValues() {
 	  userDailySteps = 0;
 	  userDailyDistance = 0;
@@ -674,6 +713,10 @@ public class APIData {
 			  
   }
   
+  /**
+   * method that checks if the api data is in test mode
+   * @return true if in test mode false otherwise
+   */
   public Boolean isTestMode() {
 	  return false;
   }
