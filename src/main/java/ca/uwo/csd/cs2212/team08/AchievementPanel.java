@@ -220,7 +220,9 @@ public class AchievementPanel extends JFrame {
 		if(this.tracker.isAchieved(6)){
 			floors30.setIcon(new ImageIcon(thirtyFloors));
 		}
+		else {
 		floors30.setIcon(new ImageIcon(thirtyFloorsNot));
+		}
 		contentPane.add(floors30);
 		
 		//50 floors in one day 
@@ -230,7 +232,9 @@ public class AchievementPanel extends JFrame {
 		if(this.tracker.isAchieved(7)){
 			floors50.setIcon(new ImageIcon(fiftyFloors));
 		}
+		else {
 			floors50.setIcon(new ImageIcon(fiftyFloorsNot));
+		}
 		contentPane.add(floors50);
 		
 		JLabel floors100 = new JLabel();
@@ -239,7 +243,9 @@ public class AchievementPanel extends JFrame {
 		if(this.tracker.isAchieved(8)){
 			floors100.setIcon(new ImageIcon(hundredFloors));
 		}
+		else {
 			floors100.setIcon(new ImageIcon(hundredFloorsNot));
+		}
 		contentPane.add(floors100);
 		/*-----------------------------------------*
 		 * End of floors in a day achievements
@@ -438,44 +444,6 @@ public class AchievementPanel extends JFrame {
 		contentPane.add(walked500K);
 		/*-------------------------------------------*
 		 * End of distance walked in total achievements
-		 *-------------------------------------------*/
-		/*-----------------------------------------*
-		 * Start of Calories Achievements
-		 *-----------------------------------------*/
-		JLabel burned2K = new JLabel();
-		burned2K.setLocation(947,77);
-		burned2K.setSize(112,112);
-		if(this.tracker.isAchieved(18)){
-			burned2K.setIcon(new ImageIcon(twoKCalories));
-		}
-		else{
-			burned2K.setIcon(new ImageIcon(twoKCaloriesNot));
-		}
-		contentPane.add(burned2K);
-		
-		JLabel burned3K = new JLabel();
-		burned3K.setLocation(947, 219);
-		burned3K.setSize(112,112);
-		if(this.tracker.isAchieved(19)){
-			burned3K.setIcon(new ImageIcon(threeKCalories));
-		}
-		else{
-			burned3K.setIcon(new ImageIcon(threeKCaloriesNot));
-		}
-		contentPane.add(burned3K);
-		
-		JLabel burned5K = new JLabel();
-		burned5K.setLocation(947, 361);
-		burned5K.setSize(112,112);
-		if(this.tracker.isAchieved(20)){
-			burned5K.setIcon(new ImageIcon(fiveKCalories));
-		}
-		else{
-			burned5K.setIcon(new ImageIcon(fiveKCaloriesNot));
-		}
-		contentPane.add(burned5K);
-		/*-------------------------------------------*
-		 * End of calories achievements
 		 *-------------------------------------------*/
 	
 		JPanel informationPanel = new JPanel(){
