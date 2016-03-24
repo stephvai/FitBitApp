@@ -2,6 +2,7 @@ package ca.uwo.csd.cs2212.team08;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -48,7 +49,7 @@ public class HeartRateZones extends JFrame {
 	private Color titleColor = new Color(11, 72, 107);
 	private Color white = Color.white;
 	private static final String picRefresh = "src/main/resources/images/refresh.png";
-	
+	private final String infoButton = "src/main/resources/New accolades/info.png";
 	/**
 	 * Create the frame.
 	 */
@@ -91,6 +92,28 @@ public class HeartRateZones extends JFrame {
 		lblTitle.setBounds(80, 21, 837, 84);
 		contentPane.add(lblTitle);
 		lblTitle.setForeground(white);
+		
+		/*------------------------------------------*
+		 * information button 
+		 *------------------------------------------*/
+		final JLabel informButtonLabel = new JLabel();
+		informButtonLabel.setSize(24,24);
+		informButtonLabel.setLocation(716,410);
+		informButtonLabel.setIcon(new ImageIcon(infoButton));
+		informButtonLabel.addMouseListener(new MouseAdapter() {
+			 @Override
+			 public void mouseClicked(MouseEvent arg0) {
+		    		 JOptionPane.showMessageDialog(contentPane, "drag to the right to zoom in to a specific time frame! \n Drag to the left to zoom out");
+			 } @Override
+   		 public void mouseEntered(MouseEvent e) {
+				 informButtonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+   		 }
+   		 @Override
+   		 public void mouseExited(MouseEvent e) {
+   			informButtonLabel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+   		 }
+		 });
+		contentPane.add(informButtonLabel);
 		
 		/*-----------------------------------------*/
 		//create a back button to return to dash board
@@ -180,9 +203,10 @@ public class HeartRateZones extends JFrame {
 			// add a label to display the floors climbed today
 			/*--------------------------------------------*/
 			JLabel lblOutOfRange = new JLabel("<html> Today you were in the out of range zone for <strong>"+ apiData.getOutOfRange().getValue() +"</strong> minutes. </html>");
+			lblOutOfRange.setVerticalAlignment(SwingConstants.TOP);
 			lblOutOfRange.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblOutOfRange.setHorizontalAlignment(SwingConstants.CENTER);
-			lblOutOfRange.setBounds(21, 21, 130, 182);
+			lblOutOfRange.setBounds(6, 0, 158, 224);
 			lblOutOfRange.setOpaque(false);
 			lblOutOfRange.setForeground(white);
 			pnlOutOfRange.add(lblOutOfRange);
@@ -212,7 +236,7 @@ public class HeartRateZones extends JFrame {
 			JLabel lblFatBurn = new JLabel("<html> Today you were in the fat burn zone for <strong>"+ apiData.getFatBurn().getValue() +"</strong> minutes. </html>");
 			lblFatBurn.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblFatBurn.setHorizontalAlignment(SwingConstants.CENTER);
-			lblFatBurn.setBounds(21, 21, 130, 182);
+			lblFatBurn.setBounds(6, 0, 158, 224);
 			lblFatBurn.setOpaque(false);
 			lblFatBurn.setForeground(white);
 			pnlFatBurn.add(lblFatBurn);
@@ -243,7 +267,7 @@ public class HeartRateZones extends JFrame {
 			lblCardio.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblCardio.setOpaque(false);
 			lblCardio.setHorizontalAlignment(SwingConstants.CENTER);
-			lblCardio.setBounds(21, 21, 130, 182);
+			lblCardio.setBounds(6, 0, 158, 224);
 			lblCardio.setForeground(white);
 			pnlCardio.add(lblCardio);
 			contentPane.repaint();
@@ -272,7 +296,7 @@ public class HeartRateZones extends JFrame {
 			JLabel lblPeak = new JLabel("<html> Today you were at your peak zone for <strong>"+ apiData.getPeak().getValue() +"</strong> minutes. </html>");
 			lblPeak.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblPeak.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPeak.setBounds(21, 21, 130, 182);
+			lblPeak.setBounds(6, 0, 158, 224);
 			lblPeak.setOpaque(false);
 			lblPeak.setForeground(white);
 			pnlPeak.add(lblPeak);

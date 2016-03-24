@@ -143,13 +143,14 @@ public class GoalPanel extends JFrame {
 		label.setOpaque(false);
 		label.setForeground(white);
 		label.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		label.setBounds(105, 90, 68, 29);
+		label.setBounds(6, 90, 273, 29);
 		stepGoalPanel.add(label);
 		contentPane.repaint();
 		/*------------------------------------------*
 		 * Edit Button
 		 *------------------------------------------*/
 		JButton editButton = new JButton("Edit Goals");
+		editButton.setOpaque(false);
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -159,8 +160,7 @@ public class GoalPanel extends JFrame {
 		});
 		editButton.setBounds(82, 147, 117, 29);
 		stepGoalPanel.add(editButton);
-		
-
+		editButton.repaint();
 		
 		/*-------------------------------------------*
 		 * the panel where distance goals will be displayed
@@ -198,7 +198,7 @@ public class GoalPanel extends JFrame {
 		final JLabel lblDistanceValue = new JLabel(goalTracker.getGoal(GoalsEnum.distance));
 		lblDistanceValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDistanceValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblDistanceValue.setBounds(110, 87, 68, 29);
+		lblDistanceValue.setBounds(6, 87, 273, 29);
 		lblDistanceValue.setForeground(white);
 		lblDistanceValue.setOpaque(false);
 		lblDistanceValue.setBackground(pannelColor);
@@ -210,6 +210,7 @@ public class GoalPanel extends JFrame {
 		 *------------------------------------------*/
 		JButton editTheDistance = new JButton("Edit Goals");
 		editTheDistance.setBounds(88, 146, 117, 29);
+		editTheDistance.setOpaque(false);
 		editTheDistance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				optionPromp("How much distance will you travel?", lblDistanceValue, GoalsEnum.distance);
@@ -217,6 +218,7 @@ public class GoalPanel extends JFrame {
 			}
 		});
 		distanceGoalPanel.add(editTheDistance);
+		editTheDistance.repaint();
 		
 		
 		/*-------------------------------------------*
@@ -256,7 +258,7 @@ public class GoalPanel extends JFrame {
 		lblCalorieValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 		lblCalorieValue.setOpaque(false);
 		lblCalorieValue.setForeground(white);
-		lblCalorieValue.setBounds(108, 88, 68, 29);
+		lblCalorieValue.setBounds(0, 88, 279, 29);
 		caloriesGoalPanel.add(lblCalorieValue);
 		contentPane.repaint();
 		/*------------------------------------------*
@@ -264,6 +266,7 @@ public class GoalPanel extends JFrame {
 		 *------------------------------------------*/
 		JButton editTheCalories = new JButton("Edit Goals");
 		editTheCalories.setBounds(89, 149, 117, 29);
+		editTheCalories.setOpaque(false);
 		editTheCalories.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -272,6 +275,7 @@ public class GoalPanel extends JFrame {
 			}
 		});
 		caloriesGoalPanel.add(editTheCalories);
+		contentPane.repaint();
 				
 		/*-------------------------------------------*
 		 * the panel where floor goals will be displayed
@@ -288,6 +292,7 @@ public class GoalPanel extends JFrame {
 		floorsGoalPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		floorsGoalPanel.setBackground(pannelColor);
 		floorsGoalPanel.setBounds(183, 466, 285, 201);
+		floorsGoalPanel.setOpaque(false);
 		contentPane.add(floorsGoalPanel);
 		contentPane.repaint();
 		
@@ -312,7 +317,7 @@ public class GoalPanel extends JFrame {
 		lblFloorValue.setOpaque(false);
 		lblFloorValue.setForeground(white);
 		lblFloorValue.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblFloorValue.setBounds(106, 97, 68, 29);
+		lblFloorValue.setBounds(0, 97, 285, 29);
 		floorsGoalPanel.add(lblFloorValue);
 		contentPane.repaint();
 		/*------------------------------------------*
@@ -320,6 +325,7 @@ public class GoalPanel extends JFrame {
 		 *------------------------------------------*/
 		JButton editTheFloor = new JButton("Edit Goals");
 		editTheFloor.setBounds(85, 149, 117, 29);
+		editTheFloor.setOpaque(false);
 		editTheFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				optionPromp("How many floors will you climb?", lblFloorValue, GoalsEnum.floorsClimbed);
@@ -327,6 +333,7 @@ public class GoalPanel extends JFrame {
 			}
 		});
 		floorsGoalPanel.add(editTheFloor);
+		contentPane.repaint();
 		
 		
 		/*------------------------------------------------------*
@@ -366,7 +373,7 @@ public class GoalPanel extends JFrame {
 		lblActiveGoals.setForeground(white);
 		lblActiveGoals.setOpaque(false);
 		lblActiveGoals.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
-		lblActiveGoals.setBounds(108, 97, 68, 29);
+		lblActiveGoals.setBounds(0, 97, 285, 29);
 		activeGoalPanel.add(lblActiveGoals);
 		contentPane.repaint();
 		
@@ -375,14 +382,16 @@ public class GoalPanel extends JFrame {
 		 *------------------------------------------*/
 		JButton editTheActive = new JButton("Edit Goals");
 		editTheActive.setBounds(88, 152, 117, 29);
+		editTheActive.setOpaque(false);
 		editTheActive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// figure out how to edit goals here
 				optionPromp("How many minutes are you going to be active?", lblActiveGoals, GoalsEnum.veryActiveMinutes);
-
 			}
 		});
 		activeGoalPanel.add(editTheActive);
+		activeGoalPanel.repaint();
+		contentPane.repaint();
 	
 		/*-------------------------------------*/
 		//the label to set the last updated time
@@ -393,6 +402,7 @@ public class GoalPanel extends JFrame {
 		 lblDataUpdate.setForeground(white);
 		 lblDataUpdate.setBounds(51, 660, 923, 37);
 		 contentPane.add(lblDataUpdate);
+		 contentPane.repaint();
 	}
 
 	public void home()

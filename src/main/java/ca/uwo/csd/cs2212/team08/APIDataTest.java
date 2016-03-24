@@ -9,6 +9,10 @@ import java.util.Random;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * API Test Data Class that generates test data when not online
+ *
+ */
 public class APIDataTest extends APIData {
 
 	  //Instance variables for daily user data to be used on the daily dashboard 
@@ -44,7 +48,10 @@ public class APIDataTest extends APIData {
 
     //String representation of the date in YYYY-MM-DD format
     String currentDate = "2016-02-26";;
-
+    
+    /**
+     * constructor for test data
+     */
     public APIDataTest(){}
 
     /**
@@ -60,7 +67,10 @@ public class APIDataTest extends APIData {
 
         return randomNum;
     }
-
+    
+    /**
+     * method that refreshes the dashboard data with test values
+     */
     public Boolean refreshDailyDashBoardData(String date) {
 
         currentDate = date;
@@ -117,6 +127,10 @@ public class APIDataTest extends APIData {
 
     }
     
+    /**
+     * Parses heart rate zone data and creates a linked list for the grpahs
+     * @param obj that contains the heart rate zones
+     */
     private void parseHeartRateZones(JSONObject obj) {
   		  JSONObject value = obj.getJSONArray("activities-heart").getJSONObject(0).getJSONObject("value");
   		  restingHeartRate = Integer.toString(value.getInt("restingHeartRate"));
@@ -141,6 +155,10 @@ public class APIDataTest extends APIData {
   		  }
   	  }
     
+    /**
+     * Parse steps data and creates a linked list for the graphs
+     * @param obj that contains the steps data
+     */
     private void parseStepsTimeSeries(JSONObject obj) {
   	  
   	  stepsTimeSeries = new LinkedList<TimeSeriesNode>();
@@ -159,6 +177,10 @@ public class APIDataTest extends APIData {
   	  
     }
     
+    /**
+     * Parse calories data and creates a linked list for the graphs
+     * @param obj that contains the calories data
+     */
     private void parseCaloriesTimeSeries(JSONObject obj) {
   	  caloriesTimeSeries = new LinkedList<TimeSeriesNode>();
   	  
@@ -175,6 +197,10 @@ public class APIDataTest extends APIData {
   	 }
     }
     
+    /**
+     * Parse distance data and create a linked list for the graphs
+     * @param obj Object that contains distance data
+     */
     private void parseDistanceTimeSeries(JSONObject obj) {
   	  distanceTimeSeries = new LinkedList<TimeSeriesNode>();
   	  
@@ -189,6 +215,14 @@ public class APIDataTest extends APIData {
   		  TimeSeriesNode node = new TimeSeriesNode(min, hour, currentDate, datasetValue);
   		  distanceTimeSeries.add(node);
   	 }
+    }
+    
+    /**
+     * Method to see if the api data is in test mode
+     *@return Returns true if it is in test mode
+     */
+    public Boolean isTestMode() {
+  	  return true;
     }
 
     /********************************************************
