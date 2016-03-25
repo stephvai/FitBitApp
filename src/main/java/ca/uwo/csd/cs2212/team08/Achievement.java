@@ -13,11 +13,11 @@ public class Achievement implements Serializable {
     private float objective;
     
     /**
-     * Constructor for an acheivement
+     * Constructor for an achievement
      */
     public Achievement(){
         this.achieved = false;
-    }//Constructor.
+    }
 
     
     /**

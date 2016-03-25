@@ -28,7 +28,7 @@ public class DashBoardPanel extends JPanel {
 	 * creates a new panel for the daily dash board
 	 * @param x the starting x position
 	 * @param y the starting y position
-	 * @return 
+	 * 
 	 */
 	public DashBoardPanel(int x, int y)
 	{

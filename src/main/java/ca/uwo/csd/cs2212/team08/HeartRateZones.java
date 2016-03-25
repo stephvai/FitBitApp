@@ -27,6 +27,10 @@ import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
+/**
+ * a user interface used to display the heart rate zones
+ *
+ */
 public class HeartRateZones extends JFrame {
 
 	// private JPanel contentPane;
@@ -51,7 +55,9 @@ public class HeartRateZones extends JFrame {
 	private static final String picRefresh = "src/main/resources/images/refresh.png";
 	private final String infoButton = "src/main/resources/New accolades/info.png";
 	/**
-	 * Create the frame.
+	 * create the frame
+	 * @param date pass in the current date
+	 * @param paramAPIData pass in the current apidata
 	 */
 	public HeartRateZones(final String date, APIData paramAPIData) {
 
@@ -206,7 +212,7 @@ public class HeartRateZones extends JFrame {
 			lblOutOfRange.setVerticalAlignment(SwingConstants.TOP);
 			lblOutOfRange.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblOutOfRange.setHorizontalAlignment(SwingConstants.CENTER);
-			lblOutOfRange.setBounds(6, 0, 158, 224);
+			lblOutOfRange.setBounds(6, 38, 158, 180);
 			lblOutOfRange.setOpaque(false);
 			lblOutOfRange.setForeground(white);
 			pnlOutOfRange.add(lblOutOfRange);
@@ -313,6 +319,9 @@ public class HeartRateZones extends JFrame {
 		main.setVisible(true);
 	}
 	
+	/**
+	 * updates the current date value
+	 */
 	 private void updateDate()
      {
     	 //get the new date from the JDatePicker

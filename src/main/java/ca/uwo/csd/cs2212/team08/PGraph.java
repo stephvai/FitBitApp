@@ -10,9 +10,16 @@ import org.jfree.data.general.DefaultPieDataset;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * a class to create a pieGraph object
+ */
 public class PGraph extends JPanel {
 
 
+	/**
+	 * a constructor to create a pie graph
+	 * @param data pass in the current API data
+	 */
     public PGraph(APIData data){
 
         float fairlyActiveMin = data.getFairlyActiveMin();

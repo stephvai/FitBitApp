@@ -21,6 +21,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
+/**
+ * a panel object used to allow users to set their goals
+ *
+ */
 public class GoalPanel extends JFrame {
 
 	private JPanel contentPane;
@@ -59,24 +63,24 @@ public class GoalPanel extends JFrame {
 		/*---------------------------------------------------*
 		 * make the panel where all information will be shown
 		 *---------------------------------------------------*/
-   	 	contentPane = new JPanel() {
-		 @Override
-		 protected void paintComponent(Graphics g) {
-			 BufferedImage img = null;
-			 try {
-				img = ImageIO.read(new File("src/main/resources/images/track.jpg"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		contentPane = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				BufferedImage img = null;
+				try {
+					img = ImageIO.read(new File("src/main/resources/images/track.jpg"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				g.drawImage(img, 0,0, null);
 			}
-			g.drawImage(img, 0,0, null);
-		 }
-	 };
+		};
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.setBackground(bgColor);
-		
+
 		/*---------------------------------------------------*
 		 * Title of the entire page
 		 *---------------------------------------------------*/
@@ -153,14 +157,13 @@ public class GoalPanel extends JFrame {
 		editButton.setOpaque(false);
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				optionPromp("How many steps will you take?", label, GoalsEnum.steps);
-
 			}
 		});
 		editButton.setBounds(82, 147, 117, 29);
 		stepGoalPanel.add(editButton);
 		editButton.repaint();
+		stepGoalPanel.repaint();
 		
 		/*-------------------------------------------*
 		 * the panel where distance goals will be displayed
@@ -391,6 +394,7 @@ public class GoalPanel extends JFrame {
 		});
 		activeGoalPanel.add(editTheActive);
 		activeGoalPanel.repaint();
+		editTheActive.repaint();
 		contentPane.repaint();
 	
 		/*-------------------------------------*/
@@ -411,6 +415,13 @@ public class GoalPanel extends JFrame {
 		main.setVisible(true);
 	}
 
+	/**
+	 * a healper method used to set the goals
+	 * @param target the value of the goal
+	 * @param text a text value
+	 * @param label the label to write the goal in
+	 * @param type the type of goal
+	 */
 	private void helperMethod(String target, String text, JLabel label, GoalsEnum type) {
 
 		try{
@@ -420,6 +431,12 @@ public class GoalPanel extends JFrame {
 			optionPromp(text, label, type);
 		}
 	}
+	/**
+	 * a method to create a pop-up for users to make their goals
+	 * @param inputText a string values that store the goal the user inputed
+	 * @param label the label to write out the goal
+	 * @param type the type of goal
+	 */
 	private void optionPromp(String inputText, JLabel label, GoalsEnum type){
 		String target = JOptionPane.showInputDialog(contentPane, inputText, null);
 

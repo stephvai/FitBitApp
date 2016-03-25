@@ -1,7 +1,9 @@
 package ca.uwo.csd.cs2212.team08;
 
 //series.add(new Minute( minutes, hours, day, month, 2016), value);
-
+/**
+ * a class that creates a time series data object
+ */
 public class TimeSeriesNode {
 	
 	String minute;
@@ -12,9 +14,12 @@ public class TimeSeriesNode {
 	String value;
 	
 	/**
-	 * 
+	 * the constructor for creating a new time series
+	 * @param minute pass in the current minute
+	 * @param hours pass in the current hours
+	 * @param date pass in the date
+	 * @param value pass in the current value
 	 */
-	//"2016-02-26"
 	public TimeSeriesNode(String minute, String hours, String date, String value) {
 		this.minute = minute;
 		this.hour = hours;
