@@ -107,7 +107,7 @@ public class CaloriesPanel extends JFrame {
 		informButtonLabel.addMouseListener(new MouseAdapter() {
 			 @Override
 			 public void mouseClicked(MouseEvent arg0) {
-		    		 JOptionPane.showMessageDialog(contentPane, "drag to the right to zoom in to a specific time frame! \n Drag to the left to zoom out");
+		    		 JOptionPane.showMessageDialog(contentPane, "Drag to the right to zoom in to a specific time frame! \n Drag to the left to zoom out");
 			 } @Override
    		 public void mouseEntered(MouseEvent e) {
 				 informButtonLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
