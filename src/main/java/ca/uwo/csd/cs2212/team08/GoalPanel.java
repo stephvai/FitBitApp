@@ -157,14 +157,13 @@ public class GoalPanel extends JFrame {
 		editButton.setOpaque(false);
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				optionPromp("How many steps will you take?", label, GoalsEnum.steps);
-
 			}
 		});
 		editButton.setBounds(82, 147, 117, 29);
 		stepGoalPanel.add(editButton);
 		editButton.repaint();
+		stepGoalPanel.repaint();
 		
 		/*-------------------------------------------*
 		 * the panel where distance goals will be displayed
@@ -395,6 +394,7 @@ public class GoalPanel extends JFrame {
 		});
 		activeGoalPanel.add(editTheActive);
 		activeGoalPanel.repaint();
+		editTheActive.repaint();
 		contentPane.repaint();
 	
 		/*-------------------------------------*/

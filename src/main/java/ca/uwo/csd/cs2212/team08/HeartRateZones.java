@@ -212,7 +212,7 @@ public class HeartRateZones extends JFrame {
 			lblOutOfRange.setVerticalAlignment(SwingConstants.TOP);
 			lblOutOfRange.setFont(new Font("Trebuchet MS", Font.PLAIN, 25));
 			lblOutOfRange.setHorizontalAlignment(SwingConstants.CENTER);
-			lblOutOfRange.setBounds(6, 0, 158, 224);
+			lblOutOfRange.setBounds(6, 38, 158, 180);
 			lblOutOfRange.setOpaque(false);
 			lblOutOfRange.setForeground(white);
 			pnlOutOfRange.add(lblOutOfRange);

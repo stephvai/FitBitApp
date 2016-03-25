@@ -63,3 +63,12 @@ java -jar target/team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 java -jar target/team08_app-1.0-SNAPSHOT-jar-with-dependencies.jar test
 ```
+## Credit to flickr User Musume Miyuki for the background image
+```
+Here is the link to the profile: 
+http://bit.ly/1RAg9U6
+```
+## Our application was designed on the MAC 
+```
+Please grade our GUI based on the MAC OS X Platform
+```
