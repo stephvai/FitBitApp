@@ -1,5 +1,10 @@
 # CS 2212 Team08 - Winter 2016
 
+DEMO:
+
+![GitHub Logo](FitBit.gif)
+
+
 If you do not have git configured you will need to run these commands in your terminal to configure git and clone the repo.
 
 ## Configure Git for the first time
